@@ -18,7 +18,7 @@ export default function App() {
           {/*Navigation bar*/}
           <section>
               <div className="m-2">
-                  Test
+                  Navigation Bar
               </div>
           </section>
       </div>
