@@ -18,7 +18,9 @@ export default function App() {
           {/*Navigation bar*/}
           <section>
               <div className="m-2">
-                  Test 1
+                  <div className="flex">
+                      ZigZag
+                  </div>
               </div>
           </section>
       </div>
