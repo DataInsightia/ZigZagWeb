@@ -23,6 +23,6 @@ jobs:
         with:
           server: ftp.datainsightia.in
           username: datainsightia@datainsightia.in
-          password: ${{ secrets.password }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./build
           server-dir: /home/dataioit/zigzagweb.datainsightia.in/
