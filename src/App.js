@@ -18,8 +18,9 @@ export default function App() {
                   </span>
               </div>
           </section>
+    
          <Navbar/>
-
+    
               <div className="w-screen flex justify-center">
                   <Carousel />
               </div>
