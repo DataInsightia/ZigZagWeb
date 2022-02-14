@@ -1,4 +1,7 @@
 import React from 'react'
+import Navbar from "./navbar/Navbar";
+import Carousel from "./slider/Slider";
+import Footer from "./footer/Footer"
 
 export default function App() {
   return (
@@ -15,12 +18,17 @@ export default function App() {
                   </span>
               </div>
           </section>
-          {/*Navigation bar*/}
-          <section>
-              <div className="m-2">
-                  Test 1
+         <Navbar/>
+
+              <div className="w-screen flex justify-center">
+                  <Carousel />
               </div>
-          </section>
+
+          <div className="m-2">
+              <Footer/>
+          </div>
+
+
       </div>
   )
 }
