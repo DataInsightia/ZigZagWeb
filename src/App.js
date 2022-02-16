@@ -1,5 +1,6 @@
 import React from 'react'
 import CustomerRegister from "./Pages/CustomerRegister";
+import CustomerLogin from "./Pages/CustomerLogin";
 
 export default function App() {
   return (
@@ -25,8 +26,11 @@ export default function App() {
               </div>
           </section>
 
-          {/*Customer Login*/}
+          {/*Customer Register*/}
           <CustomerRegister />
+
+          {/*Customer Login*/}
+          <CustomerLogin />
       </div>
   )
 }
