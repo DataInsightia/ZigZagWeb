@@ -8,8 +8,8 @@ function TakeOrder(props) {
     const [orderid,setOrderid] = useState('')
     const [works,setWorks] = useState([{}]);
     const [materials,setMaterials] = useState([{}]);
-    const [tmpworks,setTmpworks] = useState([{}])
-    const [tmpmaterials,setTmpmaterials] = useState([{}])
+    const [tmpworks,setTmpworks] = useState([])
+    const [tmpmaterials,setTmpmaterials] = useState([])
 
     const [customer,setCustomer] = useState({
         cust_id : ""
@@ -26,28 +26,68 @@ function TakeOrder(props) {
         'qty' : '',
         'amount' : ''
     })
+
     useEffect(() => {
-        axios.get(API + '/api/works/').then((res) => {
-            setWorks(res.data);
-            // console.log(res.data);
-        }).catch((err) => {
-            console.log(err);
-        })
+        fetch_works()
+        fetch_materials();
 
-        axios.get(API + '/api/generate_orderid/').then((res) => {
-            setOrderid(res.data['order_id']);
-            // console.log(res.data['order_id']);
-        }).catch((err) => {
-            console.log(err);
-        })
+        axios.get(API + '/api/generate_orderid/')
+            .then((res) => {
+                setOrderid(res.data['order_id'])
+                fetch_work_table();
+                fetch_material_table();
+                // console.log(res.data['order_id']);
+            }).catch((err) => {
+                console.log(err);
+            });
+    },[orderid]);
 
-        axios.get(API + '/api/materials/').then((res) => {
-            setMaterials(res.data);
-            // console.log(res.data);
+    const current_date = () => {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = dd + '/' + mm + '/' + yyyy;
+        return today
+    }
+
+
+    const fetch_work_table = () =>  axios.post(API + '/api/tmp_works/',{'order_id' : orderid}).then((res) => {
+            if ('status' in res.data){
+                console.log(res.data);
+                setTmpworks([])
+            } else {
+                setTmpworks(res.data)
+            }
         }).catch((err) => {
             console.log(err);
-        })
-    }, []);
+        });
+
+    const fetch_material_table = () => axios.post(API + '/api/tmp_materials/',{'order_id' : orderid}).then((res) => {
+            if ('status' in res.data){
+                console.log(res.data);
+                setTmpmaterials([])
+            } else {
+                setTmpmaterials(res.data)
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+
+    const fetch_materials = () => axios.get(API + '/api/materials/').then((res) => {
+                setMaterials(res.data);
+                // console.log(res.data);
+            }).catch((err) => {
+                console.log(err);
+            })
+
+    const fetch_works = () => axios.get(API + '/api/works/').then((res) => {
+                setWorks(res.data);
+                // console.log(res.data);
+            }).catch((err) => {
+                console.log(err);
+            });
 
     const handleWorkEvent = (e) => setWork({...work,[e.target.name] : e.target.value});
     const handleMaterialEvent = (e) => setMaterial({...material,[e.target.name] : e.target.value});
@@ -55,6 +95,7 @@ function TakeOrder(props) {
 
     const getWorkAmount = (wn) => setWork({...work,['amount'] : works.find(e => e.work_id === wn)['amount']})
     const getMaterialAmount = (mn) => setMaterial({...material,['amount'] : materials.find(e => e.material_id === mn)['amount']})
+
     const addWork = (e) => {
         e.preventDefault()
         work['cust_id'] = 'ZC56733';
@@ -64,13 +105,8 @@ function TakeOrder(props) {
         // Insert to tmp_work
         axios.post(API + '/api/tmp_work/',work).then((res) => {
             console.log(res.data);
+            fetch_work_table();
         }).catch((err) => console.log(err));
-
-         axios.post(API + '/api/tmp_works/',{'order_id' : orderid}).then((res) => {
-            setTmpworks(res.data);
-        }).catch((err) => {
-            console.log(err);
-        })
     }
     const addMaterial = (e) => {
         e.preventDefault()
@@ -79,16 +115,30 @@ function TakeOrder(props) {
         material['total'] = parseInt(material['qty']) * parseInt(material['amount']);
         // Insert to tmp_material
         axios.post(API + '/api/tmp_material/',material).then((res) => {
-            console.log(res.data);
+            console.log(res.data,'material_inserted');
+            fetch_material_table();
         }).catch((err) => console.log(err));
-
-         axios.post(API + '/api/tmp_materials/',{'order_id' : orderid}).then((res) => {
-            setTmpmaterials(res.data);
-        }).catch((err) => {
-            console.log(err);
-        })
     }
 
+    const delTmpWork = (id) => {
+        axios.post(API + '/api/del_tmpwork/',{'id' : id}).then((res) => {
+            console.log(res.data);
+            fetch_work_table();
+        }).catch((err) => {
+            console.log(err);
+        });
+
+    }
+
+    const delTmpMaterial = (id) => {
+        axios.post(API + '/api/del_tmpmaterial/',{'id' : id}).then((res) => {
+            console.log(res.data);
+            fetch_material_table();
+        }).catch((err) => {
+            console.log(err);
+        });
+
+    }
     const findCustomer = (e) => {
         e.preventDefault()
         axios.post(API + '/api/customer_details/',customer).then((res) => {
@@ -134,6 +184,22 @@ function TakeOrder(props) {
                 <input type={'submit'} value={'add material'} className={'button bg-pink-700 text-white p-2 rounded-2xl'} onClick={addMaterial}/>
             </div>
 
+            <div>
+                <p>Booking Date : {current_date()}</p>
+                <snap><p>Due Date</p> <input type={'date'} name={''}/></snap>
+                <snap><p>Pickup Type : </p>
+                    <select>
+                        <option selected hidden>Choose Type</option>
+                        <option value={'self'}>SELF</option>
+                        <option value={'courier'}>COURIER</option>
+                        <option value={'other'}>OTHER</option>
+                    </select>
+                </snap>
+                <snap>
+                    <input type={'text'} name={'courier_amount'}/>
+                </snap>
+            </div>
+
             <table className={'border-collapse text-center'}>
                 <tr>
                     <th className={'border border-slate-600 p-3'}>Work Name</th>
@@ -143,26 +209,27 @@ function TakeOrder(props) {
                     <th className={'border border-slate-600 p-3'}>Options</th>
                 </tr>
                 {
-                    tmpworks.length > 1 ? tmpworks.map(e => <tr>
+                    tmpworks !== [] ? tmpworks.map(e => <tr>
                         <td className={'border border-slate-600'}>{e.work_name}</td>
                         <td className={'border border-slate-600'}>{e.quantity}</td>
                         <td className={'border border-slate-600'}>{e.amount}</td>
                         <th className={'border border-slate-600'}>{e.total}</th>
-                        <td className={'border border-slate-600'}><button className={'m-2 bg-green-800 rounded p-2 text-white'}>edit</button><button className={'m-2 bg-red-800 rounded p-2 text-white'}>delete</button></td>
+                        <td className={'border border-slate-600'}><button className={'m-2 bg-green-800 rounded p-2 text-white'}>edit</button><button className={'m-2 bg-red-800 rounded p-2 text-white'} onClick={() => {delTmpWork(e.id)}}>delete</button></td>
                     </tr>
                     ) : ''
                 }
 
                 {
-                    tmpmaterials.length > 1? tmpmaterials.map(e => <tr>
+                    tmpmaterials !== [] ? tmpmaterials.map(e => <tr>
                             <td className={'border border-slate-600'}>{e.material_name}</td>
                             <td className={'border border-slate-600'}>{e.quantity}</td>
                             <td className={'border border-slate-600'}>{e.amount}</td>
                             <th className={'border border-slate-600'}>{e.total}</th>
-                            <td className={'border border-slate-600'}><button className={'m-2 bg-green-800 rounded p-2 text-white'}>edit</button><button className={'m-2 bg-red-800 rounded p-2 text-white'}>delete</button></td>
+                            <td className={'border border-slate-600'}><button className={'m-2 bg-green-800 rounded p-2 text-white'}>edit</button><button className={'m-2 bg-red-800 rounded p-2 text-white'} onClick={()=> delTmpMaterial(e.id)}>delete</button></td>
                         </tr>
                     ) : ''
                 }
+
 
             </table>
         </div>
