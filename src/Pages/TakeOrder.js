@@ -74,6 +74,12 @@ function TakeOrder() {
         return today
     }
 
+    const yyyymmdd =(dateIn) => {
+        var parts = dateIn.split('-')
+        return (parts[0]+"-"+parts[1]+"-"+parts[2])
+    }
+
+
     const update_advance_amount = () => setAdvance(parseInt(others.advance_amount));
     const fetch_work_table = () =>  axios.post(API + '/api/tmp_works/',{'order_id' : orderid}).then((res) => {
             if ('status' in res.data){
@@ -191,7 +197,7 @@ function TakeOrder() {
 
     const printOrder = (e) => {
         e.preventDefault();
-        const order_payload = {...{'order_id' : orderid, 'cust_id' : customer['cust_id'],'due_date' : others.due_date,'pickup_type' : others.pickup_type,'total_amount' : total,'advance_amount' : advance, 'balance_amount' : balance}}
+        const order_payload = {...{'order_id' : orderid, 'cust_id' : customer['cust_id'],'due_date' : yyyymmdd(others.due_date),'pickup_type' : others.pickup_type,'total_amount' : total,'advance_amount' : advance, 'balance_amount' : balance}}
 
         axios.post(API + '/api/add_order/',order_payload).then(res => {
             console.log('add_order',res.data);
@@ -210,6 +216,8 @@ function TakeOrder() {
                     .catch(err => console.log(err))
             }
         }).catch(err => console.log(err))
+
+        console.log(yyyymmdd(others.due_date))
 
     }
 

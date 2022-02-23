@@ -11,9 +11,9 @@ export default function App() {
           {/*<CustomerRegister />*/}
 
           {/*Take Order*/}x
-          <TakeOrder />
+          {/*<TakeOrder />*/}
 
-        {/*<ImageCompress />*/}
+        <ImageCompress />
       </div>
 
   )
