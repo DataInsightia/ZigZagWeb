@@ -126,7 +126,7 @@ function TakeOrder() {
 
     const addWork = (e) => {
         e.preventDefault()
-        work['cust_id'] = 'ZC56733';
+        work['cust_id'] = 'ZC78718';
         work['order_id'] = orderid;
         work['total'] = parseInt(work['qty']) * parseInt(work['amount']);
         console.log(work)
@@ -142,7 +142,7 @@ function TakeOrder() {
 
     const addMaterial = (e) => {
         e.preventDefault()
-        material['cust_id'] = 'ZC56733';
+        material['cust_id'] = 'ZC78718';
         material['order_id'] = orderid;
         material['total'] = parseInt(material['qty']) * parseInt(material['amount']);
         // Insert to tmp_material

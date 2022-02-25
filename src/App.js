@@ -8,12 +8,12 @@ export default function App() {
   return (
       <div>
           {/*Register*/}
-          {/*<CustomerRegister />*/}
+          <CustomerRegister />
 
           {/*Take Order*/}x
-          {/*<TakeOrder />*/}
+          <TakeOrder />
 
-        <ImageCompress />
+        {/*<ImageCompress />*/}
       </div>
 
   )
