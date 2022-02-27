@@ -2,7 +2,6 @@ import React,{useState,useEffect} from 'react';
 import axios from "axios";
 import API from "../api";
 import QRCode from "react-qr-code";
-import {Link} from 'react-router-dom';
 
 function TakeOrder() {
 
@@ -19,6 +18,8 @@ function TakeOrder() {
     const [customer,setCustomer] = useState({
         cust_id : ""
     });
+
+    const [customer_details,SetCustomerDetails] = useState({});
 
     const [others,setOthers] = useState({
         pickup_type : '',
@@ -127,7 +128,7 @@ function TakeOrder() {
 
     const addWork = (e) => {
         e.preventDefault()
-        work['cust_id'] = 'ZC78718';
+        work['cust_id'] = 'ZC83498';
         work['order_id'] = orderid;
         work['total'] = parseInt(work['qty']) * parseInt(work['amount']);
         console.log(work)
@@ -143,7 +144,7 @@ function TakeOrder() {
 
     const addMaterial = (e) => {
         e.preventDefault()
-        material['cust_id'] = 'ZC78718';
+        material['cust_id'] = 'ZC83498';
         material['order_id'] = orderid;
         material['total'] = parseInt(material['qty']) * parseInt(material['amount']);
         // Insert to tmp_material
@@ -182,8 +183,9 @@ function TakeOrder() {
         e.preventDefault()
         axios.post(API + '/api/customer_details/',customer).then((res) => {
             if(res.status === 200){
-                setCustomer(res.data)
+                SetCustomerDetails(res.data[0]);
                 setCust(true);
+                console.log(res.data);
             }
         }).catch((err) => {
             console.log(err);
@@ -198,27 +200,33 @@ function TakeOrder() {
 
     const printOrder = (e) => {
         e.preventDefault();
-        const order_payload = {...{'order_id' : orderid, 'cust_id' : customer['cust_id'],'due_date' : yyyymmdd(others.due_date),'pickup_type' : others.pickup_type,'total_amount' : total,'advance_amount' : advance, 'balance_amount' : balance}}
+        if (others.due_date !== "")
+        { 
+            const order_payload = {...{'order_id' : orderid, 'cust_id' : customer_details['cust_id'],'due_date' : yyyymmdd(others.due_date),'pickup_type' : others.pickup_type,'total_amount' : total,'advance_amount' : advance, 'balance_amount' : balance}}
 
-        axios.post(API + '/api/add_order/',order_payload).then(res => {
-            console.log('add_order',res.data);
-            for(var i=0;i<tmpworks.length;i++) {
-                const tmpwork_payload = {...{'order_id' : orderid,'work_id' : tmpworks[i].work_id,'qty' : tmpworks[i].quantity,'work_amount' : tmpworks[i].amount}};
-                axios.post(API + '/api/add_order_work/',tmpwork_payload)
-                    .then(res => console.log('tmpworks',res.data))
-                    .catch(err => console.log(err))
-                console.log(tmpwork_payload)
-            }
+            axios.post(API + '/api/add_order/',order_payload).then(res => {
+                console.log('add_order',res.data);
+                for(var i=0;i<tmpworks.length;i++) {
+                    const tmpwork_payload = {...{'order_id' : orderid,'work_id' : tmpworks[i].work_id,'qty' : tmpworks[i].quantity,'work_amount' : tmpworks[i].amount}};
+                    axios.post(API + '/api/add_order_work/',tmpwork_payload)
+                        .then(res => console.log('tmpworks',res.data))
+                        .catch(err => console.log(err))
+                    console.log(tmpwork_payload)
+                }
 
-            for(var j=0;j<tmpmaterials.length;j++) {
-                const tmpmaterial_payload = {...{'order_id' : orderid,'material_id' : tmpmaterials[j].material_id,'qty' : tmpmaterials[j].quantity,'work_amount' : tmpmaterials[j].amount}};
-                axios.post(API +'/api/add_order_material/',tmpmaterial_payload)
-                    .then(res => console.log('tmpmaterials',res.data))
-                    .catch(err => console.log(err))
-            }
-        }).catch(err => console.log(err))
-
-        console.log(yyyymmdd(others.due_date))
+                for(var j=0;j<tmpmaterials.length;j++) {
+                    const tmpmaterial_payload = {...{'order_id' : orderid,'material_id' : tmpmaterials[j].material_id,'qty' : tmpmaterials[j].quantity,'material_amount' : tmpmaterials[j].amount}};
+                    axios.post(API +'/api/add_order_material/',tmpmaterial_payload)
+                        .then(res => console.log('tmpmaterials',res.data))
+                        .catch(err => console.log(err))
+                }
+            }).catch(err => console.log(err))
+        }else{
+            alert("DueDate Required!")
+        }
+        
+        console.log("cust_id",customer_details['cust_id'])
+        console.log(typeof(others.due_date))
 
     }
 
