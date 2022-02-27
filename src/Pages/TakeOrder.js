@@ -206,19 +206,27 @@ function TakeOrder() {
 
             axios.post(API + '/api/add_order/',order_payload).then(res => {
                 console.log('add_order',res.data);
-                for(var i=0;i<tmpworks.length;i++) {
-                    const tmpwork_payload = {...{'order_id' : orderid,'work_id' : tmpworks[i].work_id,'qty' : tmpworks[i].quantity,'work_amount' : tmpworks[i].amount}};
-                    axios.post(API + '/api/add_order_work/',tmpwork_payload)
-                        .then(res => console.log('tmpworks',res.data))
-                        .catch(err => console.log(err))
-                    console.log(tmpwork_payload)
-                }
-
-                for(var j=0;j<tmpmaterials.length;j++) {
-                    const tmpmaterial_payload = {...{'order_id' : orderid,'material_id' : tmpmaterials[j].material_id,'qty' : tmpmaterials[j].quantity,'material_amount' : tmpmaterials[j].amount}};
-                    axios.post(API +'/api/add_order_material/',tmpmaterial_payload)
-                        .then(res => console.log('tmpmaterials',res.data))
-                        .catch(err => console.log(err))
+                if (res.data.status) {
+                    for(var i=0;i<tmpworks.length;i++) {
+                    
+                        const tmpwork_payload = {...{'order_id' : orderid,'work_id' : tmpworks[i].work_id,'qty' : tmpworks[i].quantity,'work_amount' : tmpworks[i].amount}};
+                        axios.post(API + '/api/add_order_work/',tmpwork_payload)
+                            .then(res => console.log('tmpworks',res.data))
+                            .catch(err => console.log(err))
+    
+                        axios.post(API + '/api/order_work_staff_assign/',{'order_id' : orderid,'work_id' : tmpworks[i].work_id}).then(res => {
+                            console.log('order_work_staff_assign',res.data);
+                        }).catch(err => console.log(err));
+                    }
+    
+                    for(var j=0;j<tmpmaterials.length;j++) {
+                        const tmpmaterial_payload = {...{'order_id' : orderid,'material_id' : tmpmaterials[j].material_id,'qty' : tmpmaterials[j].quantity,'material_amount' : tmpmaterials[j].amount}};
+                        axios.post(API +'/api/add_order_material/',tmpmaterial_payload)
+                            .then(res => console.log('tmpmaterials',res.data))
+                            .catch(err => console.log(err))
+                    }
+                } else {
+                    console.log("Unable to add Order")
                 }
             }).catch(err => console.log(err))
         }else{
