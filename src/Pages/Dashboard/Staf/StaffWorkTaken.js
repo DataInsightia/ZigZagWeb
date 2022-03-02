@@ -10,6 +10,7 @@ export const Taken_Work = async (
   work_id,
   staff_id,
   assigned_stage,
+  order_work_label
 ) => {
   const response = await axios.post(
     '/api/staff_work_take/',
@@ -18,6 +19,7 @@ export const Taken_Work = async (
       work_id,
       staff_id,
       assigned_stage,
+      order_work_label
     },
     {
       headers: { 'Content-Type': 'application/json' },
@@ -102,6 +104,7 @@ function StaffWorkTaken() {
       e.target.work_id.value,
       staff_id,
       e.target.assign_stage.value,
+      e.target.order_work_label.value,
     )
   }
 
@@ -123,22 +126,27 @@ function StaffWorkTaken() {
                       <thead>
                         <tr>
                           <div className="flex flex-wrap">
-                            <div className="lg:w-1/4">
+                            <div className="lg:w-1/5">
                               <th scope="col" className={styles.tablehead}>
                                 Order
                               </th>
                             </div>
-                            <div className="lg:w-1/4">
+                            <div className="lg:w-1/5">
                               <th scope="col" className={styles.tablehead}>
                                 Work
                               </th>
                             </div>
-                            <div className="lg:w-1/4">
+                            <div className="lg:w-1/5">
+                              <th scope="col" className={styles.tablehead}>
+                                Reference
+                              </th>
+                            </div>
+                            <div className="lg:w-1/5">
                               <th scope="col" className={styles.tablehead}>
                                 Stage
                               </th>
                             </div>
-                            <div className="lg:w-1/4">
+                            <div className="lg:w-1/5">
                               <th scope="col" className={styles.tablehead}></th>
                             </div>
                           </div>
@@ -152,7 +160,7 @@ function StaffWorkTaken() {
             {assingedworks.map((e) => (
               <form onSubmit={onSubmit}>
                 <div className="flex flex-wrap">
-                  <div className="px-3 w-full md:w-1/2 lg:w-1/4">
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/5">
                     <input
                       type="text"
                       id="order_id"
@@ -162,7 +170,7 @@ function StaffWorkTaken() {
                       disabled
                     />
                   </div>
-                  <div className="px-3 w-full md:w-1/2 lg:w-1/4">
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/5">
                     <input
                       type="text"
                       id="work_id"
@@ -172,8 +180,18 @@ function StaffWorkTaken() {
                       disabled
                     />
                   </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/5">
+                    <input
+                      type="text"
+                      id="order_work_label"
+                      name="order_work_label"
+                      value={e.orderworkstaffassign.order_work_label}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                    />
+                  </div>
 
-                  <div className="px-3 w-full md:w-1/2 lg:w-1/4">
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/5">
                     <input
                       type="text"
                       id="assign_stage"
@@ -183,7 +201,7 @@ function StaffWorkTaken() {
                       disabled
                     />
                   </div>
-                  <div className="px-3 w-full md:w-1/2 lg:w-1/4">
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/5">
                     <div className="flex justify-between">
                       <button
                         onClick={onChange}
@@ -218,17 +236,22 @@ function StaffWorkTaken() {
                       <thead>
                         <tr>
                           <div className="flex flex-wrap">
-                            <div className="lg:w-1/3">
+                            <div className="lg:w-1/4">
                               <th scope="col" className={styles.tablehead}>
                                 Order
                               </th>
                             </div>
-                            <div className="lg:w-1/3">
+                            <div className="lg:w-1/4">
                               <th scope="col" className={styles.tablehead}>
                                 Work
                               </th>
                             </div>
-                            <div className="lg:w-1/3">
+                            <div className="lg:w-1/4">
+                              <th scope="col" className={styles.tablehead}>
+                                reference
+                              </th>
+                            </div>
+                            <div className="lg:w-1/4">
                               <th scope="col" className={styles.tablehead}>
                                 Stage
                               </th>
@@ -244,7 +267,7 @@ function StaffWorkTaken() {
             {takenworks.map((e) => (
               <form onSubmit={onSubmit}>
                 <div className="flex flex-wrap">
-                  <div className="px-3 w-full md:w-1/2 lg:w-1/3">
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/4">
                     <input
                       type="text"
                       id="order_id"
@@ -254,7 +277,7 @@ function StaffWorkTaken() {
                       disabled
                     />
                   </div>
-                  <div className="px-3 w-full md:w-1/2 lg:w-1/3">
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/4">
                     <input
                       type="text"
                       id="work_id"
@@ -264,8 +287,18 @@ function StaffWorkTaken() {
                       disabled
                     />
                   </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/4">
+                    <input
+                      type="text"
+                      id="work_id"
+                      name="work_id"
+                      value={e.orderworkstaffassign.order_work_label}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                    />
+                  </div>
 
-                  <div className="px-3 w-full md:w-1/2 lg:w-1/3">
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/4">
                     <input
                       type="text"
                       id="assign_stage"

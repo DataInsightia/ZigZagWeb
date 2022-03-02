@@ -11,6 +11,7 @@ export const Assign_Work = async (
   work_id,
   staff_id,
   assign_stage,
+  order_work_label
 ) => {
   const response = await axios.post(
     '/api/staff_work_assign/',
@@ -20,6 +21,7 @@ export const Assign_Work = async (
       work_id,
       staff_id,
       assign_stage,
+      order_work_label
     },
     {
       headers: { 'Content-Type': 'application/json' },
@@ -68,6 +70,7 @@ function OrderWorkStaffAssign() {
       e.target.work_id.value,
       e.target.staff_id.value,
       e.target.assign_stage.value,
+      e.target.order_work_label.value,
     )
   }
 
@@ -161,8 +164,8 @@ function OrderWorkStaffAssign() {
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                     <input
                       type="text"
-                      id="work_label"
-                      name="work_label"
+                      id="order_work_label"
+                      name="order_work_label"
                       value={e.data.order_work_label}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
                       disabled
