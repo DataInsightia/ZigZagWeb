@@ -1,7 +1,5 @@
 import React from 'react'
 import StatusCard from './StatusCard'
-import MapExample from './Map/MapExample'
-import {Link} from "react-router-dom";
 
 export default function DashboardHome() {
   const auth = localStorage.getItem('role')

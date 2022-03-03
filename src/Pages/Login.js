@@ -85,29 +85,21 @@ export default function Login() {
               <div className="relative border-2 flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
                 <div className="rounded-t mb-0 px-6 py-6">
                   <div className="text-center mb-3">
-                    <h6 className="text-blue-500 text-sm font-bold">
-                      Login up with
-                    </h6>
+                    <h1 className="text-blue-500 font-bold text-2xl">
+                      Login
+                    </h1>
                   </div>
-                  <div className="btn-wrapper text-center">
-                    <button
-                      className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                      type="button"
-                    >
-                      <img alt="..." className="w-5 mr-1" src={Google} />
-                      Google
-                    </button>
-                  </div>
+                  {/*<div className="btn-wrapper text-center">*/}
+
+                  {/*</div>*/}
                   <hr className="mt-6 border-b-1 border-blueGray-300" />
                 </div>
                 <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                  <div className="text-blueGray-400 text-center mb-3 font-bold">
-                    <small>Or sign up with credentials</small>
-                  </div>
+
                   <form onSubmit={handleSubmit}>
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        className="block uppercase border-none text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         Email or Mobile Number
@@ -125,7 +117,7 @@ export default function Login() {
 
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        className="block border-none uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         Password
@@ -142,24 +134,24 @@ export default function Login() {
                     </div>
 
                     <div>
-                      <label className="inline-flex items-center cursor-pointer">
-                        <input
-                          required="required"
-                          id="customCheckLogin"
-                          type="checkbox"
-                          className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                        />
-                        <span className="ml-2 text-sm font-semibold text-blueGray-600">
-                          I agree with the{' '}
-                          <a
-                            href="#pablo"
-                            className="text-lightBlue-500"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Privacy Policy
-                          </a>
-                        </span>
-                      </label>
+                      {/*<label className="inline-flex items-center cursor-pointer">*/}
+                      {/*  <input*/}
+                      {/*    required="required"*/}
+                      {/*    id="customCheckLogin"*/}
+                      {/*    type="checkbox"*/}
+                      {/*    className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"*/}
+                      {/*  />*/}
+                      {/*  <span className="ml-2 text-sm font-semibold text-blueGray-600">*/}
+                      {/*    I agree with the{' '}*/}
+                      {/*    <a*/}
+                      {/*      href="#pablo"*/}
+                      {/*      className="text-lightBlue-500"*/}
+                      {/*      onClick={(e) => e.preventDefault()}*/}
+                      {/*    >*/}
+                      {/*      Privacy Policy*/}
+                      {/*    </a>*/}
+                      {/*  </span>*/}
+                      {/*</label>*/}
                     </div>
 
                     <div className="text-center mt-6">
@@ -172,12 +164,12 @@ export default function Login() {
                     </div>
                     <br />
                     <div className="text-center mb-3">
-                      <h6 className="text-blue-500 text-sm font-bold">
+                      <h6 className="text-black text-sm font-bold">
                         Dont have an account?
                         {/*<Link to="/register">Sign Up.</Link>*/}
                       </h6>
-                      <Link className="text-blueGray-500" to="/register">
-                        <small>Create new account</small>
+                      <Link className="text-blue-500 underline" to="/register">
+                        <h5>Create new account</h5>
                       </Link>
                     </div>
                   </form>
