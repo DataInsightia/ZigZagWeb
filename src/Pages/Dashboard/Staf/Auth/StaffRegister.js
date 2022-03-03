@@ -58,7 +58,6 @@ export default function StaffRegister() {
     data.append('file', file)
     data.append('data', JSON.stringify(formData))
     const res = await axios.post("/api/staff_register/",data);
-    console.log(res);
   }
   return (
     <div>
@@ -73,7 +72,7 @@ export default function StaffRegister() {
               <div className="relative">
                 <label
                   htmlFor="name"
-                  className="block uppercase text-black text-xs font-bold mb-2 border-0 border-0"
+                  className="block uppercase text-black text-sm font-bold mb-2 border-0"
                 >
                   Name
                 </label>
@@ -83,7 +82,7 @@ export default function StaffRegister() {
                   value={staff_name}
                   id="name"
                   name="staff_name"
-                  className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  className={styles.select}
                 />
               </div>
             </div>
@@ -91,7 +90,7 @@ export default function StaffRegister() {
               <div className="relative">
                 <label
                   htmlFor="password"
-                  className="block uppercase text-black text-xs font-bold mb-2 border-0"
+                  className="block uppercase text-black text-sm font-bold mb-2 border-0"
                 >
                   Password
                 </label>
@@ -101,7 +100,7 @@ export default function StaffRegister() {
                   name="password"
                   onChange={onChange}
                   value={password}
-                  className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  className={styles.select}
                 />
               </div>
             </div>
@@ -109,7 +108,7 @@ export default function StaffRegister() {
               <div className="relative">
                 <label
                   htmlFor="mobile"
-                  className="block uppercase text-black text-xs font-bold mb-2 border-0"
+                  className="block uppercase text-black text-sm font-bold mb-2 border-0"
                 >
                   Mobile
                 </label>
@@ -119,7 +118,7 @@ export default function StaffRegister() {
                   name="mobile"
                   onChange={onChange}
                   value={mobile}
-                  className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  className={styles.select}
                 />
               </div>
             </div>
@@ -127,7 +126,7 @@ export default function StaffRegister() {
               <div className="relative">
                 <label
                   htmlFor="address"
-                  className="block uppercase text-black text-xs font-bold mb-2 border-0"
+                  className="block uppercase text-black text-sm font-bold mb-2 border-0"
                 >
                   address
                 </label>
@@ -137,7 +136,7 @@ export default function StaffRegister() {
                   name="address"
                   onChange={onChange}
                   value={address}
-                  className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  className={styles.select}
                 />
               </div>
             </div>
@@ -145,7 +144,7 @@ export default function StaffRegister() {
               <div className="relative">
                 <label
                   htmlFor="city"
-                  className="block uppercase text-black text-xs font-bold mb-2 border-0"
+                  className="block uppercase text-black text-sm font-bold mb-2 border-0"
                 >
                   city
                 </label>
@@ -155,7 +154,7 @@ export default function StaffRegister() {
                   name="city"
                   onChange={onChange}
                   value={city}
-                  className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  className={styles.select}
                 />
               </div>
             </div>
@@ -163,7 +162,7 @@ export default function StaffRegister() {
               <div className="relative">
                 <label
                   htmlFor="salary_type"
-                  className="block uppercase text-black text-xs font-bold mb-2 border-0"
+                  className="block uppercase text-black text-sm font-bold mb-2 border-0"
                 >
                   salary_type
                 </label>
@@ -183,7 +182,7 @@ export default function StaffRegister() {
               <div className="relative">
                 <label
                   htmlFor="salary"
-                  className="block uppercase text-black text-xs font-bold mb-2 border-0"
+                  className="block uppercase text-black text-sm font-bold mb-2 border-0"
                 >
                   salary
                 </label>
@@ -193,7 +192,7 @@ export default function StaffRegister() {
                   name="salary"
                   onChange={onChange}
                   value={salary}
-                  className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  className={styles.select}
                 />
               </div>
             </div>
@@ -201,7 +200,7 @@ export default function StaffRegister() {
               <div className="relative">
                 <label
                   htmlFor="acc_no"
-                  className="block uppercase text-black text-xs font-bold mb-2 border-0"
+                  className="block uppercase text-black text-sm font-bold mb-2 border-0"
                 >
                   acc_no
                 </label>
@@ -211,7 +210,7 @@ export default function StaffRegister() {
                   name="acc_no"
                   onChange={onChange}
                   value={acc_no}
-                  className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  className={styles.select}
                 />
               </div>
             </div>
@@ -219,7 +218,7 @@ export default function StaffRegister() {
               <div className="relative">
                 <label
                   htmlFor="worktype"
-                  className="block uppercase text-black text-xs font-bold mb-2 border-0"
+                  className="block uppercase text-black text-sm font-bold mb-2 border-0"
                 >
                   worktype
                 </label>
@@ -228,7 +227,7 @@ export default function StaffRegister() {
                   name="worktype"
                   value={worktype}
                   onChange={onChange}
-                  className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  className={styles.select}
                 >
                   <option selected>Please select</option>
                   <option value="tailor">tailor</option>
@@ -242,7 +241,7 @@ export default function StaffRegister() {
               <div className="relative">
                 <label
                   htmlFor="ifsc"
-                  className="block uppercase text-black text-xs font-bold mb-2 border-0"
+                  className="block uppercase text-black text-sm font-bold mb-2 border-0"
                 >
                   ifsc
                 </label>
@@ -252,15 +251,24 @@ export default function StaffRegister() {
                   name="ifsc"
                   onChange={onChange}
                   value={ifsc}
-                  className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  className={styles.select}
                 />
-
+              </div>
+            </div>
+            <div className="p-2 w-full">
+              <div className="relative">
+                <label
+                  htmlFor="ifsc"
+                  className="block uppercase text-black text-sm font-bold mb-2 border-0"
+                >
+                  Profile
+                </label>
                 <input
                   type="file"
                   id="file"
                   name="file"
                   onChange={onFileChange}
-                  className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring-offset-rose-500 w-full ease-linear transition-all duration-150"
                 />
               </div>
             </div>
