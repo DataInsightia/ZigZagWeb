@@ -30,15 +30,15 @@ export default function Login() {
 
     axios
       .post(
-        '/api/customer_login/',
+        API + '/api/customer_login/',
         data,
-        {
-          headers: {
-            'access-control-allow-origin': '*',
-            'Content-Type': 'application/json',
-          },
-        },
-        { withCredentials: true },
+        // {
+        //   headers: {
+        //     'access-control-allow-origin': '*',
+        //     'Content-Type': 'application/json',
+        //   },
+        // },
+        // { withCredentials: true },
       )
       .then((res) => {
         console.log(res.data.user.role)

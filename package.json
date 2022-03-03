@@ -1,6 +1,6 @@
 {
   "name": "zigzagui",
-  "proxy": "http://127.0.0.1:8000",
+  "proxy": "https://zigzag.datainsightia.in",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
