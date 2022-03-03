@@ -9,6 +9,7 @@ export const Stage_Completion_Request = async (
   staff_id,
   date,
   stage,
+  order_work_label
 ) => {
   const response = await axios.post(
     '/api/staff_stage_completion/',
@@ -18,6 +19,7 @@ export const Stage_Completion_Request = async (
       staff_id,
       date,
       stage,
+      order_work_label
     },
     {
       headers: { 'Content-Type': 'application/json' },
@@ -87,6 +89,7 @@ function OrderWorkStaffCompletion() {
       staff_id,
       e.target.date.value,
       e.target.assign_stage.value,
+      e.target.order_work_label.value,
     )
   }
 
@@ -109,27 +112,32 @@ function OrderWorkStaffCompletion() {
                     <thead>
                       <tr>
                         <div className="flex flex-wrap">
-                          <div className="lg:w-1/5">
+                          <div className="lg:w-1/6">
                             <th scope="col" className={styles.tablehead}>
                               Order
                             </th>
                           </div>
-                          <div className="lg:w-1/5">
+                          <div className="lg:w-1/6">
                             <th scope="col" className={styles.tablehead}>
                               Work
                             </th>
                           </div>
-                          <div className="lg:w-1/5">
+                          <div className="lg:w-1/6">
+                            <th scope="col" className={styles.tablehead}>
+                              Reference
+                            </th>
+                          </div>
+                          <div className="lg:w-1/6">
                             <th scope="col" className={styles.tablehead}>
                               Completion Date
                             </th>
                           </div>
-                          <div className="lg:w-1/5">
+                          <div className="lg:w-1/6">
                             <th scope="col" className={styles.tablehead}>
                               Stage
                             </th>
                           </div>
-                          <div className="lg:w-1/5">
+                          <div className="lg:w-1/6">
                             <th scope="col" className={styles.tablehead}></th>
                           </div>
                         </div>
@@ -143,7 +151,7 @@ function OrderWorkStaffCompletion() {
           {completion.map((e) => (
             <form onSubmit={onSubmit}>
               <div className="flex flex-wrap">
-                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
+                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                   <input
                     type="text"
                     id="order_id"
@@ -154,7 +162,7 @@ function OrderWorkStaffCompletion() {
                   />
                 </div>
 
-                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
+                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                   <input
                     type="text"
                     id="work_id"
@@ -164,7 +172,17 @@ function OrderWorkStaffCompletion() {
                     disabled
                   />
                 </div>
-                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
+                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                  <input
+                    type="text"
+                    id="order_work_label"
+                    name="order_work_label"
+                    value={e.orderworkstaffassign.order_work_label}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                    disabled
+                  />
+                </div>
+                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                   <input
                     name="date"
                     value={date}
@@ -172,7 +190,7 @@ function OrderWorkStaffCompletion() {
                     disabled
                   />
                 </div>
-                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
+                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                   <input
                     type="text"
                     id="assign_stage"
@@ -182,7 +200,7 @@ function OrderWorkStaffCompletion() {
                     disabled
                   />
                 </div>
-                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
+                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                   <div className="flex justify-between">
                     <button type="submit" className={styles.pinkbutton}>
                       Complete Order
@@ -209,22 +227,27 @@ function OrderWorkStaffCompletion() {
                     <thead>
                       <tr>
                         <div className="flex flex-wrap">
-                          <div className="lg:w-1/4">
+                          <div className="lg:w-1/5">
                             <th scope="col" className={styles.tablehead}>
                               Order
                             </th>
                           </div>
-                          <div className="lg:w-1/4">
+                          <div className="lg:w-1/5">
                             <th scope="col" className={styles.tablehead}>
                               Work
                             </th>
                           </div>
-                          <div className="lg:w-1/4">
+                          <div className="lg:w-1/5">
+                            <th scope="col" className={styles.tablehead}>
+                              Reference
+                            </th>
+                          </div>
+                          <div className="lg:w-1/5">
                             <th scope="col" className={styles.tablehead}>
                               Completion Date
                             </th>
                           </div>
-                          <div className="lg:w-1/4">
+                          <div className="lg:w-1/5">
                             <th scope="col" className={styles.tablehead}>
                               Stage
                             </th>
@@ -240,7 +263,7 @@ function OrderWorkStaffCompletion() {
           {completionreview.map((e) => (
             <form onSubmit={onSubmit}>
               <div className="flex flex-wrap">
-                <div className="px-3 w-full md:w-1/2 lg:w-1/4">
+                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
                   <input
                     type="text"
                     id="order_id"
@@ -251,7 +274,7 @@ function OrderWorkStaffCompletion() {
                   />
                 </div>
 
-                <div className="px-3 w-full md:w-1/2 lg:w-1/4">
+                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
                   <input
                     type="text"
                     id="work_id"
@@ -261,7 +284,17 @@ function OrderWorkStaffCompletion() {
                     disabled
                   />
                 </div>
-                <div className="px-3 w-full md:w-1/2 lg:w-1/4">
+                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
+                  <input
+                    type="text"
+                    id="order_work_label"
+                    name="order_work_label"
+                    value={e.orderworkstaffassign.order_work_label}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                    disabled
+                  />
+                </div>
+                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
                   <input
                     name="date"
                     value={date}
@@ -269,7 +302,7 @@ function OrderWorkStaffCompletion() {
                     disabled
                   />
                 </div>
-                <div className="px-3 w-full md:w-1/2 lg:w-1/4">
+                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
                   <input
                     type="text"
                     id="assign_stage"
