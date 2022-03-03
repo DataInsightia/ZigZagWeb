@@ -116,7 +116,13 @@ export default function Sidebar() {
                     to="/dashboard/work_complete"
                     className="block py-2.5 px-4 rounded transition duration-200 hover:bg-white hover:text-black"
                   >
-                    WORK COMPLETE
+                    WORK STAGE COMPLETE
+                  </Link>
+                  <Link
+                    to="/dashboard/completed_work"
+                    className="block py-2.5 px-4 rounded transition duration-200 hover:bg-white hover:text-black"
+                  >
+                    COMPLETED ORDERS
                   </Link>
                   <Link
                     to="/dashboard/dhome"

@@ -15,6 +15,7 @@ import OrderWorkApproval from '../Pages/Dashboard/Staf/OrderWorkApproval'
 import OrderWorkStaffCompletion from '../Pages/Dashboard/Staf/OrderWorkStaffCompletion'
 import Staff_register from '../Pages/Dashboard/Staf/Auth/StaffRegister'
 import StaffWorkTaken from '../Pages/Dashboard/Staf/StaffWorkTaken'
+import OrderWorkCompleted from '../Pages/Dashboard/Staf/OrderWorkCompleted'
 
 // ----------------------------------------------------------------------
 
@@ -42,6 +43,7 @@ export default function Router() {
         { path: 'order_approval', element: <OrderWorkApproval /> },
         { path: 'orders', element: <StaffWorkTaken /> },
         { path: 'work_complete', element: <OrderWorkStaffCompletion /> },
+        { path: 'completed_work', element: <OrderWorkCompleted /> },
         { path: 'staff_work_taken', element: <Invoice /> },
         { path: 'staff_register', element: <Staff_register /> },
       ],
