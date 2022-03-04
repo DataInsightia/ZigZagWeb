@@ -1,3 +1,9 @@
 .gradient {
     background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
 }
+.gradient_sidebar {
+    background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
+}
+.body_content{
+    background: #f8f3ed ;
+}

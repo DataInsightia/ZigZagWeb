@@ -58,6 +58,11 @@ export default function StaffRegister() {
     data.append('file', file)
     data.append('data', JSON.stringify(formData))
     const res = await axios.post("/api/staff_register/",data);
+    if(data.res.status){
+      alert("Register Sucessfully")
+    }else{
+      alert("Not Register Check Now")
+    }
   }
   return (
     <div>
@@ -84,6 +89,7 @@ export default function StaffRegister() {
                   id="name"
                   name="staff_name"
                   className={styles.input}
+                  required
                 />
               </div>
             </div>
@@ -102,6 +108,7 @@ export default function StaffRegister() {
                   onChange={onChange}
                   value={password}
                   className={styles.input}
+                  required
                 />
               </div>
             </div>
@@ -120,6 +127,7 @@ export default function StaffRegister() {
                   onChange={onChange}
                   value={mobile}
                   className={styles.input}
+                  required
                 />
               </div>
             </div>
@@ -138,6 +146,7 @@ export default function StaffRegister() {
                   onChange={onChange}
                   value={address}
                   className={styles.input}
+                  required
                 />
               </div>
             </div>
@@ -156,6 +165,7 @@ export default function StaffRegister() {
                   onChange={onChange}
                   value={city}
                   className={styles.input}
+                  required
                 />
               </div>
             </div>
@@ -172,6 +182,7 @@ export default function StaffRegister() {
                   value={salary_type}
                   onChange={onChange}
                   className={styles.select}
+                  required
                 >
                   <option selected>Please select</option>
                   <option value={'monthly'}>Monthly</option>
@@ -194,6 +205,7 @@ export default function StaffRegister() {
                   onChange={onChange}
                   value={salary}
                   className={styles.input}
+                  required
                 />
               </div>
             </div>
@@ -212,6 +224,7 @@ export default function StaffRegister() {
                   onChange={onChange}
                   value={acc_no}
                   className={styles.input}
+                  required
                 />
               </div>
             </div>
@@ -229,6 +242,7 @@ export default function StaffRegister() {
                   value={worktype}
                   onChange={onChange}
                   className={styles.select}
+                  required
                 >
                   <option selected>Please select</option>
                   <option value="tailor">tailor</option>
@@ -253,6 +267,7 @@ export default function StaffRegister() {
                   onChange={onChange}
                   value={ifsc}
                   className={styles.input}
+                  required
                 />
               </div>
             </div>
@@ -269,6 +284,7 @@ export default function StaffRegister() {
                   id="file"
                   name="file"
                   onChange={onFileChange}
+                  required
                   className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring-offset-rose-500 w-full ease-linear transition-all duration-150"
                 />
               </div>

@@ -8,7 +8,7 @@ export default function Contact() {
         <div class="flex flex-col justify-between">
           <div>
             <h2 class="text-4xl lg:text-5xl font-bold leading-tight">
-              Lets talk about everything!
+              We Are Awaiting 
             </h2>
             <div class="text-gray-700 mt-8">
               Hate forms? Send us an <span class="underline">email</span>{' '}

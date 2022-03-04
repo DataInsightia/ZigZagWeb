@@ -8,7 +8,7 @@ export default function Navbar() {
     <div className="relative">
       <nav
         id="header"
-        className="md:fixed w-full   bg-rose-500 border-r-black z-30 top-0 border-0  text-black"
+        className="md:fixed w-full bg-gradient-to-r from-rose-600 to-rose-400 border-r-black z-30 top-0 border-0  text-black"
       >
         <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
           <div className="pl-1 flex items-center">
@@ -71,36 +71,16 @@ export default function Navbar() {
               {/*    <a className="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">CONTACT US</a>*/}
               {/*</li>*/}
             </ul>
-            <div className="group relative h-full sm:w-10/12 md:w-3/12">
-              <a
-                href="#"
-                className="inline-block text-white no-underline hover:text-white-800 hover:text-underline py-2 px-4 flex items-center h-full bg-grey-darkest px-4"
+            <div className="group text-lg relative h-full sm:w-10/12 md:w-3/12">
+              <button
+                  className="block font-bold py-2.5 px-4 text-white  rounded transition duration-200 hover:bg-white hover:text-black"
+                  onClick={() => {
+                    localStorage.clear()
+                    navigate('/login')
+                  }}
               >
-                ACCOUNT
-                <div className="hidden group-hover:block absolute pin-r top-full w-48 bg-rose-500">
-                  <a
-                    href="#"
-                    className="block text-left py-3 px-3 text-white hover:text-blue-dark text-xs hover:bg-white hover:text-black"
-                  >
-                    My Account
-                  </a>
-                  <a
-                    href="#"
-                    className="block text-left py-3 px-3 text-white hover:text-blue-dark text-xs hover:bg-white hover:text-black"
-                  >
-                    Edit Account
-                  </a>
-                  <button
-                    className="block text-left py-3 px-3 text-white hover:text-blue-dark w-full text-xs hover:bg-white hover:text-black"
-                    onClick={() => {
-                      localStorage.clear()
-                      navigate('/login')
-                    }}
-                  >
-                    Logout
-                  </button>
-                </div>
-              </a>
+                LOGOUT
+              </button>
             </div>
 
             {/*<Link to="/login"*/}
