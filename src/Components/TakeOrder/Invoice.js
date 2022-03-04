@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export default function Invoice() {
   return (
@@ -65,11 +65,11 @@ export default function Invoice() {
         <div className="flex justify-between p-4">
           <div>
             <h6 className="font-bold">
-              Order Date :{' '}
+              Order Date :{" "}
               <span className="text-sm font-medium"> 12/12/2022</span>
             </h6>
             <h6 className="font-bold">
-              Order ID :{' '}
+              Order ID :{" "}
               <span className="text-sm font-medium"> 12/12/2022</span>
             </h6>
           </div>
@@ -213,5 +213,5 @@ export default function Invoice() {
         </div>
       </div>
     </div>
-  )
+  );
 }
