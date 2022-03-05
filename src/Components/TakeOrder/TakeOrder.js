@@ -227,12 +227,14 @@ function TakeOrder() {
   const findCustomer = (e) => {
     e.preventDefault();
     axios
-      .post("/api/customer_details/", customer)
+      .post(API + "/api/customer_details/", customer)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.data.length !== 0) {
           SetCustomerDetails(res.data[0]);
           setCust(true);
           console.log(res.data);
+        }else{
+          console.log("This is Admin or Staff Mobile Number")
         }
       })
       .catch((err) => {
