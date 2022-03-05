@@ -30,7 +30,6 @@ export default function App() {
     } else {
       return (
         <>
-          {console.log('common')}
           <CommonRouter />
         </>
       )
