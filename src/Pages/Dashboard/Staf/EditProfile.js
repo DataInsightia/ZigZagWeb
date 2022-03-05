@@ -28,7 +28,7 @@ export default function EditProfile() {
                             <div className="w-full lg:w-12/12 px-4">
                                 <div className="relative w-full mb-3">
                                     <label
-                                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                        className="block border-none uppercase text-black text-sm font-bold mb-2"
                                         htmlFor="grid-password"
                                     >
                                         Profile Update
@@ -42,7 +42,7 @@ export default function EditProfile() {
                                             </div>
                                             <label className="cursor-pointer mt-6">
                                                 <span
-                                                    className="mt-2 text-base leading-normal px-4 py-2 bg-blue-500 text-white text-sm rounded-full">Select Avatar</span>
+                                                    className="mt-2 leading-normal px-4 py-2 bg-blue-500 text-white text-sm rounded-full">Select Avatar</span>
                                                 <input type='file' className="hidden" multiple="multiple"
                                                 accept="accept" />
                                             </label>
@@ -60,13 +60,13 @@ export default function EditProfile() {
                             <div className="w-full lg:w-6/12 px-4">
                                 <div className="relative w-full mb-3">
                                     <label
-                                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlFor="grid-password"
+                                        className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                        htmlFor="username"
                                     >
                                         Username
                                     </label>
                                     <input
-                                        type="text"
+                                        type="text" id="username"
                                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         defaultValue="Staff"
                                         disabled
@@ -76,43 +76,43 @@ export default function EditProfile() {
                             <div className="w-full lg:w-6/12 px-4">
                                 <div className="relative w-full mb-3">
                                     <label
-                                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlFor="grid-password"
+                                        className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                        htmlFor="email"
                                     >
                                         Email address
                                     </label>
                                     <input
-                                        type="email"
+                                        type="email" id="email"
                                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        defaultValue="jesse@example.com"
+                                        defaultValue="staff@chettinadzigzag.in"
                                     />
                                 </div>
                             </div>
                             <div className="w-full lg:w-6/12 px-4">
                                 <div className="relative w-full mb-3">
                                     <label
-                                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlFor="grid-password"
+                                        className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                        htmlFor="firstname"
                                     >
                                         First Name
                                     </label>
                                     <input
-                                        type="text"
+                                        type="text" id="firstname"
                                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        placeholder="Ex:John"
+                                        placeholder="Ex:Abdul"
                                     />
                                 </div>
                             </div>
                             <div className="w-full lg:w-6/12 px-4">
                                 <div className="relative w-full mb-3">
                                     <label
-                                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlFor="grid-password"
+                                        className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                        htmlFor="lastname"
                                     >
                                         Last Name
                                     </label>
                                     <input
-                                        type="text"
+                                        type="text" id="lastname"
                                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                     />
                                 </div>
@@ -128,13 +128,13 @@ export default function EditProfile() {
                             <div className="w-full lg:w-12/12 px-4">
                                 <div className="relative w-full mb-3">
                                     <label
-                                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlFor="grid-password"
+                                        className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                        htmlFor="address"
                                     >
                                         Address
                                     </label>
                                     <input
-                                        type="text"
+                                        type="text" id="address"
                                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                         placeholder="EX:2/52 SouthStreet"
                                     />
@@ -143,45 +143,45 @@ export default function EditProfile() {
                             <div className="w-full lg:w-4/12 px-4">
                                 <div className="relative w-full mb-3">
                                     <label
-                                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlFor="grid-password"
+                                        className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                        htmlFor="city"
                                     >
                                         City
                                     </label>
                                     <input
-                                        type="email"
+                                        type="text" id="city"
                                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        defaultValue="New York"
+                                        defaultValue="Karaikudi"
                                     />
                                 </div>
                             </div>
                             <div className="w-full lg:w-4/12 px-4">
                                 <div className="relative w-full mb-3">
                                     <label
-                                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlFor="grid-password"
+                                        className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                        htmlFor="country"
                                     >
                                         Country
                                     </label>
                                     <input
-                                        type="text"
+                                        type="text" id="country"
                                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        defaultValue="United States"
+                                        defaultValue="India"
                                     />
                                 </div>
                             </div>
                             <div className="w-full lg:w-4/12 px-4">
                                 <div className="relative w-full mb-3">
                                     <label
-                                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlFor="grid-password"
+                                        className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                        htmlFor="postal"
                                     >
                                         Postal Code
                                     </label>
                                     <input
-                                        type="text"
+                                        type="text" id="postal"
                                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        defaultValue="Postal Code"
+                                        defaultValue="630001"
                                     />
                                 </div>
                             </div>
@@ -196,15 +196,14 @@ export default function EditProfile() {
                             <div className="w-full lg:w-12/12 px-4">
                                 <div className="relative w-full mb-3">
                                     <label
-                                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                        htmlFor="grid-password"
+                                        className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                        htmlFor="aboutme"
                                     >
                                         About me
                                     </label>
                                     <textarea
-                                        type="text"
+                                        type="text" id="aboutme"
                                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                        defaultValue="A beautiful UI Kit and Admin for React & Tailwind CSS. It is Free and Open Source."
                                         rows="4"
                                     ></textarea>
                                 </div>
