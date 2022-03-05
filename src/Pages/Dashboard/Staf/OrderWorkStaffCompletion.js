@@ -11,7 +11,7 @@ export const Stage_Completion_Request = async (
   stage,
   order_work_label
 ) => {
-  const response = await axios.post(
+  const response = await axios.post(API +
     '/api/staff_stage_completion/',
     {
       order_id,
@@ -37,7 +37,7 @@ function OrderWorkStaffCompletion() {
   const staff = localStorage.getItem('login_id')
   useEffect(() => {
     axios
-      .post(
+      .post(API +
         '/api/staff_work_assign_completion/',
         {
           staff,
@@ -58,7 +58,7 @@ function OrderWorkStaffCompletion() {
         
       })
     axios
-      .post(
+      .post(API +
         '/api/staff_work_completion_review/',
         {
           staff,

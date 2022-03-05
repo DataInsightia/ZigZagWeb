@@ -50,10 +50,10 @@ function TakeOrder() {
   });
 
   const fetch = async () => {
-    var materials = await axios.post("/api/tmp_materials/", {
+    var materials = await axios.post(API + "/api/tmp_materials/", {
       order_id: orderid,
     });
-    var works = await axios.post("/api/tmp_works/", { order_id: orderid });
+    var works = await axios.post(API + "/api/tmp_works/", { order_id: orderid });
     var total =
       (works.data.status === undefined ? works.data.total.total__sum : 0) +
       (materials.data.status === undefined
@@ -100,7 +100,7 @@ function TakeOrder() {
     setAdvance(parseInt(others.advance_amount));
   const fetch_work_table = () =>
     axios
-      .post("/api/tmp_works/", { order_id: orderid })
+      .post(API + "/api/tmp_works/", { order_id: orderid })
       .then((res) => {
         if ("status" in res.data) {
           console.log(res.data);
@@ -115,7 +115,7 @@ function TakeOrder() {
 
   const fetch_material_table = () =>
     axios
-      .post("/api/tmp_materials/", { order_id: orderid })
+      .post(API + "/api/tmp_materials/", { order_id: orderid })
       .then((res) => {
         if ("status" in res.data) {
           console.log(res.data);
@@ -129,12 +129,12 @@ function TakeOrder() {
       });
 
   const fetch_materials = async () => {
-    var materials = await axios.get("/api/materials/");
+    var materials = await axios.get(API + "/api/materials/");
     setMaterials(materials.data);
   };
 
   const fetch_works = async () => {
-    var works = await axios.get("/api/works/");
+    var works = await axios.get(API + "/api/works/");
     setWorks(works.data);
   };
 
@@ -166,7 +166,7 @@ function TakeOrder() {
     console.log(work);
     // Insert to tmp_work
     axios
-      .post("/api/tmp_work/", work)
+      .post(API + "/api/tmp_work/", work)
       .then((res) => {
         console.log(res.data);
         fetch_work_table();
@@ -185,7 +185,7 @@ function TakeOrder() {
       parseInt(material["qty"]) * parseInt(material["amount"]);
     // Insert to tmp_material
     axios
-      .post("/api/tmp_material/", material)
+      .post(API + "/api/tmp_material/", material)
       .then((res) => {
         fetch_material_table();
         fetch();
@@ -197,7 +197,7 @@ function TakeOrder() {
 
   const delTmpWork = (id) => {
     axios
-      .post("/api/del_tmpwork/", { id: id })
+      .post(API + "/api/del_tmpwork/", { id: id })
       .then((res) => {
         console.log(res.data);
         fetch_work_table();
@@ -212,7 +212,7 @@ function TakeOrder() {
 
   const delTmpMaterial = (id) => {
     axios
-      .post("/api/del_tmpmaterial/", { id: id })
+      .post(API + "/api/del_tmpmaterial/", { id: id })
       .then((res) => {
         console.log(res.data);
         fetch_material_table();
@@ -274,7 +274,7 @@ function TakeOrder() {
       };
 
       axios
-        .post("/api/add_order/", order_payload)
+        .post(API + "/api/add_order/", order_payload)
         .then((res) => {
           console.log("add_order", res.data);
           if (res.data.status) {
@@ -289,7 +289,7 @@ function TakeOrder() {
                 },
               };
               axios
-                .post("/api/add_order_work/", tmpwork_payload)
+                .post(API + "/api/add_order_work/", tmpwork_payload)
                 .then((res) => console.log("tmpworks", res.data))
                 .catch((err) => console.log(err));
 
@@ -311,7 +311,7 @@ function TakeOrder() {
                   order_work_label: tmpworks[i].work_id + wc,
                 });
                 axios
-                  .post("/api/order_work_staff_assign/", {
+                  .post(API + "/api/order_work_staff_assign/", {
                     order_id: orderid,
                     order_work_label: tmpworks[i].work_id + wc,
                     work_id: tmpworks[i].work_id,
@@ -333,7 +333,7 @@ function TakeOrder() {
                   },
                 };
                 axios
-                  .post("/api/add_order_material/", tmpmaterial_payload)
+                  .post(API + "/api/add_order_material/", tmpmaterial_payload)
                   .then((res) => console.log("tmpmaterials", res.data))
                   .catch((err) => console.log(err));
               }
@@ -347,8 +347,7 @@ function TakeOrder() {
       alert("DueDate Required!");
     }
 
-    console.log("cust_id", customer_details["cust_id"]);
-    console.log(typeof others.due_date);
+    console.log("advance",advance,"balance",balance,'total',total)
   };
 
   return (
@@ -678,13 +677,6 @@ function TakeOrder() {
                             {e.total}
                           </th>
                           <td className={"border border-slate-600"}>
-                            <button
-                              className={
-                                "m-2 bg-green-400 rounded p-2 text-white"
-                              }
-                            >
-                              <i className="fa fa-edit"></i>edit
-                            </button>
                             <button
                               className={
                                 "m-2 bg-rose-500 rounded p-2 text-white"
