@@ -41,7 +41,6 @@ export default function Login() {
         // { withCredentials: true },
       )
       .then((res) => {
-        console.log(res.data.user.role)
         if (res.data.status) {
           if (res.data.user.role == 'customer') {
             setLocalStorage('login_id', res.data.user.login_id)
