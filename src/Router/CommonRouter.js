@@ -19,7 +19,7 @@ import StaffWageCalculation from "../Pages/Dashboard/Staf/StaffWageCalculation";
 
 // ----------------------------------------------------------------------
 
-export default function Router() {
+export default function CommonRouter() {
   return useRoutes([
     {
       path: '/',
@@ -31,25 +31,6 @@ export default function Router() {
       ],
     },
 
-    {
-      path: '/dashboard',
-      element: <Protected cmp={Dashboard} />,
-      children: [
-        { path: 'dhome', element: <DashboardHome /> },
-        { path: 'takeorder', element: <TakeOrder /> },
-        { path: 'invoice', element: <Invoice /> },
-        { path: 'work_assign', element: <OrderWorkStaffAssign /> },
-        { path: 'order_approval', element: <OrderWorkApproval /> },
-        { path: 'orders', element: <StaffWorkTaken /> },
-        { path: 'work_complete', element: <OrderWorkStaffCompletion /> },
-        { path: 'completed_work', element: <OrderWorkCompleted /> },
-          //staff
-        { path: 'wage',element: <StaffWageCalculation/>},
-        { path: 'staff_work_taken', element: <Invoice /> },
-        { path: 'staff_register', element: <Staff_register /> },
-        { path: 'edit_profile',element: <EditProfile/>}
-      ],
-    },
     { path: '*', element: <Navigate to="/" replace /> },
   ])
 }

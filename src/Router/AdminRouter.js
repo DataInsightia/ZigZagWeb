@@ -27,14 +27,13 @@ export default function Router() {
         { path: '/', element: <Home /> },
         { path: '*', element: <Navigate to="/" replace /> },
         { path: 'login', element: <Login /> },
-        { path: 'register', element: <Register /> },
       ],
     },
-
     {
       path: '/dashboard',
       element: <Protected cmp={Dashboard} />,
       children: [
+        //Admin
         { path: 'dhome', element: <DashboardHome /> },
         { path: 'takeorder', element: <TakeOrder /> },
         { path: 'invoice', element: <Invoice /> },
@@ -43,11 +42,6 @@ export default function Router() {
         { path: 'orders', element: <StaffWorkTaken /> },
         { path: 'work_complete', element: <OrderWorkStaffCompletion /> },
         { path: 'completed_work', element: <OrderWorkCompleted /> },
-          //staff
-        { path: 'wage',element: <StaffWageCalculation/>},
-        { path: 'staff_work_taken', element: <Invoice /> },
-        { path: 'staff_register', element: <Staff_register /> },
-        { path: 'edit_profile',element: <EditProfile/>}
       ],
     },
     { path: '*', element: <Navigate to="/" replace /> },
