@@ -7,12 +7,12 @@ function OrderStatus() {
     const [stage,setStage] = useState([])
     const [wa_stage,setWAstage] = useState([])
     useEffect(async() => {
-        const os_res = await axios.post(API + '/api/order_status_admin/',{"order_id": "ZA786"})
+        const os_res = await axios.post(API + '/api/order_status/',{"order_id": "ZA786"})
         if (os_res.data.status) {setStage(os_res.data.details)} else {
-            console.log(os_res.data)
+            alert("order not found")
         }
 
-        const wsa_os_res = await axios.post(API + '/api/order_status_oa_admin/',{"order_id": "ZA786"})
+        const wsa_os_res = await axios.post(API + '/api/order_status_oa/',{"order_id": "ZA786"})
         if (wsa_os_res) {setWAstage(wsa_os_res.data)} else {
             alert("no data")
         }
@@ -81,8 +81,7 @@ function OrderStatus() {
                   </div>
                   <div
                       className={(e.status ? "bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full" : "bg-red-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full")}>
-                      <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.stage} - by ({e.staff_name})</h3>
-                      <h5>{e.completion_date_time}</h5>
+                      <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.status}{e.stage}</h3>
                   </div>
               </div>) : ""
 )}
@@ -103,7 +102,7 @@ function OrderStatus() {
   </div>
   <div
       className={"bg-gray-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
-      <h3 className={"font-semibold text-lg mb-1 text-white"}>(On Going) {e.work_staff_completion_stage} - {e.orderworkstaffassign.staff.staff_name}</h3>
+      <h3 className={"font-semibold text-lg mb-1 text-white"}>(On Going) {e.work_staff_completion_stage}</h3>
   </div>
 </div>
 )}
