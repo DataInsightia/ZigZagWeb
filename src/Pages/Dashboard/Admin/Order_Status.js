@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';
+import React,{useState} from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import axios from 'axios';
 import API from '../../../api'
@@ -6,25 +6,38 @@ import API from '../../../api'
 function OrderStatus() {
     const [stage,setStage] = useState([])
     const [wa_stage,setWAstage] = useState([])
-    useEffect(async() => {
-        const os_res = await axios.post(API + '/api/order_status_admin/',{"order_id": "ZA786"})
-        if (os_res.data.status) {setStage(os_res.data.details)} else {
-            console.log(os_res.data)
-        }
+    const [showModal, setShowModal] = useState(false);
+    const [staffPic,setStaffPic] = useState('');
+    const [orderid,setOrderID] = useState({});
 
-        const wsa_os_res = await axios.post(API + '/api/order_status_oa_admin/',{"order_id": "ZA786"})
-        if (wsa_os_res) {setWAstage(wsa_os_res.data)} else {
-            alert("no data")
-        }
+    const handleEvent = (e) => setOrderID({ ...orderid, [e.target.name]: e.target.value });
+
+    const checkOrder = (e) => {
+        e.preventDefault();
+        // // ZA786
+        axios.post(API + '/api/order_status_admin/',orderid).then(res => {
+            if (res.data.status) {
+                setStage(res.data.details);
+            } else {
+                console.log(res.data.details)
+            }
+        })
         
-    },[]);
+
+        axios.post(API + '/api/order_status_oa_admin/',orderid).then(res => {
+            if (res.data.status) {
+                setWAstage(res.data.data);
+            } else {
+                console.log("no data")
+            }
+        })
+        
+    }
     return (
         <div className="bg-gray-50 mt-16">
         <div className="p-4 mt-4">
-            <h1 className="text-4xl text-center font-semibold mb-6">Package status</h1>
+            <h1 className="text-4xl text-center font-semibold mb-6">Order status</h1>
             <br/>
-
-
             <div className="container">
 
                 {/*product status start*/}
@@ -44,69 +57,115 @@ function OrderStatus() {
                                         <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
                                             <img src="https://randomuser.me/api/portraits/men/5.jpg"/>
                                         </div>
-                                        <div className="flex-1 pl-2">
-                                            <h2 className="text-white mb-1">Luke Nunez</h2>
-                                            <p className="text-white opacity-50 text-xs">May 18</p>
+                                            <div className="flex-1 pl-2">
+                                                <h2 className="text-white mb-1">Luke Nunez</h2>
+                                                <p className="text-white opacity-50 text-xs">May 18</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <span className="text-white opacity-50">
-              <div>
-
-                                <i className="fa fa-check-circle text-white"></i>
-                            </div>
-            </span>
+                                        <span className="text-white opacity-50">
+                                            <div>
+                                                <i className="fa fa-check-circle text-white"></i>
+                                            </div>
+                                        </span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
+
+      
+                
+                <form onSubmit={checkOrder}>
+                    <input type="text" name="order_id" placeholder={'Order ID'} onChange={handleEvent}/>
+                    <input type="submit" />
+                </form>
+               
                 {/*product status end*/}
 
                 <div className="flex flex-col md:grid grid-cols-12 text-gray-50 px-72">
-
-{stage.map((e)=>
-
-                
-                e.status ? (<div className="flex md:contents">
-                <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
-                   <div className="h-full w-6 flex items-center justify-center">
-                          <i className={(e.status ? "h-full w-2 bg-green-500 pointer-events-none" : "h-full w-2 bg-red-500 pointer-events-none")}></i>
-                      </div>
-                      <div
-                          className={(e.status ?  "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-green-500 shadow text-center" : "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-red-500 shadow text-center")}>
-                          {(e.status ? <i className="fa fa-check-circle text-white"></i> : <i className="fa fa-times-circle text-white"></i>)}
-                      </div>
-                  </div>
-                  <div
-                      className={(e.status ? "bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full" : "bg-red-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full")}>
-                      <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.stage} - by ({e.staff_name})</h3>
-                      <h5>{e.completion_date_time}</h5>
-                  </div>
-              </div>) : ""
-)}
+                    {stage.map((e)=>        
+                                    e.status ? (<div className="flex md:contents">
+                                    <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
+                                        <div className="h-full w-6 flex items-center justify-center">
+                                            <i className={(e.status ? "h-full w-2 bg-green-500 pointer-events-none" : "h-full w-2 bg-red-500 pointer-events-none")}></i>
+                                        </div>
+                                        <div
+                                            className={(e.status ?  "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-green-500 shadow text-center" : "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-red-500 shadow text-center")}>
+                                            {(e.status ? <i className="fa fa-check-circle text-white"></i> : <i className="fa fa-times-circle text-white"></i>)}
+                                        </div>
+                                    </div>
+                                    <div
+                                        className={(e.status ? "bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full" : "bg-red-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full")}>
+                                        <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.stage} - by ({e.staff_name})</h3>
+                                        <h5>{e.completion_date_time}</h5>
+                                    </div>
+                                </div>) : ""
+                    )}
 
 
-{wa_stage.map((e)=>
+                    {wa_stage.map((e)=>             
+                    <div className="flex md:contents">
+                        <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
+                            <div className="h-full w-6 flex items-center justify-center">
+                            <i className={"h-full w-2 bg-gray-500 pointer-events-none" }></i>
+                        </div>
+                        <div
+                            className={"w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-gray-500 shadow text-center"}>
+                            <i className="fa fa-check-circle text-white"></i>
+                        </div>
+                    </div>
+                    <div 
+                    onClick={() => {setShowModal(true);setStaffPic(API + e.staff.photo);}}
+                        className={"bg-gray-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
+                        <h3 className={"font-semibold text-lg mb-1 text-white"}>(On Going) {e.work_staff_completion_stage} - {e.orderworkstaffassign.staff.staff_name}</h3>
+                    </div>
+                </div>)}
 
-                
-<div className="flex md:contents">
-<div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
-   <div className="h-full w-6 flex items-center justify-center">
-          <i className={"h-full w-2 bg-gray-500 pointer-events-none" }></i>
-      </div>
-      <div
-          className={"w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-gray-500 shadow text-center"}>
-          <i className="fa fa-check-circle text-white"></i>
-      </div>
-  </div>
-  <div
-      className={"bg-gray-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
-      <h3 className={"font-semibold text-lg mb-1 text-white"}>(On Going) {e.work_staff_completion_stage} - {e.orderworkstaffassign.staff.staff_name}</h3>
-  </div>
-</div>
-)}
+
+
+      {showModal ? (
+        <>
+          <div
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+          >
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <div className="flex bg-pink-700 items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+                  <h3 className="text-3xl font-semibold text-white">
+                    Staff Photo
+                  </h3>
+                  <button
+                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      x
+                    </span>
+                  </button>
+                </div>
+                {/*body*/}
+                <div className="relative p-6 flex-auto">
+                  <img src={staffPic} height={500} width={400}/>
+                </div>
+                {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
 
 
                    

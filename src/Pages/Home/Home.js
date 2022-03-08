@@ -31,22 +31,6 @@ document.onclick = check
 function check(e) {
   // eslint-disable-next-line no-restricted-globals
   const target = (e && e.target) || (event && event.srcElement)
-
-  //Nav Menu
-  if (!checkParent(target, navMenuDiv)) {
-    // click NOT on the menu
-    if (checkParent(target, navMenu)) {
-      // click on the link
-      if (navMenuDiv.classList.contains('hidden')) {
-        navMenuDiv.classList.remove('hidden')
-      } else {
-        navMenuDiv.classList.add('hidden')
-      }
-    } else {
-      // click both outside link and outside menu, hide menu
-      navMenuDiv.classList.add('hidden')
-    }
-  }
 }
 function checkParent(t, elm) {
   while (t.parentNode) {
