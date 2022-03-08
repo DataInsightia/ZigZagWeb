@@ -7,7 +7,7 @@ export const Staff_register = async (
  data
 ) => {
   const response = await axios.post(
-     '/api/staff_register/',
+     'api/staff_register/',
     {
       data : data,
     },

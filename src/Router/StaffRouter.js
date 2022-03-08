@@ -37,7 +37,6 @@ export default function StaffRouter() {
           //staff
         { path: 'wage',element: <StaffWageCalculation/>},
         { path: 'staff_work_taken', element: <Invoice /> },
-        { path: 'staff_register', element: <Staff_register /> },
         { path: 'edit_profile',element: <EditProfile/>}
       ],
     },

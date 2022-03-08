@@ -42,6 +42,8 @@ export default function Router() {
         { path: 'orders', element: <StaffWorkTaken /> },
         { path: 'work_complete', element: <OrderWorkStaffCompletion /> },
         { path: 'completed_work', element: <OrderWorkCompleted /> },
+        { path: 'staff_register', element: <Staff_register /> },
+
       ],
     },
     { path: '*', element: <Navigate to="/" replace /> },

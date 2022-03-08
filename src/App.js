@@ -8,36 +8,35 @@ import CommonRouter from './Router/CommonRouter'
 export default function App() {
   const auth = localStorage.getItem('role')
 
-  return (() => {
-    if (auth === 'admin') {
-      return (
-        <>
-          <AdminRouter />
-        </>
-      )
-    } else if (auth === 'staff') {
-      return (
-        <>
-          <StaffRouter />
-        </>
-      )
-    } else if (auth === 'customer') {
-      return (
-        <>
-          <CustomerRouter />
-        </>
-      )
-    } else {
-      return (
-        <>
-          {console.log('common')}
-          <CommonRouter />
-        </>
-      )
-    }
-  })()
-}
+  
 
-// function App() {
-//   return <Router />
-// }
+  return <Router/>
+
+  // (() => {
+  //   if (auth === 'admin') {
+  //     return (
+  //       <>
+  //         <AdminRouter />
+  //       </>
+  //     )
+  //   } else if (auth === 'staff') {
+  //     return (
+  //       <>
+  //         <StaffRouter />
+  //       </>
+  //     )
+  //   } else if (auth === 'customer') {
+  //     return (
+  //       <>
+  //         <CustomerRouter />
+  //       </>
+  //     )
+  //   } else {
+  //     return (
+  //       <>
+  //         <CommonRouter />
+  //       </>
+  //     )
+  //   }
+  // })() 
+}

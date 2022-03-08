@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import styles from '../Staf/Style/Styles'
+import API from '../../../api';
 
 function OrderWorkCompleted() {
   const [workcompleted, setworkcompleted] = useState([])
@@ -11,7 +12,7 @@ function OrderWorkCompleted() {
   useEffect(() => {
     axios
       .post(
-        '/api/work_completed/',
+        API + '/api/work_completed/',
         {
           staff_id,
         },

@@ -13,7 +13,7 @@ export const Taken_Work = async (
   order_work_label
 ) => {
   const response = await axios.post(
-    '/api/staff_work_take/',
+    API + '/api/staff_work_take/',
     {
       order_id,
       work_id,
@@ -42,10 +42,10 @@ function StaffWorkTaken() {
   var staff_id = localStorage.getItem('login_id')
 
   useEffect(() => {
-    axios.get('/api/orders/').then((res) => setOrders(res.data))
+    axios.get(API + '/api/orders/').then((res) => setOrders(res.data))
     axios
       .post(
-        '/api/staff_work_assigned/',
+        API + '/api/staff_work_assigned/',
         {
           staff_id,
         },
@@ -67,7 +67,7 @@ function StaffWorkTaken() {
       })
     axios
       .post(
-       '/api/staff_work_taken/',
+      API + '/api/staff_work_taken/',
         {
           staff_id,
         },

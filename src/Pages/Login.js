@@ -30,15 +30,8 @@ export default function Login() {
 
     axios
       .post(
-        API + '/api/customer_login/',
+        'http://127.0.0.1:8000/api/customer_login/',
         data,
-        // {
-        //   headers: {
-        //     'access-control-allow-origin': '*',
-        //     'Content-Type': 'application/json',
-        //   },
-        // },
-        // { withCredentials: true },
       )
       .then((res) => {
         if (res.data.status) {
