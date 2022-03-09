@@ -40,6 +40,14 @@ function OrderStatus() {
             <br/>
             <div className="container">
 
+    <form className="grid justify-center" onSubmit={checkOrder}>
+        <input   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" placeholder={'Order ID'} onChange={handleEvent}/>
+        <div className="grid justify-center">
+            <input  className={"justify-center button text-white rounded p-3 m-3 bg-pink-600"} type="submit" /></div>
+    </form>
+
+
+
                 {/*product status start*/}
 
                 <div className="flex py-6 px-16  justify-center">
@@ -76,10 +84,7 @@ function OrderStatus() {
 
       
                 
-                <form onSubmit={checkOrder}>
-                    <input type="text" name="order_id" placeholder={'Order ID'} onChange={handleEvent}/>
-                    <input type="submit" />
-                </form>
+
                
                 {/*product status end*/}
 
