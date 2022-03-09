@@ -67,7 +67,7 @@ function TakeOrder() {
     fetch_works();
     fetch_materials();
     axios
-      .get("/api/generate_orderid/")
+      .get(API + "/api/generate_orderid/")
       .then((res) => {
         setOrderid(res.data["order_id"]);
 
@@ -292,17 +292,6 @@ function TakeOrder() {
                 .post(API + "/api/add_order_work/", tmpwork_payload)
                 .then((res) => console.log("tmpworks", res.data))
                 .catch((err) => console.log(err));
-
-              //   axios
-              //     .post('/api/order_work_staff_assign/', {
-              //       order_id: orderid,
-              //       work_id: tmpworks[i].work_id,
-              //     })
-              //     .then((res) => {
-              //       console.log('order_work_staff_assign', res.data)
-              //     })
-              //     .catch((err) => console.log(err))
-              // }
 
               for (var k = 0; k < parseInt(tmpworks[i].quantity); k++) {
                 console.log({

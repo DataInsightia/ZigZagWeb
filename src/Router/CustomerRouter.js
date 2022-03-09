@@ -38,7 +38,6 @@ export default function CustomerRouter() {
       children: [
         { path: 'dhome', element: <DashboardHome /> },
         { path: 'invoice', element: <Invoice /> },
-        {path: 'new_invoice', element: <NewInvoice />},
         { path: 'order_status', element: <Order_Status /> },
       ],
     },
