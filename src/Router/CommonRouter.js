@@ -3,7 +3,7 @@ import Home from '../Pages/Home/Home'
 import Login from '../Pages/Login'
 import Register from '../Pages/Register'
 import TakeOrder from '../Components/TakeOrder/TakeOrder'
-import Invoice from '../Components/TakeOrder/Invoice'
+import Invoice from '../Components/TakeOrder/Invoice/Invoice'
 import Dashboard from '../Pages/Dashboard/Dashboard'
 import DashboardHome from '../Pages/Dashboard/DHome'
 import OrderWorkStaffAssign from '../Pages/Dashboard/Staf/OrderWorkStaffAssign'
@@ -16,6 +16,9 @@ import OrderWorkCompleted from '../Pages/Dashboard/Staf/OrderWorkCompleted'
 import EditProfile from "../Pages/Dashboard/Staf/EditProfile";
 import StaffWageCalculation from "../Pages/Dashboard/Staf/StaffWageCalculation";
 import Order_Status from "../Pages/Dashboard/Admin/Order_Status";
+import OrderStatusFirst from "../Pages/Dashboard/Admin/Order_First";
+import Invoice_Sup from "../Components/TakeOrder/Invoice/Invoice_Sup";
+import Order_Status_Home from "../Pages/Home/Order_Status_Home";
 
 
 // ----------------------------------------------------------------------
@@ -29,7 +32,8 @@ export default function CommonRouter() {
         { path: '*', element: <Navigate to="/" replace /> },
         { path: 'login', element: <Login /> },
         { path: 'register', element: <Register /> },
-        { path: 'order_status', element: <Order_Status /> },
+        { path: 'order_status_home', element: <Order_Status_Home /> }
+
       ],
     },
 
