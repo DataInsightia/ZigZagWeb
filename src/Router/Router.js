@@ -15,6 +15,8 @@ import StaffWorkTaken from '../Pages/Dashboard/Staf/StaffWorkTaken'
 import OrderWorkCompleted from '../Pages/Dashboard/Staf/OrderWorkCompleted'
 import EditProfile from "../Pages/Dashboard/Staf/EditProfile";
 import StaffWageCalculation from "../Pages/Dashboard/Staf/StaffWageCalculation";
+import StaffWageGiven from "../Pages/Dashboard/Staf/StaffWageGiven";
+import StaffList from '../Pages/Dashboard/Staf/WageList'
 
 
 // ----------------------------------------------------------------------
@@ -44,7 +46,8 @@ export default function Router() {
         { path: 'work_complete', element: <OrderWorkStaffCompletion /> },
         { path: 'completed_work', element: <OrderWorkCompleted /> },
           //staff
-        { path: 'wage',element: <StaffWageCalculation/>},
+        { path: 'wage/',element: <StaffList/>},
+        { path: 'wage/:id',element: <StaffWageCalculation/>},
         { path: 'staff_work_taken', element: <Invoice /> },
         { path: 'staff_register', element: <Staff_register /> },
         { path: 'edit_profile',element: <EditProfile/>}
