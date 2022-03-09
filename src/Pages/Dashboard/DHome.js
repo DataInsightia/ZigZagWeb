@@ -1,5 +1,6 @@
 import React from 'react'
 import StatusCard from './StatusCard'
+import 'font-awesome/css/font-awesome.min.css';
 
 export default function DashboardHome() {
   const auth = localStorage.getItem('role')
@@ -14,7 +15,7 @@ export default function DashboardHome() {
                   <div className="grid mt-14 grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 mb-4">
                   <StatusCard
                       color="pink"
-                      icon="A"
+                      icon="home"
                       title="Assign Work"
                       amount="350,897"
                       percentage="3.48"

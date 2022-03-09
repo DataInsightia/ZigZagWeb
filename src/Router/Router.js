@@ -3,7 +3,7 @@ import Home from '../Pages/Home/Home'
 import Login from '../Pages/Login'
 import Register from '../Pages/Register'
 import TakeOrder from '../Components/TakeOrder/TakeOrder'
-import Invoice from '../Components/TakeOrder/Invoice'
+import Invoice from '../Components/TakeOrder/Invoice/Invoice'
 import Dashboard from '../Pages/Dashboard/Dashboard'
 import DashboardHome from '../Pages/Dashboard/DHome'
 import OrderWorkStaffAssign from '../Pages/Dashboard/Staf/OrderWorkStaffAssign'
@@ -17,6 +17,8 @@ import EditProfile from "../Pages/Dashboard/Staf/EditProfile";
 import StaffWageCalculation from "../Pages/Dashboard/Staf/StaffWageCalculation";
 import StaffWageGiven from "../Pages/Dashboard/Staf/StaffWageGiven";
 import StaffList from '../Pages/Dashboard/Staf/WageList'
+import Order_Status from "../Pages/Dashboard/Admin/Order_Status";
+
 
 
 // ----------------------------------------------------------------------
@@ -45,6 +47,7 @@ export default function Router() {
         { path: 'orders', element: <StaffWorkTaken /> },
         { path: 'work_complete', element: <OrderWorkStaffCompletion /> },
         { path: 'completed_work', element: <OrderWorkCompleted /> },
+        { path: 'order_status', element: <Order_Status /> },
           //staff
         { path: 'wage/',element: <StaffList/>},
         { path: 'wage/:id',element: <StaffWageCalculation/>},

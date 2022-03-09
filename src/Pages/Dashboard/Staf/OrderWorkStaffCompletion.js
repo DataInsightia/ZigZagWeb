@@ -11,8 +11,13 @@ export const Stage_Completion_Request = async (
   stage,
   order_work_label
 ) => {
+<<<<<<< HEAD
   const response = await axios.post(
     API + '/api/staff_stage_completion/',
+=======
+  const response = await axios.post(API +
+    '/api/staff_stage_completion/',
+>>>>>>> subash_new
     {
       order_id,
       work_id,
@@ -37,8 +42,13 @@ function OrderWorkStaffCompletion() {
   const staff = localStorage.getItem('login_id')
   useEffect(() => {
     axios
+<<<<<<< HEAD
       .post(
        API + '/api/staff_work_assign_completion/',
+=======
+      .post(API +
+        '/api/staff_work_assign_completion/',
+>>>>>>> subash_new
         {
           staff,
         },
@@ -58,8 +68,13 @@ function OrderWorkStaffCompletion() {
         
       })
     axios
+<<<<<<< HEAD
       .post(
        API + '/api/staff_work_completion_review/',
+=======
+      .post(API +
+        '/api/staff_work_completion_review/',
+>>>>>>> subash_new
         {
           staff,
         },
@@ -91,6 +106,14 @@ function OrderWorkStaffCompletion() {
       e.target.assign_stage.value,
       e.target.order_work_label.value,
     )
+
+    // Stroring MaterialLocation in Backend
+
+    axios.post(API+ "/api/material/",{"material_location" : e.target.material_location.value, "staff_id" : staff_id,"order_id" : e.target.order_id.value})
+    .then(res => {
+      console.log(res.data)
+    })
+    .catch(err => console.log(err))
   }
 
   const current = new Date()
@@ -124,7 +147,7 @@ function OrderWorkStaffCompletion() {
                           </div>
                           <div className="lg:w-1/6">
                             <th scope="col" className={styles.tablehead}>
-                              Reference
+                              Sub-works
                             </th>
                           </div>
                           <div className="lg:w-1/6">
@@ -136,6 +159,15 @@ function OrderWorkStaffCompletion() {
                             <th scope="col" className={styles.tablehead}>
                               Stage
                             </th>
+                          </div>
+
+                          <div className="lg:w-1/6">
+                            <th scope="col" className={styles.tablehead}>
+                              Material Location
+                            </th>
+                          </div>
+                          <div className="lg:w-1/6">
+                            <th scope="col" className={styles.tablehead}></th>
                           </div>
                           <div className="lg:w-1/6">
                             <th scope="col" className={styles.tablehead}></th>
@@ -163,13 +195,20 @@ function OrderWorkStaffCompletion() {
                 </div>
 
                 <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                <input
+                    type="text"
+                   
+                    value={e.orderworkstaffassign.work.work_name}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2"
+                    disabled 
+                  />
                   <input
                     type="text"
                     id="work_id"
                     name="work_id"
                     value={e.orderworkstaffassign.work.work_id}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
-                    disabled
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hidden w-full p-2"
+                     hidden
                   />
                 </div>
                 <div className="px-3 w-full md:w-1/2 lg:w-1/6">
@@ -200,6 +239,17 @@ function OrderWorkStaffCompletion() {
                     disabled
                   />
                 </div>
+
+                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                  <input
+                    type="text"
+                    id="material_location"
+                    name="material_location"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                    required
+                  />
+                </div>
+
                 <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                   <div className="flex justify-between">
                     <button type="submit" className={styles.pinkbutton}>
@@ -227,27 +277,27 @@ function OrderWorkStaffCompletion() {
                     <thead>
                       <tr>
                         <div className="flex flex-wrap">
-                          <div className="lg:w-1/5">
+                          <div className="lg:w-1/6">
                             <th scope="col" className={styles.tablehead}>
                               Order
                             </th>
                           </div>
-                          <div className="lg:w-1/5">
+                          <div className="lg:w-1/6">
                             <th scope="col" className={styles.tablehead}>
                               Work
                             </th>
                           </div>
-                          <div className="lg:w-1/5">
+                          <div className="lg:w-1/6">
                             <th scope="col" className={styles.tablehead}>
-                              Reference
+                              Sub-works
                             </th>
                           </div>
-                          <div className="lg:w-1/5">
+                          <div className="lg:w-1/6">
                             <th scope="col" className={styles.tablehead}>
                               Completion Date
                             </th>
                           </div>
-                          <div className="lg:w-1/5">
+                          <div className="lg:w-1/6">
                             <th scope="col" className={styles.tablehead}>
                               Stage
                             </th>
@@ -263,7 +313,7 @@ function OrderWorkStaffCompletion() {
           {completionreview.map((e) => (
             <form onSubmit={onSubmit}>
               <div className="flex flex-wrap">
-                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
+                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                   <input
                     type="text"
                     id="order_id"
@@ -274,7 +324,7 @@ function OrderWorkStaffCompletion() {
                   />
                 </div>
 
-                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
+                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                   <input
                     type="text"
                     id="work_id"
@@ -284,7 +334,7 @@ function OrderWorkStaffCompletion() {
                     disabled
                   />
                 </div>
-                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
+                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                   <input
                     type="text"
                     id="order_work_label"
@@ -294,7 +344,7 @@ function OrderWorkStaffCompletion() {
                     disabled
                   />
                 </div>
-                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
+                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                   <input
                     name="date"
                     value={date}
@@ -302,7 +352,7 @@ function OrderWorkStaffCompletion() {
                     disabled
                   />
                 </div>
-                <div className="px-3 w-full md:w-1/2 lg:w-1/5">
+                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                   <input
                     type="text"
                     id="assign_stage"

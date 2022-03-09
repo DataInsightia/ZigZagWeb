@@ -1,6 +1,9 @@
 {
   "name": "zigzagui",
+<<<<<<< HEAD
   "proxy": "http://localhost:8000",
+=======
+>>>>>>> subash_new
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +16,7 @@
     "axios": "^0.26.0",
     "browser-image-compression": "^1.0.17",
     "dot-env": "^0.0.1",
+    "font-awesome": "^4.7.0",
     "heroicons-react": "^1.4.1",
     "jquery": "^3.6.0",
     "react": "^17.0.2",

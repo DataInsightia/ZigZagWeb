@@ -66,7 +66,7 @@ export default function StaffRegister() {
   }
   return (
     <div>
-      <div className="container bg-white px-24 py-5">
+      <div className="container body_content px-24 py-5">
       <div className="px-20 py-6 mt-12 bg-white shadow-xl">
         <form onSubmit={onSubmit}>
           <div className="flex flex-wrap -m-2">
@@ -293,7 +293,7 @@ export default function StaffRegister() {
             <div className="p-2 w-full">
               <div className="flex justify-between">
                 <button type="submit" className={styles.pinkbutton}>
-                  Sign up
+                Register
                 </button>
               </div>
             </div>

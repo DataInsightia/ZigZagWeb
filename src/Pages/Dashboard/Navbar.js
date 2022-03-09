@@ -72,6 +72,7 @@ export default function Navbar() {
               {/*</li>*/}
             </ul>
             <div className="group text-lg relative h-full sm:w-10/12 md:w-3/12">
+
               <button
                   className="block font-bold py-2.5 px-4 text-white  rounded transition duration-200 hover:bg-white hover:text-black"
                   onClick={() => {
@@ -81,6 +82,7 @@ export default function Navbar() {
               >
                 LOGOUT
               </button>
+
             </div>
 
             {/*<Link to="/login"*/}
