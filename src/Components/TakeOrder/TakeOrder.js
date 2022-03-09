@@ -67,6 +67,7 @@ function TakeOrder() {
     fetch_works();
     fetch_materials();
     axios
+<<<<<<< HEAD
         .get("/api/generate_orderid/")
         .then((res) => {
           setOrderid(res.data["order_id"]);
@@ -79,6 +80,20 @@ function TakeOrder() {
         .catch((err) => {
           console.log(err);
         });
+=======
+      .get(API + "/api/generate_orderid/")
+      .then((res) => {
+        setOrderid(res.data["order_id"]);
+
+        fetch_work_table();
+        fetch_material_table();
+        fetch();
+        // console.log(res.data['order_id']);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+>>>>>>> angappanmuthu
   }, [orderid]);
 
   const current_date = () => {
@@ -274,6 +289,7 @@ function TakeOrder() {
       };
 
       axios
+<<<<<<< HEAD
           .post(API + "/api/add_order/", order_payload)
           .then((res) => {
             console.log("add_order", res.data);
@@ -286,6 +302,55 @@ function TakeOrder() {
                     work_id: tmpworks[i].work_id,
                     qty: tmpworks[i].quantity,
                     work_amount: tmpworks[i].amount,
+=======
+        .post(API + "/api/add_order/", order_payload)
+        .then((res) => {
+          console.log("add_order", res.data);
+          if (res.data.status) {
+            var wc = "A";
+            for (var i = 0; i < tmpworks.length; i++) {
+              const tmpwork_payload = {
+                ...{
+                  order_id: orderid,
+                  work_id: tmpworks[i].work_id,
+                  qty: tmpworks[i].quantity,
+                  work_amount: tmpworks[i].amount,
+                  work_name : tmpworks[i].work_name
+                },
+              };
+              axios
+                .post(API + "/api/add_order_work/", tmpwork_payload)
+                .then((res) => console.log("tmpworks", res.data))
+                .catch((err) => console.log(err));
+
+              for (var k = 0; k < parseInt(tmpworks[i].quantity); k++) {
+                console.log({
+                  order_id: orderid,
+                  work_id: tmpworks[i].work_id,
+                  order_work_label: tmpworks[i].work_id + wc,
+                });
+                axios
+                  .post(API + "/api/order_work_staff_assign/", {
+                    order_id: orderid,
+                    order_work_label: tmpworks[i].work_id + wc,
+                    work_id: tmpworks[i].work_id,
+                  })
+                  .then((res) => {
+                    console.log("order_work_staff_assign", res.data);
+                  })
+                  .catch((err) => console.log(err));
+                wc = nextChar(wc);
+              }
+
+              for (var j = 0; j < tmpmaterials.length; j++) {
+                const tmpmaterial_payload = {
+                  ...{
+                    order_id: orderid,
+                    material_id: tmpmaterials[j].material_id,
+                    qty: tmpmaterials[j].quantity,
+                    material_amount: tmpmaterials[j].amount,
+                    material_name: tmpmaterials[j].material_name,
+>>>>>>> angappanmuthu
                   },
                 };
                 axios

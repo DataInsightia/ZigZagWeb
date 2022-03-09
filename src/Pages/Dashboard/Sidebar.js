@@ -74,19 +74,13 @@ export default function Sidebar() {
                     ORDER STATUS
                   </Link>
                   <Link
-                  to="/dashboard/invoice"
+                  to={"/dashboard/invoice/" + "ZC43434" +"/"+ "ZA787/"}
                   className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
                     INVOICE
                   </Link>
                   <Link
-                      to="/dashboard/order_history"
-                      className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                  >
-                    ORDER HISTORY
-                  </Link>
-                  <Link
-                    to="/dashboard/work_assign"
+                    to={"/dashboard/work_assign/"}
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
                     ORDER ASSIGN
@@ -181,8 +175,14 @@ export default function Sidebar() {
                     INVOICE
                   </Link>
                   <Link
-                      to="/dashboard/order_history"
-                      className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                    to="/dashboard/order_status"
+                    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                  >
+                    ORDER STATUS
+                  </Link>
+                  <Link
+                    to="/dashboard/dhome"
+                    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
                     ORDER HISTORY
                   </Link>

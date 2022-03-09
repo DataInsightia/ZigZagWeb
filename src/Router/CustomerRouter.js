@@ -32,8 +32,7 @@ export default function CustomerRouter() {
       element: <Protected cmp={Dashboard} />,
       children: [
         { path: 'dhome', element: <DashboardHome /> },
-
-        {path: 'new_invoice', element: <NewInvoice />},
+        { path: 'invoice', element: <Invoice /> },
         { path: 'order_status', element: <Order_Status /> },
       ],
     },

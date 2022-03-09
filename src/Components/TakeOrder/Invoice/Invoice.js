@@ -4,11 +4,38 @@ import QRCode from "react-qr-code";
 import axios from "axios";
 import API from "../../../api";
 import "../invoice.css";
-
-
-
+import { useParams } from "react-router-dom";
 
 export default function Invoice(){
+
+  const [tmpwork,setTmpWork] = useState([]);
+  const [tmpmaterial,setTmpMaterial] = useState([]);
+  const [tmpworktotal,setTmpWorkTotal] = useState(0)
+  const [tmpmaterialtotal,setMaterialTotal] = useState(0)
+  const [customerdetails,setCustomerDetails] = useState({});
+
+  const [orderInvoice,setOrderInvoice] = useState([]);
+
+  const {custid,orderid} = useParams();
+
+  useEffect(() => {
+    axios.post(API + "/api/order_invoice/",{"order_id" : orderid ,"cust_id" : custid})
+    .then(res => setOrderInvoice(res.data))
+    axios
+    .post(API + "/api/customer_details/", {"cust_id" : custid})
+    .then((res) => {
+      if (res.data.length !== 0) {
+        setCustomerDetails(res.data[0])
+        console.log(res.data);
+      }else{
+        console.log("This is Admin or Staff Mobile Number")
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  },[]);
+
 
   return (
     <div className="flex scroll items-center mt-16 justify-center min-h-screen bg-gray-100">
@@ -35,11 +62,11 @@ export default function Invoice(){
         <div className="w-full h-0.5 bg-indigo-500"></div>
         <div className="flex justify-between p-4">
           <div>
-              <h6 className="font-bold text-xl">Order Id: ZC001</h6>
-            <span className="text-sm">Customer Name: Anagappan Muthu</span>
+              <h6 className="font-bold text-xl">ORDER ID : {orderid}</h6>
+            <span className="text-sm">Customer Name : {customerdetails.cust_name}</span>
             <address className="text-sm">
-              <span className="font-bold"> Address :</span>
-              Joe Smith 795 Folsom Ave San Francisco, CA 94107
+              <span className="font-bold"> Address : </span>
+              {customerdetails.address}
             </address>
           </div>
           <div className="w-50">
@@ -48,7 +75,7 @@ export default function Invoice(){
               className="object-contain qr-code "
               value="ZC001"/>
           </div>
-          <div></div>
+          <div></div> 
         </div>
 
         <div className="flex justify-center ">
@@ -66,75 +93,31 @@ export default function Invoice(){
                 </tr>
               </thead>
               <tbody className="bg-white">
-                <tr className="whitespace-nowrap">
-                  <td className="px-10 py-4 text-sm text-gray-500">1</td>
-                  <td className="px-10 py-4">
-                    <div className="text-sm text-gray-900">
-                      AAAAA
-                    </div>
-                  </td>
-                  <td className="px-10 py-4">
-                    <div className="text-sm text-gray-500">4</div>
-                  </td>
-                  <td className="px-10 py-4 text-sm text-gray-500">₹20</td>
-                  <td className="px-10 py-4">₹30</td>
-                </tr>
-                <tr className="whitespace-nowrap">
-                  <td className="px-10 py-4 text-sm text-gray-500">2</td>
-                  <td className="px-10 py-4">
-                    <div className="text-sm text-gray-900">
-                      BBBB
-                    </div>
-                  </td>
-                  <td className="px-10 py-4">
-                    <div className="text-sm text-gray-500">2</div>
-                  </td>
-                  <td className="px-10 py-4 text-sm text-gray-500">₹60</td>
-                  <td className="px-10 py-4">₹12</td>
-                </tr>
-                <tr className="border-b-2 whitespace-nowrap">
-                  <td className="px-10 py-4 text-sm text-gray-500">3</td>
-                  <td className="px-10 py-4">
-                    <div className="text-sm text-gray-900">
-                      CCCC
-                    </div>
-                  </td>
-                  <td className="px-10 py-4">
-                    <div className="text-sm text-gray-500">1</div>
-                  </td>
-                  <td className="px-10 py-4 text-sm text-gray-500">₹10</td>
-                  <td className="px-10 py-4">₹13</td>
-                </tr>
-                <tr className="">
-                  <td colSpan="3"></td>
-                  <td className="text-sm font-bold">Sub Total</td>
-                  <td className="text-sm font-bold tracking-wider">
-                    <b>₹950</b>
-                  </td>
-                </tr>
-                <tr>
-                  <th colSpan="3"></th>
-                  <td className="text-sm font-bold">
-                    <b>Tax Rate</b>
-                  </td>
-                  <td className="text-sm font-bold">
-                    <b>₹1.50%</b>
-                  </td>
-                </tr>
 
-                <tr className="text-white bg-gray-800">
+                {/* {
+                  orderInvoice.order_work.map((e,k) => <Row prod_name={e.work_name} qty={e.quantity} price={e.amount} subtotal={e.total} />)
+                } */}
+
+                {/* {           
+                  tmpmaterial.map((e,k) => <Row prod_name={e.material_name} qty={e.quantity} price={e.amount} subtotal={e.total} />)
+                } */}
+
+
+                <tr className="bg-gray-800">
                   <th colSpan="3"></th>
-                  <td className="text-sm font-bold">
+                  <td className="text-lg font-bold text-center text-white">
                     <b>Total</b>
                   </td>
-                  <td className="text-sm font-bold">
-                    <b>₹999.0</b>
+                  <td className="text-lg font-bold text-center text-white">
+                    <b>₹ {(tmpmaterialtotal + tmpworktotal)}</b>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
+
+        <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={(tmpmaterialtotal + tmpworktotal)} balance={0} advance={0} other_charge={0} mobile={customerdetails.mobile} />
 
 
         <div className="flex justify-end">
@@ -143,30 +126,6 @@ export default function Invoice(){
             <div className="text-2xl italic text-indigo-500">AAAAA</div>
           </div>
         </div>
-
-        <div id="scissors"></div>
-        <div className="flex justify-between p-4">
-          <div>
-            <h3 className="text-xl">Order Id:</h3>
-            <h3 className="text-xl">Customer Name:</h3>
-            <h3 className="text-xl">Mobile:</h3>
-          </div>
-          <div className="p-4">
-            <QRCode
-                size={60}
-                className="object-contain qr-code "
-                value="ZC001"/>
-          </div>
-        </div>
-        <div className="w-full h-0.5 bg-black" ></div>
-        <div className="flex justify-center columns-5 space-x-5">
-          <div className="text-xl">Amount:₹1000</div>
-          <div className="text-xl">Advance:₹2000</div>
-          <div className="text-xl">Other Charge:₹3000</div>
-          <div className="text-xl">Balance:₹5000</div>
-        </div>
-
-        <div className="w-full h-0.5 bg-black" ></div>
 
         <div className="p-4">
           <div className="flex text-xl items-center justify-center">
@@ -188,4 +147,53 @@ export default function Invoice(){
       </div>
     </div>
   );
+}
+
+
+const TotalStrip = (props) => {
+  return (
+    <div>
+      <div id="scissors"></div>
+        <div className="flex justify-between p-4">
+          <div>
+            <h3 className="text-xl">Order ID: {props.order_id}</h3>
+            <h3 className="text-xl">Customer Name: {props.cust_name}</h3>
+            <h3 className="text-xl">Mobile: {props.mobile}</h3>
+          </div>
+          <div className="p-4">
+            <QRCode
+                size={60}
+                className="object-contain qr-code "
+                value="ZC001"/>
+          </div>
+        </div>
+        <div className="w-full h-0.5 bg-black" ></div>
+        <div className="flex justify-center columns-5 space-x-5 mx-10">
+          <div className="text-lg">Amount : ₹{props.total}</div>
+          <div className="text-lg">Advance : ₹{props.advance} </div>
+          <div className="text-lg">Other Charge : ₹{props.other_charge}</div>
+          <div className="text-lg">Balance : ₹{props.balance}</div>
+        </div>
+
+        <div className="w-full h-0.5 bg-black" ></div>
+    </div>
+  )
+}
+
+const Row = (props) => {
+    return(
+      <tr className="whitespace-nowrap">
+        <td className="px-10 py-2 text-sm text-gray-500">{1}</td>
+        <td className="px-10 py-2">
+          <div className="text-sm text-gray-900">
+            {props.prod_name}
+          </div>
+        </td>
+        <td className="px-10 py-2">
+          <div className="text-sm text-gray-500">{props.qty}</div>
+        </td>
+        <td className="px-10 py-2 text-sm text-gray-500">₹{props.price}</td>
+        <td className="px-10 py-2 text-sm font-bold">₹{props.subtotal}</td>
+      </tr>
+    )
 }
