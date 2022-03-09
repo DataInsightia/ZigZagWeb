@@ -1,0 +1,18 @@
+#scissors {
+    height: 43px; /* image height */
+    width: 100%;
+    margin: auto auto;
+    background-image: url('http://i.stack.imgur.com/cXciH.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    position: relative;
+    overflow: hidden;
+}
+#scissors:after {
+    content: "";
+    position: relative;
+    top: 50%;
+    display: block;
+    border-top: 3px dashed black;
+    margin-top: -3px;
+}

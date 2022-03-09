@@ -42,7 +42,7 @@ function OrderStatus() {
 
                 {/*product status start*/}
 
-                <div className="flex justify-center">
+                <div className="flex py-6 px-16  justify-center">
 
                     <div className="md:w-full px-3 mb-12 w-full">
                         <div className="flex w-full h-full  flex-wrap bg-rose-500 overflow-hidden rounded">

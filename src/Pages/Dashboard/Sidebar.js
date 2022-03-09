@@ -74,6 +74,12 @@ export default function Sidebar() {
                     ORDER STATUS
                   </Link>
                   <Link
+                  to="/dashboard/invoice"
+                  className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                  >
+                    INVOICE
+                  </Link>
+                  <Link
                     to="/dashboard/work_assign"
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
