@@ -4,6 +4,7 @@ import QRCode from "react-qr-code";
 import axios from "axios";
 import API from "../../../api";
 import "../invoice.css";
+import { useParams } from "react-router-dom";
 
 export default function Invoice(){
 
@@ -11,12 +12,28 @@ export default function Invoice(){
   const [tmpmaterial,setTmpMaterial] = useState([]);
   const [tmpworktotal,setTmpWorkTotal] = useState(0)
   const [tmpmaterialtotal,setMaterialTotal] = useState(0)
+  const [customerdetails,setCustomerDetails] = useState({});
 
-  const orderid = "ZA787";
+  const [orderInvoice,setOrderInvoice] = useState([]);
+
+  const {custid,orderid} = useParams();
 
   useEffect(() => {
-    axios.post(API + "/api/tmp_works/",{"order_id" : orderid}).then(res => {setTmpWork(res.data.data);setTmpWorkTotal(res.data.total.total__sum);}).catch(err => console.log(err));
-    axios.post(API + "/api/tmp_materials/",{"order_id" : orderid}).then(res => {setTmpMaterial(res.data.data);setTmpWorkTotal(res.data.total.total__sum);}).catch(err => console.log(err));
+    axios.post(API + "/api/order_invoice/",{"order_id" : orderid ,"cust_id" : custid})
+    .then(res => setOrderInvoice(res.data))
+    axios
+    .post(API + "/api/customer_details/", {"cust_id" : custid})
+    .then((res) => {
+      if (res.data.length !== 0) {
+        setCustomerDetails(res.data[0])
+        console.log(res.data);
+      }else{
+        console.log("This is Admin or Staff Mobile Number")
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   },[]);
 
 
@@ -46,10 +63,10 @@ export default function Invoice(){
         <div className="flex justify-between p-4">
           <div>
               <h6 className="font-bold text-xl">ORDER ID : {orderid}</h6>
-            <span className="text-sm">Customer Name: Anagappan Muthu</span>
+            <span className="text-sm">Customer Name : {customerdetails.cust_name}</span>
             <address className="text-sm">
-              <span className="font-bold"> Address :</span>
-              Joe Smith 795 Folsom Ave San Francisco, CA 94107
+              <span className="font-bold"> Address : </span>
+              {customerdetails.address}
             </address>
           </div>
           <div className="w-50">
@@ -77,13 +94,13 @@ export default function Invoice(){
               </thead>
               <tbody className="bg-white">
 
-                {
-                  tmpwork.map((e,k) => <Row prod_name={e.work_name} qty={e.quantity} price={e.amount} subtotal={e.total} />)
-                }
+                {/* {
+                  orderInvoice.order_work.map((e,k) => <Row prod_name={e.work_name} qty={e.quantity} price={e.amount} subtotal={e.total} />)
+                } */}
 
-                {           
+                {/* {           
                   tmpmaterial.map((e,k) => <Row prod_name={e.material_name} qty={e.quantity} price={e.amount} subtotal={e.total} />)
-                }
+                } */}
 
 
                 <tr className="bg-gray-800">
@@ -100,7 +117,7 @@ export default function Invoice(){
           </div>
         </div>
 
-        <TotalStrip order_id={orderid} total={(tmpmaterialtotal + tmpworktotal)} balance={0} advance={0} other_charge={0}/>
+        <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={(tmpmaterialtotal + tmpworktotal)} balance={0} advance={0} other_charge={0} mobile={customerdetails.mobile} />
 
 
         <div className="flex justify-end">
@@ -140,7 +157,7 @@ const TotalStrip = (props) => {
         <div className="flex justify-between p-4">
           <div>
             <h3 className="text-xl">Order ID: {props.order_id}</h3>
-            <h3 className="text-xl">Customer Name: {props.customer_name}</h3>
+            <h3 className="text-xl">Customer Name: {props.cust_name}</h3>
             <h3 className="text-xl">Mobile: {props.mobile}</h3>
           </div>
           <div className="p-4">

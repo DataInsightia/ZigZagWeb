@@ -39,7 +39,8 @@ export default function Router() {
       children: [
         { path: 'dhome', element: <DashboardHome /> },
         { path: 'takeorder', element: <TakeOrder /> },
-        { path: 'invoice', element: <Invoice /> },
+        { path: 'invoice/', element: <Invoice /> },
+        { path: 'invoice/:custid/:orderid', element: <Invoice /> },
         { path: 'work_assign', element: <OrderWorkStaffAssign /> },
         { path: 'order_approval', element: <OrderWorkApproval /> },
         { path: 'orders', element: <StaffWorkTaken /> },

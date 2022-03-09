@@ -286,6 +286,7 @@ function TakeOrder() {
                   work_id: tmpworks[i].work_id,
                   qty: tmpworks[i].quantity,
                   work_amount: tmpworks[i].amount,
+                  work_name : tmpworks[i].work_name
                 },
               };
               axios
@@ -319,6 +320,7 @@ function TakeOrder() {
                     material_id: tmpmaterials[j].material_id,
                     qty: tmpmaterials[j].quantity,
                     material_amount: tmpmaterials[j].amount,
+                    material_name: tmpmaterials[j].material_name,
                   },
                 };
                 axios
