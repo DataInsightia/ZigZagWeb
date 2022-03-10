@@ -18,15 +18,22 @@ export default function Invoice(){
 
   const {custid,orderid} = useParams();
 
+  //  const custid = "ZC43434"
+  //   const orderid = "ZA786"
+
+
+  console.log(custid,orderid)
+
   useEffect(() => {
     axios.post(API + "/api/order_invoice/",{"order_id" : orderid ,"cust_id" : custid})
-    .then(res => setOrderInvoice(res.data))
+    .then(res => {if (res.data.status) {
+      setOrderInvoice(res.data);
+    }})
     axios
     .post(API + "/api/customer_details/", {"cust_id" : custid})
     .then((res) => {
       if (res.data.length !== 0) {
         setCustomerDetails(res.data[0])
-        console.log(res.data);
       }else{
         console.log("This is Admin or Staff Mobile Number")
       }
@@ -94,13 +101,15 @@ export default function Invoice(){
               </thead>
               <tbody className="bg-white">
 
-                {/* {
-                  orderInvoice.order_work.map((e,k) => <Row prod_name={e.work_name} qty={e.quantity} price={e.amount} subtotal={e.total} />)
-                } */}
+                
+                {
+                  orderInvoice.order_work.map((e) => <Row prod_name={e.work_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
+                }
 
-                {/* {           
-                  tmpmaterial.map((e,k) => <Row prod_name={e.material_name} qty={e.quantity} price={e.amount} subtotal={e.total} />)
-                } */}
+
+                {/* {
+                  orderInvoice.order_material.map((e) => <Row prod_name={e.material_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
+                }   */}
 
 
                 <tr className="bg-gray-800">
@@ -109,7 +118,7 @@ export default function Invoice(){
                     <b>Total</b>
                   </td>
                   <td className="text-lg font-bold text-center text-white">
-                    <b>₹ {(tmpmaterialtotal + tmpworktotal)}</b>
+                    <b>₹ {0}</b>
                   </td>
                 </tr>
               </tbody>

@@ -73,11 +73,13 @@ export default function Sidebar() {
                   >
                     ORDER STATUS
                   </Link>
+          
+
                   <Link
-                  to={"/dashboard/invoice/" + "ZC43434" +"/"+ "ZA787/"}
+                  to={`/dashboard/customer_orders/${"ZC43434"}/${"ZA786"}`}
                   className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
-                    INVOICE
+                    ORDERS
                   </Link>
                   <Link
                     to={"/dashboard/work_assign/"}

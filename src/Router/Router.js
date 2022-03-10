@@ -19,6 +19,7 @@ import Order_Status from "../Pages/Dashboard/Admin/Order_Status";
 import InvoiceSup from "../Components/TakeOrder/Invoice/Invoice_Sup";
 import OrderHistory from "../Pages/Dashboard/Admin/Order_History";
 import Order_Status_Home from "../Pages/Home/Order_Status_Home";
+import Orders from '../Pages/Dashboard/Customer/Orders'
 
 
 
@@ -48,11 +49,13 @@ export default function Router() {
         { path: 'invoice/:custid/:orderid', element: <Invoice /> },
         { path: 'work_assign', element: <OrderWorkStaffAssign /> },
         { path: 'order_approval', element: <OrderWorkApproval /> },
+        { path: 'customer_orders/:custid/:orderid', element: <Orders /> },
         { path: 'orders', element: <StaffWorkTaken /> },
         { path: 'work_complete', element: <OrderWorkStaffCompletion /> },
         { path: 'completed_work', element: <OrderWorkCompleted /> },
-
-          //staff
+        { path: 'order_status', element: <Order_Status /> },
+        
+        //staff
         { path: 'wage',element: <StaffWageCalculation/>},
         { path: 'staff_work_taken', element: <Invoice /> },
         { path: 'staff_register', element: <Staff_register /> },
