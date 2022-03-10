@@ -14,7 +14,9 @@ export default function Invoice(){
   const [tmpmaterialtotal,setMaterialTotal] = useState(0)
   const [customerdetails,setCustomerDetails] = useState([]);
 
-  const [orderInvoice,setOrderInvoice] = useState([{}]);
+  const [order,setOrder] = useState({});
+  const [orderWork,setOrderWork] = useState([{}]);
+  const [orderMaterial,setOrderMaterial] = useState([{}]);
 
   const {custid,orderid} = useParams();
 
@@ -28,7 +30,9 @@ export default function Invoice(){
     axios.post(API + "/api/order_invoice/",{"order_id" : orderid ,"cust_id" : custid})
     .then(res => {
       if (res.data.status) {
-      setOrderInvoice(res.data);
+      setOrder(res.data.order[0]);
+      setOrderWork(res.data.order_work);
+      setOrderMaterial(res.data.order_material);
     }
   })
     axios
@@ -82,7 +86,7 @@ export default function Invoice(){
           <QRCode
               size={80}
               className="object-contain qr-code "
-              value="ZC001"/>
+              value={window.location.href}/>
           </div>
           <div></div> 
         </div>
@@ -105,13 +109,13 @@ export default function Invoice(){
 
                 
                 {
-                  orderInvoice.order_work.map((e) => <Row prod_name={e.work_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
+                  orderWork.map((e) => <Row prod_name={e.work_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
                 }
 
-
-                {/* {
-                  orderInvoice.order_material.map((e) => <Row prod_name={e.material_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
-                }   */}
+              
+                {
+                 orderMaterial.map((e) => <Row prod_name={e.material_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
+                }  
 
 
                 <tr className="bg-gray-800">
@@ -120,7 +124,7 @@ export default function Invoice(){
                     <b>Total</b>
                   </td>
                   <td className="text-lg font-bold text-center text-white">
-                    <b>₹ {0}</b>
+                    <b>₹ {order.total_amount}</b>
                   </td>
                 </tr>
               </tbody>
@@ -128,7 +132,7 @@ export default function Invoice(){
           </div>
         </div>
 
-        <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={(tmpmaterialtotal + tmpworktotal)} balance={0} advance={0} other_charge={0} mobile={customerdetails.mobile} />
+        <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} other_charge={order.courier_amount} mobile={customerdetails.mobile} />
 
 
         <div className="flex justify-end">
@@ -175,7 +179,7 @@ const TotalStrip = (props) => {
             <QRCode
                 size={60}
                 className="object-contain qr-code "
-                value="ZC001"/>
+                value={window.location.href} />
           </div>
         </div>
         <div className="w-full h-0.5 bg-black" ></div>

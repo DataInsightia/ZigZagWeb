@@ -75,12 +75,7 @@ export default function Sidebar() {
                   </Link>
           
 
-                  <Link
-                  to={`/dashboard/customer_orders/${"ZC43434"}/${"ZA786"}`}
-                  className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                  >
-                    ORDERS
-                  </Link>
+                  
                   <Link
                     to={"/dashboard/work_assign/"}
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
@@ -169,6 +164,12 @@ export default function Sidebar() {
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
                     HOME
+                  </Link>
+                  <Link
+                  to={`/dashboard/customer_orders/${localStorage.getItem('cid')}/`}
+                  className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                  >
+                    ORDERS
                   </Link>
                   <Link
                     to="/dashboard/invoice"
