@@ -13,12 +13,7 @@ export const Assign_Work = async (
   assign_stage,
   order_work_label
 ) => {
-<<<<<<< HEAD
-  const response = await axios.post(
-    API + '/api/staff_work_assign/',
-=======
   const response = await axios.post(API + '/api/staff_work_assign/',
->>>>>>> subash_new
     {
       id,
       order_id,
@@ -43,11 +38,7 @@ function OrderWorkStaffAssign() {
   const [pendingworksbool, setPendingworksbool] = useState(false)
 
   useEffect(() => {
-<<<<<<< HEAD
-    axios.get(API + '/api/staff_work_assign/').then((res) => {
-=======
     axios.get(API +'/api/staff_work_assign/').then((res) => {
->>>>>>> subash_new
       if (res.data.status === true) {
         setPendingworks(res.data.data)
         setPendingworksbool(true)
@@ -56,11 +47,7 @@ function OrderWorkStaffAssign() {
         setPendingworksbool(false)
       }
     })
-<<<<<<< HEAD
-    axios.get(API + '/api/staff/').then((res) => setStaff(res.data))
-=======
     axios.get(API +'/api/staff/').then((res) => setStaff(res.data))
->>>>>>> subash_new
   }, [])
 
   const [formData, setFormData] = useState({

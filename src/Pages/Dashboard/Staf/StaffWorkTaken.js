@@ -12,13 +12,8 @@ export const Taken_Work = async (
   assigned_stage,
   order_work_label
 ) => {
-<<<<<<< HEAD
-  const response = await axios.post(
-    API + '/api/staff_work_take/',
-=======
   const response = await axios.post(API +
     '/api/staff_work_take/',
->>>>>>> subash_new
     {
       order_id,
       work_id,
@@ -47,17 +42,10 @@ function StaffWorkTaken() {
   var staff_id = localStorage.getItem('login_id')
 
   useEffect(() => {
-<<<<<<< HEAD
-    axios.get(API + '/api/orders/').then((res) => setOrders(res.data))
-    axios
-      .post(
-        API + '/api/staff_work_assigned/',
-=======
     axios.get(API +'/api/orders/').then((res) => setOrders(res.data))
     axios
       .post(API +
         '/api/staff_work_assigned/',
->>>>>>> subash_new
         {
           staff_id,
         },
@@ -78,13 +66,8 @@ function StaffWorkTaken() {
         }
       })
     axios
-<<<<<<< HEAD
-      .post(
-      API + '/api/staff_work_taken/',
-=======
       .post(API +
        '/api/staff_work_taken/',
->>>>>>> subash_new
         {
           staff_id,
         },
