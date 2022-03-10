@@ -7,7 +7,7 @@ export const Staff_register = async (
  data
 ) => {
   const response = await axios.post(
-     '/api/staff_register/',
+     'api/staff_register/',
     {
       data : data,
     },
@@ -58,7 +58,7 @@ export default function StaffRegister() {
     data.append('file', file)
     data.append('data', JSON.stringify(formData))
     const res = await axios.post("/api/staff_register/",data);
-    if(data.res.status){
+    if(res.data.status){
       alert("Register Sucessfully")
     }else{
       alert("Not Register Check Now")

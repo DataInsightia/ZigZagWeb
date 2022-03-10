@@ -12,13 +12,13 @@ export default function Invoice(){
   const [tmpmaterial,setTmpMaterial] = useState([]);
   const [tmpworktotal,setTmpWorkTotal] = useState(0)
   const [tmpmaterialtotal,setMaterialTotal] = useState(0)
-  const [customerdetails,setCustomerDetails] = useState({});
+  const [customerdetails,setCustomerDetails] = useState([]);
 
-  const [orderInvoice,setOrderInvoice] = useState([]);
+  const [orderInvoice,setOrderInvoice] = useState([{}]);
 
   const {custid,orderid} = useParams();
 
-  //  const custid = "ZC43434"
+  //  const custid = "ZC43434"  
   //   const orderid = "ZA786"
 
 
@@ -26,9 +26,11 @@ export default function Invoice(){
 
   useEffect(() => {
     axios.post(API + "/api/order_invoice/",{"order_id" : orderid ,"cust_id" : custid})
-    .then(res => {if (res.data.status) {
+    .then(res => {
+      if (res.data.status) {
       setOrderInvoice(res.data);
-    }})
+    }
+  })
     axios
     .post(API + "/api/customer_details/", {"cust_id" : custid})
     .then((res) => {
