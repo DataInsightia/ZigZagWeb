@@ -8,7 +8,11 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
 
+<<<<<<< HEAD
+      - name: Use Node.js 14
+=======
       - name: Use Node.js 1
+>>>>>>> angappanmuthu
         uses: actions/setup-node@v2
         with:
           node-version: "14"
