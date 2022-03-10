@@ -11,8 +11,13 @@ export const Stage_Completion_Request = async (
   stage,
   order_work_label
 ) => {
+<<<<<<< HEAD
+  const response = await axios.post(
+    API + '/api/staff_stage_completion/',
+=======
   const response = await axios.post(API +
     '/api/staff_stage_completion/',
+>>>>>>> subash_new
     {
       order_id,
       work_id,
@@ -37,8 +42,13 @@ function OrderWorkStaffCompletion() {
   const staff = localStorage.getItem('login_id')
   useEffect(() => {
     axios
+<<<<<<< HEAD
+      .post(
+       API + '/api/staff_work_assign_completion/',
+=======
       .post(API +
         '/api/staff_work_assign_completion/',
+>>>>>>> subash_new
         {
           staff,
         },
@@ -58,8 +68,13 @@ function OrderWorkStaffCompletion() {
         
       })
     axios
+<<<<<<< HEAD
+      .post(
+       API + '/api/staff_work_completion_review/',
+=======
       .post(API +
         '/api/staff_work_completion_review/',
+>>>>>>> subash_new
         {
           staff,
         },

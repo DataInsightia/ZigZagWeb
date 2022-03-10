@@ -1,134 +1,159 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import API from "../../api";
-import QRCode from "react-qr-code";
-import "./qr.css";
-import $ from "jquery";
-import "./button.css";
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import API from '../../api'
+import QRCode from 'react-qr-code'
+import './qr.css'
+import $ from 'jquery'
+import './button.css'
 
 function TakeOrder() {
   $(function () {
-    $("#datepicker").datepicker({
-      dateFormat: "dd-mm-yy",
-      duration: "fast",
-    });
-  });
+    $('#datepicker').datepicker({
+      dateFormat: 'dd-mm-yy',
+      duration: 'fast',
+    })
+  })
 
-  const [orderid, setOrderid] = useState("");
-  const [cust, setCust] = useState(false);
-  const [works, setWorks] = useState([{}]);
-  const [materials, setMaterials] = useState([{}]);
-  const [tmpworks, setTmpworks] = useState([]);
-  const [tmpmaterials, setTmpmaterials] = useState([]);
-  let [total, setTotal] = useState(0);
-  let [balance, setBalance] = useState(0);
-  const [advance, setAdvance] = useState(0);
+  const [orderid, setOrderid] = useState('')
+  const [cust, setCust] = useState(false)
+  const [works, setWorks] = useState([{}])
+  const [materials, setMaterials] = useState([{}])
+  const [tmpworks, setTmpworks] = useState([])
+  const [tmpmaterials, setTmpmaterials] = useState([])
+  let [total, setTotal] = useState(0)
+  let [balance, setBalance] = useState(0)
+  const [advance, setAdvance] = useState(0)
   const [customer, setCustomer] = useState({
-    cust_id: "",
-  });
+    cust_id: '',
+  })
 
-  const [customer_details, SetCustomerDetails] = useState({});
+  const [customer_details, SetCustomerDetails] = useState({})
 
   const [others, setOthers] = useState({
-    pickup_type: "",
-    due_date: "",
-    courier_amount: "0",
-    advance_amount: "0",
-    balance_amount: "0",
-  });
+    pickup_type: '',
+    due_date: '',
+    courier_amount: '0',
+    advance_amount: '0',
+    balance_amount: '0',
+  })
 
   const [material, setMaterial] = useState({
-    material_id: "",
-    qty: "",
-    amount: "",
-  });
+    material_id: '',
+    qty: '',
+    amount: '',
+  })
 
   const [work, setWork] = useState({
-    work_id: "",
-    qty: "",
-    amount: "",
-  });
+    work_id: '',
+    qty: '',
+    amount: '',
+  })
 
   const fetch = async () => {
+<<<<<<< HEAD
+    var materials = await axios.post('/api/tmp_materials/', {
+      order_id: orderid,
+    })
+    var works = await axios.post('/api/tmp_works/', { order_id: orderid })
+=======
     var materials = await axios.post(API + "/api/tmp_materials/", {
       order_id: orderid,
     });
     var works = await axios.post(API + "/api/tmp_works/", { order_id: orderid });
+>>>>>>> subash_new
     var total =
       (works.data.status === undefined ? works.data.total.total__sum : 0) +
       (materials.data.status === undefined
         ? materials.data.total.total__sum
-        : 0);
-    setTotal(total);
-    setBalance(total);
-  };
+        : 0)
+    setTotal(total)
+    setBalance(total)
+  }
 
   useEffect(() => {
-    fetch_works();
-    fetch_materials();
+    fetch_works()
+    fetch_materials()
     axios
-      .get("/api/generate_orderid/")
+      .get('/api/generate_orderid/')
       .then((res) => {
-        setOrderid(res.data["order_id"]);
+        setOrderid(res.data['order_id'])
 
-        fetch_work_table();
-        fetch_material_table();
-        fetch();
+        fetch_work_table()
+        fetch_material_table()
+        fetch()
         // console.log(res.data['order_id']);
       })
       .catch((err) => {
-        console.log(err);
-      });
-  }, [orderid]);
+        console.log(err)
+      })
+  }, [orderid])
 
   const current_date = () => {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, "0");
-    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    var yyyy = today.getFullYear();
+    var today = new Date()
+    var dd = String(today.getDate()).padStart(2, '0')
+    var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
+    var yyyy = today.getFullYear()
 
-    today = dd + "-" + mm + "-" + yyyy;
-    return today;
-  };
+    today = dd + '-' + mm + '-' + yyyy
+    return today
+  }
 
   const yyyymmdd = (dateIn) => {
-    var parts = dateIn.split("-");
-    return parts[0] + "-" + parts[1] + "-" + parts[2];
-  };
+    var parts = dateIn.split('-')
+    return parts[0] + '-' + parts[1] + '-' + parts[2]
+  }
 
   const update_advance_amount = () =>
-    setAdvance(parseInt(others.advance_amount));
+    setAdvance(parseInt(others.advance_amount))
   const fetch_work_table = () =>
     axios
+<<<<<<< HEAD
+      .post('/api/tmp_works/', { order_id: orderid })
+=======
       .post(API + "/api/tmp_works/", { order_id: orderid })
+>>>>>>> subash_new
       .then((res) => {
-        if ("status" in res.data) {
-          console.log(res.data);
-          setTmpworks([]);
+        if ('status' in res.data) {
+          console.log(res.data)
+          setTmpworks([])
         } else {
-          setTmpworks(res.data["data"]);
+          setTmpworks(res.data['data'])
         }
       })
       .catch((err) => {
-        console.log(err);
-      });
+        console.log(err)
+      })
 
   const fetch_material_table = () =>
     axios
+<<<<<<< HEAD
+      .post('/api/tmp_materials/', { order_id: orderid })
+=======
       .post(API + "/api/tmp_materials/", { order_id: orderid })
+>>>>>>> subash_new
       .then((res) => {
-        if ("status" in res.data) {
-          console.log(res.data);
-          setTmpmaterials([]);
+        if ('status' in res.data) {
+          console.log(res.data)
+          setTmpmaterials([])
         } else {
-          setTmpmaterials(res.data["data"]);
+          setTmpmaterials(res.data['data'])
         }
       })
       .catch((err) => {
-        console.log(err);
-      });
+        console.log(err)
+      })
 
   const fetch_materials = async () => {
+<<<<<<< HEAD
+    var materials = await axios.get('/api/materials/')
+    setMaterials(materials.data)
+  }
+
+  const fetch_works = async () => {
+    var works = await axios.get('/api/works/')
+    setWorks(works.data)
+  }
+=======
     var materials = await axios.get(API + "/api/materials/");
     setMaterials(materials.data);
   };
@@ -137,148 +162,168 @@ function TakeOrder() {
     var works = await axios.get(API + "/api/works/");
     setWorks(works.data);
   };
+>>>>>>> subash_new
 
   const handleWorkEvent = (e) =>
-    setWork({ ...work, [e.target.name]: e.target.value });
+    setWork({ ...work, [e.target.name]: e.target.value })
   const handleMaterialEvent = (e) =>
-    setMaterial({ ...material, [e.target.name]: e.target.value });
+    setMaterial({ ...material, [e.target.name]: e.target.value })
   const handleCustomer = (e) =>
-    setCustomer({ ...customer, [e.target.name]: e.target.value });
+    setCustomer({ ...customer, [e.target.name]: e.target.value })
   const handleOther = (e) =>
-    setOthers({ ...others, [e.target.name]: e.target.value });
+    setOthers({ ...others, [e.target.name]: e.target.value })
 
   const getWorkAmount = (wn) =>
     setWork({
       ...work,
-      ["amount"]: works.find((e) => e.work_id === wn)["amount"],
-    });
+      ['amount']: works.find((e) => e.work_id === wn)['amount'],
+    })
   const getMaterialAmount = (mn) =>
     setMaterial({
       ...material,
-      ["amount"]: materials.find((e) => e.material_id === mn)["amount"],
-    });
+      ['amount']: materials.find((e) => e.material_id === mn)['amount'],
+    })
 
   const addWork = (e) => {
-    e.preventDefault();
-    work["cust_id"] = customer_details["cust_id"];
-    work["order_id"] = orderid;
-    work["total"] = parseInt(work["qty"]) * parseInt(work["amount"]);
-    console.log(work);
+    e.preventDefault()
+    work['cust_id'] = customer_details['cust_id']
+    work['order_id'] = orderid
+    work['total'] = parseInt(work['qty']) * parseInt(work['amount'])
+    console.log(work)
     // Insert to tmp_work
     axios
+<<<<<<< HEAD
+      .post('/api/tmp_work/', work)
+=======
       .post(API + "/api/tmp_work/", work)
+>>>>>>> subash_new
       .then((res) => {
-        console.log(res.data);
-        fetch_work_table();
-        fetch();
+        console.log(res.data)
+        fetch_work_table()
+        fetch()
       })
-      .catch((err) => console.log(err));
-    fetch_work_table();
-    fetch();
-  };
+      .catch((err) => console.log(err))
+    fetch_work_table()
+    fetch()
+  }
 
   const addMaterial = (e) => {
-    e.preventDefault();
-    material["cust_id"] = customer_details["cust_id"];
-    material["order_id"] = orderid;
-    material["total"] =
-      parseInt(material["qty"]) * parseInt(material["amount"]);
+    e.preventDefault()
+    material['cust_id'] = customer_details['cust_id']
+    material['order_id'] = orderid
+    material['total'] = parseInt(material['qty']) * parseInt(material['amount'])
     // Insert to tmp_material
     axios
+<<<<<<< HEAD
+      .post('/api/tmp_material/', material)
+=======
       .post(API + "/api/tmp_material/", material)
+>>>>>>> subash_new
       .then((res) => {
-        fetch_material_table();
-        fetch();
+        fetch_material_table()
+        fetch()
       })
-      .catch((err) => console.log(err));
-    fetch_material_table();
-    fetch();
-  };
+      .catch((err) => console.log(err))
+    fetch_material_table()
+    fetch()
+  }
 
   const delTmpWork = (id) => {
     axios
+<<<<<<< HEAD
+      .post('/api/del_tmpwork/', { id: id })
+=======
       .post(API + "/api/del_tmpwork/", { id: id })
+>>>>>>> subash_new
       .then((res) => {
-        console.log(res.data);
-        fetch_work_table();
-        fetch();
+        console.log(res.data)
+        fetch_work_table()
+        fetch()
       })
       .catch((err) => {
-        console.log(err);
-      });
-    fetch_work_table();
-    fetch();
-  };
+        console.log(err)
+      })
+    fetch_work_table()
+    fetch()
+  }
 
   const delTmpMaterial = (id) => {
     axios
+<<<<<<< HEAD
+      .post('/api/del_tmpmaterial/', { id: id })
+=======
       .post(API + "/api/del_tmpmaterial/", { id: id })
+>>>>>>> subash_new
       .then((res) => {
-        console.log(res.data);
-        fetch_material_table();
-        fetch();
+        console.log(res.data)
+        fetch_material_table()
+        fetch()
       })
       .catch((err) => {
-        console.log(err);
-      });
-    fetch_material_table();
-    fetch();
-  };
+        console.log(err)
+      })
+    fetch_material_table()
+    fetch()
+  }
   const findCustomer = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     axios
-      .post(API + "/api/customer_details/", customer)
+      .post(API + '/api/customer_details/', customer)
       .then((res) => {
         if (res.data.length !== 0) {
-          SetCustomerDetails(res.data[0]);
-          setCust(true);
-          console.log(res.data);
-        }else{
-          console.log("This is Admin or Staff Mobile Number")
+          SetCustomerDetails(res.data[0])
+          setCust(true)
+          console.log(res.data)
+        } else {
+          console.log('This is Admin or Staff Mobile Number')
         }
       })
       .catch((err) => {
-        console.log(err);
-      });
-  };
+        console.log(err)
+      })
+  }
 
   const update_balance_with_courier = (e) => {
-    var courier = parseInt(e.target.value);
+    var courier = parseInt(e.target.value)
     // setTotal(total + parseInt(courier));
-    setBalance((total + parseInt(courier)) - advance);
-  };
+    setBalance(total + parseInt(courier) - advance)
+  }
 
   const update_balance_with_advance = (e) => {
-    var advance = parseInt(e.target.value);
-    setAdvance(advance);
-    setBalance(total - advance);
-  };
+    var advance = parseInt(e.target.value)
+    setAdvance(advance)
+    setBalance(total - advance)
+  }
 
   const nextChar = (c) => {
-    return String.fromCharCode(c.charCodeAt(0) + 1);
-  };
+    return String.fromCharCode(c.charCodeAt(0) + 1)
+  }
 
   const printOrder = (e) => {
-    e.preventDefault();
-    if (others.due_date !== "") {
+    e.preventDefault()
+    if (others.due_date !== '') {
       const order_payload = {
         ...{
           order_id: orderid,
-          cust_id: customer_details["cust_id"],
+          cust_id: customer_details['cust_id'],
           due_date: yyyymmdd(others.due_date),
           pickup_type: others.pickup_type,
           total_amount: total,
           advance_amount: advance,
           balance_amount: balance,
         },
-      };
+      }
 
       axios
+<<<<<<< HEAD
+        .post('/api/add_order/', order_payload)
+=======
         .post(API + "/api/add_order/", order_payload)
+>>>>>>> subash_new
         .then((res) => {
-          console.log("add_order", res.data);
+          console.log('add_order', res.data)
           if (res.data.status) {
-            var wc = "A";
+            var wc = 'A'
             for (var i = 0; i < tmpworks.length; i++) {
               const tmpwork_payload = {
                 ...{
@@ -287,11 +332,17 @@ function TakeOrder() {
                   qty: tmpworks[i].quantity,
                   work_amount: tmpworks[i].amount,
                 },
-              };
+              }
               axios
+<<<<<<< HEAD
+                .post('/api/add_order_work/', tmpwork_payload)
+                .then((res) => console.log('tmpworks', res.data))
+                .catch((err) => console.log(err))
+=======
                 .post(API + "/api/add_order_work/", tmpwork_payload)
                 .then((res) => console.log("tmpworks", res.data))
                 .catch((err) => console.log(err));
+>>>>>>> subash_new
 
               //   axios
               //     .post('/api/order_work_staff_assign/', {
@@ -309,18 +360,22 @@ function TakeOrder() {
                   order_id: orderid,
                   work_id: tmpworks[i].work_id,
                   order_work_label: tmpworks[i].work_id + wc,
-                });
+                })
                 axios
+<<<<<<< HEAD
+                  .post('/api/order_work_staff_assign/', {
+=======
                   .post(API + "/api/order_work_staff_assign/", {
+>>>>>>> subash_new
                     order_id: orderid,
                     order_work_label: tmpworks[i].work_id + wc,
                     work_id: tmpworks[i].work_id,
                   })
                   .then((res) => {
-                    console.log("order_work_staff_assign", res.data);
+                    console.log('order_work_staff_assign', res.data)
                   })
-                  .catch((err) => console.log(err));
-                wc = nextChar(wc);
+                  .catch((err) => console.log(err))
+                wc = nextChar(wc)
               }
 
               for (var j = 0; j < tmpmaterials.length; j++) {
@@ -331,24 +386,36 @@ function TakeOrder() {
                     qty: tmpmaterials[j].quantity,
                     material_amount: tmpmaterials[j].amount,
                   },
-                };
+                }
                 axios
+<<<<<<< HEAD
+                  .post('/api/add_order_material/', tmpmaterial_payload)
+                  .then((res) => console.log('tmpmaterials', res.data))
+                  .catch((err) => console.log(err))
+=======
                   .post(API + "/api/add_order_material/", tmpmaterial_payload)
                   .then((res) => console.log("tmpmaterials", res.data))
                   .catch((err) => console.log(err));
+>>>>>>> subash_new
               }
             }
           } else {
-            console.log("Unable to add Order");
+            console.log('Unable to add Order')
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
     } else {
-      alert("DueDate Required!");
+      alert('DueDate Required!')
     }
 
+<<<<<<< HEAD
+    console.log('cust_id', customer_details['cust_id'])
+    console.log(typeof others.due_date)
+  }
+=======
     console.log("advance",advance,"balance",balance,'total',total)
   };
+>>>>>>> subash_new
 
   return (
     <div>
@@ -369,16 +436,16 @@ function TakeOrder() {
           <div className="grid justify-center">
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type={"text"}
-              placeholder={"Mobile or Customer ID"}
+              type={'text'}
+              placeholder={'Mobile or Customer ID'}
               value={customer.cust_id}
               onChange={handleCustomer}
-              name={"cust_id"}
+              name={'cust_id'}
             />
             <input
-              type={"submit"}
-              className={"button text-white rounded p-3 m-3 bg-pink-600"}
-              value={"Check"}
+              type={'submit'}
+              className={'button text-white rounded p-3 m-3 bg-pink-600'}
+              value={'Check'}
               onClick={findCustomer}
             />
           </div>
@@ -398,8 +465,13 @@ function TakeOrder() {
       transition
       ease-in-out
       m-0
+<<<<<<< HEAD
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  name={'work_id'}
+=======
+      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none w-3"
                   name={"work_id"}
+>>>>>>> subash_new
                   onChange={handleWorkEvent}
                   required
                 >
@@ -424,9 +496,9 @@ function TakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  type={"text"}
-                  name={"qty"}
-                  placeholder={"Qty"}
+                  type={'text'}
+                  name={'qty'}
+                  placeholder={'Qty'}
                   onChange={handleWorkEvent}
                   onBlur={() => getWorkAmount(work.work_id)}
                   required
@@ -444,16 +516,16 @@ function TakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  type={"text"}
-                  name={"amount"}
-                  placeholder={"Amount"}
+                  type={'text'}
+                  name={'amount'}
+                  placeholder={'Amount'}
                   onChange={handleWorkEvent}
                   value={work.amount}
                   required
                 />
                 <input
-                  type={"submit"}
-                  value={"ADD"}
+                  type={'submit'}
+                  value={'ADD'}
                   className="mb-3 xl:w-30 bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                   onClick={addWork}
                 />
@@ -473,7 +545,7 @@ function TakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  name={"material_id"}
+                  name={'material_id'}
                   onChange={handleMaterialEvent}
                   required
                 >
@@ -497,9 +569,9 @@ function TakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  type={"text"}
-                  name={"qty"}
-                  placeholder={"Qty"}
+                  type={'text'}
+                  name={'qty'}
+                  placeholder={'Qty'}
                   onChange={handleMaterialEvent}
                   onBlur={() => getMaterialAmount(material.material_id)}
                   required
@@ -517,18 +589,18 @@ function TakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  type={"text"}
-                  name={"amount"}
-                  placeholder={"Amount"}
+                  type={'text'}
+                  name={'amount'}
+                  placeholder={'Amount'}
                   onChange={handleMaterialEvent}
                   value={material.amount}
                   required
                 />
                 <input
-                  type={"submit"}
-                  value={"ADD"}
+                  type={'submit'}
+                  value={'ADD'}
                   className={
-                    "mb-3 xl:w-30 bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                    'mb-3 xl:w-30 bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out'
                   }
                   onClick={addMaterial}
                 />
@@ -541,8 +613,8 @@ function TakeOrder() {
                       Booking Date:
                       <input
                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        type={"date"}
-                        name={"due_date"}
+                        type={'date'}
+                        name={'due_date'}
                         onChange={handleOther}
                       />
                     </div>
@@ -550,11 +622,11 @@ function TakeOrder() {
 
                   <div className="flex items-center justify-center">
                     <div className="datepicker relative form-floating mb-3 xl:w-96">
-                      End Date:
+                      Due Date:
                       <input
                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        type={"date"}
-                        name={"due_date"}
+                        type={'date'}
+                        name={'due_date'}
                         onChange={handleOther}
                       />
                     </div>
@@ -565,19 +637,19 @@ function TakeOrder() {
                     <p className="font-semibold">Pickup Type : </p>
                     <select
                       className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                      name={"pickup_type"}
+                      name={'pickup_type'}
                       onChange={handleOther}
                     >
                       <option selected hidden>
                         Choose Type
                       </option>
-                      <option value={"self"}>SELF</option>
-                      <option value={"courier"}>COURIER</option>
-                      <option value={"other"}>OTHER</option>
+                      <option value={'self'}>SELF</option>
+                      <option value={'courier'}>COURIER</option>
+                      <option value={'other'}>OTHER</option>
                     </select>
                   </snap>
 
-                  {others.pickup_type === "courier" ? (
+                  {others.pickup_type === 'courier' ? (
                     <snap>
                       <input
                         className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
@@ -590,68 +662,68 @@ function TakeOrder() {
       rounded
       transition
       ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 h-20 focus:outline-none"
-                        type={"text"}
-                        name={"courier_amount"}
-                        placeholder={"Courier Charge"}
+                        type={'text'}
+                        name={'courier_amount'}
+                        placeholder={'Courier Charge'}
                         onChange={(e) => {
-                          handleOther(e);
-                          update_balance_with_courier(e);
+                          handleOther(e)
+                          update_balance_with_courier(e)
                         }}
                         onBlur={() => {
                           // update_advance_amount();
-                          fetch();
+                          fetch()
                         }}
                       />
                     </snap>
                   ) : (
-                    ""
+                    ''
                   )}
                   <input
                     className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none h-15"
-                    type={"text"}
+                    type={'text'}
                     value={others.advance_amount}
-                    name={"advance_amount"}
+                    name={'advance_amount'}
                     onChange={(e) => {
-                      handleOther(e);
+                      handleOther(e)
                       // update_balance(e);
-                      update_balance_with_advance(e);
+                      update_balance_with_advance(e)
                     }}
-                    placeholder={"Advance Amount"}
+                    placeholder={'Advance Amount'}
                   />
                 </div>
               </div>
               {/*take order table*/}
-              <div className={"flex justify-center"}>
-                <table className={"border-collapse text-center"}>
+              <div className={'flex justify-center'}>
+                <table className={'border-collapse text-center'}>
                   <tr>
-                    <th className={"border border-slate-600 p-3"}>Work Name</th>
-                    <th className={"border border-slate-600 p-3"}>Quantity</th>
-                    <th className={"border border-slate-600 p-3"}>Amount</th>
-                    <th className={"border border-slate-600 p-3"}>Total</th>
-                    <th className={"border border-slate-600 p-3"}>Options</th>
+                    <th className={'border border-slate-600 p-3'}>Work Name</th>
+                    <th className={'border border-slate-600 p-3'}>Quantity</th>
+                    <th className={'border border-slate-600 p-3'}>Amount</th>
+                    <th className={'border border-slate-600 p-3'}>Total</th>
+                    <th className={'border border-slate-600 p-3'}>Options</th>
                   </tr>
                   {tmpworks !== []
                     ? tmpworks.map((e) => (
                         <tr>
-                          <td className={"border border-slate-600"}>
+                          <td className={'border border-slate-600'}>
                             {e.work_name}
                           </td>
-                          <td className={"border border-slate-600"}>
+                          <td className={'border border-slate-600'}>
                             {e.quantity}
                           </td>
-                          <td className={"border border-slate-600"}>
+                          <td className={'border border-slate-600'}>
                             {e.amount}
                           </td>
-                          <th className={"border border-slate-600"}>
+                          <th className={'border border-slate-600'}>
                             {e.total}
                           </th>
-                          <td className={"border border-slate-600"}>
+                          <td className={'border border-slate-600'}>
                             <button
                               className={
-                                "m-2 bg-rose-500 rounded p-2 text-white"
+                                'm-2 bg-rose-500 rounded p-2 text-white'
                               }
                               onClick={() => {
-                                delTmpWork(e.id);
+                                delTmpWork(e.id)
                               }}
                             >
                               <i className="fa fa-remove"></i>delete
@@ -659,27 +731,38 @@ function TakeOrder() {
                           </td>
                         </tr>
                       ))
-                    : ""}
+                    : ''}
 
                   {tmpmaterials !== []
                     ? tmpmaterials.map((e) => (
                         <tr>
-                          <td className={"border border-slate-600"}>
+                          <td className={'border border-slate-600'}>
                             {e.material_name}
                           </td>
-                          <td className={"border border-slate-600"}>
+                          <td className={'border border-slate-600'}>
                             {e.quantity}
                           </td>
-                          <td className={"border border-slate-600"}>
+                          <td className={'border border-slate-600'}>
                             {e.amount}
                           </td>
-                          <th className={"border border-slate-600"}>
+                          <th className={'border border-slate-600'}>
                             {e.total}
                           </th>
-                          <td className={"border border-slate-600"}>
+                          <td className={'border border-slate-600'}>
                             <button
                               className={
+<<<<<<< HEAD
+                                'm-2 bg-green-400 rounded p-2 text-white'
+                              }
+                            >
+                              <i className="fa fa-edit"></i>edit
+                            </button>
+                            <button
+                              className={
+                                'm-2 bg-rose-500 rounded p-2 text-white'
+=======
                                 "m-2 bg-rose-500 rounded p-2 text-white"
+>>>>>>> subash_new
                               }
                               onClick={() => delTmpMaterial(e.id)}
                             >
@@ -688,40 +771,40 @@ function TakeOrder() {
                           </td>
                         </tr>
                       ))
-                    : ""}
+                    : ''}
 
                   <tr>
-                    <td className={"border border-slate-600 p-3"} colSpan={"3"}>
+                    <td className={'border border-slate-600 p-3'} colSpan={'3'}>
                       Total
                     </td>
-                    <td className={"border border-slate-600 p-3"}>
+                    <td className={'border border-slate-600 p-3'}>
                       <b>{total}</b>
                     </td>
                   </tr>
 
                   <tr>
-                    <td className={"border border-slate-600 p-3"} colSpan={"3"}>
+                    <td className={'border border-slate-600 p-3'} colSpan={'3'}>
                       Advance Amount
                     </td>
-                    <td className={"border border-slate-600 p-3"}>
+                    <td className={'border border-slate-600 p-3'}>
                       <b>{advance}</b>
                     </td>
                   </tr>
 
                   <tr>
-                    <td className={"border border-slate-600 p-3"} colSpan={"3"}>
+                    <td className={'border border-slate-600 p-3'} colSpan={'3'}>
                       Courier Amount
                     </td>
-                    <td className={"border border-slate-600 p-3"}>
+                    <td className={'border border-slate-600 p-3'}>
                       <b>{others.courier_amount}</b>
                     </td>
                   </tr>
 
                   <tr>
-                    <td className={"border border-slate-600 p-3"} colSpan={"3"}>
+                    <td className={'border border-slate-600 p-3'} colSpan={'3'}>
                       Balance Amount
                     </td>
-                    <td className={"border border-slate-600 p-3"}>
+                    <td className={'border border-slate-600 p-3'}>
                       <b>{balance}</b>
                     </td>
                   </tr>
@@ -730,24 +813,24 @@ function TakeOrder() {
 
               {/*take order end*/}
 
-              <div className={"flex justify-center"}>
+              <div className={'flex justify-center'}>
                 <button
                   className={
-                    "text-white text-lg rounded button rounded p-3 m-3 bg-pink-600"
+                    'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
                   }
                 >
                   Add Voice Instruction
                 </button>
                 <button
                   className={
-                    "text-white text-lg rounded button rounded p-3 m-3 bg-pink-600"
+                    'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
                   }
                 >
                   Add Material Image
                 </button>
                 <button
                   className={
-                    "text-white text-lg rounded button rounded p-3 m-3 bg-pink-600"
+                    'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
                   }
                   onClick={printOrder}
                 >
@@ -755,7 +838,7 @@ function TakeOrder() {
                 </button>
                 <button
                   className={
-                    "text-white text-lg rounded button rounded p-3 m-3 bg-pink-600"
+                    'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
                   }
                 >
                   Add Instruction Image
@@ -763,12 +846,12 @@ function TakeOrder() {
               </div>
             </div>
           ) : (
-            ""
+            ''
           )}
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default TakeOrder;
+export default TakeOrder
