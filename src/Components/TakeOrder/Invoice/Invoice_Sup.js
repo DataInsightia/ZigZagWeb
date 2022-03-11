@@ -8,7 +8,7 @@ import "../invoice.css";
 
 
 
-export default function Invoice_Sup(){
+export default function InvoiceSup(){
 
     return (
         <div className="flex scroll items-center mt-16 justify-center min-h-screen bg-gray-100">
@@ -146,7 +146,6 @@ export default function Invoice_Sup(){
 
                 <div id="scissors"></div>
 
-                <div className="w-full h-0.5 bg-black" ></div>
 
                 <div className="p-4">
                     <div className="flex text-xl items-center justify-center">

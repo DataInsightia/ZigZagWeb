@@ -73,14 +73,16 @@ export default function Sidebar() {
                   >
                     ORDER STATUS
                   </Link>
+          
+
                   <Link
-                  to="/dashboard/invoice"
+                  to={`/dashboard/customer_orders/${"ZC43434"}/${"ZA786"}`}
                   className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
-                    INVOICE
+                    ORDERS
                   </Link>
                   <Link
-                    to="/dashboard/work_assign"
+                    to={"/dashboard/work_assign/"}
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
                     ORDER ASSIGN
@@ -126,6 +128,7 @@ export default function Sidebar() {
                   >
                     CURRENT WORKS
                   </Link>
+
                   <Link
                     to="/dashboard/work_complete"
                     className="font-bold text-1lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
@@ -169,10 +172,16 @@ export default function Sidebar() {
                     HOME
                   </Link>
                   <Link
-                    to="/dashboard/invoice"
+                    to="/dashboard/invoice_sup"
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
                     INVOICE
+                  </Link>
+                  <Link
+                    to="/dashboard/order_status"
+                    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                  >
+                    ORDER STATUS
                   </Link>
                   <Link
                     to="/dashboard/dhome"
