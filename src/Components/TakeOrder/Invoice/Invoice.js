@@ -56,17 +56,18 @@ export default function Invoice(){
         <div className="flex justify-center p-1 flex">
           <div className="flex justify-center">
             <img src={invoiceimg} className="w-20 md:w-32 lg:w-28"/>
-           <div className="w-30">
+           <div className="w-30 text-center">
              <br/>
-           <span className="text-rose-500 text-xl">
-             Chedinadu ZigZag
+           <span className="text-rose-500 text-2xl">
+             Chettinad ZigZag
            </span><br/>
-             <span className="text-xl">
+           <span className="text-xl">
              Mobile:+91 7878787878
            </span><br/>
-             <span className="text-sm">
-            Address: Joe Smith 795 Folsom Ave San Francisco, CA 94107
+             <span className="text-sm font-bold">
+            Address: 333A Poisolla Meiyar Street Near Daily Market, Udhyam Lodge Building, Karaikudi, Tamil Nadu 630001 
            </span>
+           
            </div>
           </div>
           <div className="p-2">
