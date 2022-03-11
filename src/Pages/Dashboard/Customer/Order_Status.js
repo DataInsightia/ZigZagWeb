@@ -3,29 +3,58 @@ import 'font-awesome/css/font-awesome.min.css';
 import axios from 'axios';
 import API from '../../../api'
 
-function OrderStatus() {
+function CustomerOrderStatus() {
     const [stage,setStage] = useState([])
     const [wa_stage,setWAstage] = useState([])
-    useEffect(async() => {
-        const os_res = await axios.post(API + '/api/order_status/',{"order_id": "ZA786"})
-        if (os_res.data.status) {setStage(os_res.data.details)} else {
-            alert("order not found")
-        }
+    const [showModal, setShowModal] = useState(false);
+    const [staffPic,setStaffPic] = useState('');
+    const [orderid,setOrderID] = useState({});
 
-        const wsa_os_res = await axios.post(API + '/api/order_status_oa/',{"order_id": "ZA786"})
-        if (wsa_os_res) {setWAstage(wsa_os_res.data)} else {
-            alert("no data")
-        }
+    const handleEvent = (e) => setOrderID({ ...orderid, [e.target.name]: e.target.value });
+
+    const checkOrder = (e) => {
+        e.preventDefault();
+        // // ZA786
+        axios.post(API + '/api/order_status_admin/',orderid).then(res => {
+            if (res.data.status) {
+                setStage(res.data.details);
+            } else {
+                console.log(res.data.details)
+            }
+        })
+
+        axios.post(API + '/api/order_status_oa_admin/',orderid).then(res => {
+            if (res.data.status) {
+                setWAstage(res.data.data);
+            } else {
+                console.log("no data")
+            }
+        })
+    }
+
+    // useEffect(async() => {
+    //     const os_res = await axios.post(API + '/api/order_status/',orderid)
+    //     if (os_res.data.status) {setStage(os_res.data.details)} 
+
+    //     const wsa_os_res = await axios.post(API + '/api/order_status_oa/',orderid)
+    //     if (wsa_os_res) {setWAstage(wsa_os_res.data)} 
         
-    },[]);
+    // },[]);
+
     return (
         <div className="bg-gray-50 mt-16">
         <div className="p-4 mt-4">
-            <h1 className="text-4xl text-center font-semibold mb-6">Package status</h1>
+            <h1 className="text-4xl text-center font-semibold mb-6">Order status</h1>
             <br/>
 
 
             <div className="container">
+
+            <form className="grid justify-center" onSubmit={checkOrder}>
+        <input required  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" placeholder={'Order ID'} onChange={handleEvent}/>
+        <div className="grid justify-center">
+            <input  className={"justify-center button text-white rounded p-3 m-3 bg-pink-600"} type="submit" /></div>
+    </form>
 
                 {/*product status start*/}
 
@@ -190,4 +219,4 @@ function OrderStatus() {
     );
 }
 
-export default OrderStatus;
+export default CustomerOrderStatus;

@@ -18,6 +18,7 @@ import StaffWageCalculation from "../Pages/Dashboard/Staf/StaffWageCalculation";
 import StaffWageGiven from "../Pages/Dashboard/Staf/StaffWageGiven";
 import StaffList from '../Pages/Dashboard/Staf/WageList'
 import Order_Status from "../Pages/Dashboard/Admin/Order_Status";
+import CustomerOrderStatus from "../Pages/Dashboard/Customer/Order_Status";
 import InvoiceSup from "../Components/TakeOrder/Invoice/Invoice_Sup";
 import OrderHistory from "../Pages/Dashboard/Admin/Order_History";
 import Order_Status_Home from "../Pages/Home/Order_Status_Home";
@@ -67,7 +68,8 @@ export default function Router() {
         { path: 'edit_profile',element: <EditProfile/>},
           //customer
         { path: 'invoice_sup', element: <InvoiceSup />},
-        { path: 'order_status', element: <Order_Status /> },
+        // { path: 'order_status', element: <Order_Status /> },
+        { path: 'customer_order_status', element: <CustomerOrderStatus /> },
         { path: 'order_history', element: <OrderHistory/>}
 
       ],
