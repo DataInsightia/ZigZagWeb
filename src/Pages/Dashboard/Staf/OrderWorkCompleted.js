@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import styles from '../Staf/Style/Styles'
-<<<<<<< HEAD
-import API from '../../../api';
-=======
 import API from '../../../api'
->>>>>>> subash_new
 
 function OrderWorkCompleted() {
   const [workcompleted, setworkcompleted] = useState([])
@@ -15,13 +11,8 @@ function OrderWorkCompleted() {
 
   useEffect(() => {
     axios
-<<<<<<< HEAD
-      .post(
-        API + '/api/work_completed/',
-=======
       .post(API +
         '/api/work_completed/',
->>>>>>> subash_new
         {
           staff_id,
         },

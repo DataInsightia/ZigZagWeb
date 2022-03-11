@@ -50,17 +50,10 @@ function TakeOrder() {
   })
 
   const fetch = async () => {
-<<<<<<< HEAD
-    var materials = await axios.post('/api/tmp_materials/', {
-      order_id: orderid,
-    })
-    var works = await axios.post('/api/tmp_works/', { order_id: orderid })
-=======
     var materials = await axios.post(API + "/api/tmp_materials/", {
       order_id: orderid,
     });
     var works = await axios.post(API + "/api/tmp_works/", { order_id: orderid });
->>>>>>> subash_new
     var total =
       (works.data.status === undefined ? works.data.total.total__sum : 0) +
       (materials.data.status === undefined
@@ -107,11 +100,7 @@ function TakeOrder() {
     setAdvance(parseInt(others.advance_amount))
   const fetch_work_table = () =>
     axios
-<<<<<<< HEAD
-      .post('/api/tmp_works/', { order_id: orderid })
-=======
       .post(API + "/api/tmp_works/", { order_id: orderid })
->>>>>>> subash_new
       .then((res) => {
         if ('status' in res.data) {
           console.log(res.data)
@@ -126,11 +115,7 @@ function TakeOrder() {
 
   const fetch_material_table = () =>
     axios
-<<<<<<< HEAD
-      .post('/api/tmp_materials/', { order_id: orderid })
-=======
       .post(API + "/api/tmp_materials/", { order_id: orderid })
->>>>>>> subash_new
       .then((res) => {
         if ('status' in res.data) {
           console.log(res.data)
@@ -144,16 +129,6 @@ function TakeOrder() {
       })
 
   const fetch_materials = async () => {
-<<<<<<< HEAD
-    var materials = await axios.get('/api/materials/')
-    setMaterials(materials.data)
-  }
-
-  const fetch_works = async () => {
-    var works = await axios.get('/api/works/')
-    setWorks(works.data)
-  }
-=======
     var materials = await axios.get(API + "/api/materials/");
     setMaterials(materials.data);
   };
@@ -162,7 +137,6 @@ function TakeOrder() {
     var works = await axios.get(API + "/api/works/");
     setWorks(works.data);
   };
->>>>>>> subash_new
 
   const handleWorkEvent = (e) =>
     setWork({ ...work, [e.target.name]: e.target.value })
@@ -192,11 +166,7 @@ function TakeOrder() {
     console.log(work)
     // Insert to tmp_work
     axios
-<<<<<<< HEAD
-      .post('/api/tmp_work/', work)
-=======
       .post(API + "/api/tmp_work/", work)
->>>>>>> subash_new
       .then((res) => {
         console.log(res.data)
         fetch_work_table()
@@ -214,11 +184,7 @@ function TakeOrder() {
     material['total'] = parseInt(material['qty']) * parseInt(material['amount'])
     // Insert to tmp_material
     axios
-<<<<<<< HEAD
-      .post('/api/tmp_material/', material)
-=======
       .post(API + "/api/tmp_material/", material)
->>>>>>> subash_new
       .then((res) => {
         fetch_material_table()
         fetch()
@@ -230,11 +196,7 @@ function TakeOrder() {
 
   const delTmpWork = (id) => {
     axios
-<<<<<<< HEAD
-      .post('/api/del_tmpwork/', { id: id })
-=======
       .post(API + "/api/del_tmpwork/", { id: id })
->>>>>>> subash_new
       .then((res) => {
         console.log(res.data)
         fetch_work_table()
@@ -249,11 +211,7 @@ function TakeOrder() {
 
   const delTmpMaterial = (id) => {
     axios
-<<<<<<< HEAD
-      .post('/api/del_tmpmaterial/', { id: id })
-=======
       .post(API + "/api/del_tmpmaterial/", { id: id })
->>>>>>> subash_new
       .then((res) => {
         console.log(res.data)
         fetch_material_table()
@@ -315,11 +273,7 @@ function TakeOrder() {
       }
 
       axios
-<<<<<<< HEAD
-        .post('/api/add_order/', order_payload)
-=======
         .post(API + "/api/add_order/", order_payload)
->>>>>>> subash_new
         .then((res) => {
           console.log('add_order', res.data)
           if (res.data.status) {
@@ -334,15 +288,9 @@ function TakeOrder() {
                 },
               }
               axios
-<<<<<<< HEAD
-                .post('/api/add_order_work/', tmpwork_payload)
-                .then((res) => console.log('tmpworks', res.data))
-                .catch((err) => console.log(err))
-=======
                 .post(API + "/api/add_order_work/", tmpwork_payload)
                 .then((res) => console.log("tmpworks", res.data))
                 .catch((err) => console.log(err));
->>>>>>> subash_new
 
               //   axios
               //     .post('/api/order_work_staff_assign/', {
@@ -362,11 +310,7 @@ function TakeOrder() {
                   order_work_label: tmpworks[i].work_id + wc,
                 })
                 axios
-<<<<<<< HEAD
-                  .post('/api/order_work_staff_assign/', {
-=======
                   .post(API + "/api/order_work_staff_assign/", {
->>>>>>> subash_new
                     order_id: orderid,
                     order_work_label: tmpworks[i].work_id + wc,
                     work_id: tmpworks[i].work_id,
@@ -388,15 +332,9 @@ function TakeOrder() {
                   },
                 }
                 axios
-<<<<<<< HEAD
-                  .post('/api/add_order_material/', tmpmaterial_payload)
-                  .then((res) => console.log('tmpmaterials', res.data))
-                  .catch((err) => console.log(err))
-=======
                   .post(API + "/api/add_order_material/", tmpmaterial_payload)
                   .then((res) => console.log("tmpmaterials", res.data))
                   .catch((err) => console.log(err));
->>>>>>> subash_new
               }
             }
           } else {
@@ -408,14 +346,8 @@ function TakeOrder() {
       alert('DueDate Required!')
     }
 
-<<<<<<< HEAD
-    console.log('cust_id', customer_details['cust_id'])
-    console.log(typeof others.due_date)
-  }
-=======
     console.log("advance",advance,"balance",balance,'total',total)
   };
->>>>>>> subash_new
 
   return (
     <div>
@@ -465,13 +397,8 @@ function TakeOrder() {
       transition
       ease-in-out
       m-0
-<<<<<<< HEAD
-      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  name={'work_id'}
-=======
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none w-3"
                   name={"work_id"}
->>>>>>> subash_new
                   onChange={handleWorkEvent}
                   required
                 >
@@ -751,18 +678,7 @@ function TakeOrder() {
                           <td className={'border border-slate-600'}>
                             <button
                               className={
-<<<<<<< HEAD
-                                'm-2 bg-green-400 rounded p-2 text-white'
-                              }
-                            >
-                              <i className="fa fa-edit"></i>edit
-                            </button>
-                            <button
-                              className={
-                                'm-2 bg-rose-500 rounded p-2 text-white'
-=======
                                 "m-2 bg-rose-500 rounded p-2 text-white"
->>>>>>> subash_new
                               }
                               onClick={() => delTmpMaterial(e.id)}
                             >

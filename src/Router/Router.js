@@ -15,7 +15,6 @@ import StaffWorkTaken from '../Pages/Dashboard/Staf/StaffWorkTaken'
 import OrderWorkCompleted from '../Pages/Dashboard/Staf/OrderWorkCompleted'
 import EditProfile from "../Pages/Dashboard/Staf/EditProfile";
 import StaffWageCalculation from "../Pages/Dashboard/Staf/StaffWageCalculation";
-import StaffWageGiven from "../Pages/Dashboard/Staf/StaffWageGiven";
 import StaffList from '../Pages/Dashboard/Staf/WageList'
 import Order_Status from "../Pages/Dashboard/Admin/Order_Status";
 
