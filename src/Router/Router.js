@@ -15,7 +15,6 @@ import StaffWorkTaken from '../Pages/Dashboard/Staf/StaffWorkTaken'
 import OrderWorkCompleted from '../Pages/Dashboard/Staf/OrderWorkCompleted'
 import EditProfile from "../Pages/Dashboard/Staf/EditProfile";
 import StaffWageCalculation from "../Pages/Dashboard/Staf/StaffWageCalculation";
-import StaffWageGiven from "../Pages/Dashboard/Staf/StaffWageGiven";
 import StaffList from '../Pages/Dashboard/Staf/WageList'
 import Order_Status from "../Pages/Dashboard/Admin/Order_Status";
 import InvoiceSup from "../Components/TakeOrder/Invoice/Invoice_Sup";
@@ -49,9 +48,9 @@ export default function Router() {
         { path: 'takeorder', element: <TakeOrder /> },
         // { path: 'invoice/', element: <Invoice /> },
         { path: 'invoice/:custid/:orderid', element: <Invoice /> },
+        { path: 'customer_orders/:custid', element: <Orders /> },
         { path: 'work_assign', element: <OrderWorkStaffAssign /> },
         { path: 'order_approval', element: <OrderWorkApproval /> },
-        { path: 'customer_orders/:custid/:orderid', element: <Orders /> },
         { path: 'orders', element: <StaffWorkTaken /> },
         { path: 'work_complete', element: <OrderWorkStaffCompletion /> },
         { path: 'completed_work', element: <OrderWorkCompleted /> },

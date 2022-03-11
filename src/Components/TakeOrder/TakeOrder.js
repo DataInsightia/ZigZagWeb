@@ -5,6 +5,7 @@ import QRCode from 'react-qr-code'
 import './qr.css'
 import $ from 'jquery'
 import './button.css'
+import Datepicker from '@themesberg/tailwind-datepicker/Datepicker';
 
 function TakeOrder() {
   $(function () {
@@ -91,6 +92,11 @@ function TakeOrder() {
     return today
   }
 
+  const c_date = () => {
+    var date = new Date();
+    return `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`
+  }
+
   const yyyymmdd = (dateIn) => {
     var parts = dateIn.split('-')
     return parts[0] + '-' + parts[1] + '-' + parts[2]
@@ -174,7 +180,7 @@ function TakeOrder() {
       })
       .catch((err) => console.log(err))
     fetch_work_table()
-    fetch()
+    // fetch()
   }
 
   const addMaterial = (e) => {
@@ -191,7 +197,7 @@ function TakeOrder() {
       })
       .catch((err) => console.log(err))
     fetch_material_table()
-    fetch()
+    // fetch()
   }
 
   const delTmpWork = (id) => {
@@ -269,6 +275,7 @@ function TakeOrder() {
           total_amount: total,
           advance_amount: advance,
           balance_amount: balance,
+          courier_amount: others.courier_amount
         },
       }
 
@@ -334,6 +341,7 @@ function TakeOrder() {
         })
         .catch((err) => console.log(err))
     } else {
+      setBalance((total + parseInt(others.courier_amount)) - advance)
       alert('DueDate Required!')
     }
 
@@ -532,6 +540,7 @@ function TakeOrder() {
                       <input
                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         type={'date'}
+                        defaultValue={() => c_date()}
                         name={'due_date'}
                         onChange={handleOther}
                       />
@@ -721,20 +730,7 @@ function TakeOrder() {
               {/*take order end*/}
 
               <div className={'flex justify-center'}>
-                <button
-                  className={
-                    'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
-                  }
-                >
-                  Add Voice Instruction
-                </button>
-                <button
-                  className={
-                    'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
-                  }
-                >
-                  Add Material Image
-                </button>
+                
                 <button
                   className={
                     'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
@@ -743,13 +739,7 @@ function TakeOrder() {
                 >
                   Print Order
                 </button>
-                <button
-                  className={
-                    'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
-                  }
-                >
-                  Add Instruction Image
-                </button>
+               
               </div>
             </div>
           ) : (

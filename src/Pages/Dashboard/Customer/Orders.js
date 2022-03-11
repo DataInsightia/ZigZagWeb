@@ -5,16 +5,17 @@ import API from '../../../api'
 
 
 function Orders() {
-    const {custid,orderid} = useParams();
+    const {custid} = useParams();
+
     // const custid = "ZC43434"
     // const orderid = "ZA786"
 
-    console.log(custid,orderid);
+    console.log(custid);
 
     const [orders,setOrders] = useState([]);
 
     useEffect(() => {
-        axios.get(API + `/api/customer_orders/${custid}/${orderid}/`).then(res => {
+        axios.get(API + `/api/customer_orders/${custid}/`).then(res => {
             setOrders(res.data)
         }).catch(err => console.log(err))
     },[]);
@@ -30,13 +31,14 @@ function Orders() {
                                 <th>Orders</th>
                             </tr>
                             <tr>
+                                
                                 {
                                     orders.map(e => <td>
                                            <Link
-                                            to={"/dashboard/invoice/" + custid +"/"+ orderid}
+                                            to={"/dashboard/invoice/" + custid +"/" + e.order_id}
                                             className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                                             >
-                                                {e.work.work_name}
+                                                {e.order_id} {e.work_name} x {e.quantity}
                                             </Link>
                                     </td>)
                                 }
