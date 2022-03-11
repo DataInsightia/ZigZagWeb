@@ -56,13 +56,13 @@ function TakeOrder() {
     });
     var works = await axios.post(API + "/api/tmp_works/", { order_id: orderid });
     var total =
-        (works.data.status === undefined ? works.data.total.total__sum : 0) +
-        (materials.data.status === undefined
-            ? materials.data.total.total__sum
-            : 0);
-    setTotal(total);
-    setBalance(total);
-  };
+      (works.data.status === undefined ? works.data.total.total__sum : 0) +
+      (materials.data.status === undefined
+        ? materials.data.total.total__sum
+        : 0)
+    setTotal(total)
+    setBalance(total)
+  }
 
   useEffect(() => {
     fetch_works()
@@ -103,7 +103,7 @@ function TakeOrder() {
   }
 
   const update_advance_amount = () =>
-      setAdvance(parseInt(others.advance_amount));
+    setAdvance(parseInt(others.advance_amount))
   const fetch_work_table = () =>
     axios
       .post(API + "/api/tmp_works/", { order_id: orderid })
@@ -145,24 +145,24 @@ function TakeOrder() {
   };
 
   const handleWorkEvent = (e) =>
-      setWork({ ...work, [e.target.name]: e.target.value });
+    setWork({ ...work, [e.target.name]: e.target.value })
   const handleMaterialEvent = (e) =>
-      setMaterial({ ...material, [e.target.name]: e.target.value });
+    setMaterial({ ...material, [e.target.name]: e.target.value })
   const handleCustomer = (e) =>
-      setCustomer({ ...customer, [e.target.name]: e.target.value });
+    setCustomer({ ...customer, [e.target.name]: e.target.value })
   const handleOther = (e) =>
-      setOthers({ ...others, [e.target.name]: e.target.value });
+    setOthers({ ...others, [e.target.name]: e.target.value })
 
   const getWorkAmount = (wn) =>
-      setWork({
-        ...work,
-        ["amount"]: works.find((e) => e.work_id === wn)["amount"],
-      });
+    setWork({
+      ...work,
+      ['amount']: works.find((e) => e.work_id === wn)['amount'],
+    })
   const getMaterialAmount = (mn) =>
-      setMaterial({
-        ...material,
-        ["amount"]: materials.find((e) => e.material_id === mn)["amount"],
-      });
+    setMaterial({
+      ...material,
+      ['amount']: materials.find((e) => e.material_id === mn)['amount'],
+    })
 
   const addWork = (e) => {
     e.preventDefault()
@@ -184,11 +184,10 @@ function TakeOrder() {
   }
 
   const addMaterial = (e) => {
-    e.preventDefault();
-    material["cust_id"] = customer_details["cust_id"];
-    material["order_id"] = orderid;
-    material["total"] =
-        parseInt(material["qty"]) * parseInt(material["amount"]);
+    e.preventDefault()
+    material['cust_id'] = customer_details['cust_id']
+    material['order_id'] = orderid
+    material['total'] = parseInt(material['qty']) * parseInt(material['amount'])
     // Insert to tmp_material
     axios
       .post(API + "/api/tmp_material/", material)
@@ -233,20 +232,20 @@ function TakeOrder() {
   const findCustomer = (e) => {
     e.preventDefault()
     axios
-        .post(API + "/api/customer_details/", customer)
-        .then((res) => {
-          if (res.data.length !== 0) {
-            SetCustomerDetails(res.data[0]);
-            setCust(true);
-            console.log(res.data);
-          }else{
-            console.log("This is Admin or Staff Mobile Number")
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  };
+      .post(API + '/api/customer_details/', customer)
+      .then((res) => {
+        if (res.data.length !== 0) {
+          SetCustomerDetails(res.data[0])
+          setCust(true)
+          console.log(res.data)
+        } else {
+          console.log('This is Admin or Staff Mobile Number')
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   const update_balance_with_courier = (e) => {
     var courier = parseInt(e.target.value)
@@ -324,9 +323,10 @@ function TakeOrder() {
                 const tmpmaterial_payload = {
                   ...{
                     order_id: orderid,
-                    work_id: tmpworks[i].work_id,
-                    qty: tmpworks[i].quantity,
-                    work_amount: tmpworks[i].amount,
+                    material_id: tmpmaterials[j].material_id,
+                    qty: tmpmaterials[j].quantity,
+                    material_amount: tmpmaterials[j].amount,
+                    material_name: tmpmaterials[j].material_name,
                   },
                 }
                 axios
@@ -334,11 +334,12 @@ function TakeOrder() {
                   .then((res) => console.log("tmpmaterials", res.data))
                   .catch((err) => console.log(err));
               }
-            } else {
-              console.log("Unable to add Order");
             }
-          })
-          .catch((err) => console.log(err));
+          } else {
+            console.log('Unable to add Order')
+          }
+        })
+        .catch((err) => console.log(err))
     } else {
       setBalance((total + parseInt(others.courier_amount)) - advance)
       alert('DueDate Required!')
@@ -347,58 +348,44 @@ function TakeOrder() {
     console.log("advance",advance,"balance",balance,'total',total)
   };
 
-
   return (
-      <div>
-        <div className="mt-10">
-          <div className="bg-white border-x-0 shadow-md rounded px-8 pt-8 pb-8 mb-4">
-              <div className="flex flex-wrap justify-evenly">
-                  <div className="flex flex-col">
-                  <div className="text-center grid grid-cols-0">
-                      <h6 className="text-black">Order No : {orderid}</h6>
-                  </div>
-                  <br />
-                  <div className="grid justify-items-center ">
-                      <QRCode
-                          size={100}
-                          className="object-contain shadow-2xl qr-code "
-                          value={orderid}
-                      />
-                  </div>
-                  <br />
-                  <div className="grid justify-center">
-                      <input
-                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                          type={"text"}
-                          placeholder={"Mobile or Customer ID"}
-                          value={customer.cust_id}
-                          onChange={handleCustomer}
-                          name={"cust_id"}
-                      />
-                      <input
-                          type={"submit"}
-                          className={"button text-white rounded p-3 m-3 bg-pink-600"}
-                          value={"Check"}
-                          onClick={findCustomer}
-                      />
-                  </div>
-                  </div>
-                  <div className="grid mt-5">
-                      <span className="text-xl">Customer Id:{customer_details.cust_id}</span>
-                      <span className="text-xl">Name :{customer_details.cust_name}</span>
-                      <span className="text-xl">Mobile :{customer_details.mobile}</span>
-                      <span className="text-xl">Email:{customer_details.email}</span>
-                  </div>
-              </div>
+    <div>
+      <div className="mt-10">
+        <div className="bg-white border-x-0 shadow-md rounded px-8 pt-8 pb-8 mb-4">
+          <div className="text-center grid grid-cols-0">
+            <h6 className="text-black">Order No : {orderid}</h6>
+          </div>
+          <br />
+          <div className="grid justify-items-center ">
+            <QRCode
+              size={100}
+              className="object-contain shadow-2xl qr-code "
+              value={orderid}
+            />
+          </div>
+          <br />
+          <div className="grid justify-center">
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type={'text'}
+              placeholder={'Mobile or Customer ID'}
+              value={customer.cust_id}
+              onChange={handleCustomer}
+              name={'cust_id'}
+            />
+            <input
+              type={'submit'}
+              className={'button text-white rounded p-3 m-3 bg-pink-600'}
+              value={'Check'}
+              onClick={findCustomer}
+            />
+          </div>
 
-              <br/>
-
-
-            {cust ? (
-                <div>
-                  <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
-                    <select
-                        className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+          {cust ? (
+            <div>
+              <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
+                <select
+                  className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
       py-2
       text-xl
       font-normal
@@ -435,15 +422,15 @@ function TakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        type={"text"}
-                        name={"qty"}
-                        placeholder={"Qty"}
-                        onChange={handleWorkEvent}
-                        onBlur={() => getWorkAmount(work.work_id)}
-                        required
-                    />
-                    <input
-                        className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                  type={'text'}
+                  name={'qty'}
+                  placeholder={'Qty'}
+                  onChange={handleWorkEvent}
+                  onBlur={() => getWorkAmount(work.work_id)}
+                  required
+                />
+                <input
+                  className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
       py-2
       text-xl
       font-normal
@@ -455,24 +442,24 @@ function TakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        type={"text"}
-                        name={"amount"}
-                        placeholder={"Amount"}
-                        onChange={handleWorkEvent}
-                        value={work.amount}
-                        required
-                    />
-                    <input
-                        type={"submit"}
-                        value={"ADD"}
-                        className="mb-3 xl:w-30 bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                        onClick={addWork}
-                    />
-                  </div>
+                  type={'text'}
+                  name={'amount'}
+                  placeholder={'Amount'}
+                  onChange={handleWorkEvent}
+                  value={work.amount}
+                  required
+                />
+                <input
+                  type={'submit'}
+                  value={'ADD'}
+                  className="mb-3 xl:w-30 bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                  onClick={addWork}
+                />
+              </div>
 
-                  <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
-                    <select
-                        className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+              <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
+                <select
+                  className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
       py-2
       text-xl
       font-normal
@@ -484,19 +471,19 @@ function TakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        name={"material_id"}
-                        onChange={handleMaterialEvent}
-                        required
-                    >
-                      <option selected hidden>
-                        Material
-                      </option>
-                      {materials.map((e) => (
-                          <option value={e.material_id}>{e.material_name}</option>
-                      ))}
-                    </select>
-                    <input
-                        className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                  name={'material_id'}
+                  onChange={handleMaterialEvent}
+                  required
+                >
+                  <option selected hidden>
+                    Material
+                  </option>
+                  {materials.map((e) => (
+                    <option value={e.material_id}>{e.material_name}</option>
+                  ))}
+                </select>
+                <input
+                  className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
       py-2
       text-xl
       font-normal
@@ -508,15 +495,15 @@ function TakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        type={"text"}
-                        name={"qty"}
-                        placeholder={"Qty"}
-                        onChange={handleMaterialEvent}
-                        onBlur={() => getMaterialAmount(material.material_id)}
-                        required
-                    />
-                    <input
-                        className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                  type={'text'}
+                  name={'qty'}
+                  placeholder={'Qty'}
+                  onChange={handleMaterialEvent}
+                  onBlur={() => getMaterialAmount(material.material_id)}
+                  required
+                />
+                <input
+                  className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
       py-2
       text-xl
       font-normal
@@ -560,53 +547,39 @@ function TakeOrder() {
                     </div>
                   </div>
 
-                  <div className="grid justify-center">
-                    <div className="flex flex-wrap -mx-2 mb-7 space-x-40">
-                      <div className="flex items-center justify-center">
-                        <div className="datepicker relative form-floating mb-3 xl:w-96">
-                          Booking Date:
-                          <input
-                              className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                              type={"date"}
-                              name={"due_date"}
-                              onChange={handleOther}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-center">
-                        <div className="datepicker relative form-floating mb-3 xl:w-96">
-                          Due Date:
-                          <input
-                              className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                              type={"date"}
-                              name={"due_date"}
-                              onChange={handleOther}
-                          />
-                        </div>
-                      </div>
+                  <div className="flex items-center justify-center">
+                    <div className="datepicker relative form-floating mb-3 xl:w-96">
+                      Due Date:
+                      <input
+                        className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        type={'date'}
+                        name={'due_date'}
+                        onChange={handleOther}
+                      />
                     </div>
-                    <div className="flex flex-wrap justify-center -mx-3 mb-6 space-x-20">
-                      <snap>
-                        <p className="font-semibold">Pickup Type : </p>
-                        <select
-                            className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name={"pickup_type"}
-                            onChange={handleOther}
-                        >
-                          <option selected hidden>
-                            Choose Type
-                          </option>
-                          <option value={"self"}>SELF</option>
-                          <option value={"courier"}>COURIER</option>
-                          <option value={"other"}>OTHER</option>
-                        </select>
-                      </snap>
+                  </div>
+                </div>
+                <div className="flex flex-wrap justify-center -mx-3 mb-6 space-x-20">
+                  <snap>
+                    <p className="font-semibold">Pickup Type : </p>
+                    <select
+                      className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                      name={'pickup_type'}
+                      onChange={handleOther}
+                    >
+                      <option selected hidden>
+                        Choose Type
+                      </option>
+                      <option value={'self'}>SELF</option>
+                      <option value={'courier'}>COURIER</option>
+                      <option value={'other'}>OTHER</option>
+                    </select>
+                  </snap>
 
-                      {others.pickup_type === "courier" ? (
-                          <snap>
-                            <input
-                                className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                  {others.pickup_type === 'courier' ? (
+                    <snap>
+                      <input
+                        className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
       py-2
       text-xl
       font-normal
@@ -616,33 +589,17 @@ function TakeOrder() {
       rounded
       transition
       ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 h-20 focus:outline-none"
-                                type={"text"}
-                                name={"courier_amount"}
-                                placeholder={"Courier Charge"}
-                                onChange={(e) => {
-                                  handleOther(e);
-                                  update_balance_with_courier(e);
-                                }}
-                                onBlur={() => {
-                                  // update_advance_amount();
-                                  fetch();
-                                }}
-                            />
-                          </snap>
-                      ) : (
-                          ""
-                      )}
-                      <input
-                          className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none h-15"
-                          type={"text"}
-                          value={others.advance_amount}
-                          name={"advance_amount"}
-                          onChange={(e) => {
-                            handleOther(e);
-                            // update_balance(e);
-                            update_balance_with_advance(e);
-                          }}
-                          placeholder={"Advance Amount"}
+                        type={'text'}
+                        name={'courier_amount'}
+                        placeholder={'Courier Charge'}
+                        onChange={(e) => {
+                          handleOther(e)
+                          update_balance_with_courier(e)
+                        }}
+                        onBlur={() => {
+                          // update_advance_amount();
+                          fetch()
+                        }}
                       />
                     </snap>
                   ) : (
@@ -790,7 +747,8 @@ function TakeOrder() {
           )}
         </div>
       </div>
-  );
+    </div>
+  )
 }
 
-export default TakeOrder;
+export default TakeOrder
