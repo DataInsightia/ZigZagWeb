@@ -5,9 +5,6 @@ import axios from "axios";
 import API from "../../../api";
 import "../invoice.css";
 
-
-
-
 export default function Invoice(){
 
   return (

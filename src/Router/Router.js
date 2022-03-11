@@ -55,7 +55,7 @@ export default function Router() {
         { path: 'work_assign', element: <OrderWorkStaffAssign /> },
         { path: 'order_approval', element: <OrderWorkApproval /> },
         { path: 'customer_orders/:custid/:orderid', element: <Orders /> },
-        { path: 'customer_order_history', element: <CustomerOrderHistory /> },
+        { path: 'customer_order_history/:custid', element: <CustomerOrderHistory /> },
         { path: 'orders', element: <StaffWorkTaken /> },
         { path: 'work_complete', element: <OrderWorkStaffCompletion /> },
         { path: 'completed_work', element: <OrderWorkCompleted /> },
