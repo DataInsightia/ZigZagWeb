@@ -46,11 +46,11 @@ export default function Router() {
         { path: 'dhome', element: <DashboardHome /> },
 
         { path: 'takeorder', element: <TakeOrder /> },
-        { path: 'invoice/', element: <Invoice /> },
+        // { path: 'invoice/', element: <Invoice /> },
         { path: 'invoice/:custid/:orderid', element: <Invoice /> },
+        { path: 'customer_orders/:custid', element: <Orders /> },
         { path: 'work_assign', element: <OrderWorkStaffAssign /> },
         { path: 'order_approval', element: <OrderWorkApproval /> },
-        { path: 'customer_orders/:custid/:orderid', element: <Orders /> },
         { path: 'orders', element: <StaffWorkTaken /> },
         { path: 'work_complete', element: <OrderWorkStaffCompletion /> },
         { path: 'completed_work', element: <OrderWorkCompleted /> },

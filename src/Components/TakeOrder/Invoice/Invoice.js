@@ -12,13 +12,15 @@ export default function Invoice(){
   const [tmpmaterial,setTmpMaterial] = useState([]);
   const [tmpworktotal,setTmpWorkTotal] = useState(0)
   const [tmpmaterialtotal,setMaterialTotal] = useState(0)
-  const [customerdetails,setCustomerDetails] = useState({});
+  const [customerdetails,setCustomerDetails] = useState([]);
 
-  const [orderInvoice,setOrderInvoice] = useState([]);
+  const [order,setOrder] = useState({});
+  const [orderWork,setOrderWork] = useState([{}]);
+  const [orderMaterial,setOrderMaterial] = useState([{}]);
 
   const {custid,orderid} = useParams();
 
-  //  const custid = "ZC43434"
+  //  const custid = "ZC43434"  
   //   const orderid = "ZA786"
 
 
@@ -26,9 +28,13 @@ export default function Invoice(){
 
   useEffect(() => {
     axios.post(API + "/api/order_invoice/",{"order_id" : orderid ,"cust_id" : custid})
-    .then(res => {if (res.data.status) {
-      setOrderInvoice(res.data);
-    }})
+    .then(res => {
+      if (res.data.status) {
+      setOrder(res.data.order[0]);
+      setOrderWork(res.data.order_work);
+      setOrderMaterial(res.data.order_material);
+    }
+  })
     axios
     .post(API + "/api/customer_details/", {"cust_id" : custid})
     .then((res) => {
@@ -50,17 +56,18 @@ export default function Invoice(){
         <div className="flex justify-center p-1 flex">
           <div className="flex justify-center">
             <img src={invoiceimg} className="w-20 md:w-32 lg:w-28"/>
-           <div className="w-30">
+           <div className="w-30 text-center">
              <br/>
-           <span className="text-rose-500 text-xl">
-             Chedinadu ZigZag
+           <span className="text-rose-500 text-2xl">
+             Chettinad ZigZag
            </span><br/>
-             <span className="text-xl">
+           <span className="text-xl">
              Mobile:+91 7878787878
            </span><br/>
-             <span className="text-sm">
-            Address: Joe Smith 795 Folsom Ave San Francisco, CA 94107
+             <span className="text-sm font-bold">
+            Address: 333A Poisolla Meiyar Street Near Daily Market, Udhyam Lodge Building, Karaikudi, Tamil Nadu 630001 
            </span>
+           
            </div>
           </div>
           <div className="p-2">
@@ -80,7 +87,7 @@ export default function Invoice(){
           <QRCode
               size={80}
               className="object-contain qr-code "
-              value="ZC001"/>
+              value={window.location.href}/>
           </div>
           <div></div> 
         </div>
@@ -103,13 +110,13 @@ export default function Invoice(){
 
                 
                 {
-                  orderInvoice.order_work.map((e) => <Row prod_name={e.work_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
+                  orderWork.map((e) => <Row prod_name={e.work_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
                 }
 
-
-                {/* {
-                  orderInvoice.order_material.map((e) => <Row prod_name={e.material_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
-                }   */}
+              
+                {
+                 orderMaterial.map((e) => <Row prod_name={e.material_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
+                }  
 
 
                 <tr className="bg-gray-800">
@@ -118,7 +125,7 @@ export default function Invoice(){
                     <b>Total</b>
                   </td>
                   <td className="text-lg font-bold text-center text-white">
-                    <b>₹ {0}</b>
+                    <b>₹ {order.total_amount}</b>
                   </td>
                 </tr>
               </tbody>
@@ -126,7 +133,7 @@ export default function Invoice(){
           </div>
         </div>
 
-        <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={(tmpmaterialtotal + tmpworktotal)} balance={0} advance={0} other_charge={0} mobile={customerdetails.mobile} />
+        <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} other_charge={order.courier_amount} mobile={customerdetails.mobile} />
 
 
         <div className="flex justify-end">
@@ -173,7 +180,7 @@ const TotalStrip = (props) => {
             <QRCode
                 size={60}
                 className="object-contain qr-code "
-                value="ZC001"/>
+                value={window.location.href} />
           </div>
         </div>
         <div className="w-full h-0.5 bg-black" ></div>

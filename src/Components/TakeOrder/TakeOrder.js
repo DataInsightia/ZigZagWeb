@@ -5,6 +5,7 @@ import QRCode from 'react-qr-code'
 import './qr.css'
 import $ from 'jquery'
 import './button.css'
+import Datepicker from '@themesberg/tailwind-datepicker/Datepicker';
 
 function TakeOrder() {
   $(function () {
@@ -91,6 +92,11 @@ function TakeOrder() {
     return today
   }
 
+  const c_date = () => {
+    var date = new Date();
+    return `${date.getMonth()+1}-${date.getDate()}-${date.getFullYear()}`
+  }
+
   const yyyymmdd = (dateIn) => {
     var parts = dateIn.split('-')
     return parts[0] + '-' + parts[1] + '-' + parts[2]
@@ -99,34 +105,34 @@ function TakeOrder() {
   const update_advance_amount = () =>
       setAdvance(parseInt(others.advance_amount));
   const fetch_work_table = () =>
-      axios
-          .post(API + "/api/tmp_works/", { order_id: orderid })
-          .then((res) => {
-            if ("status" in res.data) {
-              console.log(res.data);
-              setTmpworks([]);
-            } else {
-              setTmpworks(res.data["data"]);
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+    axios
+      .post(API + "/api/tmp_works/", { order_id: orderid })
+      .then((res) => {
+        if ('status' in res.data) {
+          console.log(res.data)
+          setTmpworks([])
+        } else {
+          setTmpworks(res.data['data'])
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
 
   const fetch_material_table = () =>
-      axios
-          .post(API + "/api/tmp_materials/", { order_id: orderid })
-          .then((res) => {
-            if ("status" in res.data) {
-              console.log(res.data);
-              setTmpmaterials([]);
-            } else {
-              setTmpmaterials(res.data["data"]);
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+    axios
+      .post(API + "/api/tmp_materials/", { order_id: orderid })
+      .then((res) => {
+        if ('status' in res.data) {
+          console.log(res.data)
+          setTmpmaterials([])
+        } else {
+          setTmpmaterials(res.data['data'])
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
 
   const fetch_materials = async () => {
     var materials = await axios.get(API + "/api/materials/");
@@ -166,16 +172,16 @@ function TakeOrder() {
     console.log(work)
     // Insert to tmp_work
     axios
-        .post(API + "/api/tmp_work/", work)
-        .then((res) => {
-          console.log(res.data);
-          fetch_work_table();
-          fetch();
-        })
-        .catch((err) => console.log(err));
-    fetch_work_table();
-    fetch();
-  };
+      .post(API + "/api/tmp_work/", work)
+      .then((res) => {
+        console.log(res.data)
+        fetch_work_table()
+        fetch()
+      })
+      .catch((err) => console.log(err))
+    fetch_work_table()
+    // fetch()
+  }
 
   const addMaterial = (e) => {
     e.preventDefault();
@@ -185,45 +191,45 @@ function TakeOrder() {
         parseInt(material["qty"]) * parseInt(material["amount"]);
     // Insert to tmp_material
     axios
-        .post(API + "/api/tmp_material/", material)
-        .then((res) => {
-          fetch_material_table();
-          fetch();
-        })
-        .catch((err) => console.log(err));
-    fetch_material_table();
-    fetch();
-  };
+      .post(API + "/api/tmp_material/", material)
+      .then((res) => {
+        fetch_material_table()
+        fetch()
+      })
+      .catch((err) => console.log(err))
+    fetch_material_table()
+    // fetch()
+  }
 
   const delTmpWork = (id) => {
     axios
-        .post(API + "/api/del_tmpwork/", { id: id })
-        .then((res) => {
-          console.log(res.data);
-          fetch_work_table();
-          fetch();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    fetch_work_table();
-    fetch();
-  };
+      .post(API + "/api/del_tmpwork/", { id: id })
+      .then((res) => {
+        console.log(res.data)
+        fetch_work_table()
+        fetch()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    fetch_work_table()
+    fetch()
+  }
 
   const delTmpMaterial = (id) => {
     axios
-        .post(API + "/api/del_tmpmaterial/", { id: id })
-        .then((res) => {
-          console.log(res.data);
-          fetch_material_table();
-          fetch();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    fetch_material_table();
-    fetch();
-  };
+      .post(API + "/api/del_tmpmaterial/", { id: id })
+      .then((res) => {
+        console.log(res.data)
+        fetch_material_table()
+        fetch()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    fetch_material_table()
+    fetch()
+  }
   const findCustomer = (e) => {
     e.preventDefault()
     axios
@@ -270,17 +276,52 @@ function TakeOrder() {
           total_amount: total,
           advance_amount: advance,
           balance_amount: balance,
+          courier_amount: others.courier_amount
         },
       }
 
       axios
-          .post(API + "/api/add_order/", order_payload)
-          .then((res) => {
-            console.log("add_order", res.data);
-            if (res.data.status) {
-              var wc = "A";
-              for (var i = 0; i < tmpworks.length; i++) {
-                const tmpwork_payload = {
+        .post(API + "/api/add_order/", order_payload)
+        .then((res) => {
+          console.log('add_order', res.data)
+          if (res.data.status) {
+            var wc = 'A'
+            for (var i = 0; i < tmpworks.length; i++) {
+              const tmpwork_payload = {
+                ...{
+                  order_id: orderid,
+                  work_id: tmpworks[i].work_id,
+                  qty: tmpworks[i].quantity,
+                  work_amount: tmpworks[i].amount,
+                  work_name : tmpworks[i].work_name
+                },
+              }
+              axios
+                .post(API + "/api/add_order_work/", tmpwork_payload)
+                .then((res) => console.log("tmpworks", res.data))
+                .catch((err) => console.log(err));
+
+              for (var k = 0; k < parseInt(tmpworks[i].quantity); k++) {
+                console.log({
+                  order_id: orderid,
+                  work_id: tmpworks[i].work_id,
+                  order_work_label: tmpworks[i].work_id + wc,
+                })
+                axios
+                  .post(API + "/api/order_work_staff_assign/", {
+                    order_id: orderid,
+                    order_work_label: tmpworks[i].work_id + wc,
+                    work_id: tmpworks[i].work_id,
+                  })
+                  .then((res) => {
+                    console.log('order_work_staff_assign', res.data)
+                  })
+                  .catch((err) => console.log(err))
+                wc = nextChar(wc)
+              }
+
+              for (var j = 0; j < tmpmaterials.length; j++) {
+                const tmpmaterial_payload = {
                   ...{
                     order_id: orderid,
                     work_id: tmpworks[i].work_id,
@@ -289,54 +330,9 @@ function TakeOrder() {
                   },
                 }
                 axios
-                    .post(API + "/api/add_order_work/", tmpwork_payload)
-                    .then((res) => console.log("tmpworks", res.data))
-                    .catch((err) => console.log(err));
-
-                //   axios
-                //     .post('/api/order_work_staff_assign/', {
-                //       order_id: orderid,
-                //       work_id: tmpworks[i].work_id,
-                //     })
-                //     .then((res) => {
-                //       console.log('order_work_staff_assign', res.data)
-                //     })
-                //     .catch((err) => console.log(err))
-                // }
-
-                for (var k = 0; k < parseInt(tmpworks[i].quantity); k++) {
-                  console.log({
-                    order_id: orderid,
-                    work_id: tmpworks[i].work_id,
-                    order_work_label: tmpworks[i].work_id + wc,
-                  });
-                  axios
-                      .post(API + "/api/order_work_staff_assign/", {
-                        order_id: orderid,
-                        order_work_label: tmpworks[i].work_id + wc,
-                        work_id: tmpworks[i].work_id,
-                      })
-                      .then((res) => {
-                        console.log("order_work_staff_assign", res.data);
-                      })
-                      .catch((err) => console.log(err));
-                  wc = nextChar(wc);
-                }
-
-                for (var j = 0; j < tmpmaterials.length; j++) {
-                  const tmpmaterial_payload = {
-                    ...{
-                      order_id: orderid,
-                      material_id: tmpmaterials[j].material_id,
-                      qty: tmpmaterials[j].quantity,
-                      material_amount: tmpmaterials[j].amount,
-                    },
-                  };
-                  axios
-                      .post(API + "/api/add_order_material/", tmpmaterial_payload)
-                      .then((res) => console.log("tmpmaterials", res.data))
-                      .catch((err) => console.log(err));
-                }
+                  .post(API + "/api/add_order_material/", tmpmaterial_payload)
+                  .then((res) => console.log("tmpmaterials", res.data))
+                  .catch((err) => console.log(err));
               }
             } else {
               console.log("Unable to add Order");
@@ -344,11 +340,13 @@ function TakeOrder() {
           })
           .catch((err) => console.log(err));
     } else {
+      setBalance((total + parseInt(others.courier_amount)) - advance)
       alert('DueDate Required!')
     }
 
     console.log("advance",advance,"balance",balance,'total',total)
   };
+
 
   return (
       <div>
@@ -412,20 +410,20 @@ function TakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none w-3"
-                        name={"work_id"}
-                        onChange={handleWorkEvent}
-                        required
-                    >
-                      <option selected hidden>
-                        Work
-                      </option>
-                      {works.map((e) => (
-                          <option value={e.work_id}>{e.work_name}</option>
-                      ))}
-                    </select>
+                  name={"work_id"}
+                  onChange={handleWorkEvent}
+                  required
+                >
+                  <option selected hidden>
+                    Work
+                  </option>
+                  {works.map((e) => (
+                    <option value={e.work_id}>{e.work_name}</option>
+                  ))}
+                </select>
 
-                    <input
-                        className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                <input
+                  className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
       py-2
       text-xl
       font-normal
@@ -530,21 +528,36 @@ function TakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                        type={"text"}
-                        name={"amount"}
-                        placeholder={"Amount"}
-                        onChange={handleMaterialEvent}
-                        value={material.amount}
-                        required
-                    />
-                    <input
-                        type={"submit"}
-                        value={"ADD"}
-                        className={
-                          "mb-3 xl:w-30 bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                        }
-                        onClick={addMaterial}
-                    />
+                  type={'text'}
+                  name={'amount'}
+                  placeholder={'Amount'}
+                  onChange={handleMaterialEvent}
+                  value={material.amount}
+                  required
+                />
+                <input
+                  type={'submit'}
+                  value={'ADD'}
+                  className={
+                    'mb-3 xl:w-30 bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out'
+                  }
+                  onClick={addMaterial}
+                />
+              </div>
+
+              <div className="grid justify-center">
+                <div className="flex flex-wrap -mx-2 mb-7 space-x-40">
+                  <div className="flex items-center justify-center">
+                    <div className="datepicker relative form-floating mb-3 xl:w-96">
+                      Booking Date:
+                      <input
+                        className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        type={'date'}
+                        defaultValue={() => c_date()}
+                        name={'due_date'}
+                        onChange={handleOther}
+                      />
+                    </div>
                   </div>
 
                   <div className="grid justify-center">
@@ -631,154 +644,150 @@ function TakeOrder() {
                           }}
                           placeholder={"Advance Amount"}
                       />
-                    </div>
-                  </div>
-                  {/*take order table*/}
-                  <div className={"flex justify-center"}>
-                    <table className={"border-collapse text-center"}>
-                      <tr>
-                        <th className={"border border-slate-600 p-3"}>Work Name</th>
-                        <th className={"border border-slate-600 p-3"}>Quantity</th>
-                        <th className={"border border-slate-600 p-3"}>Amount</th>
-                        <th className={"border border-slate-600 p-3"}>Total</th>
-                        <th className={"border border-slate-600 p-3"}>Options</th>
-                      </tr>
-                      {tmpworks !== []
-                          ? tmpworks.map((e) => (
-                              <tr>
-                                <td className={"border border-slate-600"}>
-                                  {e.work_name}
-                                </td>
-                                <td className={"border border-slate-600"}>
-                                  {e.quantity}
-                                </td>
-                                <td className={"border border-slate-600"}>
-                                  {e.amount}
-                                </td>
-                                <th className={"border border-slate-600"}>
-                                  {e.total}
-                                </th>
-                                <td className={"border border-slate-600"}>
-                                  <button
-                                      className={
-                                        "m-2 bg-rose-500 rounded p-2 text-white"
-                                      }
-                                      onClick={() => {
-                                        delTmpWork(e.id);
-                                      }}
-                                  >
-                                    <i className="fa fa-remove"></i>delete
-                                  </button>
-                                </td>
-                              </tr>
-                          ))
-                          : ""}
-
-                      {tmpmaterials !== []
-                          ? tmpmaterials.map((e) => (
-                              <tr>
-                                <td className={"border border-slate-600"}>
-                                  {e.material_name}
-                                </td>
-                                <td className={"border border-slate-600"}>
-                                  {e.quantity}
-                                </td>
-                                <td className={"border border-slate-600"}>
-                                  {e.amount}
-                                </td>
-                                <th className={"border border-slate-600"}>
-                                  {e.total}
-                                </th>
-                                <td className={"border border-slate-600"}>
-                                  <button
-                                      className={
-                                        "m-2 bg-rose-500 rounded p-2 text-white"
-                                      }
-                                      onClick={() => delTmpMaterial(e.id)}
-                                  >
-                                    <i className="fa fa-remove"></i>delete
-                                  </button>
-                                </td>
-                              </tr>
-                          ))
-                          : ""}
-
-                      <tr>
-                        <td className={"border border-slate-600 p-3"} colSpan={"3"}>
-                          Total
-                        </td>
-                        <td className={"border border-slate-600 p-3"}>
-                          <b>{total}</b>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td className={"border border-slate-600 p-3"} colSpan={"3"}>
-                          Advance Amount
-                        </td>
-                        <td className={"border border-slate-600 p-3"}>
-                          <b>{advance}</b>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td className={"border border-slate-600 p-3"} colSpan={"3"}>
-                          Courier Amount
-                        </td>
-                        <td className={"border border-slate-600 p-3"}>
-                          <b>{others.courier_amount}</b>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td className={"border border-slate-600 p-3"} colSpan={"3"}>
-                          Balance Amount
-                        </td>
-                        <td className={"border border-slate-600 p-3"}>
-                          <b>{balance}</b>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-
-                  {/*take order end*/}
-
-                  <div className={"flex justify-center"}>
-                    <button
-                        className={
-                          "text-white text-lg rounded button rounded p-3 m-3 bg-pink-600"
-                        }
-                    >
-                      Add Voice Instruction
-                    </button>
-                    <button
-                        className={
-                          "text-white text-lg rounded button rounded p-3 m-3 bg-pink-600"
-                        }
-                    >
-                      Add Material Image
-                    </button>
-                    <button
-                        className={
-                          "text-white text-lg rounded button rounded p-3 m-3 bg-pink-600"
-                        }
-                        onClick={printOrder}
-                    >
-                      Print Order
-                    </button>
-                    <button
-                        className={
-                          "text-white text-lg rounded button rounded p-3 m-3 bg-pink-600"
-                        }
-                    >
-                      Add Instruction Image
-                    </button>
-                  </div>
+                    </snap>
+                  ) : (
+                    ''
+                  )}
+                  <input
+                    className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none h-15"
+                    type={'text'}
+                    value={others.advance_amount}
+                    name={'advance_amount'}
+                    onChange={(e) => {
+                      handleOther(e)
+                      // update_balance(e);
+                      update_balance_with_advance(e)
+                    }}
+                    placeholder={'Advance Amount'}
+                  />
                 </div>
-            ) : (
-                ""
-            )}
-          </div>
+              </div>
+              {/*take order table*/}
+              <div className={'flex justify-center'}>
+                <table className={'border-collapse text-center'}>
+                  <tr>
+                    <th className={'border border-slate-600 p-3'}>Work Name</th>
+                    <th className={'border border-slate-600 p-3'}>Quantity</th>
+                    <th className={'border border-slate-600 p-3'}>Amount</th>
+                    <th className={'border border-slate-600 p-3'}>Total</th>
+                    <th className={'border border-slate-600 p-3'}>Options</th>
+                  </tr>
+                  {tmpworks !== []
+                    ? tmpworks.map((e) => (
+                        <tr>
+                          <td className={'border border-slate-600'}>
+                            {e.work_name}
+                          </td>
+                          <td className={'border border-slate-600'}>
+                            {e.quantity}
+                          </td>
+                          <td className={'border border-slate-600'}>
+                            {e.amount}
+                          </td>
+                          <th className={'border border-slate-600'}>
+                            {e.total}
+                          </th>
+                          <td className={'border border-slate-600'}>
+                            <button
+                              className={
+                                'm-2 bg-rose-500 rounded p-2 text-white'
+                              }
+                              onClick={() => {
+                                delTmpWork(e.id)
+                              }}
+                            >
+                              <i className="fa fa-remove"></i>delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    : ''}
+
+                  {tmpmaterials !== []
+                    ? tmpmaterials.map((e) => (
+                        <tr>
+                          <td className={'border border-slate-600'}>
+                            {e.material_name}
+                          </td>
+                          <td className={'border border-slate-600'}>
+                            {e.quantity}
+                          </td>
+                          <td className={'border border-slate-600'}>
+                            {e.amount}
+                          </td>
+                          <th className={'border border-slate-600'}>
+                            {e.total}
+                          </th>
+                          <td className={'border border-slate-600'}>
+                            <button
+                              className={
+                                "m-2 bg-rose-500 rounded p-2 text-white"
+                              }
+                              onClick={() => delTmpMaterial(e.id)}
+                            >
+                              <i className="fa fa-remove"></i>delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    : ''}
+
+                  <tr>
+                    <td className={'border border-slate-600 p-3'} colSpan={'3'}>
+                      Total
+                    </td>
+                    <td className={'border border-slate-600 p-3'}>
+                      <b>{total}</b>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className={'border border-slate-600 p-3'} colSpan={'3'}>
+                      Advance Amount
+                    </td>
+                    <td className={'border border-slate-600 p-3'}>
+                      <b>{advance}</b>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className={'border border-slate-600 p-3'} colSpan={'3'}>
+                      Courier Amount
+                    </td>
+                    <td className={'border border-slate-600 p-3'}>
+                      <b>{others.courier_amount}</b>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className={'border border-slate-600 p-3'} colSpan={'3'}>
+                      Balance Amount
+                    </td>
+                    <td className={'border border-slate-600 p-3'}>
+                      <b>{balance}</b>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
+              {/*take order end*/}
+
+              <div className={'flex justify-center'}>
+                
+                <button
+                  className={
+                    'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
+                  }
+                  onClick={printOrder}
+                >
+                  Print Order
+                </button>
+               
+              </div>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
       </div>
   );
