@@ -18,6 +18,7 @@ import StaffWageCalculation from "../Pages/Dashboard/Staf/StaffWageCalculation";
 import Order_Status from "../Pages/Dashboard/Admin/Order_Status";
 import OrderStatusFirst from "../Pages/Dashboard/Admin/Order_First";
 import Invoice_Sup from "../Components/TakeOrder/Invoice/Invoice_Sup";
+import Order_Status_Home from "../Pages/Home/Order_Status_Home";
 
 
 // ----------------------------------------------------------------------
@@ -31,6 +32,7 @@ export default function CommonRouter() {
         { path: '*', element: <Navigate to="/" replace /> },
         { path: 'login', element: <Login /> },
         { path: 'register', element: <Register /> },
+        { path: 'order_status_home', element: <Order_Status_Home /> }
 
       ],
     },

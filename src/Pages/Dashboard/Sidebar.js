@@ -123,6 +123,7 @@ export default function Sidebar() {
                   >
                     CURRENT WORKS
                   </Link>
+
                   <Link
                     to="/dashboard/work_complete"
                     className="font-bold text-1lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
