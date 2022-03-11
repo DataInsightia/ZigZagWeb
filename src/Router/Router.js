@@ -20,6 +20,7 @@ import InvoiceSup from "../Components/TakeOrder/Invoice/Invoice_Sup";
 import OrderHistory from "../Pages/Dashboard/Admin/Order_History";
 import Order_Status_Home from "../Pages/Home/Order_Status_Home";
 import Orders from '../Pages/Dashboard/Customer/Orders'
+import CustomerOrderHistory from '../Pages/Dashboard/Customer/Order_History'
 
 
 
@@ -50,6 +51,7 @@ export default function Router() {
         { path: 'work_assign', element: <OrderWorkStaffAssign /> },
         { path: 'order_approval', element: <OrderWorkApproval /> },
         { path: 'customer_orders/:custid/:orderid', element: <Orders /> },
+        { path: 'customer_order_history', element: <CustomerOrderHistory /> },
         { path: 'orders', element: <StaffWorkTaken /> },
         { path: 'work_complete', element: <OrderWorkStaffCompletion /> },
         { path: 'completed_work', element: <OrderWorkCompleted /> },
