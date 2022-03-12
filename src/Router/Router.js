@@ -23,7 +23,8 @@ import InvoiceSup from "../Components/TakeOrder/Invoice/Invoice_Sup";
 import OrderHistory from "../Pages/Dashboard/Admin/Order_History";
 import Order_Status_Home from "../Pages/Home/Order_Status_Home";
 import Orders from '../Pages/Dashboard/Customer/Orders'
-import CustomerOrderHistory from '../Pages/Dashboard/Customer/Order_History'
+import CustomerOrderHistory from '../Pages/Dashboard/Customer/Order_History';
+import Product from '../Pages/Dashboard/Admin/Product'
 
 
 
@@ -70,7 +71,8 @@ export default function Router() {
         { path: 'invoice_sup', element: <InvoiceSup />},
         // { path: 'order_status', element: <Order_Status /> },
         { path: 'customer_order_status', element: <CustomerOrderStatus /> },
-        { path: 'order_history', element: <OrderHistory/>}
+        { path: 'order_history', element: <OrderHistory/>},
+        { path: 'products', element: <Product />}
 
       ],
     },

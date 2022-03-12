@@ -11,7 +11,7 @@ function OrderStatus() {
     const [orderid,setOrderID] = useState({});
     const [materialLocation,setMaterialLocation] = useState([{}]);
 
-    const handleEvent = (e) => setOrderID({ ...orderid, [e.target.name]: e.target.value });
+    const handleEvent = (e) => setOrderID({ ...orderid, [e.target.name] : e.target.value });
 
     const checkOrder = (e) => {
         e.preventDefault();

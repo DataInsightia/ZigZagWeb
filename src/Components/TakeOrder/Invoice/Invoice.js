@@ -1,12 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import invoiceimg from "../../../assets/img/logo.png";
 import QRCode from "react-qr-code";
 import axios from "axios";
 import API from "../../../api";
 import "../invoice.css";
 import { useParams } from "react-router-dom";
+import ReactToPrint from 'react-to-print';
 
 export default function Invoice(){
+
+  const componentRef = useRef();
 
   const [tmpwork,setTmpWork] = useState([]);
   const [tmpmaterial,setTmpMaterial] = useState([]);
@@ -52,8 +55,8 @@ export default function Invoice(){
 
   return (
     <div className="flex scroll items-center mt-16 justify-center min-h-screen bg-gray-100">
-      <div className="w-2/5 bg-white shadow-lg">
-        <div className="flex justify-center p-1 flex">
+      <div ref={componentRef} className="w-1/2 bg-white shadow-lg">
+        <div  className="flex justify-center p-1 flex">
           <div className="flex justify-center">
             <img src={invoiceimg} className="w-20 md:w-32 lg:w-28"/>
            <div className="w-30 text-center">
@@ -97,13 +100,12 @@ export default function Invoice(){
             <table className="w-5/5">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-4 py-2 text-xs text-gray-500 ">#</th>
-                  <th className="px-4 py-2 text-xs text-gray-500 ">
+                  <th className="px-2 py-2 text-xs text-gray-500 ">
                     Product Name
                   </th>
-                  <th className="px-4 py-2 text-xs text-gray-500 ">Quantity</th>
-                  <th className="px-4 py-2 text-xs text-gray-500 ">Rate</th>
-                  <th className="px-4 py-2 text-xs text-gray-500 ">Subtotal</th>
+                  <th className="px-2 py-2 text-xs text-gray-500 ">Quantity</th>
+                  <th className="px-2 py-2 text-xs text-gray-500 ">Rate</th>
+                  <th className="px-2 py-2 text-xs text-gray-500 ">Subtotal</th>
                 </tr>
               </thead>
               <tbody className="bg-white">
@@ -120,7 +122,7 @@ export default function Invoice(){
 
 
                 <tr className="bg-gray-800">
-                  <th colSpan="3"></th>
+                  <th colSpan="2"></th>
                   <td className="text-lg font-bold text-center text-white">
                     <b>Total</b>
                   </td>
@@ -148,19 +150,11 @@ export default function Invoice(){
             Thank you very much for ordering with us.
           </div>
           <br/>
-          <div className="flex items-end justify-end space-x-3">
-            <button className="px-4 py-2 text-sm text-green-600 bg-green-100">
-              Print
-            </button>
-            <button className="px-4 py-2 text-sm text-blue-600 bg-blue-100">
-              Save
-            </button>
-            <button className="px-4 py-2 text-sm text-red-600 bg-red-100">
-              Cancel
-            </button>
-          </div>
+          <PrintButton componentRef={componentRef}/>
         </div>
+        
       </div>
+      
     </div>
   );
 }
@@ -196,20 +190,41 @@ const TotalStrip = (props) => {
   )
 }
 
+
+const PrintButton = (props) => {
+  return (
+    <div className="flex items-end justify-end space-x-3">
+  
+
+            <ReactToPrint
+              trigger={() => <button className="px-4 py-2 text-sm text-green-600 bg-green-100">
+              Print
+            </button>}
+              content={() => props.componentRef.current}
+      />          
+            {/* <button className="px-4 py-2 text-sm text-blue-600 bg-blue-100">
+              Save
+            </button>
+            <button className="px-4 py-2 text-sm text-red-600 bg-red-100">
+              Cancel
+            </button> */}
+    </div>
+  )
+}
+
 const Row = (props) => {
     return(
       <tr className="whitespace-nowrap">
-        <td className="px-10 py-2 text-sm text-gray-500">{1}</td>
-        <td className="px-10 py-2">
+        <td className="px-2 py-2 md:px-10">
           <div className="text-sm text-gray-900">
             {props.prod_name}
           </div>
         </td>
-        <td className="px-10 py-2">
+        <td className="px-2 py-2 md:px-10">
           <div className="text-sm text-gray-500">{props.qty}</div>
         </td>
-        <td className="px-10 py-2 text-sm text-gray-500">₹{props.price}</td>
-        <td className="px-10 py-2 text-sm font-bold">₹{props.subtotal}</td>
+        <td className="px-2 md:px-10 py-2 text-sm text-gray-500">₹{props.price}</td>
+        <td className="px-2 md:px-10 py-2 text-sm font-bold">₹{props.subtotal}</td>
       </tr>
     )
 }
