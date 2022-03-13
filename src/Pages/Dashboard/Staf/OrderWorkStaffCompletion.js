@@ -9,17 +9,17 @@ export const Stage_Completion_Request = async (
   staff_id,
   date,
   stage,
-  order_work_label
+  order_work_label,
 ) => {
-  const response = await axios.post(API +
-    '/api/staff_stage_completion/',
+  const response = await axios.post(
+    API + '/api/staff_stage_completion/',
     {
       order_id,
       work_id,
       staff_id,
       date,
       stage,
-      order_work_label
+      order_work_label,
     },
     {
       headers: { 'Content-Type': 'application/json' },
@@ -37,8 +37,8 @@ function OrderWorkStaffCompletion() {
   const staff = localStorage.getItem('login_id')
   useEffect(() => {
     axios
-      .post(API +
-        '/api/staff_work_assign_completion/',
+      .post(
+        API + '/api/staff_work_assign_completion/',
         {
           staff,
         },
@@ -55,11 +55,10 @@ function OrderWorkStaffCompletion() {
           setcompletion([])
           setcompletionbool(false)
         }
-        
       })
     axios
-      .post(API +
-        '/api/staff_work_completion_review/',
+      .post(
+        API + '/api/staff_work_completion_review/',
         {
           staff,
         },
@@ -76,7 +75,6 @@ function OrderWorkStaffCompletion() {
           setcompletionreview([])
           setcompletionreviewbool(false)
         }
-        
       })
   }, [])
 
@@ -94,11 +92,16 @@ function OrderWorkStaffCompletion() {
 
     // Stroring MaterialLocation in Backend
 
-    axios.post(API+ "/api/material/",{"material_location" : e.target.material_location.value, "staff_id" : staff_id,"order_id" : e.target.order_id.value})
-    .then(res => {
-      console.log(res.data)
-    })
-    .catch(err => console.log(err))
+    axios
+      .post(API + '/api/material/', {
+        material_location: e.target.material_location.value,
+        staff_id: staff_id,
+        order_id: e.target.order_id.value,
+      })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => console.log(err))
   }
 
   const current = new Date()
@@ -108,252 +111,253 @@ function OrderWorkStaffCompletion() {
 
   return (
     <div>
-      {completionbool?(
-      <div className="bg-white p-10 mt-10">
-        <div className="p-3 bg-white shadow-lg bg-opacity-25">
-          <h1 className={styles.title}>Staff Stage Completion</h1>
-          <div class="flex flex-col">
-            <div class="overflow-x-auto">
-              <div class="inline-block py-2 min-w-full ">
-                <div class="overflow-hidden sm:rounded-lg">
-                  <table class="min-w-full">
-                    <thead>
-                      <tr>
-                        <div className="flex flex-wrap">
-                          <div className="lg:w-1/6">
-                            <th scope="col" className={styles.tablehead}>
-                              Order
-                            </th>
-                          </div>
-                          <div className="lg:w-1/6">
-                            <th scope="col" className={styles.tablehead}>
-                              Work
-                            </th>
-                          </div>
-                          <div className="lg:w-1/6">
-                            <th scope="col" className={styles.tablehead}>
-                              Sub-works
-                            </th>
-                          </div>
-                          <div className="lg:w-1/6">
-                            <th scope="col" className={styles.tablehead}>
-                              Completion Date
-                            </th>
-                          </div>
-                          <div className="lg:w-1/6">
-                            <th scope="col" className={styles.tablehead}>
-                              Stage
-                            </th>
-                          </div>
+      {completionbool ? (
+        <div className=" p-10 mt-10">
+          <div className="p-3">
+            <h1 className={styles.title}>Staff Stage Completion</h1>
+            <div class="flex flex-col bg-white shadow-lg">
+              <div class="overflow-x-auto">
+                <div class="inline-block py-2 min-w-full ">
+                  <div class="overflow-hidden sm:rounded-lg">
+                    <table class="min-w-full">
+                      <thead className="bg-gradient-to-r from-rose-600 to-rose-400">
+                        <tr>
+                          <div className="flex flex-wrap">
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Order
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Work
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Sub-works
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Completion Date
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Stage
+                              </th>
+                            </div>
 
-                          <div className="lg:w-1/6">
-                            <th scope="col" className={styles.tablehead}>
-                              Material Location
-                            </th>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Material Location
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}></th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}></th>
+                            </div>
                           </div>
-                          <div className="lg:w-1/6">
-                            <th scope="col" className={styles.tablehead}></th>
-                          </div>
-                          <div className="lg:w-1/6">
-                            <th scope="col" className={styles.tablehead}></th>
-                          </div>
-                        </div>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          {completion.map((e) => (
-            <form onSubmit={onSubmit}>
-              <div className="flex flex-wrap">
-                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                  <input
-                    type="text"
-                    id="order_id"
-                    name="order_id"
-                    value={e.order.order_id}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
-                    disabled
-                  />
-                </div>
-
-                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                <input
-                    type="text"
-                   
-                    value={e.orderworkstaffassign.work.work_name}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2"
-                    disabled 
-                  />
-                  <input
-                    type="text"
-                    id="work_id"
-                    name="work_id"
-                    value={e.orderworkstaffassign.work.work_id}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hidden w-full p-2"
-                     hidden
-                  />
-                </div>
-                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                  <input
-                    type="text"
-                    id="order_work_label"
-                    name="order_work_label"
-                    value={e.orderworkstaffassign.order_work_label}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
-                    disabled
-                  />
-                </div>
-                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                  <input
-                    name="date"
-                    value={date}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
-                    disabled
-                  />
-                </div>
-                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                  <input
-                    type="text"
-                    id="assign_stage"
-                    name="assign_stage"
-                    value={e.orderworkstaffassign.assign_stage}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
-                    disabled
-                  />
-                </div>
-
-                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                  <input
-                    type="text"
-                    id="material_location"
-                    name="material_location"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
-                    required
-                  />
-                </div>
-
-                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                  <div className="flex justify-between">
-                    <button type="submit" className={styles.pinkbutton}>
-                      Complete Order
-                    </button>
+                        </tr>
+                      </thead>
+                    </table>
                   </div>
                 </div>
               </div>
-              <div className="h-2"></div>
-            </form>
-          ))}
+            </div>
+            {completion.map((e) => (
+              <form onSubmit={onSubmit} className="bg-white shadow-lg">
+                <div className="flex flex-wrap">
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      id="order_id"
+                      name="order_id"
+                      value={e.order.order_id}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                    />
+                  </div>
+
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      value={e.orderworkstaffassign.work.work_name}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2"
+                      disabled
+                    />
+                    <input
+                      type="text"
+                      id="work_id"
+                      name="work_id"
+                      value={e.orderworkstaffassign.work.work_id}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hidden w-full p-2"
+                      hidden
+                    />
+                  </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      id="order_work_label"
+                      name="order_work_label"
+                      value={e.orderworkstaffassign.order_work_label}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                    />
+                  </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      name="date"
+                      value={date}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                    />
+                  </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      id="assign_stage"
+                      name="assign_stage"
+                      value={e.orderworkstaffassign.assign_stage}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                    />
+                  </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      id="material_location"
+                      name="material_location"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      required
+                    />
+                  </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <div className="flex justify-between">
+                      <button type="submit" className={styles.pinkbutton}>
+                        Complete Order
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="h-2"></div>
+              </form>
+            ))}
+          </div>
         </div>
-      </div>
-      ):''}
+      ) : (
+        ''
+      )}
       {/* reviews page  */}
-      {completionreviewbool?(
-      <div className="bg-white p-10 mt-10">
-        <div className="p-3 bg-white shadow-lg bg-opacity-25">
-          <h1 className={styles.title}>Review Staff Stage</h1>
-          <div class="flex flex-col">
-            <div class="overflow-x-auto">
-              <div class="inline-block py-2 min-w-full ">
-                <div class="overflow-hidden">
-                  <table class="min-w-full">
-                    <thead>
-                      <tr>
-                        <div className="flex flex-wrap">
-                          <div className="lg:w-1/6">
-                            <th scope="col" className={styles.tablehead}>
-                              Order
-                            </th>
+      {completionreviewbool ? (
+        <div className="bg-white p-10 mt-10">
+          <div className="p-3 bg-white shadow-lg bg-opacity-25">
+            <h1 className={styles.title}>Review Staff Stage</h1>
+            <div class="flex flex-col">
+              <div class="overflow-x-auto">
+                <div class="inline-block py-2 min-w-full ">
+                  <div class="overflow-hidden">
+                    <table class="min-w-full">
+                      <thead>
+                        <tr>
+                          <div className="flex flex-wrap">
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Order
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Work
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Sub-works
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Completion Date
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Stage
+                              </th>
+                            </div>
                           </div>
-                          <div className="lg:w-1/6">
-                            <th scope="col" className={styles.tablehead}>
-                              Work
-                            </th>
-                          </div>
-                          <div className="lg:w-1/6">
-                            <th scope="col" className={styles.tablehead}>
-                              Sub-works
-                            </th>
-                          </div>
-                          <div className="lg:w-1/6">
-                            <th scope="col" className={styles.tablehead}>
-                              Completion Date
-                            </th>
-                          </div>
-                          <div className="lg:w-1/6">
-                            <th scope="col" className={styles.tablehead}>
-                              Stage
-                            </th>
-                          </div>
-                        </div>
-                      </tr>
-                    </thead>
-                  </table>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          {completionreview.map((e) => (
-            <form onSubmit={onSubmit}>
-              <div className="flex flex-wrap">
-                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                  <input
-                    type="text"
-                    id="order_id"
-                    name="order_id"
-                    value={e.order.order_id}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
-                    disabled
-                  />
-                </div>
+            {completionreview.map((e) => (
+              <form onSubmit={onSubmit}>
+                <div className="flex flex-wrap">
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      id="order_id"
+                      name="order_id"
+                      value={e.order.order_id}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                    />
+                  </div>
 
-                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                  <input
-                    type="text"
-                    id="work_id"
-                    name="work_id"
-                    value={e.orderworkstaffassign.work.work_id}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
-                    disabled
-                  />
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      id="work_id"
+                      name="work_id"
+                      value={e.orderworkstaffassign.work.work_id}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                    />
+                  </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      id="order_work_label"
+                      name="order_work_label"
+                      value={e.orderworkstaffassign.order_work_label}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                    />
+                  </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      name="date"
+                      value={date}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                    />
+                  </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      id="assign_stage"
+                      name="assign_stage"
+                      value={e.orderworkstaffassign.assign_stage}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                    />
+                  </div>
                 </div>
-                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                  <input
-                    type="text"
-                    id="order_work_label"
-                    name="order_work_label"
-                    value={e.orderworkstaffassign.order_work_label}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
-                    disabled
-                  />
-                </div>
-                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                  <input
-                    name="date"
-                    value={date}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
-                    disabled
-                  />
-                </div>
-                <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                  <input
-                    type="text"
-                    id="assign_stage"
-                    name="assign_stage"
-                    value={e.orderworkstaffassign.assign_stage}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
-                    disabled
-                  />
-                </div>
-              </div>
-              <div className="h-2"></div>
-            </form>
-          ))}
+                <div className="h-2"></div>
+              </form>
+            ))}
+          </div>
         </div>
-      </div>
-      ):''}
+      ) : (
+        ''
+      )}
     </div>
   )
 }

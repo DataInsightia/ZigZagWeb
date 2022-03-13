@@ -22,6 +22,10 @@ export default function EditProfile() {
 
   const auth = localStorage.getItem('role')
 
+  const setLocalStorage = (name, data) => {
+    localStorage.setItem(name, data)
+  }
+
   const onSubmit = async (e) => {
     e.preventDefault()
     if (auth == 'customer') {
@@ -40,6 +44,9 @@ export default function EditProfile() {
       const res = await axios.put('/api/customer_register/', data)
       if (res.data.status) {
         alert('Update Sucessfully')
+        setLocalStorage('address', address)
+        setLocalStorage('city', city)
+        setLocalStorage('pincode', pincode)
       } else {
         alert('Not Updated')
       }
@@ -63,10 +70,22 @@ export default function EditProfile() {
       data.append('work_type', work_type)
       data.append('acc_no', acc_no)
 
-      const res = await axios.put('http://127.0.0.1:8000/api/staff_register/', data)
-      console.log(res)
+      const res = await axios.put(
+        'http://127.0.0.1:8000/api/staff_register/',
+        data,
+      )
+
       if (res.data.status) {
         openModal()
+        setLocalStorage('login_id', res.data.user.login_id)
+        setLocalStorage('address', res.data.data.address)
+        setLocalStorage('photo', file)
+        setLocalStorage('ifsc', ifsc)
+        setLocalStorage('bank', bank)
+        setLocalStorage('work_type', work_type)
+        setLocalStorage('acc_no', acc_no)
+        setLocalStorage('cid', res.data.user.login_id)
+        setLocalStorage('isAuthenticated', 'true')
       } else {
         alert('Not Updated')
       }

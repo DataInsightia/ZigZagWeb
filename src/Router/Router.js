@@ -21,9 +21,10 @@ import InvoiceSup from "../Components/TakeOrder/Invoice/Invoice_Sup";
 import OrderHistory from "../Pages/Dashboard/Admin/Order_History";
 import Order_Status_Home from "../Pages/Home/Order_Status_Home";
 import Orders from '../Pages/Dashboard/Customer/Orders'
-
-
-
+import WorkForm from '../Pages/Dashboard/Admin/Form/WorkForm'
+import MaterialForm from '../Pages/Dashboard/Admin/Form/MaterialForm'
+import Staff from '../Pages/Dashboard/Admin/StaffLists'
+import Customer from '../Pages/Dashboard/Admin/CustomerLists'
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -44,7 +45,8 @@ export default function Router() {
       element: <Protected cmp={Dashboard} />,
       children: [
         { path: 'dhome', element: <DashboardHome /> },
-
+        { path: 'work', element: <WorkForm/>},
+        { path: 'material', element: <MaterialForm/>},
         { path: 'takeorder', element: <TakeOrder /> },
         // { path: 'invoice/', element: <Invoice /> },
         { path: 'invoice/:custid/:orderid', element: <Invoice /> },
@@ -55,7 +57,9 @@ export default function Router() {
         { path: 'work_complete', element: <OrderWorkStaffCompletion /> },
         { path: 'completed_work', element: <OrderWorkCompleted /> },
         { path: 'order_status', element: <Order_Status /> },
-          //staff
+        { path: 'staffs/',element: <Staff/>},
+        { path: 'customers/',element: <Customer/>},
+         //staff
         { path: 'wage/',element: <StaffList/>},
         { path: 'wage/:id',element: <StaffWageCalculation/>},
         { path: 'staff_work_taken', element: <Invoice /> },
