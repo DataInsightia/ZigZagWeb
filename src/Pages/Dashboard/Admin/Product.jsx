@@ -246,8 +246,6 @@ const fetch = () => {
           </div>
         </Dialog>
       </Transition>
-
-      
     </>
   )
 }
