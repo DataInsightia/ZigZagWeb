@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 export const Order_Approval = async (order_id, work_id, staff_id, stage,state,order_work_label) => {
   const response = await axios.post(
-    '/api/staff_work_assign_completion_app/',
+   API + '/api/staff_work_assign_completion_app/',
     {
       order_id,
       work_id,
@@ -31,7 +31,7 @@ function OrderWorkStaffApproval() {
   useEffect(
     () =>
       axios
-        .get('/api/staff_work_assign_completion_app/')
+        .get(API +'/api/staff_work_assign_completion_app/')
         .then((res) => {
           if (res.data.status === true) {
             setorderApproval(res.data.data)
