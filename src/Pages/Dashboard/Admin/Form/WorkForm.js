@@ -35,16 +35,29 @@ export default function WorkForm() {
   const [works, fetchWorks] = useState([])
   const [workState, fetchWorkState] = useState(false)
 
-  useEffect(() => {
+  const getWork = () => {
     axios.get(`${API}/api/works/`).then((res) => {
       if (res.status === 200) {
         fetchWorkState(true)
         fetchWorks(res.data)
       } else {
-        fetchWorks([])
+        // fetchWorks([])
         fetchWorkState(false)
       }
     })
+  }
+
+  let [isDeleteOpen, setIsDeleteOpen] = useState(false)
+  function closeDeleteModal() {
+    setIsDeleteOpen(false)
+  }
+  function openDeleteModal() {
+    setIsDeleteOpen(true)
+  }
+  //Modal Controls
+
+  useEffect(() => {
+    getWork()
   }, [])
 
   const [addworkformdata, setAddFormWorkdata] = useState({
@@ -62,36 +75,47 @@ export default function WorkForm() {
   }
   
   // ADD FORM DATA SENTS TO SERVICES PAGE
-  const AddWorkHandler = (e) => {
+  const AddWorkHandler = async (e) => {
     e.preventDefault()
     const { work_name, wage_type, amount } = addworkformdata
-    AddWork(work_name, amount, wage_type)
-    const newAddedWork = {
-      work_name: addworkformdata.work_name,
-      wage_type: addworkformdata.wage_type,
-      amount: addworkformdata.amount,
+    const res = await AddWork(work_name, amount, wage_type)
+    if (res.data.status) {
+      getWork()
     }
-    const insertAddedwork = [...works, newAddedWork]
-    fetchWorks(insertAddedwork)
+    // const newAddedWork = {
+    //   work_name: addworkformdata.work_name,
+    //   wage_type: addworkformdata.wage_type,
+    //   amount: addworkformdata.amount,
+    // }
+    // const insertAddedwork = [...works, newAddedWork]
+    // fetchWorks(insertAddedwork)
     e.target.reset()
     openModal()
   }
 
   // UPDATE FORM DATA SENTS TO SERVICES PAGE
-  const UpdateWorkHandler = (y) => {
+  const UpdateWorkHandler = async  (y) => {
     y.preventDefault()
     const work_name = y.target.work_name.value
     const work_id = y.target.work_id.value
     const amount = y.target.amount.value
     const wage_type = y.target.wage_type.value
-    UpdateWork(work_name, work_id, amount, wage_type)
+    const res = UpdateWork(work_name, work_id, amount, wage_type)
+    if (res.data.status) {
+      getWork()
+    }
   }
 
+
   // DELETE FORM DATA SENTS TO SERVICES PAGE
-  const DeleteWorkHandler = (y) => {
+  const DeleteWorkHandler = async (y) => {
     y.preventDefault()
     const work_id = y.target.id.value
-    DeleteWork(work_id)
+    const res = await DeleteWork(work_id)
+    if (res.data.status) {
+      getWork()
+    }
+    openDeleteModal()
   }
 
   return (
@@ -469,6 +493,65 @@ export default function WorkForm() {
           </div>
         </Dialog>
       </Transition>
+         {/* delete modal */}
+         <Transition appear show={isDeleteOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50"
+          onClose={closeDeleteModal}
+        >
+          <div className="min-h-screen px-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-center align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg font-bold leading-6 text-gray-900"
+                >
+                  Work Deleted
+                </Dialog.Title>
+
+                <div className="mt-4">
+                  <button
+                    type="button"
+                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    onClick={closeDeleteModal}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
+      {/* delete modal  */}
     </div>
   )
 }
