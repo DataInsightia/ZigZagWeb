@@ -5,6 +5,9 @@ import QRCode from "react-qr-code";
 import "./qr.css";
 import $ from "jquery";
 import "./button.css";
+import {Link,useNavigate} from 'react-router-dom'
+import {Navigate, Redirect} from 'react-router'
+// import { useHistory } from 'react-router'
 
 function TakeOrder() {
   $(function () {
@@ -14,7 +17,10 @@ function TakeOrder() {
     });
   });
 
+  let history = useNavigate();
+
   const [orderid, setOrderid] = useState("");
+  const [isInvoice,setIsinvoice] = useState(false);
   const [cust, setCust] = useState(false);
   const [works, setWorks] = useState([{}]);
   const [materials, setMaterials] = useState([{}]);
@@ -260,6 +266,7 @@ function TakeOrder() {
 
   const printOrder = (e) => {
     e.preventDefault();
+
     if (others.due_date !== "") {
       const order_payload = {
         ...{
@@ -270,6 +277,7 @@ function TakeOrder() {
           total_amount: total,
           advance_amount: advance,
           balance_amount: balance,
+          courier_amount: parseInt(others.courier_amount),
         },
       };
 
@@ -286,11 +294,12 @@ function TakeOrder() {
                     work_id: tmpworks[i].work_id,
                     qty: tmpworks[i].quantity,
                     work_amount: tmpworks[i].amount,
+                    work_name: tmpworks[i].work_name,
                   },
                 };
                 axios
                     .post(API + "/api/add_order_work/", tmpwork_payload)
-                    .then((res) => console.log("tmpworks", res.data))
+                    .then((res) => console.log("add_order_work", res.data))
                     .catch((err) => console.log(err));
 
                 //   axios
@@ -330,21 +339,27 @@ function TakeOrder() {
                       material_id: tmpmaterials[j].material_id,
                       qty: tmpmaterials[j].quantity,
                       material_amount: tmpmaterials[j].amount,
+                      material_name: tmpmaterials[j].material_name,
                     },
                   };
                   axios
                       .post(API + "/api/add_order_material/", tmpmaterial_payload)
-                      .then((res) => console.log("tmpmaterials", res.data))
+                      .then((res) => console.log("add_order_material", res.data))
                       .catch((err) => console.log(err));
                 }
+                
               }
+              setIsinvoice(true)
+              // setTimeout(() => setIsinvoice(true),3000);
             } else {
               console.log("Unable to add Order");
+              // setTimeout(() => setIsinvoice(true),3000);
             }
           })
           .catch((err) => console.log(err));
     } else {
       alert("DueDate Required!");
+      setIsinvoice(false);
     }
 
     console.log("advance",advance,"balance",balance,'total',total)
@@ -575,6 +590,21 @@ function TakeOrder() {
                     </div>
                     <div className="flex flex-wrap justify-center -mx-3 mb-6 space-x-20">
                       <snap>
+                        <p>Advance Amount</p>
+                      <input
+                          className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none h-15"
+                          type={"text"}
+                          value={others.advance_amount}
+                          name={"advance_amount"}
+                          onChange={(e) => {
+                            handleOther(e);
+                            // update_balance(e);
+                            update_balance_with_advance(e);
+                          }}
+                          placeholder={"Advance Amount"}
+                      />
+                      </snap>
+                      <snap>
                         <p className="font-semibold">Pickup Type : </p>
                         <select
                             className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
@@ -619,18 +649,7 @@ function TakeOrder() {
                       ) : (
                           ""
                       )}
-                      <input
-                          className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none h-15"
-                          type={"text"}
-                          value={others.advance_amount}
-                          name={"advance_amount"}
-                          onChange={(e) => {
-                            handleOther(e);
-                            // update_balance(e);
-                            update_balance_with_advance(e);
-                          }}
-                          placeholder={"Advance Amount"}
-                      />
+                      
                     </div>
                   </div>
                   {/*take order table*/}
@@ -744,20 +763,7 @@ function TakeOrder() {
                   {/*take order end*/}
 
                   <div className={"flex justify-center"}>
-                    <button
-                        className={
-                          "text-white text-lg rounded button rounded p-3 m-3 bg-pink-600"
-                        }
-                    >
-                      Add Voice Instruction
-                    </button>
-                    <button
-                        className={
-                          "text-white text-lg rounded button rounded p-3 m-3 bg-pink-600"
-                        }
-                    >
-                      Add Material Image
-                    </button>
+                 
                     <button
                         className={
                           "text-white text-lg rounded button rounded p-3 m-3 bg-pink-600"
@@ -766,13 +772,17 @@ function TakeOrder() {
                     >
                       Print Order
                     </button>
-                    <button
-                        className={
-                          "text-white text-lg rounded button rounded p-3 m-3 bg-pink-600"
-                        }
-                    >
-                      Add Instruction Image
-                    </button>
+                    
+
+                    {
+                      isInvoice ? (<Navigate
+                        to={`/dashboard/invoice/${customer_details.cust_id}/${orderid}`}
+                        // onClick={printOrder}
+                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                            Print
+                    </Navigate>) : ''
+                    }
                   </div>
                 </div>
             ) : (

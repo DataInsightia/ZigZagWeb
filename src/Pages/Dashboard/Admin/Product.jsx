@@ -152,7 +152,7 @@ const fetch = () => {
                     </div>
                     
                     <label class="border-0 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="user_avatar">Your Product Image</label>
-                    <input onChange={handleFile} name="product_image" defaultValue={""} class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
+                    <input onChange={handleFile} name="product_image" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
                     <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A product picture is useful to confirm your product.</div>
 
                     <label><input type="checkbox" onChange={handleEvent} defaultChecked={false} name="display" /> Display</label><br />
