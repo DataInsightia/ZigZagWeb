@@ -15,6 +15,10 @@ export default function Product() {
   const closeUpdateModal = () => setUpdateIsOpen(false);
   const openUpdateModal = () => setUpdateIsOpen(true);
 
+  const styles = {
+    'rose-button' : "inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500"
+  }
+
   function closeModal() {
     setIsOpen(false)
   }
@@ -34,15 +38,9 @@ export default function Product() {
     formData.append("picture",picture)
     axios.post(API + "/api/product/",formData).then(res => {
         console.log(res.data);
-    }).catch(err => console.log(err))
-  }
-
-  const updateProduct = async (e,product_id) => {
-    const formData = new FormData();
-    formData.append("data",JSON.stringify(product))
-    formData.append("picture",picture)
-    const res = await axios.put(`${API}/api/product/${product_id}/`,formData)
-    // if (res.data.status) {setTargetProduct(res.data)}else{console.log(res.data)}
+        fetch();
+    }).catch(err => console.log(err));
+    
   }
 
   const getProduct = async (e,pid) => {
@@ -59,13 +57,15 @@ export default function Product() {
     formData.append("picture",picture)
     axios.put(`${API}/api/product/${productid}/`,formData).then(res => {
         console.log(res.data);
+        fetch();
     }).catch(err => console.log(err))
+    
   }
 
   const handleEvent = (e) => {setProduct({ ...product, [e.target.name] : e.target.value });
     console.log(product)}
 
-    const handleUpdateEvent = (e) => {setProduct({ ...currentProduct, [e.target.name] : e.target.value });
+    const handleUpdateEvent = (e) => {setCurrentProduct({ ...currentProduct, [e.target.name] : e.target.value });
     console.log(product)}
 
 const handleFile = (e) => {
@@ -95,7 +95,7 @@ const fetch = () => {
                 <div>
                     <p>List</p>
                     {
-                        productList.map(e => <li>{e.product_name} <button onClick={(k) => {openUpdateModal(k);getProduct(k,e.product_id);}}>Update</button> <DeleteButton product_id={e.product_id}/></li>)
+                        productList.map(e => <li>{e.product_name} <button className={styles['rose-button']} onClick={(k) => {openUpdateModal(k);getProduct(k,e.product_id);}}>Update</button> <button class={styles['rose-button']}  onClick={() => axios.delete(`${API}/api/product/${e.product_id}/`).then(res => {alert(res.data.message);fetch();})}>{"Delete"}</button></li>)
                     }
                 </div>
         </div>
@@ -148,15 +148,15 @@ const fetch = () => {
                 <form encType='multipart/formdata'>
                     <div class="mb-6">
                         <label for="product_name" class="border-0 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your Product Name</label>
-                        <input onChange={handleEvent} type="product_name" id="product_name" name="product_name" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" placeholder="Designer Sari" required />
+                        <input onChange={handleEvent} defaultValue={""} type="product_name" id="product_name" name="product_name" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" placeholder="Designer Sari" required />
                     </div>
                     
                     <label class="border-0 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="user_avatar">Your Product Image</label>
-                    <input onChange={handleFile} name="product_image" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
+                    <input onChange={handleFile} name="product_image" defaultValue={""} class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
                     <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A product picture is useful to confirm your product.</div>
 
-                    <label><input type="checkbox" onChange={handleEvent} name="display" /> Display</label><br />
-                    <label><input type="checkbox" onChange={handleEvent} name="new_arrival" /> New Arrival</label><br />
+                    <label><input type="checkbox" onChange={handleEvent} defaultChecked={false} name="display" /> Display</label><br />
+                    <label><input type="checkbox" onChange={handleEvent} defaultChecked={false} name="new_arrival" /> New Arrival</label><br />
 
                     <div className='mt-4'>
                     <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500" onClick={(e) => {addButton(e);closeModal(e);}}>Submit</button>    
@@ -218,15 +218,15 @@ const fetch = () => {
                 <form encType='multipart/formdata'>
                     <div class="mb-6">
                         <label for="product_name" class="border-0 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your Product Name </label>
-                        <input onChange={handleUpdateEvent} type="product_name" id="product_name" value={currentProduct.product_name} name="product_name" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" placeholder="Designer Sari" required />
+                        <input onChange={handleUpdateEvent} type="product_name" id="product_name" defaultValue={currentProduct.product_name} name="product_name" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" placeholder="Designer Sari" required />
                     </div>
                     
                     <label class="border-0 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="user_avatar">Your Product Image</label>
                     <input onChange={handleFile} name="product_image" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
                     <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A product picture is useful to confirm your product.</div>
 
-                    <label><input type="checkbox" onChange={handleUpdateEvent} checked={currentProduct.display} name="display" /> Display</label><br />
-                    <label><input type="checkbox" onChange={handleUpdateEvent} checked={currentProduct.new_arrival} name="new_arrival" /> New Arrival</label><br />
+                    <label><input type="checkbox" onChange={handleUpdateEvent} defaultChecked={currentProduct.display} name="display" /> Display</label><br />
+                    <label><input type="checkbox" onChange={handleUpdateEvent} defaultChecked={currentProduct.new_arrival} name="new_arrival" /> New Arrival</label><br />
 
                     <div className='flex'>
                       <div className='m-4'>
@@ -249,11 +249,5 @@ const fetch = () => {
 
       
     </>
-  )
-}
-
-const DeleteButton = (props) => {
-  return (
-    <button class="inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500"  onClick={() => axios.delete(`${API}/api/product/${props.product_id}/`).then(res => alert(res.data.message))}>{"Delete"}</button>
   )
 }
