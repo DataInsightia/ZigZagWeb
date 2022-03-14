@@ -18,11 +18,13 @@ import StaffWageCalculation from "../Pages/Dashboard/Staf/StaffWageCalculation";
 import StaffWageGiven from "../Pages/Dashboard/Staf/StaffWageGiven";
 import StaffList from '../Pages/Dashboard/Staf/WageList'
 import Order_Status from "../Pages/Dashboard/Admin/Order_Status";
+import CustomerOrderStatus from "../Pages/Dashboard/Customer/Order_Status";
 import InvoiceSup from "../Components/TakeOrder/Invoice/Invoice_Sup";
 import OrderHistory from "../Pages/Dashboard/Admin/Order_History";
 import Order_Status_Home from "../Pages/Home/Order_Status_Home";
 import Orders from '../Pages/Dashboard/Customer/Orders'
-import CustomerOrderHistory from '../Pages/Dashboard/Customer/Order_History'
+import CustomerOrderHistory from '../Pages/Dashboard/Customer/Order_History';
+import Product from '../Pages/Dashboard/Admin/Product'
 
 
 
@@ -50,10 +52,11 @@ export default function Router() {
         { path: 'takeorder', element: <TakeOrder /> },
         // { path: 'invoice/', element: <Invoice /> },
         { path: 'invoice/:custid/:orderid', element: <Invoice /> },
+        { path: 'customer_orders/:custid', element: <Orders /> },
         { path: 'work_assign', element: <OrderWorkStaffAssign /> },
         { path: 'order_approval', element: <OrderWorkApproval /> },
         { path: 'customer_orders/:custid/:orderid', element: <Orders /> },
-        { path: 'customer_order_history', element: <CustomerOrderHistory /> },
+        { path: 'customer_order_history/:custid', element: <CustomerOrderHistory /> },
         { path: 'orders', element: <StaffWorkTaken /> },
         { path: 'work_complete', element: <OrderWorkStaffCompletion /> },
         { path: 'completed_work', element: <OrderWorkCompleted /> },
@@ -66,8 +69,10 @@ export default function Router() {
         { path: 'edit_profile',element: <EditProfile/>},
           //customer
         { path: 'invoice_sup', element: <InvoiceSup />},
-        { path: 'order_status', element: <Order_Status /> },
-        { path: 'order_history', element: <OrderHistory/>}
+        // { path: 'order_status', element: <Order_Status /> },
+        { path: 'customer_order_status', element: <CustomerOrderStatus /> },
+        { path: 'order_history', element: <OrderHistory/>},
+        { path: 'products', element: <Product />}
 
       ],
     },

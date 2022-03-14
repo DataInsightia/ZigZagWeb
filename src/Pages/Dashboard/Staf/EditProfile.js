@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import DashboardHome from '../DHome'
 import axios from 'axios'
+import API from '../../../api'
 
 export default function EditProfile() {
   const [file, setFile] = useState('')
@@ -27,7 +28,7 @@ export default function EditProfile() {
       data.append('city', city)
       data.append('pincode', pincode)
 
-      const res =await axios.put('/api/customer_register/', data)
+      const res =await axios.put(API + '/api/customer_register/', data)
       if (res.data.status) {
         alert('Update Sucessfully')
       } else {
@@ -53,7 +54,7 @@ export default function EditProfile() {
       data.append('work_type', work_type)
       data.append('acc_no', acc_no)
 
-      const res =await axios.put('/api/staff_register/', data)
+      const res =await axios.put(API + '/api/staff_register/', data)
       console.log(res)
       if (res.data.status) {
         alert('Update Sucessfully')

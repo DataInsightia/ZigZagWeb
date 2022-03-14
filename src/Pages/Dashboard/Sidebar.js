@@ -61,6 +61,13 @@ export default function Sidebar() {
                   >
                     HOME
                   </Link>
+
+                  <Link
+                    to="/dashboard/products"
+                    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                  >
+                    PRODUCT
+                  </Link>
                   <Link
                     to="/dashboard/takeorder"
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
@@ -75,12 +82,7 @@ export default function Sidebar() {
                   </Link>
           
 
-                  <Link
-                  to={`/dashboard/customer_orders/${"ZC43434"}/${"ZA786"}`}
-                  className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                  >
-                    ORDERS
-                  </Link>
+                  
                   <Link
                     to={"/dashboard/work_assign/"}
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
@@ -91,7 +93,13 @@ export default function Sidebar() {
                     to="/dashboard/order_approval"
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
-                    ORDER  APPROVAl
+                    ORDER APPROVAL
+                  </Link>
+                  <Link
+                    to="/dashboard/wage"
+                    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                  >
+                    WAGE
                   </Link>
                   <Link
                     to="/dashboard/wage"
@@ -172,22 +180,22 @@ export default function Sidebar() {
                     HOME
                   </Link>
                   <Link
-                    to="/dashboard/invoice_sup"
+                  to={`/dashboard/customer_orders/${localStorage.getItem('cid')}/`}
+                  className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                  >
+                    ORDERS
+                  </Link>
+                  <Link
+                    to="/dashboard/invoice"
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
                     INVOICE
                   </Link>
                   <Link
-                    to="/dashboard/order_status"
+                    to={`/dashboard/customer_order_history/${localStorage.getItem('cid')}`}
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
-                    ORDER STATUS
-                  </Link>
-                  <Link
-                    to="/dashboard/customer_order_history"
-                    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                  >
-                    ORDER HISTORY
+                    ORDERS
                   </Link>
                   <Link
                     to="/dashboard/edit_profile"
