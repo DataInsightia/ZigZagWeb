@@ -181,7 +181,7 @@ function OrderWorkStaffAssign() {
                     >
                       <option selected>Please select</option>
                       {staff.map((e) => (
-                        <option value={e.staff_id}>{e.staff_name}</option>
+                        <option value={e.staff_id}>{e.staff_name} (T - {e.takenOrders}) | (A-{e.nottakenOrders})</option>
                       ))}
                     </select>
                   </div>

@@ -26,13 +26,13 @@ export default function StatusCard({
                     <CardStatus title={title} amount={amount} />
                 </CardRow>
 
-                <CardStatusFooter
+                {/* <CardStatusFooter
                     amount={percentage}
                     color={percentageColor}
                     date={date}
                 >
                     <Icon color={percentageColor} name={percentageIcon} />
-                </CardStatusFooter>
+                </CardStatusFooter> */}
             </Card>
         </div>
     );

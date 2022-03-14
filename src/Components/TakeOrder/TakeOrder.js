@@ -227,20 +227,20 @@ function TakeOrder() {
   const findCustomer = (e) => {
     e.preventDefault();
     axios
-        .post(API + "/api/customer_details/", customer)
-        .then((res) => {
-          if (res.data.length !== 0) {
-            SetCustomerDetails(res.data[0]);
-            setCust(true);
-            console.log(res.data);
-          }else{
-            console.log("This is Admin or Staff Mobile Number")
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  };
+      .post(API + '/api/customer_details/', customer)
+      .then((res) => {
+        if (res.data.length !== 0) {
+          SetCustomerDetails(res.data[0])
+          setCust(true)
+          console.log(res.data)
+        } else {
+          console.log('This is Admin or Staff Mobile Number')
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   const update_balance_with_courier = (e) => {
     var courier = parseInt(e.target.value);
@@ -283,63 +283,17 @@ function TakeOrder() {
                 const tmpwork_payload = {
                   ...{
                     order_id: orderid,
-                    work_id: tmpworks[i].work_id,
-                    qty: tmpworks[i].quantity,
-                    work_amount: tmpworks[i].amount,
+                    material_id: tmpmaterials[j].material_id,
+                    qty: tmpmaterials[j].quantity,
+                    material_amount: tmpmaterials[j].amount,
+                    material_name: tmpmaterials[j].material_name,
                   },
                 };
                 axios
-                    .post(API + "/api/add_order_work/", tmpwork_payload)
-                    .then((res) => console.log("tmpworks", res.data))
-                    .catch((err) => console.log(err));
-
-                //   axios
-                //     .post('/api/order_work_staff_assign/', {
-                //       order_id: orderid,
-                //       work_id: tmpworks[i].work_id,
-                //     })
-                //     .then((res) => {
-                //       console.log('order_work_staff_assign', res.data)
-                //     })
-                //     .catch((err) => console.log(err))
-                // }
-
-                for (var k = 0; k < parseInt(tmpworks[i].quantity); k++) {
-                  console.log({
-                    order_id: orderid,
-                    work_id: tmpworks[i].work_id,
-                    order_work_label: tmpworks[i].work_id + wc,
-                  });
-                  axios
-                      .post(API + "/api/order_work_staff_assign/", {
-                        order_id: orderid,
-                        order_work_label: tmpworks[i].work_id + wc,
-                        work_id: tmpworks[i].work_id,
-                      })
-                      .then((res) => {
-                        console.log("order_work_staff_assign", res.data);
-                      })
-                      .catch((err) => console.log(err));
-                  wc = nextChar(wc);
-                }
-
-                for (var j = 0; j < tmpmaterials.length; j++) {
-                  const tmpmaterial_payload = {
-                    ...{
-                      order_id: orderid,
-                      material_id: tmpmaterials[j].material_id,
-                      qty: tmpmaterials[j].quantity,
-                      material_amount: tmpmaterials[j].amount,
-                    },
-                  };
-                  axios
-                      .post(API + "/api/add_order_material/", tmpmaterial_payload)
-                      .then((res) => console.log("tmpmaterials", res.data))
-                      .catch((err) => console.log(err));
-                }
+                  .post(API + "/api/add_order_material/", tmpmaterial_payload)
+                  .then((res) => console.log("tmpmaterials", res.data))
+                  .catch((err) => console.log(err));
               }
-            } else {
-              console.log("Unable to add Order");
             }
           })
           .catch((err) => console.log(err));
@@ -396,11 +350,11 @@ function TakeOrder() {
               <br/>
 
 
-            {cust ? (
-                <div>
-                  <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
-                    <select
-                        className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+          {cust ? (
+            <div>
+              <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
+                <select
+                  className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
       py-2
       text-xl
       font-normal
@@ -412,20 +366,20 @@ function TakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none w-3"
-                        name={"work_id"}
-                        onChange={handleWorkEvent}
-                        required
-                    >
-                      <option selected hidden>
-                        Work
-                      </option>
-                      {works.map((e) => (
-                          <option value={e.work_id}>{e.work_name}</option>
-                      ))}
-                    </select>
+                  name={"work_id"}
+                  onChange={handleWorkEvent}
+                  required
+                >
+                  <option selected hidden>
+                    Work
+                  </option>
+                  {works.map((e) => (
+                    <option value={e.work_id}>{e.work_name}</option>
+                  ))}
+                </select>
 
-                    <input
-                        className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                <input
+                  className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
       py-2
       text-xl
       font-normal
@@ -472,9 +426,9 @@ function TakeOrder() {
                     />
                   </div>
 
-                  <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
-                    <select
-                        className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+              <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
+                <select
+                  className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
       py-2
       text-xl
       font-normal

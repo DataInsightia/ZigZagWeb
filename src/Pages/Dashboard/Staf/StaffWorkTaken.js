@@ -114,40 +114,40 @@ function StaffWorkTaken() {
         <ToastContainer />
       </div>
       {assingedworksbool ? (
-        <div className="bg-white p-10 mt-10">
-          <div className="p-3 bg-white shadow-lg bg-opacity-25">
+        <div className=" p-10 mt-10">
+          <div className="p-3">
             <h1 className={styles.title}>Take Orders</h1>
 
-            <div class="flex flex-col">
+            <div class="flex flex-col bg-white shadow-lg text-black">
               <div class="overflow-x-auto">
                 <div class="inline-block py-2 min-w-full ">
                   <div class="overflow-hidden">
-                    <table class="min-w-full">
-                      <thead>
+                    <table class="min-w-full ">
+                      <thead className="bg-gradient-to-r from-rose-600 to-rose-400">
                         <tr>
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/5">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
                                 Order
                               </th>
                             </div>
                             <div className="lg:w-1/5">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
                                 Work
                               </th>
                             </div>
                             <div className="lg:w-1/5">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
                                 Reference
                               </th>
                             </div>
                             <div className="lg:w-1/5">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
                                 Stage
                               </th>
                             </div>
                             <div className="lg:w-1/5">
-                              <th scope="col" className={styles.tablehead}></th>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase"></th>
                             </div>
                           </div>
                         </tr>
@@ -158,7 +158,7 @@ function StaffWorkTaken() {
               </div>
             </div>
             {assingedworks.map((e) => (
-              <form onSubmit={onSubmit}>
+              <form onSubmit={onSubmit} className="bg-white shadow-lg">
                 <div className="flex flex-wrap">
                   <div className="px-3 w-full md:w-1/2 lg:w-1/5">
                     <input
@@ -175,7 +175,7 @@ function StaffWorkTaken() {
                       type="text"
                       id="work_id"
                       name="work_id"
-                      value={e.orderworkstaffassign.work.work_id}
+                      value={e.orderworkstaffassign.work.work_name}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
                       disabled
                     />
@@ -224,35 +224,35 @@ function StaffWorkTaken() {
       {/* taken orders */}
 
       {takenworksbool ? (
-        <div className="bg-white p-10 mt-10">
-          <div className="p-3 bg-white shadow-lg bg-opacity-25">
+        <div className="p-10 mt-10">
+          <div className="p-3 bg-opacity-25">
             <h1 className={styles.title}>Taken Orders</h1>
 
-            <div class="flex flex-col">
+            <div class="flex flex-col bg-white shadow-lg">
               <div class="overflow-x-auto">
                 <div class="inline-block py-2 min-w-full ">
                   <div class="overflow-hidden">
                     <table class="min-w-full">
-                      <thead>
+                      <thead className="bg-gradient-to-r from-rose-600 to-rose-400">
                         <tr>
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/4">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
                                 Order
                               </th>
                             </div>
                             <div className="lg:w-1/4">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
                                 Work
                               </th>
                             </div>
                             <div className="lg:w-1/4">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
                                 reference
                               </th>
                             </div>
                             <div className="lg:w-1/4">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
                                 Stage
                               </th>
                             </div>
@@ -265,7 +265,7 @@ function StaffWorkTaken() {
               </div>
             </div>
             {takenworks.map((e) => (
-              <form onSubmit={onSubmit}>
+              <form onSubmit={onSubmit} className="bg-white shadow-lg">
                 <div className="flex flex-wrap">
                   <div className="px-3 w-full md:w-1/2 lg:w-1/4">
                     <input
@@ -282,7 +282,7 @@ function StaffWorkTaken() {
                       type="text"
                       id="work_id"
                       name="work_id"
-                      value={e.orderworkstaffassign.work.work_id}
+                      value={e.orderworkstaffassign.work.work_name}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
                       disabled
                     />

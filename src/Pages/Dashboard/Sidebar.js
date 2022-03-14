@@ -69,6 +69,18 @@ export default function Sidebar() {
                     PRODUCT
                   </Link>
                   <Link
+                    to="/dashboard/work"
+                    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                  >
+                    WORK
+                  </Link>
+                  <Link
+                    to="/dashboard/material"
+                    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                  >
+                    MATERIAL
+                  </Link>
+                  <Link
                     to="/dashboard/takeorder"
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
@@ -112,6 +124,18 @@ export default function Sidebar() {
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
                     STAFF REGISTER
+                  </Link>
+                  <Link
+                    to="/dashboard/staffs"
+                    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                  >
+                    STAFF LISTS
+                  </Link>
+                  <Link
+                    to="/dashboard/customers"
+                    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                  >
+                    CUSTOMER LISTS
                   </Link>
                 </div>
               )
