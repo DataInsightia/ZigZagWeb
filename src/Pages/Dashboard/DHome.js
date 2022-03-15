@@ -103,7 +103,7 @@ export default function DashboardHome() {
   return (
     <div className="px-3 md:px-8">
       <div className="container mx-auto max-w-full">
-        {(() => {
+        {(() => { 
           if (auth === 'admin') {
             return (
               <div className="grid mt-14 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 mb-4">
