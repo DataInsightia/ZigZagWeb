@@ -7,6 +7,7 @@ import $ from "jquery";
 import "./button.css";
 import {Link,useNavigate} from 'react-router-dom'
 import {Navigate, Redirect} from 'react-router'
+import { Textarea } from "@material-tailwind/react";
 // import { useHistory } from 'react-router'
 
 function TakeOrder() {
@@ -32,6 +33,11 @@ function TakeOrder() {
   const [customer, setCustomer] = useState({
     cust_id: "",
   });
+
+
+var curr = new Date();
+curr.setDate(curr.getDate() + 3);
+var date = curr.toISOString().substr(0,10);
 
   const [customer_details, SetCustomerDetails] = useState({});
 
@@ -264,6 +270,16 @@ function TakeOrder() {
     return String.fromCharCode(c.charCodeAt(0) + 1);
   };
 
+  const get_courier_address = (pickup_type) => {
+    if (pickup_type === "self"){
+      return customer_details.address
+    }else if (pickup_type === "courier") {
+      return others.courier_address
+    }else if (pickup_type === "other") {
+      return ""
+    }
+  }
+
   const printOrder = (e) => {
     e.preventDefault();
 
@@ -278,6 +294,7 @@ function TakeOrder() {
           advance_amount: advance,
           balance_amount: balance,
           courier_amount: parseInt(others.courier_amount),
+          courier_address: get_courier_address(others.pickup_type)
         },
       };
 
@@ -301,17 +318,6 @@ function TakeOrder() {
                     .post(API + "/api/add_order_work/", tmpwork_payload)
                     .then((res) => console.log("add_order_work", res.data))
                     .catch((err) => console.log(err));
-
-                //   axios
-                //     .post('/api/order_work_staff_assign/', {
-                //       order_id: orderid,
-                //       work_id: tmpworks[i].work_id,
-                //     })
-                //     .then((res) => {
-                //       console.log('order_work_staff_assign', res.data)
-                //     })
-                //     .catch((err) => console.log(err))
-                // }
 
                 for (var k = 0; k < parseInt(tmpworks[i].quantity); k++) {
                   console.log({
@@ -572,6 +578,7 @@ function TakeOrder() {
                               type={"date"}
                               name={"due_date"}
                               onChange={handleOther}
+                              defaultValue={date}
                           />
                         </div>
                       </div>
@@ -636,6 +643,30 @@ function TakeOrder() {
                                 type={"text"}
                                 name={"courier_amount"}
                                 placeholder={"Courier Charge"}
+                                onChange={(e) => {
+                                  handleOther(e);
+                                  update_balance_with_courier(e);
+                                }}
+                                onBlur={() => {
+                                  // update_advance_amount();
+                                  fetch();
+                                }}
+                            />
+
+
+<Textarea
+      className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+      py-2
+      text-xl
+      font-normal
+      text-gray-700
+      bg-white bg-clip-padding bg-no-repeat
+      border border-solid border-gray-300
+      rounded
+      transition
+      ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 h-20 focus:outline-none"
+                                name={"courier_address"}
+                                placeholder={"Courier Address"}
                                 onChange={(e) => {
                                   handleOther(e);
                                   update_balance_with_courier(e);
