@@ -161,26 +161,31 @@ const fetch = () => {
                             </td>
                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <span
-                    className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+                    className="relative inline-block px-3 py-1 font-semibold text-rose-500 leading-tight"
                 >
-                  <span
-                      aria-hidden
-                      className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                  ></span>
-                  <span className="relative">True</span>
+                    True
                 </span>
                             </td>
                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <span
-                    className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+                    className="relative inline-block px-3 py-1 font-semibold text-rose-500 leading-tight"
                 >
-                  <span
-                      aria-hidden
-                      className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                  ></span>
-                  <span className="relative">True</span>
+                  <button className={styles['rose-button']} onClick={(k) => {openUpdateModal(k);getProduct(k,e.product_id);}}>Update</button>
                 </span>
                             </td>
+
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <span
+                    className="relative inline-block px-3 py-1 font-semibold text-rose-500 leading-tight"
+                >
+                 <button className={styles['rose-button']}
+                         onClick={() => axios.delete(`${API}/api/product/${e.product_id}/`).then(res => {
+                             alert(res.data.message);
+                             fetch();
+                         })}>{"Delete"}</button>
+                </span>
+                            </td>
+
 
                         </tr>
                             </> )}
