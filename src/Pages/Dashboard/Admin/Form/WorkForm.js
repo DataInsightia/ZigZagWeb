@@ -82,13 +82,7 @@ export default function WorkForm() {
     if (res.data.status) {
       getWork()
     }
-    // const newAddedWork = {
-    //   work_name: addworkformdata.work_name,
-    //   wage_type: addworkformdata.wage_type,
-    //   amount: addworkformdata.amount,
-    // }
-    // const insertAddedwork = [...works, newAddedWork]
-    // fetchWorks(insertAddedwork)
+
     e.target.reset()
     openModal()
   }

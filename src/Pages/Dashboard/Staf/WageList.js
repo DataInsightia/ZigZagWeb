@@ -260,8 +260,8 @@ function StaffList() {
                                   </td>
                                   <td className="py-4 px-6 text-sm text-black whitespace-nowrap text-center flex justify-center">
                                     <img
-                                      src={e.photo}
-                                      className="h-10 rounded-full"
+                                      src={`${process.env.REACT_APP_BASE_URL}${e.photo}`}
+                                      className="h-12"
                                     />
                                   </td>
                                 </tr>
