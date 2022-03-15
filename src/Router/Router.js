@@ -28,6 +28,7 @@ import Staff from '../Pages/Dashboard/Admin/StaffLists'
 import Customer from '../Pages/Dashboard/Admin/CustomerLists'
 import CustomerOrderHistory from '../Pages/Dashboard/Customer/Order_History';
 import Product from '../Pages/Dashboard/Admin/Product'
+import Product_Home from "../Pages/Product/Product_Home"
 
 
 
@@ -42,6 +43,7 @@ export default function Router() {
         { path: '*', element: <Navigate to="/" replace /> },
         { path: 'login', element: <Login /> },
         { path: 'register', element: <Register /> },
+        { path: 'product_home', element: <Product_Home /> },
         { path: 'order_status_home', element: <Order_Status_Home /> },
       ],
     },

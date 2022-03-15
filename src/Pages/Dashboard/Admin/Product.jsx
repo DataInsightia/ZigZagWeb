@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import axios from 'axios';
-import { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import API from '../../../api'
 
 export default function Product() {
@@ -14,11 +14,6 @@ export default function Product() {
 
   const closeUpdateModal = () => setUpdateIsOpen(false);
   const openUpdateModal = () => setUpdateIsOpen(true);
-  const resetCurrentProduct = () => {
-    setCurrentProduct({});
-    setProduct({});
-    setPicture('');
-  }
 
   const styles = {
     'rose-button' : "inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500"
@@ -44,7 +39,6 @@ export default function Product() {
     axios.post(API + "/api/product/",formData).then(res => {
         console.log(res.data);
         fetch();
-        resetCurrentProduct();
     }).catch(err => console.log(err));
     
   }
@@ -64,21 +58,20 @@ export default function Product() {
     axios.put(`${API}/api/product/${productid}/`,formData).then(res => {
         console.log(res.data);
         fetch();
-        resetCurrentProduct();
     }).catch(err => console.log(err))
     
   }
 
-const handleEvent = (e) => setProduct({ ...product, [e.target.name] : e.target.value })
+  const handleEvent = (e) => {setProduct({ ...product, [e.target.name] : e.target.value });
+    console.log(product)}
 
-const handleUpdateEvent = (e) => setCurrentProduct({ ...currentProduct, [e.target.name] : e.target.value })
+    const handleUpdateEvent = (e) => {setCurrentProduct({ ...currentProduct, [e.target.name] : e.target.value });
+    console.log(product)}
 
-const handleFile = (e) => setPicture(e.target.files[0]);
-
-const handleToggler = (e,value) => setProduct({ ...product, [e.target.name] : !value });
-
-const handleCurrentToggler = (e,value) => setCurrentProduct({ ...currentProduct, [e.target.name] : !value });
-
+const handleFile = (e) => {
+    setPicture(e.target.files[0]);
+    console.log(picture)
+}
 
 const fetch = () => {
     axios.get(API + '/api/product/').then(res => {
@@ -90,24 +83,129 @@ const fetch = () => {
     <>
     <div className="flex scroll items-center mt-16 justify-center min-h-screen bg-gray-100">
         <div className="w-1/2 bg-white shadow-lg p-4">
-                <div className='mx-auto'>
+                <div className='mx-auto flex justify-end'>
                     <button
                         type="button"
-                        onClick={(e) => {openModal(e);}}
-                        className="px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                        onClick={openModal}
+                        className="px-8 py-2  text-lg font-medium bg-red-500 text-white rounded-md  hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                         >
                         ADD
                     </button>
                 </div>
+
+            {/*Table*/}
                 <div>
-                    <p>List</p>
-                    {
-                        productList.map(e => <li>{e.product_name} <button className={styles['rose-button']} onClick={(k) => {openUpdateModal(k);getProduct(k,e.product_id);}}>Update</button> <button class={styles['rose-button']}  onClick={() => axios.delete(`${API}/api/product/${e.product_id}/`).then(res => {alert(res.data.message);fetch();})}>{"Delete"}</button></li>)
-                    }
+<br/>
+                    <table className="min-w-full leading-normal">
+                        <thead>
+                        <tr>
+                            <th
+                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                            >
+                                Product Image
+                            </th>
+                            <th
+                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                            >
+                                Product Name
+                            </th>
+                            <th
+                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                            >
+                                Display
+                            </th>
+                            <th
+                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                            >
+                                New Arraval
+                            </th>
+                            <th
+                                className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                            >
+                                Update
+                            </th>
+                            <th
+                                className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                            >
+                                Delete
+                            </th>
+                            <th
+                                className=" py-3 border-b-2 border-gray-200 bg-gray-100"
+                            ></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            productList.map(e =><>
+                        <tr>
+
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <div className="flex">
+                                    <div className="flex-shrink-0 w-10 h-10">
+                                        <img
+                                            className="w-full h-full rounded-full"
+                                            src={`${API}${e.picture}`}
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div className="ml-3">
+                                        <p className="text-gray-600 whitespace-no-wrap"></p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <p className="text-gray-900 whitespace-no-wrap">{e.product_name}</p>
+                            </td>
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <p className="text-gray-600 whitespace-no-wrap">View</p>
+                            </td>
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <span
+                    className="relative inline-block px-3 py-1 font-semibold text-rose-500 leading-tight"
+                >
+                    True
+                </span>
+                            </td>
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <span
+                    className="relative inline-block px-3 py-1 font-semibold text-rose-500 leading-tight"
+                >
+                  <button className={styles['rose-button']} onClick={(k) => {openUpdateModal(k);getProduct(k,e.product_id);}}>Update</button>
+                </span>
+                            </td>
+
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <span
+                    className="relative inline-block px-3 py-1 font-semibold text-rose-500 leading-tight"
+                >
+                 <button className={styles['rose-button']}
+                         onClick={() => axios.delete(`${API}/api/product/${e.product_id}/`).then(res => {
+                             alert(res.data.message);
+                             fetch();
+                         })}>{"Delete"}</button>
+                </span>
+                            </td>
+
+
+                        </tr>
+                            </> )}
+                        </tbody>
+                    </table>
+
+
+
+
+
+
+                    {/*<p>List</p>*/}
+                    {/*{*/}
+                    {/*    productList.map(e => <li>{e.product_name} <button className={styles['rose-button']} onClick={(k) => {openUpdateModal(k);getProduct(k,e.product_id);}}>Update</button> <button class={styles['rose-button']}  onClick={() => axios.delete(`${API}/api/product/${e.product_id}/`).then(res => {alert(res.data.message);fetch();})}>{"Delete"}</button></li>)*/}
+                    {/*}*/}
                 </div>
         </div>
     </div>
-      
+
+
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
@@ -152,24 +250,22 @@ const fetch = () => {
                   Add Product
                 </Dialog.Title>
                 <div className="mt-2">
-                <form encType='multipart/formdata' onSubmit={(e) => {addButton(e);closeModal(e);}}>
+                <form encType='multipart/formdata'>
                     <div class="mb-6">
                         <label for="product_name" class="border-0 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your Product Name</label>
-                        <input onChange={handleEvent} defaultValue={product.product_name} type="product_name" id="product_name" name="product_name" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" placeholder="Designer Sari" required />
+                        <input onChange={handleEvent} defaultValue={""} type="product_name" id="product_name" name="product_name" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" placeholder="Designer Sari" required />
                     </div>
                     
-                    <img src={picture !== "" ? URL.createObjectURL(picture) : 'https://via.placeholder.com/150'} alt={"#"} height={150} width={150}/>
                     <label class="border-0 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="user_avatar">Your Product Image</label>
-                    <input required onChange={handleFile} name="product_image" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
+                    <input onChange={handleFile} name="product_image" defaultValue={""} class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
                     <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A product picture is useful to confirm your product.</div>
 
-                    <label><input type="button" onClick={(e) => handleToggler(e,product.display)} defaultValue={product.display ? "show" : "hide"} name="display" /> Display</label><br />
-                    <label><input type="button" onClick={(e) => handleToggler(e,product.new_arrival)} defaultValue={product.new_arrival ? "show" : "hide"} name="new_arrival" /> New Arrival</label><br />
+                    <label><input type="checkbox" onChange={handleEvent} defaultChecked={false} name="display" /> Display</label><br />
+                    <label><input type="checkbox" onChange={handleEvent} defaultChecked={false} name="new_arrival" /> New Arrival</label><br />
 
                     <div className='mt-4'>
-                    <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500" >Submit</button>    
+                    <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500" onClick={(e) => {addButton(e);closeModal(e);}}>Submit</button>    
                     </div> 
-                    {JSON.stringify(product.display)+" "+JSON.stringify(product.new_arrival)}
                     </form>
                 </div>
             
@@ -224,27 +320,26 @@ const fetch = () => {
                   Update Product
                 </Dialog.Title>
                 <div className="mt-2">
-                <form encType='multipart/formdata' onSubmit={(e) => {updateButton(e,currentProduct.product_id);closeUpdateModal(e);}}>
+                <form encType='multipart/formdata'>
                     <div class="mb-6">
                         <label for="product_name" class="border-0 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your Product Name </label>
                         <input onChange={handleUpdateEvent} type="product_name" id="product_name" defaultValue={currentProduct.product_name} name="product_name" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" placeholder="Designer Sari" required />
                     </div>
                     
-                    <img src={picture !== "" ? URL.createObjectURL(picture) : API + currentProduct.picture} alt="#" />
                     <label class="border-0 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="user_avatar">Your Product Image</label>
-                    <input onChange={handleFile} name="product_image" accept='image/jpeg' class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
+                    <input onChange={handleFile} name="product_image" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
                     <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A product picture is useful to confirm your product.</div>
 
-                    <label><input type="button" onClick={(e) => handleCurrentToggler(e,currentProduct.display)} value={currentProduct.display ? "show" : "hide"} name="display" /> Display</label><br />
-                    <label><input type="button" onClick={(e) => handleCurrentToggler(e,currentProduct.new_arrival)} value={currentProduct.new_arrival ? "show" : "hide"} name="new_arrival" /> New Arrival</label><br />
+                    <label><input type="checkbox" onChange={handleUpdateEvent} defaultChecked={currentProduct.display} name="display" /> Display</label><br />
+                    <label><input type="checkbox" onChange={handleUpdateEvent} defaultChecked={currentProduct.new_arrival} name="new_arrival" /> New Arrival</label><br />
 
                     <div className='flex'>
                       <div className='m-4'>
-                      <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500" >Update</button>    
+                      <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500" onClick={(e) => {updateButton(e,currentProduct.product_id);closeUpdateModal(e);}}>Update</button>    
                       </div> 
 
                       <div className='m-4'>
-                      <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500" onClick={(e) => {closeUpdateModal(e);resetCurrentProduct(e);}}>Close</button>    
+                      <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500" onClick={(e) => {closeUpdateModal(e);}}>Close</button>    
                       </div> 
                     </div>
                     {JSON.stringify(currentProduct)}
