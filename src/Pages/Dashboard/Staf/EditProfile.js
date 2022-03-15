@@ -2,6 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import React, { Fragment, useState } from 'react'
 import DashboardHome from '../DHome'
 import axios from 'axios'
+import API from '../../../api'
 
 export default function EditProfile() {
   let [isOpen, setIsOpen] = useState(false)
@@ -41,7 +42,11 @@ export default function EditProfile() {
       data.append('city', city)
       data.append('pincode', pincode)
 
+<<<<<<< HEAD
       const res = await axios.put('/api/customer_register/', data)
+=======
+      const res =await axios.put(API + '/api/customer_register/', data)
+>>>>>>> angappanmuthu
       if (res.data.status) {
         alert('Update Sucessfully')
         setLocalStorage('address', address)
@@ -70,11 +75,16 @@ export default function EditProfile() {
       data.append('work_type', work_type)
       data.append('acc_no', acc_no)
 
+<<<<<<< HEAD
       const res = await axios.put(
         'http://127.0.0.1:8000/api/staff_register/',
         data,
       )
 
+=======
+      const res =await axios.put(API + '/api/staff_register/', data)
+      console.log(res)
+>>>>>>> angappanmuthu
       if (res.data.status) {
         openModal()
         setLocalStorage('login_id', res.data.user.login_id)

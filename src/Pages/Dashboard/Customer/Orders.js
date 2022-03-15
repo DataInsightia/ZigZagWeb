@@ -16,7 +16,8 @@ function Orders() {
 
     useEffect(() => {
         axios.get(API + `/api/customer_orders/${custid}/`).then(res => {
-            setOrders(res.data)
+            setOrders(res.data);
+            console.log(res.data);
         }).catch(err => console.log(err))
     },[]);
 

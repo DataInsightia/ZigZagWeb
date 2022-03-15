@@ -9,8 +9,9 @@ function OrderStatus() {
     const [showModal, setShowModal] = useState(false);
     const [staffPic,setStaffPic] = useState('');
     const [orderid,setOrderID] = useState({});
+    const [materialLocation,setMaterialLocation] = useState([{}]);
 
-    const handleEvent = (e) => setOrderID({ ...orderid, [e.target.name]: e.target.value });
+    const handleEvent = (e) => setOrderID({ ...orderid, [e.target.name] : e.target.value });
 
     const checkOrder = (e) => {
         e.preventDefault();
@@ -31,6 +32,11 @@ function OrderStatus() {
                 console.log("no data")
             }
         })
+
+        axios.get(API + `/api/material/${orderid.order_id}/`).then(res => {
+            setMaterialLocation(res.data[0]);
+            console.log(res.data);
+        }).catch(err => console.log(err))
         
     }
     return (
@@ -55,7 +61,7 @@ function OrderStatus() {
                     <div className="md:w-full px-3 mb-12 w-full">
                         <div className="flex w-full h-full  flex-wrap bg-rose-500 overflow-hidden rounded">
                             <div className="w-2/6">
-                                <img className="object-cover h-full w-full"
+                                <img className="object-cover h-full w-full" alt="#"
                                      src="https://www.polaroidfotobar.com/wp-content/uploads/2018/10/How-to-Start-Tailoring-Shop.jpg"/>
                             </div>
                             <div className="w-4/6 p-5">
@@ -66,7 +72,7 @@ function OrderStatus() {
                                             {/* <img src="https://randomuser.me/api/portraits/men/5.jpg"/> */}
                                         </div>
                                             <div className="flex-1 pl-2">
-                                                <h2 className="text-white mb-1">{localStorage.getItem('role')}</h2>
+                                                <h2 className="text-white mb-1">Current Material Location : {materialLocation.material_location}</h2>
                                                 {/* <p className="text-white opacity-50 text-xs">May 18</p> */}
                                             </div>
                                         </div>
@@ -103,7 +109,7 @@ function OrderStatus() {
                                     <div
                                         className={(e.status ? "bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full" : "bg-red-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full")}>
                                         <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.stage} - by ({e.staff_name})</h3>
-                                        <h5>{e.completion_date_time}</h5>
+                                        <h5>{new Date(e.completion_date_time).toLocaleString('en-TN')}</h5>
                                     </div>
                                 </div>) : ""
                     )}
@@ -153,7 +159,7 @@ function OrderStatus() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <img src={staffPic} height={500} width={400}/>
+                  <img src={staffPic} height={500} width={400} alt="#"/>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
