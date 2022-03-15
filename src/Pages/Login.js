@@ -30,7 +30,7 @@ export default function Login() {
 
     axios
       .post(
-        'http://127.0.0.1:8000/api/customer_login/',
+        API + '/api/customer_login/',
         data,
       )
       .then((res) => {

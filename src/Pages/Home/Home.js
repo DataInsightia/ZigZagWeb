@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import hero from '../../assets/img/zig.png'
 import hero2 from '../../assets/img/mod.png'
 import './home.css'
-
+import API from "../../api"
+import axios from 'axios'
 import Contact from './Contact'
 import { Link } from 'react-router-dom'
 import Stretch from '../../assets/svg/stitching.svg'
@@ -10,8 +11,10 @@ import Logo from '../../assets/img/logo.png'
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Scroll from "./Scroll";
+import "../../pre.css";
 import Scroll_Car from "./Scroll_Car";
 import Galary from "./Galary";
+
 
 //nav menu js function
 
@@ -23,8 +26,6 @@ import Galary from "./Galary";
 //     menu.classList.toggle('hidden');
 // });
 
-const navMenuDiv = document.getElementById('nav-content')
-const navMenu = document.getElementById('nav-toggle')
 
 // var sectionStyle = {
 //     width: "100%",
@@ -47,10 +48,18 @@ function checkParent(t, elm) {
   return false
 }
 
-export default function Home() {
 
+
+export default function Home() {
+  const [new_arrivals,setNewArrivals] = useState([{}]);
+  const [product,setProduct] = useState([{}]);
+  useEffect(() => {
+    axios.get(`${API}/api/new_arrivals/`).then(res => {setNewArrivals(res.data)}).catch(err=>console.log(err))
+    axios.get(`${API}/api/product_display/`).then(res => {setProduct(res.data)}).catch(err=>console.log(err))
+  },[]);
   return (
     //navbar
+
     <div className="leading-normal  tracking-normal text-black gradient">
      <Navbar/>
       <div className="pt-28">
@@ -168,45 +177,22 @@ export default function Home() {
                Products
               </h1>
               <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
-              <div className="mt-64">
-                  <div className="flex flex-wrap md:-m-60">
-                    <div className="flex flex-wrap w-1/3">
-                      <div className="w-full p-1 md:p-2 transform transition duration-500 hover:scale-125">
-                        <img alt="gallery" className="block object-cover object-center w-full h-full rounded-lg"
-                             src="https://www.polaroidfotobar.com/wp-content/uploads/2018/10/How-to-Start-Tailoring-Shop.jpg"/>
-                      </div>
-                    </div>
-                    <div className="flex flex-wrap w-1/3">
-                      <div className="w-full p-1 md:p-2 transform transition duration-500 hover:scale-125">
-                        <img alt="gallery" className=" block object-cover object-center w-full h-full rounded-lg"
-                             src="https://www.polaroidfotobar.com/wp-content/uploads/2018/10/How-to-Start-Tailoring-Shop.jpg"/>
-                      </div>
-                    </div>
-                    <div className="flex flex-wrap w-1/3">
-                      <div className="w-full p-1 md:p-2 transform transition duration-500 hover:scale-125">
-                        <img alt="gallery" className="block object-cover object-center w-full h-full rounded-lg"
-                             src="https://www.polaroidfotobar.com/wp-content/uploads/2018/10/How-to-Start-Tailoring-Shop.jpg"/>
-                      </div>
-                    </div>
-                    <div className="flex flex-wrap w-1/3">
-                      <div className="w-full p-1 md:p-2 transform transition duration-500 hover:scale-125">
-                        <img alt="gallery" className="block object-cover object-center w-full h-full rounded-lg"
-                             src="https://www.polaroidfotobar.com/wp-content/uploads/2018/10/How-to-Start-Tailoring-Shop.jpg"/>
-                      </div>
-                    </div>
-                    <div className="flex flex-wrap w-1/3">
-                      <div className="w-full p-1 md:p-2 transform transition duration-500 hover:scale-125">
-                        <img alt="gallery" className="block object-cover object-center w-full h-full rounded-lg"
-                             src="https://www.polaroidfotobar.com/wp-content/uploads/2018/10/How-to-Start-Tailoring-Shop.jpg"/>
-                      </div>
-                    </div>
-                    <div className="flex flex-wrap w-1/3">
-                      <div className="w-full p-1 md:p-2 transform transition duration-500 hover:scale-125">
-                        <img alt="gallery" className="block object-cover object-center w-full h-full rounded-lg"
-                             src="https://www.polaroidfotobar.com/wp-content/uploads/2018/10/How-to-Start-Tailoring-Shop.jpg"/>
-                      </div>
-                    </div>
-                </div>
+              <div className="mt-40">
+                        <div className="flex flex-wrap md:-m-40">
+                          {
+                            product.map(e => <>
+                          <div className="flex flex-wrap w-1/3">
+                            <div className="w-full p-1 md:p-2 transform transition duration-500 hover:scale-125">
+                              <img alt="gallery" className=" block object-cover object-center w-full h-full rounded-lg"
+                                   src={`${API}${e.picture}`}/>
+                            </div>
+                          </div>
+                                </>
+                            )}
+                        </div>
+
+
+
               </div>
             </div>
           </div>

@@ -83,12 +83,12 @@ const Navbar = () => {
                             </a>
                         </li>
                         <li className="mr-3">
-                            <a
+                            <Link
                                 className="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-                                href="#"
+                                to="/product_home"
                             >
                                 PRODUCTS
-                            </a>
+                            </Link>
                         </li>
                         <li className="mr-3">
                             <a
