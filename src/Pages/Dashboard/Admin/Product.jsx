@@ -9,11 +9,19 @@ export default function Product() {
   let [isUpdateOpen, setUpdateIsOpen] = useState(false)
   const [product,setProduct] = useState({});
   const [picture,setPicture] = useState('');
+  const [currentPicture,setCurrentPicture] = useState('');
   const [productList,setProductList] = useState([]);
   const [currentProduct,setCurrentProduct] = useState({});
-
+  
   const closeUpdateModal = () => setUpdateIsOpen(false);
   const openUpdateModal = () => setUpdateIsOpen(true);
+<<<<<<< HEAD
+=======
+  const resetPicture = () => setPicture('');
+  const resetProduct = () => setProduct({});
+  const resetCurrentProduct = () => setCurrentProduct({});
+  
+>>>>>>> angappanmuthu
 
   const styles = {
     'rose-button' : "inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500"
@@ -39,22 +47,28 @@ export default function Product() {
     axios.post(API + "/api/product/",formData).then(res => {
         console.log(res.data);
         fetch();
-    }).catch(err => console.log(err));
+        resetCurrentProduct();
+        resetPicture();
+    }).catch(err => {
+      console.log(err);
+      fetch();
+    });
     
   }
 
-  const getProduct = async (e,pid) => {
+  const getProduct = (e,pid) => {
     const api = `${API}/api/get_product/?pid=${pid}`
-    const res = await axios.get(api)
-    if (res.data.status) {setCurrentProduct(res.data.data)}
-    console.log(api)
+    axios.get(api).then(res =>{
+      if (res.data.status) {setCurrentProduct(res.data.data)}
+      console.log(res.data)
+    }).catch(err => console.log(err));
   }
 
   const updateButton = (e,productid) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("data",JSON.stringify(currentProduct))
-    formData.append("picture",picture)
+    formData.append("picture",currentPicture)
     axios.put(`${API}/api/product/${productid}/`,formData).then(res => {
         console.log(res.data);
         fetch();
@@ -65,8 +79,13 @@ export default function Product() {
   const handleEvent = (e) => {setProduct({ ...product, [e.target.name] : e.target.value });
     console.log(product)}
 
-    const handleUpdateEvent = (e) => {setCurrentProduct({ ...currentProduct, [e.target.name] : e.target.value });
-    console.log(product)}
+
+const handleCurrentFile = (e) => setCurrentPicture(e.target.files[0]);
+
+
+const handleToggler = (e,value) => setProduct({ ...product, [e.target.name] : !value });
+
+const handleCurrentToggler = (e,value) => setCurrentProduct({ ...currentProduct, [e.target.name] : !value });
 
 const handleFile = (e) => {
     setPicture(e.target.files[0]);
@@ -86,8 +105,8 @@ const fetch = () => {
                 <div className='mx-auto flex justify-end'>
                     <button
                         type="button"
-                        onClick={openModal}
-                        className="px-8 py-2  text-lg font-medium bg-red-500 text-white rounded-md  hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                        onClick={(e) => {openModal(e);resetProduct(e);resetPicture(e);}}
+                        className="px-8 py-2 text-lg font-medium bg-red-500 text-white rounded-md hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                         >
                         ADD
                     </button>
@@ -95,112 +114,111 @@ const fetch = () => {
 
             {/*Table*/}
                 <div>
+                    {/* <p>List</p>
+                    {
+                        productList.map(e => <li>{e.product_name} <button className={styles['rose-button']} onClick={(k) => {openUpdateModal(k);getProduct(k,e.product_id);}}>Update</button> <button class={styles['rose-button']}  onClick={() => axios.delete(`${API}/api/product/${e.product_id}/`).then(res => {alert(res.data.message);fetch();})}>{"Delete"}</button></li>)
+                    } */}
+
 <br/>
-                    <table className="min-w-full leading-normal">
-                        <thead>
-                        <tr>
-                            <th
-                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                            >
-                                Product Image
-                            </th>
-                            <th
-                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                            >
-                                Product Name
-                            </th>
-                            <th
-                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                            >
-                                Display
-                            </th>
-                            <th
-                                className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                            >
-                                New Arraval
-                            </th>
-                            <th
-                                className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                            >
-                                Update
-                            </th>
-                            <th
-                                className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                            >
-                                Delete
-                            </th>
-                            <th
-                                className=" py-3 border-b-2 border-gray-200 bg-gray-100"
-                            ></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            productList.map(e =><>
-                        <tr>
+                     <table className="min-w-full leading-normal">
+                         <thead>
+                         <tr>
+                             <th
+                                 className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                             >
+                                 Product Image
+                             </th>
+                             <th
+                                 className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                             >
+                                 Product Name
+                             </th>
+                             <th
+                                 className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                             >
+                                 Display
+                             </th>
+                             <th
+                                 className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                             >
+                                 New Arraval
+                             </th>
+                             <th
+                                 className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                             >
+                                 Update
+                             </th>
+                             <th
+                                 className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                             >
+                                 Delete
+                             </th>
+                             <th
+                                 className=" py-3 border-b-2 border-gray-200 bg-gray-100"
+                             ></th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                         {
+                             productList.map(e =><>
+                         <tr>
 
-                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <div className="flex">
-                                    <div className="flex-shrink-0 w-10 h-10">
-                                        <img
-                                            className="w-full h-full rounded-full"
-                                            src={`${API}${e.picture}`}
-                                            alt=""
-                                        />
-                                    </div>
-                                    <div className="ml-3">
-                                        <p className="text-gray-600 whitespace-no-wrap"></p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">{e.product_name}</p>
-                            </td>
-                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p className="text-gray-600 whitespace-no-wrap">View</p>
-                            </td>
-                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <span
-                    className="relative inline-block px-3 py-1 font-semibold text-rose-500 leading-tight"
-                >
-                    True
-                </span>
-                            </td>
-                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <span
-                    className="relative inline-block px-3 py-1 font-semibold text-rose-500 leading-tight"
-                >
-                  <button className={styles['rose-button']} onClick={(k) => {openUpdateModal(k);getProduct(k,e.product_id);}}>Update</button>
-                </span>
-                            </td>
-
-                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                <span
-                    className="relative inline-block px-3 py-1 font-semibold text-rose-500 leading-tight"
-                >
-                 <button className={styles['rose-button']}
-                         onClick={() => axios.delete(`${API}/api/product/${e.product_id}/`).then(res => {
-                             alert(res.data.message);
-                             fetch();
-                         })}>{"Delete"}</button>
-                </span>
-                            </td>
+                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                 <div className="flex">
+                                     <div className="flex-shrink-0 w-10 h-10">
+                                         <img
+                                             className="w-full h-full rounded-full"
+                                             src={`${API}${e.picture}`}
+                                             alt=""
+                                         />
+                                     </div>
+                                     <div className="ml-3">
+                                         <p className="text-gray-600 whitespace-no-wrap"></p>
+                                     </div>
+                                 </div>
+                             </td>
+                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                 <p className="text-gray-900 whitespace-no-wrap">{e.product_name}</p>
+                             </td>
+                             
+                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                 <span
+                     className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+                 >
+                   <span
+                       aria-hidden
+                       className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                   ></span>
+                   <span className="relative">{e.display ? "True" : "False"}</span>
+                 </span>
+                             </td>
+                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                 <span
+                     className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+                 >
+                   <span
+                       aria-hidden
+                       className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                   ></span>
+                   <span className="relative">{e.new_arrival ? "True" : "False"}</span>
+                 </span>
+                             </td>
 
 
-                        </tr>
-                            </> )}
-                        </tbody>
-                    </table>
+                          <td>
+                            <button className={styles['rose-button']} onClick={(k) => {openUpdateModal(k);getProduct(k,e.product_id);}}>Update</button>
+                          </td>
 
+                          <td>
+                            
+                          <button class={styles['rose-button']}  onClick={() => axios.delete(`${API}/api/product/${e.product_id}/`).then(res => {alert(res.data.message);fetch();})}>{"Delete"}</button>
+                          </td>
 
+                         </tr>
+                             </> )}
+                         </tbody>
+                     </table>
 
-
-
-
-                    {/*<p>List</p>*/}
-                    {/*{*/}
-                    {/*    productList.map(e => <li>{e.product_name} <button className={styles['rose-button']} onClick={(k) => {openUpdateModal(k);getProduct(k,e.product_id);}}>Update</button> <button class={styles['rose-button']}  onClick={() => axios.delete(`${API}/api/product/${e.product_id}/`).then(res => {alert(res.data.message);fetch();})}>{"Delete"}</button></li>)*/}
-                    {/*}*/}
                 </div>
         </div>
     </div>
@@ -326,8 +344,9 @@ const fetch = () => {
                         <input onChange={handleUpdateEvent} type="product_name" id="product_name" defaultValue={currentProduct.product_name} name="product_name" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" placeholder="Designer Sari" required />
                     </div>
                     
+                    <img src={currentPicture !== "" ? URL.createObjectURL(currentPicture) : API + currentProduct.picture} alt="#" />
                     <label class="border-0 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="user_avatar">Your Product Image</label>
-                    <input onChange={handleFile} name="product_image" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
+                    <input onChange={handleCurrentFile} name="product_image" accept='image/jpeg' class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
                     <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A product picture is useful to confirm your product.</div>
 
                     <label><input type="checkbox" onChange={handleUpdateEvent} defaultChecked={currentProduct.display} name="display" /> Display</label><br />
@@ -342,7 +361,6 @@ const fetch = () => {
                       <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500" onClick={(e) => {closeUpdateModal(e);}}>Close</button>    
                       </div> 
                     </div>
-                    {JSON.stringify(currentProduct)}
                     </form>
                 </div>
             
