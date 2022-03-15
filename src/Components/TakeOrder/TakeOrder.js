@@ -400,7 +400,7 @@ var date = curr.toISOString().substr(0,10);
                       />
                       <input
                           type={"submit"}
-                          className={"button text-white rounded p-3 m-3 bg-pink-600"}
+                          className={"button text-white cursor-pointer rounded p-3 m-3 bg-pink-600"}
                           value={"Check"}
                           onClick={findCustomer}
                       />
@@ -488,7 +488,7 @@ var date = curr.toISOString().substr(0,10);
                     <input
                         type={"submit"}
                         value={"ADD"}
-                        className="mb-3 xl:w-30 bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                        className="mb-3 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                         onClick={addWork}
                     />
                   </div>
@@ -562,7 +562,7 @@ var date = curr.toISOString().substr(0,10);
                         type={"submit"}
                         value={"ADD"}
                         className={
-                          "mb-3 xl:w-30 bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                          "mb-3 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                         }
                         onClick={addMaterial}
                     />
@@ -654,8 +654,8 @@ var date = curr.toISOString().substr(0,10);
                             />
 
 
-<Textarea
-      className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+<textarea
+      className="mb-6 xl:w-96 form-select form-select-lg mb-3 appearance-none block px-4
       py-2
       text-xl
       font-normal
