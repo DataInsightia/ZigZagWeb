@@ -53,7 +53,7 @@ function StaffList() {
     if (auth == 'staff') {
       const staff_id = localStorage.getItem('login_id')
       axios
-        .post(API + '/api/staff_wage_status/paid', { staff_id })
+        .post(API + '/api/staff_wage_status/notpaid', { staff_id })
         .then((res) => {
           if (res.data != []) {
             setfetchiwageComplete(res.data.data)
@@ -64,7 +64,7 @@ function StaffList() {
           }
         })
       axios
-        .post(API + '/api/staff_wage_status/notpaid', { staff_id })
+        .post(API + '/api/staff_wage_status/paid', { staff_id })
         .then((res) => {
           if (res.data != []) {
             setfetchwageCompletei(res.data.data)

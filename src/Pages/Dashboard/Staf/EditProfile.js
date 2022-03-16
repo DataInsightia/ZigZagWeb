@@ -72,17 +72,15 @@ export default function EditProfile() {
       data.append('acc_no', acc_no)
 
       const res =await axios.put(API + '/api/staff_register/', data)
-      console.log(res)
       if (res.data.status) {
         openModal()
-        setLocalStorage('login_id', res.data.user.login_id)
-        setLocalStorage('address', res.data.data.address)
+        setLocalStorage('address', address)
         setLocalStorage('photo', file)
         setLocalStorage('ifsc', ifsc)
         setLocalStorage('bank', bank)
         setLocalStorage('work_type', work_type)
         setLocalStorage('acc_no', acc_no)
-        setLocalStorage('cid', res.data.user.login_id)
+        setLocalStorage('cid', localStorage.getItem('login_id'))
         setLocalStorage('isAuthenticated', 'true')
       } else {
         alert('Not Updated')
@@ -227,6 +225,7 @@ export default function EditProfile() {
             </>
           )
         } else if (auth === 'staff') {
+          const photo = localStorage.getItem('photo')
           return (
             <>
               <div className="flex justify-center flex-wrap mt-16">
@@ -266,7 +265,7 @@ export default function EditProfile() {
                                     ) : (
                                       <img
                                         className="w-auto mx-auto rounded-full object-cover object-center"
-                                        src={localStorage.getItem('photo')}
+                                        src={`${API}/${photo}`}
                                         alt={localStorage.getItem('staff_name')}
                                       />
                                     )}
