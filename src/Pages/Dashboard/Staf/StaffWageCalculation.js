@@ -219,7 +219,7 @@ function StaffWageCalculation() {
                                     />
                                   </td>
                                   <td className="py-4 px-6 text-sm text-black uppercase whitespace-nowrap text-center">
-                                    {e.work.amount}
+                                    {e.wage}
                                     <input
                                       type="text"
                                       name="wage"
