@@ -50,6 +50,7 @@ export default function StaffRegister() {
       alert("Not Register Check Now")
       setFormData()
     }
+    console.log(res.data);
   }
   return (
     <div>
@@ -270,6 +271,7 @@ export default function StaffRegister() {
                   type="file"
                   id="file"
                   name="file"
+                  accept='image/jpeg'
                   onChange={onFileChange}
                   required
                   className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring-offset-rose-500 w-full ease-linear transition-all duration-150"
@@ -288,7 +290,6 @@ export default function StaffRegister() {
         </form>
       </div>
       </div>
-
     </div>
   )
 }

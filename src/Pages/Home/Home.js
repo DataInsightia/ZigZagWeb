@@ -127,8 +127,8 @@ export default function Home() {
       {/*New Arrivals*/}
 
       <section className="bg-white border-b py-8 pb-0">
-        <div className="container max-w-5xl mx-auto m-8">
-          <h1 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+        <div className="container max-w-5xl md:-space-x-16 mx-auto m-8">
+          <h1 className="w-full my-2 text-4xl font-bold leading-tight text-center text-gray-800">
             New Arrivals
           </h1>
           <div className="w-full mb-4">
@@ -142,19 +142,18 @@ export default function Home() {
       <section className="bg-white border-b py-8 pb-0">
         <div className="container max-w-5xl mx-auto m-8">
           <div className="w-full mb-4">
-
           </div>
-          <div className="flex flex-wrap">
-            <div className="w-5/6 sm:w-1/2 lg:w-1/3 p-0">
-              <h1 className="w-full my-2 text-3xl font-bold leading-tight text-center text-gray-800">
+          <div className="justify-items-center  flex flex-wrap">
+            <div className="w-full lg:w-1/3 p-0">
+              <h1 className="w-full  my-2 text-3xl font-bold leading-tight text-center text-gray-800 sm:text-center">
                 About US
               </h1>
-              <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+              <div className="h-1 mx-auto gradient  w-64 opacity-25 my-0 py-0 rounded-t"></div>
               <img src={Stretch} alt="React Logo" />
-              <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
+              <h3 className="text-center text-3xl text-gray-800 inline-block justify-center font-bold md:leading-none mb-3">
                 Lorem ipsum dolor sit amet
               </h3>
-              <p className="text-gray-600 mb-8">
+              <p className="text-gray-600 mb-8 text-center p-2 sm:text-center">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
                 at ipsum eu nunc commodo posuere et sit amet ligula.
                 <br />
@@ -166,19 +165,19 @@ export default function Home() {
             </div>
 
             <div className="lg:w-1/3">
-              <div className="border-l-4 border-l-black h-full"></div>
+              <div className="hidden sm:block border-l-4 border-l-black h-full"></div>
             </div>
 
             <div className="lg:w-1/3">
               <h1 className="w-full my-2 text-3xl font-bold leading-tight text-center text-gray-800">
                Products
               </h1>
-              <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
-              <div className="mt-40">
+              <div className="h-1 mx-auto gradient  w-64 opacity-25 my-0 py-0 rounded-t"></div>
+              <div className=" md:mt-40 inline-block mt-16">
                         <div className="flex flex-wrap md:-m-40">
                           {
                             product.map(e => <>
-                          <div className="flex flex-wrap w-1/3">
+                          <div className="flex flex-wrap lg:w-1/3">
                             <div className="w-full p-1 md:p-2 transform transition duration-500 hover:scale-125">
                               <img alt="gallery" className=" block object-cover object-center w-full h-full rounded-lg"
                                    src={`${API}${e.picture}`}/>
