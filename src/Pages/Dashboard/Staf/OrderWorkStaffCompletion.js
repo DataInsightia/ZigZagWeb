@@ -26,7 +26,7 @@ export const Stage_Completion_Request = async (
     },
     { withCredentials: true },
   )
-  window.location.reload()
+  // window.location.reload()
 }
 
 function OrderWorkStaffCompletion() {
