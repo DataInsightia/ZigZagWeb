@@ -60,7 +60,7 @@ export default function Invoice(){
              Chettinad ZigZag
            </span><br/>
            <span className="text-xl">
-             Mobile:+91 7878787878
+             Mobile:+91 9940682836
            </span><br/>
              <span className="text-sm font-bold">
             Address: 333A Poisolla Meiyar Street Near Daily Market, Udhyam Lodge Building, Karaikudi, Tamil Nadu 630001 
