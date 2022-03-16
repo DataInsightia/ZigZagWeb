@@ -547,7 +547,7 @@ export default function MaterialForm() {
         </Dialog>
       </Transition>
       {/* delete form modal */}
-  
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
