@@ -5,10 +5,8 @@ import QRCode from "react-qr-code";
 import "./qr.css";
 import $ from "jquery";
 import "./button.css";
-import {Link,useNavigate} from 'react-router-dom'
-import {Navigate, Redirect} from 'react-router'
-import { Textarea } from "@material-tailwind/react";
-// import { useHistory } from 'react-router'
+import {useNavigate} from 'react-router-dom'
+import {Navigate} from 'react-router'
 
 function TakeOrder() {
   $(function () {

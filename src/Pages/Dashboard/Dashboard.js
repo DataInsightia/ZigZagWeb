@@ -1,9 +1,7 @@
 import React from 'react'
 import Navbar from './Navbar'
 import './Dashboard.css'
-import TakeOrder from '../../Components/TakeOrder/TakeOrder'
 import Sidebar from './Sidebar'
-import Router from '../../Router/Router'
 import { Outlet } from 'react-router-dom'
 
 export default function Dashboard() {

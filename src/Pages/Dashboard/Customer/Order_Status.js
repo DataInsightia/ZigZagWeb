@@ -6,8 +6,6 @@ import API from '../../../api'
 function CustomerOrderStatus() {
     const [stage,setStage] = useState([])
     const [wa_stage,setWAstage] = useState([])
-    const [showModal, setShowModal] = useState(false);
-    const [staffPic,setStaffPic] = useState('');
     const [orderid,setOrderID] = useState({});
 
     const handleEvent = (e) => setOrderID({ ...orderid, [e.target.name]: e.target.value });

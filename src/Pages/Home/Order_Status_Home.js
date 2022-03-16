@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from "./Navbar";
-import Contact from "./Contact";
 import Footer from "./Footer";
 import Order_Status from "../Dashboard/Admin/Order_Status";
 

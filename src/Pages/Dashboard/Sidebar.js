@@ -1,16 +1,15 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import nav_logo from "../../assets/img/logo.png"
 
 export default function Sidebar() {
-  const navigate = useNavigate()
   const auth = localStorage.getItem('role')
   return (
     <div className="relative min-h-screen md:flex">
       <div className="bg-gray-800 text-gray-100 flex justify-between md:hidden">
-        <a href="#" className="block p-4 text-black font-bold">
+        <button className="block p-4 text-black font-bold">
           Zig Zag
-        </a>
+        </button>
 
         <button className="mobile-menu-button p-4 focus:outline-none focus:bg-gray-700">
           <svg
@@ -31,7 +30,7 @@ export default function Sidebar() {
       </div>
 
       <div className="sidebar bg-white text-blue-100 w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
-        <a href="#" className="text-black flex items-center space-x-2 px-4">
+        <button className="text-black flex items-center space-x-2 px-4">
           {/*<svg*/}
           {/*  className="w-8 h-8"*/}
           {/*  xmlns="http://www.w3.org/2000/svg"*/}
@@ -48,7 +47,7 @@ export default function Sidebar() {
           {/*</svg>*/}
           {/*<span className="text-2xl text-black font-extrabold">ZigZag</span>*/}
           <img src={nav_logo} sizes="50"/>
-        </a>
+        </button>
 
         <nav>
           {(() => {

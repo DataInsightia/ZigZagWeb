@@ -33,7 +33,7 @@ const Navbar = () => {
         <nav id="header" className="fixed w-full bg-white z-30 top-0 text-black">
             <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
                 <div className="pl-4 flex items-center">
-                    <img src={Logo} className="w-16 md:w-32 lg:w-20" />
+                    <img src={Logo} className="w-16 md:w-32 lg:w-20" alt="#"/>
                     {/*<a className="toggleColour text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">*/}
 
                     {/*    <svg className="h-8 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.005 512.005">*/}

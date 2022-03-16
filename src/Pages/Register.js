@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Google from '../assets/img/google.svg'
 import API from '../api'
 import axios from 'axios'
 import slideImg1 from '../assets/img/register_bg_2.png'
@@ -15,7 +14,7 @@ export default function Register() {
     pincode: '',
     password: '',
   })
-  const [register, setRegister] = useState(false)
+  // const [register, setRegister] = useState(false)
 
   const handleEvent = (e) => {
     var newData = { ...data }
@@ -39,7 +38,7 @@ export default function Register() {
               <p>Login Sucess</p>
             </div>
           )
-          setRegister(true)
+          // setRegister(true)
         }
         console.log(res.data)
       })

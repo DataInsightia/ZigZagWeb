@@ -2,16 +2,14 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import API from '../../../api'
 
-import { Link } from 'react-router-dom'
-
 export default function Staff() {
-  const Styles = {
-    TabHeadButton:
-      'shadow-lg mx-4 py-1 uppercase font-bold px-3 font-xs bg-rose-500 border-2 border-rose-500 text-white hover:text-rose-500 hover:border-rose-500 hover:bg-transparent rounded-md',
-    TabPanel: '',
-    WorkFormInput:
-      'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2',
-  }
+  // const Styles = {
+  //   TabHeadButton:
+  //     'shadow-lg mx-4 py-1 uppercase font-bold px-3 font-xs bg-rose-500 border-2 border-rose-500 text-white hover:text-rose-500 hover:border-rose-500 hover:bg-transparent rounded-md',
+  //   TabPanel: '',
+  //   WorkFormInput:
+  //     'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2',
+  // }
 
   const [staff, fetchstaff] = useState([])
   const [staffstate, fetchstaffstate] = useState(false)

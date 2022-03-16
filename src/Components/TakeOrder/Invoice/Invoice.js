@@ -10,11 +10,6 @@ import ReactToPrint from 'react-to-print';
 export default function Invoice(){
 
   const componentRef = useRef();
-
-  const [tmpwork,setTmpWork] = useState([]);
-  const [tmpmaterial,setTmpMaterial] = useState([]);
-  const [tmpworktotal,setTmpWorkTotal] = useState(0)
-  const [tmpmaterialtotal,setMaterialTotal] = useState(0)
   const [customerdetails,setCustomerDetails] = useState([]);
 
   const [order,setOrder] = useState({});

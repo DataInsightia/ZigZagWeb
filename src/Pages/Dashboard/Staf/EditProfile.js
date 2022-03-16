@@ -29,7 +29,7 @@ export default function EditProfile() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    if (auth == 'customer') {
+    if (auth === 'customer') {
       const username = e.target.username.value
       const address = e.target.address.value
       const city = e.target.city.value
