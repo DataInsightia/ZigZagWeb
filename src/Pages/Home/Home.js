@@ -63,22 +63,28 @@ export default function Home() {
     <div className="leading-normal  tracking-normal text-black gradient">
      <Navbar/>
       <div className="pt-28">
-        <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+        <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row">
           <div className="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
-            <p className="uppercase tracking-loose w-full">
+            <p className="uppercase text-white flex justify-center tracking-loose w-full">
               What business are you?
             </p>
-            <h1 className="font-bold text-3xl">
-              Main Hero Message to sell yourself!
+            <h1 className="font-bold text-white lg:text-5xl">
+              Wear our products to feel every occasion as special!
               <br/>
             </h1>
-            <p className="leading-normal text-2xl mb-8">
-              Sub-hero message, not too long and not too short. Make it just
-              right!
+            <p className="uppercase text-white text-2xl flex justify-center tracking-loose w-full">
+              Hand-crafted style to suit your frame!
             </p>
-            <button className="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-              Subscribe
-            </button>
+
+            <Link to="#" className="cursor-pointer border-0 w-full flex justify-center tracking-loose uppercase hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-9 shadow-lg focus:outline-none justify-items-center focus:shadow-outline transform transition hover:scale-105 duration-300">
+             Get In Touch
+            </Link>
+
+              {/*<a className=" uppercase hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-9 shadow-lg focus:outline-none justify-items-center focus:shadow-outline transform transition hover:scale-105 duration-300">*/}
+              {/*  Subscribe*/}
+              {/*</a>*/}
+
+
           </div>
           <div className="w-full flex md:w-3/5 py-6 text-center">
             <div className="container">
@@ -154,11 +160,10 @@ export default function Home() {
               <div className="h-1 mx-auto gradient  w-64 opacity-25 my-0 py-0 rounded-t"></div>
               <img src={Stretch} alt="React Logo" />
               <h3 className="text-center text-3xl text-gray-800 inline-block justify-center font-bold md:leading-none mb-3">
-                Lorem ipsum dolor sit amet
+                Chettinad Orginal ZigZag Boutique & Tailoring Shop
               </h3>
               <p className="text-gray-600 mb-8 text-center p-2 sm:text-center">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                at ipsum eu nunc commodo posuere et sit amet ligula.
+                50 Years Excellence in Delivering Fasion Wears
                 <br />
                 <br />
                 <center><button className="bg-rose-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
