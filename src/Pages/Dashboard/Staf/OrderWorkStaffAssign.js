@@ -34,7 +34,10 @@ const notify = (detail) => toast(`${detail}`)
 
 function OrderWorkStaffAssign() {
   const [staff, setStaff] = useState([])
+  const [orderid,setOrderID] = useState('')
   const [pendingworks, setPendingworks] = useState([])
+  const [orderPendingWork,setOrderPending] = useState([])
+  const [orderPendingWorkBool,setOrderWorkBool] = useState(false);
   const [pendingworksbool, setPendingworksbool] = useState(false)
 
   useEffect(() => {
@@ -61,6 +64,22 @@ function OrderWorkStaffAssign() {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
+  const getPendingWork = (e,orderid) => {
+    e.preventDefault()
+    axios.post(API +'/api/staff_work_assign_by_order/',{order_id : orderid}).then((res) => {
+      if (res.data.status === true) {
+        setOrderPending(res.data.data)
+        setOrderWorkBool(true)
+      } else {
+        setOrderPending([])
+        setOrderWorkBool(false)
+      }
+    });
+  }
+
+
+  const onOrderChange = (e) => setOrderID(e.target.value);
+
   const onSubmit = (e) => {
     e.preventDefault()
     Assign_Work(
@@ -81,6 +100,157 @@ function OrderWorkStaffAssign() {
       {pendingworksbool ? (
         <div className="bg-white p-10 mt-10">
           <div className="p-3 bg-white shadow-lg bg-opacity-25">
+            <div className={styles.title}>Search Orders</div>
+              <form onSubmit={(e) => {getPendingWork(e,orderid)}}>
+                <input type="text" className='border border-1 rounded text-lg p-2' onChange={onOrderChange} value={orderid} placeholder={'Order ID'} />
+                <input type="submit" className={styles.check_button} value={'Check'} />
+              </form>
+              <div>
+              <div className="flex flex-col">
+              <div className="overflow-x-auto">
+                <div className="inline-block py-2 min-w-full ">
+                  <div className="overflow-hidden">
+                    {
+                      orderPendingWorkBool ? (<table className="min-w-full">
+                      <thead>
+                        <tr>
+                          <div className="flex flex-wrap">
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Order
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Work
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Reference
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Staff
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Stage
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}></th>
+                            </div>
+                          </div>
+                        </tr>
+                      </thead>
+                    </table>) : ""
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {orderPendingWork.map((e) => (
+              <form onSubmit={onSubmit}>
+                <div className="flex flex-wrap">
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      id="id"
+                      name="id"
+                      value={e.data.id}
+                      disabled
+                      hidden
+                    />
+                    <input
+                      type="text"
+                      id="order_id"
+                      name="order_id"
+                      value={e.data.order.order_id}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                    />
+                  </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      id="work_id"
+                      name="work_id"
+                      value={e.data.work.work_id}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+
+                    />
+                  </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      id="order_work_label"
+                      name="order_work_label"
+                      value={e.data.order_work_label}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                      
+                    />
+                  </div>
+                  
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <select
+                      id="staff_id"
+                      name="staff_id"
+                      onChange={onChange}
+                      className={styles.select}
+                    >
+                      <option selected>Please select</option>
+                      {staff.map((e) => (
+                        <option value={e.staff_id}>{e.staff_name} (T - {e.takenOrders}) | (A-{e.nottakenOrders})</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <select
+                      id="assign_stage"
+                      name="assign_stage"
+                      onChange={onChange}
+                      className={styles.select}
+                    >
+                      <option selected value={''}>
+                        Please select
+                      </option>
+                      {e.nextstage.finishedassign.map((c) => (
+                        <option value={c.stage} disabled>
+                          {c.stage}
+                        </option>
+                      ))}
+                      {e.nextstage.nextassign.map((c) => (
+                        <option value={c.stage}>{c.stage}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <div className="flex justify-between">
+                      <button
+                        onClick={onChange}
+                        type="submit"
+                        className={styles.pinkbutton}
+                      >
+                        Assign
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="h-2"></div>
+
+                <div></div>
+              </form>
+            ))}
+
+              </div>
             <h1 className={styles.title}>Order Assign</h1>
 
             <div className="flex flex-col">

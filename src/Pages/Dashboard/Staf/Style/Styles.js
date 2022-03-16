@@ -16,6 +16,8 @@ const styles = {
   auth_label: 'border-none leading-7 text-sm text-black dark:text-slate-500',
   auth_input:
     'w-full bg-gray-100 bg-opacity-50 border border-gray-300 dark:focus:border-white focus:border-gray-400 focus:bg-white dark:focus:bg-slate-900 dark:focus:text-white focus:ring-2 focus:ring-gray-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out',
+  check_button:
+  'shadow-lg uppercase flex font-bold rounded-md text-sm text-white bg-rose-500 border-rose-600 border-2 hover:border-pink-600 hover:text-pink-600 hover:bg-gradient-to-r hover:from-white hover:to-white border  py-1.5 w-20 flex justify-center focus:outline-none',
 }
 
 export default styles
