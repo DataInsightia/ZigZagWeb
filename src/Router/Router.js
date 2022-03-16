@@ -22,26 +22,16 @@ import InvoiceSup from "../Components/TakeOrder/Invoice/Invoice_Sup";
 import OrderHistory from "../Pages/Dashboard/Admin/Order_History";
 import Order_Status_Home from "../Pages/Home/Order_Status_Home";
 import Orders from '../Pages/Dashboard/Customer/Orders'
-<<<<<<< HEAD
-=======
 import WorkForm from '../Pages/Dashboard/Admin/Form/WorkForm'
 import MaterialForm from '../Pages/Dashboard/Admin/Form/MaterialForm'
 import Staff from '../Pages/Dashboard/Admin/StaffLists'
 import Customer from '../Pages/Dashboard/Admin/CustomerLists'
->>>>>>> main
 import CustomerOrderHistory from '../Pages/Dashboard/Customer/Order_History';
 import Product from '../Pages/Dashboard/Admin/Product'
 import Product_Home from "../Pages/Product/Product_Home"
 
 
 
-<<<<<<< HEAD
-import WorkForm from '../Pages/Dashboard/Admin/Form/WorkForm'
-import MaterialForm from '../Pages/Dashboard/Admin/Form/MaterialForm'
-import Staff from '../Pages/Dashboard/Admin/StaffLists'
-import Customer from '../Pages/Dashboard/Admin/CustomerLists'
-=======
->>>>>>> main
 // ----------------------------------------------------------------------
 
 export default function Router() {

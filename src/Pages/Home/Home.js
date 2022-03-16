@@ -148,16 +148,16 @@ export default function Home() {
 
           </div>
           <div className="flex flex-wrap">
-            <div className="w-5/6 sm:w-1/2 lg:w-1/3 p-0">
-              <h1 className="w-full my-2 text-3xl font-bold leading-tight text-center text-gray-800">
+            <div className="sm:justify-center w-5/6 lg:w-1/3 p-0">
+              <h1 className="w-full my-2 text-3xl font-bold leading-tight text-center text-gray-800 sm:text-center">
                 About US
               </h1>
               <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
               <img src={Stretch} alt="React Logo" />
-              <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3">
+              <h3 className="text-3xl text-gray-800 font-bold leading-none sm:text-center mb-3">
                 Lorem ipsum dolor sit amet
               </h3>
-              <p className="text-gray-600 mb-8">
+              <p className="text-gray-600 mb-8 sm:text-center">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
                 at ipsum eu nunc commodo posuere et sit amet ligula.
                 <br />
@@ -169,7 +169,7 @@ export default function Home() {
             </div>
 
             <div className="lg:w-1/3">
-              <div className="border-l-4 border-l-black h-full"></div>
+              <div className="hidden sm:block border-l-4 border-l-black h-full"></div>
             </div>
 
             <div className="lg:w-1/3">
