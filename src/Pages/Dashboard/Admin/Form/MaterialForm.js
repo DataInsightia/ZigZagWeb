@@ -81,15 +81,7 @@ export default function MaterialForm() {
     if (res.data.status) {
       getMaterials()
     }
-    // const newAddedMaterial = {
-    //   material_name: addmaterialdata.material_name,
-    //   measurement: addmaterialdata.measurement,
-    //   amount: addmaterialdata.amount,
-    // }
-    // const insertAddedmaterial = [...material, newAddedMaterial]
-    // fetchMaterials(insertAddedmaterial)
     e.target.reset()
-
     openModal()
   }
 
@@ -290,9 +282,8 @@ export default function MaterialForm() {
                   <tbody>
                     {MaterialState ? (
                       <>
-                        {material.map((y) => 
-                          
-                            <form onSubmit={UpdateMaterialHandler}>
+                        {material.map((y) => (
+                          <form onSubmit={UpdateMaterialHandler}>
                             <tr>
                               <input
                                 type="text"
@@ -346,9 +337,8 @@ export default function MaterialForm() {
                                 </button>
                               </td>
                             </tr>
-                            </form>
-                         
-                        )}
+                          </form>
+                        ))}
                       </>
                     ) : (
                       ''
