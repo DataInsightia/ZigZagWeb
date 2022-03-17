@@ -97,8 +97,8 @@ const fetch = () => {
 
   return (
     <>
-    <div className="flex scroll items-center mt-16 justify-center min-h-screen bg-gray-100">
-        <div className="w-1/2 bg-white shadow-lg p-4">
+    <div className="flex scroll items-center md:mt-16 justify-center min-h-screen bg-gray-100">
+        <div className="md:w-1/2 bg-white shadow-lg p-4">
                 <div className='mx-auto'>
                     <button
                         type="button"
