@@ -139,10 +139,11 @@ export default function Home() {
         <div className="container max-w-5xl md:-space-x-16 mx-auto m-8">
           <h1 className="w-full my-2 text-4xl font-bold leading-tight text-center text-gray-800">
             New Arrivals
+            <div className="w-full mb-4 flex justify-center">
+              <div className=" h-1 mx-auto gradient w-64 opacity-25 my-0  py-0 rounded-t"></div>
+            </div>
           </h1>
-          <div className="w-full mb-4">
-            <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
-          </div>
+
           <Scroll/>
         </div>
       </section>
@@ -181,12 +182,12 @@ export default function Home() {
                Products
               </h1>
               <div className="h-1 mx-auto gradient  w-64 opacity-25 my-0 py-0 rounded-t"></div>
-              <div className=" md:mt-40 inline-block mt-16">
+              <div className=" md:mt-40  inline-block mt-16">
                         <div className="flex flex-wrap md:-m-40">
                           {
                             product.map(e => <>
-                          <div className="flex flex-wrap lg:w-1/3">
-                            <div className="w-full p-1 md:p-2 transform transition duration-500 hover:scale-125">
+                          <div className="flex flex-wrap  lg:w-1/3">
+                            <div className="w-full p-1 md:p-3 transform transition duration-500 hover:scale-125">
                               <img alt="gallery" className=" block object-cover object-center w-full h-full rounded-lg"
                                    src={`${API}${e.picture}`}/>
                             </div>
