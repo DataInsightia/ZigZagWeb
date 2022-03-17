@@ -45,12 +45,37 @@ export default function StaffRegister() {
     const res = await axios.post(API + "/api/staff_register/",data);
     if(res.data.status){
       alert("Register Sucessfully")
-      setFormData()
+      setFormData({
+        staff_name: '',
+        password: '',
+        mobile: '',
+        address: '',
+        city: '',
+        salary_type: '',
+        salary: '',
+        worktype: '',
+        acc_no: '',
+        ifsc: '',
+      })
     }else{
       alert("Not Register Check Now")
-      setFormData()
+      setFormData(
+        {
+          staff_name: '',
+          password: '',
+          mobile: '',
+          address: '',
+          city: '',
+          salary_type: '',
+          salary: '',
+          worktype: '',
+          acc_no: '',
+          ifsc: '',
+        }
+      )
     }
     console.log(res.data);
+    // alert(JSON.stringify(res.data))
   }
   return (
     <div>
