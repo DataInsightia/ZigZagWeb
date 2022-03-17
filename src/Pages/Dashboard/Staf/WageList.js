@@ -53,7 +53,7 @@ function StaffList() {
     if (auth == 'staff') {
       const staff_id = localStorage.getItem('login_id')
       axios
-        .post(API + '/api/staff_wage_status/paid', { staff_id })
+        .post(API + '/api/staff_wage_status/notpaid', { staff_id })
         .then((res) => {
           if (res.data != []) {
             setfetchiwageComplete(res.data.data)
@@ -64,7 +64,7 @@ function StaffList() {
           }
         })
       axios
-        .post(API + '/api/staff_wage_status/notpaid', { staff_id })
+        .post(API + '/api/staff_wage_status/paid', { staff_id })
         .then((res) => {
           if (res.data != []) {
             setfetchwageCompletei(res.data.data)
@@ -235,8 +235,15 @@ function StaffList() {
                                 scope="col"
                                 className="py-4 px-6 text-sm text-white whitespace-nowrap"
                               >
+                                Salary Type
+                              </th>
+                              <th
+                                scope="col"
+                                className="py-4 px-6 text-sm text-white whitespace-nowrap"
+                              >
                                 Image
                               </th>
+
                             </tr>
                           </thead>
                           <tbody>
@@ -244,6 +251,7 @@ function StaffList() {
                               <>
                                 <tr className="border-b border-x-0 border-8 border-white bg-white">
                                   <td className="py-4 px-6 text-sm text-white whitespace-nowrap text-center uppercase ">
+                                 
                                     <Link
                                     className="bg-rose-600 py-2 px-4 border-2 border-rose-600 hover:bg-transparent hover:border-rose-600 hover:text-rose-600"
                                       to={`${e.staff_id}`}
@@ -257,6 +265,9 @@ function StaffList() {
                                   </td>
                                   <td className="py-4 px-6 text-sm text-black whitespace-nowrap text-center uppercase ">
                                     {e.address}
+                                  </td>
+                                  <td className="py-4 px-6 text-sm text-black whitespace-nowrap text-center uppercase ">
+                                    {e.salary_type}
                                   </td>
                                   <td className="py-4 px-6 text-sm text-black whitespace-nowrap text-center flex justify-center">
                                     <img

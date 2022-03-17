@@ -3,21 +3,6 @@ import axios from 'axios'
 import API from '../../../../api'
 import styles from '../../Staf/Style/Styles'
 
-export const Staff_register = async (
- data
-) => {
-  const response = await axios.post(
-     'api/staff_register/',
-    {
-      data : data,
-    },
-    {
-      headers: { 'Content-Type': 'form-data/multipart' },
-    },
-    { withCredentials: true },
-  )
-  console.log(response)
-}
 
 export default function StaffRegister() {
   const [formData, setFormData] = useState({
@@ -57,11 +42,13 @@ export default function StaffRegister() {
     const data = new FormData()
     data.append('file', file)
     data.append('data', JSON.stringify(formData))
-    const res = await axios.post("/api/staff_register/",data);
+    const res = await axios.post(API + "/api/staff_register/",data);
     if(res.data.status){
       alert("Register Sucessfully")
+      setFormData()
     }else{
       alert("Not Register Check Now")
+      setFormData()
     }
   }
   return (

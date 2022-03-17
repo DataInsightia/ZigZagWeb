@@ -28,7 +28,7 @@ export const Assign_Work = async (
     { withCredentials: true },
   )
   notify(response.data.details)
-  window.location.reload()
+  // window.location.reload()
 }
 const notify = (detail) => toast(`${detail}`)
 
@@ -37,17 +37,19 @@ function OrderWorkStaffAssign() {
   const [pendingworks, setPendingworks] = useState([])
   const [pendingworksbool, setPendingworksbool] = useState(false)
 
-  useEffect(() => {
-    axios.get(API +'/api/staff_work_assign/').then((res) => {
+  useEffect(async() => {
+  await axios.get(API +'/api/staff_work_assign/').then((res) => {
       if (res.data.status === true) {
+        console.log(res.data.data)
         setPendingworks(res.data.data)
+
         setPendingworksbool(true)
       } else {
         setPendingworks([])
         setPendingworksbool(false)
       }
     })
-    axios.get(API +'/api/staff/').then((res) => setStaff(res.data))
+  await  axios.get(API +'/api/staff/').then((res) => setStaff(res.data))
   }, [])
 
   const [formData, setFormData] = useState({
@@ -150,6 +152,7 @@ function OrderWorkStaffAssign() {
                     />
                   </div>
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                
                     <input
                       type="text"
                       id="work_id"
