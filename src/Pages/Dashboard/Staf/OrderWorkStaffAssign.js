@@ -28,7 +28,7 @@ export const Assign_Work = async (
     { withCredentials: true },
   )
   notify(response.data.details)
-  // window.location.reload()
+  window.location.reload()
 }
 const notify = (detail) => toast(`${detail}`)
 
@@ -102,12 +102,16 @@ function OrderWorkStaffAssign() {
       {pendingworksbool ? (
         <div className="bg-white p-10 mt-10">
           <div className="p-3 bg-white shadow-lg bg-opacity-25">
-            <div className={styles.title}>Search Orders</div>
+          <h1>Pending Orders to Assign</h1>
+            <div className='flex justify-center'>
+            
+              <div className={styles.title}>Search Orders</div>
               <form onSubmit={(e) => {getPendingWork(e,orderid)}}>
                 <input type="text" className='border border-1 rounded text-lg p-2' onChange={onOrderChange} value={orderid} placeholder={'Order ID'} />
                 <input type="submit" className={styles.check_button} value={'Check'} />
               </form>
-              <div>
+            </div>
+            <div>
               <div className="flex flex-col">
               <div className="overflow-x-auto">
                 <div className="inline-block py-2 min-w-full ">
@@ -253,7 +257,7 @@ function OrderWorkStaffAssign() {
             ))}
 
               </div>
-            <h1 className={styles.title}>Order Assign</h1>
+            <h1 className={styles.title}>Pending Orders to Assign</h1>
 
             <div className="flex flex-col">
               <div className="overflow-x-auto">
