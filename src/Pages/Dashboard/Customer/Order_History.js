@@ -18,7 +18,7 @@ const CustomerOrderHistory = () => {
     },[]);
     return (
         <div>
-            <div class="mt-16 container mx-auto px-4 sm:px-8">
+            <div class="md:mt-16 container mx-auto px-4 sm:px-8">
                 <div class="py-8">
                     <div>
                         <h2 class="text-2xl justify-center font-semibold leading-tight">Order History</h2>
