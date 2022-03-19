@@ -101,75 +101,159 @@ export default function Navbar() {
                                             HOME
                                         </Link>
 
-                                        <Link
-                                            to="/dashboard/products"
-                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                        >
-                                            PRODUCT
-                                        </Link>
-                                        <Link
-                                            to="/dashboard/work"
-                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                        >
-                                            WORK
-                                        </Link>
-                                        <Link
-                                            to="/dashboard/material"
-                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                        >
-                                            MATERIAL
-                                        </Link>
-                                        <Link
-                                            to="/dashboard/takeorder"
-                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                        >
-                                            TAKE ORDER
-                                        </Link>
-                                        <Link
-                                            to="/dashboard/order_status"
-                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                        >
-                                            ORDER STATUS
-                                        </Link>
+                                        {/*Product Management*/}
+                                        <div className="dropdown inline-block relative">
+                                            <button
+                                                className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500">
+                                                <span className="mr-1">PRODUCT MANAGEMENT</span>
+                                            </button>
+                                            <ul className="dropdown-menu  hidden font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-white">
+                                                <li className="">
+                                                    <Link
+                                                        to="/dashboard/work"
+                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                    >
+                                                        WORK
+                                                    </Link>
+                                                </li>
+                                                <li className="">
+                                                    <Link
+                                                        to="/dashboard/material"
+                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                    >
+                                                        MATERIAL
+                                                    </Link>
+                                                </li>
+                                                <li className="">
+                                                    <Link
+                                                        to="/dashboard/products"
+                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                    >
+                                                        PRODUCT
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        {/*Product Management*/}
+
+                                        {/*Order Management*/}
+                                        <div className="dropdown inline-block relative">
+                                            <button
+                                                className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500">
+                                                <span className="mr-1">ORDER MANAGEMENT</span>
+                                            </button>
+                                            <ul className="dropdown-menu  hidden font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-white">
+                                                <li className="">
+                                                    <Link
+                                                        to="/dashboard/takeorder"
+                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                    >
+                                                        TAKE ORDER
+                                                    </Link>
+                                                    <li>
+                                                        <Link
+                                                            to="/dashboard/order_status"
+                                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                        >
+                                                            ORDER STATUS
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link
+                                                            to={"/dashboard/work_assign/"}
+                                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                        >
+                                                            ORDER ASSIGN
+                                                        </Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link
+                                                            to="/dashboard/order_approval"
+                                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                        >
+                                                            ORDER APPROVAL
+                                                        </Link>
+                                                    </li>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        {/*Order Management*/}
+
+
+                                        {/*Staff Management*/}
+
+
+                                        <div className="dropdown inline-block relative">
+                                            <button
+                                                className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500">
+                                                <span className="mr-1">STAFF MANAGEMENT</span>
+                                            </button>
+                                            <ul className="dropdown-menu  hidden font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-white">
+                                                <li className="">
+                                                    <Link
+                                                        to="/dashboard/wage"
+                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                    >
+                                                        WAGE
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link
+                                                        to="/dashboard/staff_register"
+                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                    >
+                                                        STAFF REGISTER
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link
+                                                        to="/dashboard/staffs"
+                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                    >
+                                                        STAFF LISTS
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        {/*Staff Management*/}
+
+
+                                        {/*Customer Management*/}
+                                        <div className="dropdown inline-block relative">
+                                            <button
+                                                className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500">
+                                                <span className="mr-1">CUSTOMER MANAGEMENT</span>
+                                            </button>
+                                            <ul className="dropdown-menu  hidden font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-white">
+                                                <li className="">
+                                                    <Link
+                                                        to="/dashboard/customers"
+                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                    >
+                                                        CUSTOMER LISTS
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link
+                                                        to="/dashboard/delivery"
+                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                    >
+                                                        DELIVERY
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </div>
 
 
 
-                                        <Link
-                                            to={"/dashboard/work_assign/"}
-                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                        >
-                                            ORDER ASSIGN
-                                        </Link>
-                                        <Link
-                                            to="/dashboard/order_approval"
-                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                        >
-                                            ORDER APPROVAL
-                                        </Link>
-                                        <Link
-                                            to="/dashboard/wage"
-                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                        >
-                                            WAGE
-                                        </Link>
-                                        <Link
-                                            to="/dashboard/staff_register"
-                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                        >
-                                            STAFF REGISTER
-                                        </Link>
-                                        <Link
-                                            to="/dashboard/staffs"
-                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                        >
-                                            STAFF LISTS
-                                        </Link>
-                                        <Link
-                                            to="/dashboard/customers"
-                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                        >
-                                            CUSTOMER LISTS
-                                        </Link>
+                                        {/*Customer Management*/}
+
+
+
+
+
+
                                     </div>
                                 )
                             } else if (auth === 'staff') {

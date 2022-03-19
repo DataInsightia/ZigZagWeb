@@ -151,9 +151,9 @@ export default function WorkForm() {
 
   return (
     <div>
-      <div class="mt-16 container mx-auto px-4 sm:px-8">
+      <div class="md:mt-16 container mx-auto px-4 sm:px-8">
         <div class="py-24">
-        <div className="flex justify-between">
+        <div className="md:flex justify-between">
             <h2 class="text-2xl justify-center font-semibold leading-tight">
               Work
             </h2>
