@@ -44,9 +44,8 @@ export default function MaterialForm() {
   // UPDATE MODAL FORM
   function openFromUpdateModal(id) {
     setIsFormUpdateOpen(true)
-    console.log(id)
     axios
-      .get(API + `/api/material/${id}/`)
+      .get(API + `/api/mate/${id}/`)
       .then((res) => setUpdateWorkID(res.data))
   }
 

@@ -35,9 +35,9 @@ function OrderWorkCompleted() {
   return (
     <div>
       
-        <div className="bg-white p-10 mt-10">
-          <div className="p-3 bg-white shadow-lg bg-opacity-25">
-            <h1 className={styles.title}>Completed Works</h1>
+        <div className=" p-10 mt-10">
+          <div className="p-3 bg-white shadow-xl">
+            <h1 className={styles.title}>COMPLETED WORKS</h1>
 
             <div class="flex flex-col">
               <div class="overflow-x-auto">

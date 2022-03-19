@@ -5,30 +5,48 @@ import styles from '../Staf/Style/Styles'
 import { Dialog, Transition } from '@headlessui/react'
 
 
-export const Assign_Work = async (
-  id,
-  order_id,
-  work_id,
-  staff_id,
-  assign_stage,
-  order_work_label
-) => {
-  const response = await axios.post(API + '/api/staff_work_assign/',
-    {
-      id,
-      order_id,
-      work_id,
-      staff_id,
-      assign_stage,
-      order_work_label
-    }
-  )
-  return response
-  
-  // window.location.reload()
-}
 
 function OrderWorkStaffAssign() {
+
+  const [formData, setFormData] = useState({
+    order_id: '',
+    work_id: '',
+    staff_id: '',
+    assign_stage: '',
+  })
+
+  const Assign_Work = async (
+    id,
+    order_id,
+    work_id,
+    staff_id,
+    assign_stage,
+    order_work_label,
+    material_location
+  
+  ) => {
+    console.log(material_location)
+    const response = await axios.post(API + '/api/staff_work_assign/',
+      {
+        id,
+        order_id,
+        work_id,
+        staff_id,
+        assign_stage,
+        order_work_label,
+        material_location
+      },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      },
+      { withCredentials: true },
+    )
+    // notify(response.data.details)
+    console.log(response.data);
+    return response
+    // window.location.reload()
+  }
+  // const notify = (detail) => toast(`${detail}`)
   const [staff, setStaff] = useState([])
   const [orderid,setOrderID] = useState('')
   const [pendingworks, setPendingworks] = useState([])
@@ -42,7 +60,6 @@ function OrderWorkStaffAssign() {
       if (res.data.status === true) {
         console.log(res.data.data)
         setPendingworks(res.data.data)
-
         setPendingworksbool(true)
       } else {
         setPendingworks([])
@@ -55,13 +72,8 @@ function OrderWorkStaffAssign() {
   await  axios.get(API +'/api/staff/').then((res) => setStaff(res.data))
   }, [])
 
-  const [formData, setFormData] = useState({
-    order_id: '',
-    work_id: '',
-    staff_id: '',
-    assign_stage: '',
-  })
-  const { order_id, work_id, staff_id, assign_stage } = formData
+  
+  // const { order_id, work_id, staff_id, assign_stage } = formData
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -96,6 +108,7 @@ function OrderWorkStaffAssign() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
+    console.log(e.target.material_location.value)
    const res = await Assign_Work(
       e.target.id.value,
       e.target.order_id.value,
@@ -103,6 +116,7 @@ function OrderWorkStaffAssign() {
       e.target.staff_id.value,
       e.target.assign_stage.value,
       e.target.order_work_label.value,
+      e.target.material_location.value,
     )
     
     openModal()
@@ -130,7 +144,6 @@ function OrderWorkStaffAssign() {
               <Dialog.Overlay className="fixed inset-0" />
             </Transition.Child>
 
-            {/* This element is to trick the browser into centering the modal contents. */}
             <span
               className="inline-block h-screen align-middle"
               aria-hidden="true"
@@ -170,16 +183,19 @@ function OrderWorkStaffAssign() {
         </Dialog>
       </Transition>
       {pendingworksbool ? (
-        <div className="p-10 mt-16">
-          <div className="p-3 bg-white shadow-2xl">
-            <div className={styles.title}>Search Orders</div>
+        <div className="p-10 mt-10">
+          <div className="p-3 bg-white shadow-xl">
+            <div className='flex justify-center'>
+            
+              <div className={styles.title}>Search Orders</div>
               <form onSubmit={(e) => {getPendingWork(e,orderid)}}>
                 <div className="flex">
                 <input type="text" className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2 mr-2' onChange={onOrderChange} value={orderid} placeholder={'Order ID'} />
                 <input type="submit" className={styles.check_button} value={'Check'} />
                 </div>
               </form>
-              <div>
+            </div>
+            <div>
               <div className="flex flex-col">
               <div className="overflow-x-auto">
                 <div className="inline-block py-2 min-w-full ">
@@ -212,6 +228,11 @@ function OrderWorkStaffAssign() {
                             <div className="lg:w-1/6">
                               <th scope="col" className={styles.tablehead}>
                                 Stage
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Material Location
                               </th>
                             </div>
                             <div className="lg:w-1/6">
@@ -290,6 +311,7 @@ function OrderWorkStaffAssign() {
                       name="assign_stage"
                       onChange={onChange}
                       className={styles.select}
+                      required
                     >
                       <option selected value={''}>
                         Please select
@@ -303,6 +325,17 @@ function OrderWorkStaffAssign() {
                         <option value={c.stage}>{c.stage}</option>
                       ))}
                     </select>
+                  </div>
+
+
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                        type="text"
+                        name="material_location"
+                        value={e.data.material_location}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                        required
+                      />
                   </div>
 
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
@@ -325,7 +358,7 @@ function OrderWorkStaffAssign() {
             ))}
 
               </div>
-            <h1 className={styles.title}>Order Assign</h1>
+            <h1 className={styles.title}>Pending Orders to Assign</h1>
 
             <div className="flex flex-col">
               <div className="overflow-x-auto">
@@ -358,6 +391,11 @@ function OrderWorkStaffAssign() {
                             <div className="lg:w-1/6">
                               <th scope="col" className={styles.tablehead}>
                                 Stage
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Material Location
                               </th>
                             </div>
                             <div className="lg:w-1/6">
@@ -451,10 +489,20 @@ function OrderWorkStaffAssign() {
                     </select>
                   </div>
 
+
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                        type="text"
+                        name="material_location"
+                        onChange={onChange}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                        required
+                      />
+                  </div>
+
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                     <div className="flex justify-between">
                       <button
-                        onClick={onChange}
                         type="submit"
                         className={styles.pinkbutton}
                       >

@@ -5,33 +5,7 @@ import nav_logo from "../../assets/img/logo.png"
 export default function Sidebar() {
   const auth = localStorage.getItem('role')
   return (
-<<<<<<< HEAD
-    <div className="relative min-h-screen md:flex">
-      <div className="bg-gray-800 text-gray-100 flex justify-between md:hidden">
-        <button className="block p-4 text-black font-bold">
-          Zig Zag
-        </button>
-
-        <button className="mobile-menu-button p-4 focus:outline-none focus:bg-gray-700">
-          <svg
-            className="h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
-      </div>
-=======
     <div className="relative min-h-screen hidden sm:block md:flex">
->>>>>>> dev
 
       <div className="sidebar bg-white text-blue-100 w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
         <button className="text-black flex items-center space-x-2 px-4">
@@ -132,6 +106,12 @@ export default function Sidebar() {
                   >
                     CUSTOMER LISTS
                   </Link>
+                  <Link
+                    to="/dashboard/delivery"
+                    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                  >
+                    DELIVERY
+                  </Link>
                 </div>
               )
             } else if (auth === 'staff') {
@@ -210,6 +190,13 @@ export default function Sidebar() {
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                   >
                     PROFILE EDIT
+                  </Link>
+
+                  <Link
+                    to="/dashboard/customer_order_status"
+                    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                  >
+                    ORDER STATUS
                   </Link>
                 </div>
               )
