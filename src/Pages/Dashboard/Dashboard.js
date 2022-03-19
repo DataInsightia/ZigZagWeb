@@ -9,6 +9,7 @@ export default function Dashboard() {
     <div className="relative min-h-screen md:flex">
       <Sidebar />
       <Navbar />
+    
       <div className="flex-1 body_content p-0 text-2xl font-bold bg-gray-50">
         <Outlet />
       </div>

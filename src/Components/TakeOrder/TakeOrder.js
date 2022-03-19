@@ -365,8 +365,8 @@ var date = curr.toISOString().substr(0,10);
   return (
       <div>
         <div className="mt-10">
-          <div className="bg-gray-100 border-x-0 shadow-md rounded  px-8 pt-8 pb-8 mb-4">
-              <div className="mt-10 flex flex-wrap justify-evenly bg-white shadow-2xl  justify-center ">
+          <div className="border-x-0 rounded  px-8 pt-8 pb-8 mb-4">
+              <div className="mt-10 flex flex-wrap justify-evenly bg-white shadow-2xl">
                   <div className="flex flex-col">
                   <div className="text-center grid grid-cols-0 mt-10">
                       <h6 className="text-black">Order No : {orderid}</h6>
@@ -380,7 +380,7 @@ var date = curr.toISOString().substr(0,10);
                       />
                   </div>
                   <br />
-                  <div className="grid justify-center">
+                  <div className="grid justify-center mt-4">
                       <input
                           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                           type={"text"}
@@ -391,7 +391,7 @@ var date = curr.toISOString().substr(0,10);
                       />
                       <input
                           type={"submit"}
-                          className={"button text-white cursor-pointer rounded p-3 m-3 bg-pink-600"}
+                          className={"button text-white cursor-pointer rounded p-2 my-2 bg-red-500 border border-red-500 hover:text-red-500 hover:bg-transparent"}
                           value={"Check"}
                           onClick={findCustomer}
                       />
