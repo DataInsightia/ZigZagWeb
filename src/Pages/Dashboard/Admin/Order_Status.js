@@ -46,7 +46,7 @@ function OrderStatus() {
         
     }
     return (
-        <div className="bg-gray-50 mt-16">
+        <div className="bg-gray-50 md:mt-16">
         <div className="p-4 mt-4">
             <h1 className="text-4xl text-center font-semibold mb-6">Order status</h1>
             <br/>
@@ -67,13 +67,13 @@ function OrderStatus() {
 
                     <div className="md:w-full px-3 mb-12 w-full">
                         <div className="flex w-full h-full  flex-wrap bg-rose-500 overflow-hidden rounded">
-                            <div className="w-2/6">
+                            <div className="md:w-2/6">
                                 <img className="object-cover h-full w-full" alt="#"
                                      src="https://www.polaroidfotobar.com/wp-content/uploads/2018/10/How-to-Start-Tailoring-Shop.jpg"/>
                             </div>
-                            <div className="w-4/6 p-5">
+                            <div className="md:w-4/6 p-5">
                                 <h2 className="text-white leading-normal text-lg">Work Complete</h2>
-                                <div className="flex flex-wrap justify-between items-center mt-20">
+                                <div className="flex flex-wrap justify-between items-center md:mt-20">
                                     <div className="inline-flex items-center">
                                         <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
                                             {/* <img src="https://randomuser.me/api/portraits/men/5.jpg"/> */}

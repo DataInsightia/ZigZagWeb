@@ -463,10 +463,10 @@ function TakeOrder() {
           <br />
 
           {cust ? (
-            <div className="bg-white drop-shadow-2xl ">
-              <div className=" flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
+            <div className="bg-white drop-shadow-2xl overflow-auto overflow-x-scroll ">
+              <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
                 <select
-                  className="mb-3 mt-10 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                    className="mb-3 sm:justify-center md:mt-12 inline-block sm:mt-60 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
       py-2
       text-xl
       font-normal
