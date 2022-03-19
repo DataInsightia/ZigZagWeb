@@ -15,28 +15,34 @@ function OrderStatus() {
 
     const checkOrder = (e) => {
         e.preventDefault();
-        // // ZA786
+
         axios.post(API + '/api/order_status_admin/',orderid).then(res => {
             if (res.data.status) {
-                setStage(res.data.details);
+                res.data.details !== undefined ? setStage(res.data.details) : setStage([]);
             } else {
                 console.log(res.data.details)
+                setShowModal(false)
             }
-        })
+        }).catch(err => alert(err))
         
 
         axios.post(API + '/api/order_status_oa_admin/',orderid).then(res => {
             if (res.data.status) {
-                setWAstage(res.data.data);
+                if (res.data.data !== undefined) { setWAstage(res.data.data); } else { setWAstage({}); }
             } else {
                 console.log("no data")
+                setShowModal(false)
             }
-        })
+        }).catch(err => alert(err))
 
         axios.get(API + `/api/material/${orderid.order_id}/`).then(res => {
-            setMaterialLocation(res.data[0]);
+            if (res.data !== undefined) {setMaterialLocation(res.data[0]);} else {setMaterialLocation([{}]);}
             console.log(res.data);
-        }).catch(err => console.log(err))
+        }).catch(err => alert(err))
+
+
+        if (materialLocation === undefined | materialLocation.length === 1) { alert("Not Found") } 
+        // alert(materialLocation.length)
         
     }
     return (
@@ -46,15 +52,16 @@ function OrderStatus() {
             <br/>
             <div className="container">
 
-    <form className="grid justify-center" onSubmit={checkOrder}>
-        <input required  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" placeholder={'Order ID'} onChange={handleEvent}/>
-        <div className="grid justify-center">
-            <input  className={"justify-center button text-white rounded p-3 m-3 bg-pink-600"} type="submit" /></div>
-    </form>
+            <form className="grid justify-center" onSubmit={checkOrder}>
+                <input required  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" placeholder={'Order ID'} onChange={handleEvent}/>
+                <div className="grid justify-center">
+                    <input  className={"justify-center button text-white rounded p-3 m-3 bg-pink-600"} type="submit" /></div>
+            </form>
 
 
 
                 {/*product status start*/}
+
 
                 <div className="flex py-6 px-16  justify-center">
 
@@ -72,7 +79,7 @@ function OrderStatus() {
                                             {/* <img src="https://randomuser.me/api/portraits/men/5.jpg"/> */}
                                         </div>
                                             <div className="flex-1 pl-2">
-                                                <h2 className="text-white mb-1">Current Material Location : {materialLocation.material_location}</h2>
+                                                <h2 className="text-white mb-1">Current Material Location : {(materialLocation !== undefined) ? materialLocation.material_location : "Not Found"}</h2>
                                                 {/* <p className="text-white opacity-50 text-xs">May 18</p> */}
                                             </div>
                                         </div>
@@ -94,168 +101,93 @@ function OrderStatus() {
                
                 {/*product status end*/}
 
+
+                </div>
+            </div>       
                 <div className="flex flex-col md:grid grid-cols-12 text-gray-50 px-72">
-                    {stage.map((e)=>        
-                                    e.status ? (<div className="flex md:contents">
-                                    <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
-                                        <div className="h-full w-6 flex items-center justify-center">
-                                            <i className={(e.status ? "h-full w-2 bg-green-500 pointer-events-none" : "h-full w-2 bg-red-500 pointer-events-none")}></i>
-                                        </div>
-                                        <div
-                                            className={(e.status ?  "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-green-500 shadow text-center" : "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-red-500 shadow text-center")}>
-                                            {(e.status ? <i className="fa fa-check-circle text-white"></i> : <i className="fa fa-times-circle text-white"></i>)}
-                                        </div>
+                {stage.map((e)=>        
+                                e.status ? (<div className="flex md:contents">
+                                <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
+                                    <div className="h-full w-6 flex items-center justify-center">
+                                        <i className={(e.status ? "h-full w-2 bg-green-500 pointer-events-none" : "h-full w-2 bg-red-500 pointer-events-none")}></i>
                                     </div>
                                     <div
-                                        className={(e.status ? "bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full" : "bg-red-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full")}>
-                                        <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.stage} - by ({e.staff_name})</h3>
-                                        <h5>{new Date(e.completion_date_time).toLocaleString('en-TN')}</h5>
+                                        className={(e.status ?  "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-green-500 shadow text-center" : "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-red-500 shadow text-center")}>
+                                        {(e.status ? <i className="fa fa-check-circle text-white"></i> : <i className="fa fa-times-circle text-white"></i>)}
                                     </div>
-                                </div>) : ""
-                    )}
+                                </div>
+                                <div
+                                    className={(e.status ? "bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full" : "bg-red-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full")}>
+                                    <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.stage} - by ({e.staff_name})</h3>
+                                    <h5>{new Date(e.completion_date_time).toLocaleString('en-TN')}</h5>
+                                </div>
+                            </div>) : ""
+                )}
 
 
-                    {wa_stage.map((e)=>             
-                    <div className="flex md:contents">
-                        <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
-                            <div className="h-full w-6 flex items-center justify-center">
-                            <i className={"h-full w-2 bg-gray-500 pointer-events-none" }></i>
-                        </div>
-                        <div
-                            className={"w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-gray-500 shadow text-center"}>
-                            <i className="fa fa-check-circle text-white"></i>
-                        </div>
+                {wa_stage.map((e)=>             
+                <div className="flex md:contents">
+                    <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
+                        <div className="h-full w-6 flex items-center justify-center">
+                        <i className={"h-full w-2 bg-gray-500 pointer-events-none" }></i>
                     </div>
-                    <div 
-                    onClick={() => {setShowModal(true);setStaffPic(API + e.staff.photo);}}
-                        className={"bg-gray-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
-                        <h3 className={"font-semibold text-lg mb-1 text-white"}>(On Going) {e.work_staff_completion_stage} - {e.orderworkstaffassign.staff.staff_name}</h3>
+                    <div
+                        className={"w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-gray-500 shadow text-center"}>
+                        <i className="fa fa-check-circle text-white"></i>
                     </div>
-                </div>)}
+                </div>
+                <div 
+                onClick={() => {setShowModal(true);setStaffPic(API + e.staff.photo);}}
+                    className={"bg-gray-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
+                    <h3 className={"font-semibold text-lg mb-1 text-white"}>(On Going) {e.orderworkstaffassign.order_work_label} {e.work_staff_completion_stage} - {e.orderworkstaffassign.staff.staff_name}</h3>
+                </div>
+            </div>)}
 
 
 
-      {showModal ? (
+  {showModal ? (
         <>
-          <div
+        <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-          >
+        >
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+            {/*content*/}
+            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex bg-pink-700 items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h3 className="text-3xl font-semibold text-white">
+                <h3 className="text-3xl font-semibold text-white">
                     Staff Photo
-                  </h3>
-                  <button
+                </h3>
+                <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
-                  >
+                >
                     <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      x
+                    x
                     </span>
-                  </button>
+                </button>
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <img src={staffPic} height={500} width={400} alt="#"/>
+                <img src={staffPic} height={500} width={400} alt="#"/>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
+                <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
-                  >
+                >
                     Close
-                  </button>
+                </button>
                 </div>
-              </div>
             </div>
-          </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+            </div>
+        </div>
+        <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
-      ) : null}
-
-
-                   
-{/* 
-                    <div className="flex md:contents">
-                        <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
-                            <div className="h-full w-6 flex items-center justify-center">
-                                <i className="h-full w-2 bg-green-500 pointer-events-none"></i>
-                            </div>
-                            <div
-                                className="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-green-500 shadow text-center">
-                                <i className="fa fa-check-circle text-white"></i>
-                            </div>
-                        </div>
-                        <div
-                            className="bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
-                            <h3 className="font-semibold text-lg mb-1">Package Booked</h3>
-                            <p className="leading-tight text-justify w-full">
-                                21 July 2021, 04:30 PM
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex md:contents">
-                        <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
-                            <div className="h-full w-6 flex items-center justify-center">
-                                <div className="h-full w-2 bg-green-500 pointer-events-none"></div>
-                            </div>
-                            <div
-                                className="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-green-500 shadow text-center">
-                                <i className="fa fa-check-circle text-white"></i>
-                            </div>
-                        </div>
-                        <div
-                            className="bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
-                            <h3 className="font-semibold text-lg mb-1">Out for Delivery</h3>
-                            <p className="leading-tight text-justify">
-                                22 July 2021, 01:00 PM
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex md:contents">
-                        <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
-                            <div className="h-full w-6 flex items-center justify-center">
-                                <div className="h-full w-2 bg-red-500 pointer-events-none"></div>
-                            </div>
-                            <div className="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-red-500 shadow text-center">
-                                <i className="fa fa-times-circle text-white"></i>
-                            </div>
-                        </div>
-                        <div className="bg-red-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
-                            <h3 className="font-semibold text-lg mb-1 text-gray-50">Cancelled</h3>
-                            <p className="leading-tight text-justify">
-                                Customer cancelled the order
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex md:contents">
-                        <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
-                            <div className="h-full w-6 flex items-center justify-center">
-                                <div className="h-full w-2 bg-rose-500 pointer-events-none"></div>
-                            </div>
-                            <div className="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-rose-500 shadow text-center">
-                                <i className="fa fa-exclamation-circle text-white-500"></i>
-                            </div>
-                        </div>
-                        <div
-                            className="bg-rose-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
-                            <h3 className="font-semibold text-lg mb-1 text-white">Delivered</h3>
-                            <p className="leading-tight text-justify">
-
-                            </p>
-                        </div>
-                    </div> */}
-
-                </div>
-            </div>
+    ) : null}
+                  
         </div>
         </div>
     );

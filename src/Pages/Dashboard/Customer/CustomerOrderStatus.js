@@ -108,7 +108,7 @@ function CustomerOrderStatus() {
                   </div>
                   <div
                       className={(e.status ? "bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full" : "bg-red-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full")}>
-                      <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.status}{e.stage}</h3>
+                      <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.stage}</h3>
                   </div>
               </div>) : ""
 )}
@@ -129,7 +129,7 @@ function CustomerOrderStatus() {
   </div>
   <div
       className={"bg-gray-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
-      <h3 className={"font-semibold text-lg mb-1 text-white"}>(On Going) {e.work_staff_completion_stage}</h3>
+      <h3 className={"font-semibold text-lg mb-1 text-white"}>(On Going) {e.orderworkstaffassign.order_work_label} {e.work_staff_completion_stage}</h3>
   </div>
 </div>
 )}

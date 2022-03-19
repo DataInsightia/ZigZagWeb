@@ -242,9 +242,6 @@ var date = curr.toISOString().substr(0,10);
           if (res.data.length !== 0) {
             SetCustomerDetails(res.data[0]);
             setCust(true);
-            console.log(res.data);
-          }else{
-            console.log("This is Admin or Staff Mobile Number")
           }
         })
         .catch((err) => {
@@ -318,15 +315,11 @@ var date = curr.toISOString().substr(0,10);
                     .catch((err) => console.log(err));
 
                 for (var k = 0; k < parseInt(tmpworks[i].quantity); k++) {
-                  console.log({
-                    order_id: orderid,
-                    work_id: tmpworks[i].work_id,
-                    order_work_label: tmpworks[i].work_id + wc,
-                  });
+          
                   axios
                       .post(API + "/api/order_work_staff_assign/", {
                         order_id: orderid,
-                        order_work_label: tmpworks[i].work_id + wc,
+                        order_work_label: `${tmpworks[i].work_name}-${wc}`,
                         work_id: tmpworks[i].work_id,
                       })
                       .then((res) => {
@@ -659,6 +652,7 @@ var date = curr.toISOString().substr(0,10);
                         </select>
                       </snap>
 
+<<<<<<< HEAD
                         {others.pickup_type === "other" ? (
                             <div>
                                 <p className="font-semibold flex flex-wrap">Other Details : </p>
@@ -683,6 +677,9 @@ var date = curr.toISOString().substr(0,10);
 
 
                       {others.pickup_type === "courier" ? (
+=======
+                      {others.pickup_type === "hj" ? (
+>>>>>>> origin/angappanmuthu
                           <snap>
                               <p className="font-semibold flex flex-wrap">Courier Charge : </p>
                             <input

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import API from '../../../api'
 import styles from '../Staf/Style/Styles'
+import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router';
+import { Nav } from '@material-tailwind/react'
 
 export const Stage_Completion_Request = async (
   order_id,
@@ -29,7 +32,9 @@ export const Stage_Completion_Request = async (
   // window.location.reload()
 }
 
+
 function OrderWorkStaffCompletion() {
+  const [redirect,setRedirect] = useState(false);
   const [completion, setcompletion] = useState([])
   const [completionbool, setcompletionbool] = useState(false)
   const [completionreview, setcompletionreview] = useState([])
@@ -99,7 +104,10 @@ function OrderWorkStaffCompletion() {
         order_id: e.target.order_id.value,
       })
       .then((res) => {
-        console.log(res.data)
+        if (res.data.status) { 
+          alert("Material Location Updated");
+            setRedirect(true);
+         }
       })
       .catch((err) => console.log(err))
   }
@@ -109,7 +117,7 @@ function OrderWorkStaffCompletion() {
     current.getMonth() + 1
   }/${current.getDate()}/${current.getFullYear()}`
 
-  return (
+  return (redirect) ? (<Navigate to="/dashboard/dhome/" />) : (
     <div>
       {completionbool ? (
         <div className=" p-10 mt-10">
