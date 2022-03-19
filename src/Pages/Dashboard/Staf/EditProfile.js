@@ -50,9 +50,9 @@ export default function EditProfile() {
       data.append('city', city)
       data.append('pincode', pincode)
 
-      const res =await axios.put(API + '/api/customer_register/', data)
+      const res = await axios.put(API + '/api/customer_register/', data)
       if (res.data.status) {
-        alert('Update Sucessfully')
+        openModal()
         setLocalStorage('address', address)
         setLocalStorage('city', city)
         setLocalStorage('pincode', pincode)
@@ -79,7 +79,7 @@ export default function EditProfile() {
       data.append('work_type', work_type)
       data.append('acc_no', acc_no)
 
-      const res =await axios.put(API + '/api/staff_register/', data)
+      const res = await axios.put(API + '/api/staff_register/', data)
       if (res.data.status) {
         openModal()
         setLocalStorage('address', address)
@@ -108,7 +108,7 @@ export default function EditProfile() {
         if (auth === 'customer') {
           return (
             <>
-              <div className="flex justify-center flex-wrap mt-16">
+              <div className="flex justify-center flex-wrap md:mt-16">
                 <div className="w-full lg:w-8/12 px-4">
                   <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
                     <div className="flex-auto bg-white py-10 pt-0">
@@ -150,10 +150,7 @@ export default function EditProfile() {
                           </div>
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
-                              <label
-                                className={Styles.Label}
-                                htmlFor="email"
-                              >
+                              <label className={Styles.Label} htmlFor="email">
                                 Email address
                               </label>
                               <input
@@ -175,10 +172,7 @@ export default function EditProfile() {
                         <div className="flex flex-wrap">
                           <div className="w-full lg:w-12/12 px-10">
                             <div className="relative w-full mb-3">
-                              <label
-                                className={Styles.Label}
-                                htmlFor="address"
-                              >
+                              <label className={Styles.Label} htmlFor="address">
                                 Address
                               </label>
                               <input
@@ -192,10 +186,7 @@ export default function EditProfile() {
                           </div>
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
-                              <label
-                                className={Styles.Label}
-                                htmlFor="city"
-                              >
+                              <label className={Styles.Label} htmlFor="city">
                                 City
                               </label>
                               <input
@@ -209,10 +200,7 @@ export default function EditProfile() {
                           </div>
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
-                              <label
-                                className={Styles.Label}
-                                htmlFor="postal"
-                              >
+                              <label className={Styles.Label} htmlFor="postal">
                                 Postal Code
                               </label>
                               <input
@@ -233,7 +221,6 @@ export default function EditProfile() {
             </>
           )
         } else if (auth === 'staff') {
-          const photo = localStorage.getItem('photo')
           return (
             <>
               <div className="flex justify-center flex-wrap mt-16">
@@ -273,8 +260,8 @@ export default function EditProfile() {
                                     ) : (
                                       <img
                                         className="w-auto mx-auto rounded-full object-cover object-center"
-                                        src={`${API}/${photo}`}
-                                        alt={localStorage.getItem('staff_name')}
+                                        src={`${API}${localStorage.getItem('photo')}`}
+                                        alt={`${API}${localStorage.getItem('photo')}`}
                                       />
                                     )}
                                     {file && (
@@ -359,10 +346,7 @@ export default function EditProfile() {
                           </div>
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
-                              <label
-                                className={Styles.Label}
-                                htmlFor="mobile"
-                              >
+                              <label className={Styles.Label} htmlFor="mobile">
                                 Mobile
                               </label>
                               <input
@@ -384,10 +368,7 @@ export default function EditProfile() {
                         <div className="flex flex-wrap">
                           <div className="w-full lg:w-12/12 px-10">
                             <div className="relative w-full mb-3">
-                              <label
-                                className={Styles.Label}
-                                htmlFor="address"
-                              >
+                              <label className={Styles.Label} htmlFor="address">
                                 Address
                               </label>
                               <input
@@ -401,10 +382,7 @@ export default function EditProfile() {
                           </div>
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
-                              <label
-                                className={Styles.Label}
-                                htmlFor="city"
-                              >
+                              <label className={Styles.Label} htmlFor="city">
                                 City
                               </label>
                               <input
@@ -455,10 +433,7 @@ export default function EditProfile() {
                           </div>
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
-                              <label
-                                className={Styles.Label}
-                                htmlFor="salary"
-                              >
+                              <label className={Styles.Label} htmlFor="salary">
                                 Salary
                               </label>
                               <input
@@ -473,10 +448,7 @@ export default function EditProfile() {
                           </div>
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
-                              <label
-                                className={Styles.Label}
-                                htmlFor="acc_no"
-                              >
+                              <label className={Styles.Label} htmlFor="acc_no">
                                 Account Number
                               </label>
                               <input
@@ -490,10 +462,7 @@ export default function EditProfile() {
                           </div>
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
-                              <label
-                                className={Styles.Label}
-                                htmlFor="ifsc"
-                              >
+                              <label className={Styles.Label} htmlFor="ifsc">
                                 IFSC
                               </label>
                               <input
@@ -507,10 +476,7 @@ export default function EditProfile() {
                           </div>
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
-                              <label
-                                className={Styles.Label}
-                                htmlFor="bank"
-                              >
+                              <label className={Styles.Label} htmlFor="bank">
                                 Bank
                               </label>
                               <input

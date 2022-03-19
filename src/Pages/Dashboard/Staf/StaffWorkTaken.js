@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { Fragment,useState, useEffect } from 'react'
 import axios from 'axios'
 import API from '../../../api'
 import styles from '../Staf/Style/Styles'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { Dialog, Transition } from '@headlessui/react'
+
 
 export const Taken_Work = async (
   order_id,
@@ -26,10 +26,8 @@ export const Taken_Work = async (
     },
     { withCredentials: true },
   )
-  notify(response.data.details)
-  window.location.reload()
+  return response
 }
-const notify = (detail) => toast(`${detail}`)
 
 function StaffWorkTaken() {
   const [order, setOrders] = useState([])
@@ -37,11 +35,23 @@ function StaffWorkTaken() {
   const [assingedworksbool, setAssingedWorksbool] = useState(false)
   const [takenworks, settakenworks] = useState([])
   const [takenworksbool, settakenworksbool] = useState(false)
+  let [isOpen, setIsOpen] = useState(false)
+  let [message, setMessage] = useState('')
+
+  function closeModal () {
+    fetchStaffOrders()
+    setIsOpen(false)
+    setMessage()
+  }
+
+  function openModal() {
+    setIsOpen(true)
+  }
 
   // get staff_id from local storage
   var staff_id = localStorage.getItem('login_id')
 
-  useEffect(() => {
+  const fetchStaffOrders = () =>{
     axios.get(API +'/api/orders/').then((res) => setOrders(res.data))
     axios
       .post(API +
@@ -85,6 +95,10 @@ function StaffWorkTaken() {
           settakenworksbool(false)
         }
       })
+  }
+
+  useEffect(() => {
+    fetchStaffOrders()
   }, [])
 
   const [formData, setFormData] = useState({
@@ -96,27 +110,28 @@ function StaffWorkTaken() {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
     var staff_id = localStorage.getItem('login_id')
-    Taken_Work(
+   const res = await Taken_Work(
       e.target.order_id.value,
       e.target.work_id.value,
       staff_id,
       e.target.assign_stage.value,
       e.target.order_work_label.value,
     )
+    openModal()
+    setMessage(res.data.details)
   }
 
   return (
     <div>
-      <div>
-        <ToastContainer />
-      </div>
+    
       {assingedworksbool ? (
         <div className=" p-10 mt-10">
           <div className="p-3">
             <h1 className={styles.title}>Take Orders</h1>
+
             <div class="flex flex-col bg-white shadow-lg text-black">
               <div class="overflow-x-auto">
                 <div class="inline-block py-2 min-w-full ">
@@ -316,6 +331,64 @@ function StaffWorkTaken() {
       ) : (
         ''
       )}
+       <Transition appear show={isOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-25"
+          onClose={closeModal}
+        >
+          <div className="min-h-screen px-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg font-medium leading-6 text-gray-900"
+                >
+                  {message}
+                </Dialog.Title>
+                
+
+                <div className="mt-4">
+                  <button
+                    type="button"
+                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    onClick={closeModal}
+                  >
+                    Go ahead
+                  </button>
+                </div>
+              </div>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
     </div>
   )
 }

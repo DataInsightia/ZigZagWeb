@@ -48,7 +48,6 @@ export default function WorkForm() {
   // UPDATE MODAL FORM
   function openFromUpdateModal(id) {
     setIsFormUpdateOpen(true)
-    console.log(id)
     axios.get(API + `/api/work/${id}/`).then((res) => setUpdateWorkID(res.data))
   }
 

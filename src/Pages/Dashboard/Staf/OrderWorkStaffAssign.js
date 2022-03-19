@@ -41,11 +41,12 @@ function OrderWorkStaffAssign() {
       },
       { withCredentials: true },
     )
-    notify(response.data.details)
+    // notify(response.data.details)
     console.log(response.data);
-    window.location.reload()
+    return response
+    // window.location.reload()
   }
-  const notify = (detail) => toast(`${detail}`)
+  // const notify = (detail) => toast(`${detail}`)
   const [staff, setStaff] = useState([])
   const [orderid,setOrderID] = useState('')
   const [pendingworks, setPendingworks] = useState([])
@@ -108,7 +109,7 @@ function OrderWorkStaffAssign() {
   const onSubmit = async (e) => {
     e.preventDefault()
     console.log(e.target.material_location.value)
-    Assign_Work(
+   const res = await Assign_Work(
       e.target.id.value,
       e.target.order_id.value,
       e.target.work_id.value,
@@ -143,7 +144,6 @@ function OrderWorkStaffAssign() {
               <Dialog.Overlay className="fixed inset-0" />
             </Transition.Child>
 
-            {/* This element is to trick the browser into centering the modal contents. */}
             <span
               className="inline-block h-screen align-middle"
               aria-hidden="true"
@@ -183,9 +183,8 @@ function OrderWorkStaffAssign() {
         </Dialog>
       </Transition>
       {pendingworksbool ? (
-        <div className="bg-white p-10 mt-10">
-          <div className="p-3 bg-white shadow-lg bg-opacity-25">
-          <h1>Pending Orders to Assign</h1>
+        <div className="p-10 mt-10">
+          <div className="p-3 bg-white shadow-xl">
             <div className='flex justify-center'>
             
               <div className={styles.title}>Search Orders</div>

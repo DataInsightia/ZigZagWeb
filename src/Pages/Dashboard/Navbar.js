@@ -1,14 +1,293 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function Navbar() {
   const navigate = useNavigate()
   const auth = localStorage.getItem('role')
+
+  const [open, setOpen] = React.useState(false)
   return (
     <div className="relative">
+      {/*Mobile  Navbar*/}
+      <div className="bg-rose-500 text-gray-100 flex justify-between md:hidden">
+        <a href="#" className="block p-4 text-white font-bold">
+          Zig Zag
+        </a>
+
+        <button
+          className="mobile-menu-button p-4 focus:outline-none"
+          onClick={() => setOpen(!open)}
+        >
+          <svg
+            className="h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+      {/*Mobile  Navbar*/}
+
+      <div
+        className={
+          open
+            ? ' opacity-100 translate-y-0 transition ease-out duration-200 absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2'
+            : ' opacity-0 translate-y-1 absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2'
+        }
+      >
+        {/*Mobile  DropDown*/}
+
+        <div className="ml-6 mr-auto rounded-lg lg:hidden shadow-lg ring-1 justify-center mb-0 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
+          <div className="pt-5 pb-4 px-5">
+            <div className="flex items-center justify-between">
+              <div>
+                {/*<img*/}
+                {/*    className="h-8 w-auto"*/}
+                {/*    src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"*/}
+                {/*    alt="Workflow"*/}
+                {/*/>*/}
+                <a href="#" className="block p-4 text-black text-2xl font-bold">
+                  Zig Zag
+                </a>
+              </div>
+              <div className="-mr-2">
+                <button
+                  type="button"
+                  className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                  onClick={() => setOpen(!open)}
+                >
+                  <span className="sr-only">Close menu</span>
+                  {/* Heroicon name: outline/x */}
+                  <svg
+                    className="h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div className="mt-6">
+              <nav className="grid gap-y-8">
+                {(() => {
+                  if (auth === 'admin') {
+                    return (
+                      <div>
+                        <Link
+                          to="/dashboard/dhome"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          HOME
+                        </Link>
+
+                        <Link
+                          to="/dashboard/products"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          PRODUCT
+                        </Link>
+                        <Link
+                          to="/dashboard/work"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          WORK
+                        </Link>
+                        <Link
+                          to="/dashboard/material"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          MATERIAL
+                        </Link>
+                        <Link
+                          to="/dashboard/takeorder"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          TAKE ORDER
+                        </Link>
+                        <Link
+                          to="/dashboard/order_status"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          ORDER STATUS
+                        </Link>
+
+                        <Link
+                          to={'/dashboard/work_assign/'}
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          ORDER ASSIGN
+                        </Link>
+                        <Link
+                          to="/dashboard/order_approval"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          ORDER APPROVAL
+                        </Link>
+                        <Link
+                          to="/dashboard/wage"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          WAGE
+                        </Link>
+                        <Link
+                          to="/dashboard/staff_register"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          STAFF REGISTER
+                        </Link>
+                        <Link
+                          to="/dashboard/staffs"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          STAFF LISTS
+                        </Link>
+                        <Link
+                          to="/dashboard/customers"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          CUSTOMER LISTS
+                        </Link>
+                      </div>
+                    )
+                  } else if (auth === 'staff') {
+                    return (
+                      <div>
+                        <Link
+                          to="/dashboard/dhome"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          HOME
+                        </Link>
+                        <Link
+                          to="/dashboard/dhome"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          PAGE REPORT
+                        </Link>
+                        <Link
+                          to="/dashboard/orders"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          CURRENT WORKS
+                        </Link>
+
+                        <Link
+                          to="/dashboard/work_complete"
+                          className="font-bold text-1lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          WORK STAGE COMPLETE
+                        </Link>
+                        <Link
+                          to="/dashboard/completed_work"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          COMPLETED ORDERS
+                        </Link>
+                        <Link
+                          to="/dashboard/wage"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          WAGE
+                        </Link>
+
+                        <Link
+                          to="/dashboard/dhome"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          STATUS
+                        </Link>
+                        <Link
+                          to="/dashboard/edit_profile"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          EDIT PROFILE
+                        </Link>
+                      </div>
+                    )
+                  } else if (auth === 'customer') {
+                    return (
+                      <div>
+                        <Link
+                          to="/dashboard/dhome"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          HOME
+                        </Link>
+                        <Link
+                          to={`/dashboard/customer_orders/${localStorage.getItem(
+                            'cid',
+                          )}/`}
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          ORDERS
+                        </Link>
+                        <Link
+                          to="/dashboard/invoice"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          INVOICE
+                        </Link>
+                        <Link
+                          to={`/dashboard/customer_order_history/${localStorage.getItem(
+                            'cid',
+                          )}`}
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          ORDERS
+                        </Link>
+                        <Link
+                          to="/dashboard/edit_profile"
+                          className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          PROFILE EDIT
+                        </Link>
+                      </div>
+                    )
+                  }
+                })()}
+              </nav>
+            </div>
+          </div>
+          <div className="py-6 px-5 space-y-6">
+            <div>
+              <a
+                href="#"
+                className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-rose-500 hover:bg-indigo-700"
+                onClick={() => {
+                  localStorage.clear()
+                  navigate('/login')
+                }}
+              >
+                Logout
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/*Mobile  DropDown*/}
+
+      {/*Desktop  Navbar*/}
       <nav
         id="header"
-        className="md:fixed w-full bg-gradient-to-r from-rose-600 to-rose-400 border-r-black z-30 top-0 border-0  text-black"
+        className="md:fixed hidden md:block w-full bg-gradient-to-r from-rose-600 to-rose-400 border-r-black z-30 top-0 border-0  text-black"
       >
         <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
           <div className="pl-1 flex items-center">
@@ -21,19 +300,29 @@ export default function Navbar() {
                 if (auth === 'admin') {
                   return (
                     <div>
-                      <h2>ADMIN</h2>
+                      <h4>ADMIN</h4>
                     </div>
                   )
                 } else if (auth === 'staff') {
                   return (
                     <div>
-                      <h2>STAFF</h2>
+                      <h4>
+                        <span className="capitalize">
+                          {localStorage.getItem('staff_name')}
+                        </span>{' '}
+                        (STAFF)
+                      </h4>
                     </div>
                   )
                 } else if (auth === 'customer') {
                   return (
                     <div>
-                      <h2>CUSTOMER</h2>
+                      <h4>
+                        <span className="capitalize">
+                          {localStorage.getItem('cust_name')}
+                        </span>{' '}
+                        (CUSTOMER)
+                      </h4>
                     </div>
                   )
                 }
@@ -120,6 +409,7 @@ export default function Navbar() {
         {/*    </svg>*/}
         {/*</div>*/}
       </nav>
+      {/*Desktop  Navbar*/}
     </div>
   )
 }
