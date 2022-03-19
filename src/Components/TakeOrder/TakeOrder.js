@@ -443,9 +443,9 @@ var date = curr.toISOString().substr(0,10);
 
           {cust ? (
             <div className="bg-white drop-shadow-2xl overflow-auto overflow-x-scroll ">
-              <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
+              <div className="flex flex-wrap -md:mx-3 md:mb-6 md:space-x-20 justify-center">
                 <select
-                    className="mb-3 sm:justify-center md:mt-12 inline-block sm:mt-60 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                    className="mb-3 sm:justify-center md:mt-12 inline-flex mt-12 inline-block xl:w-96 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
       py-2
       text-xl
       font-normal
@@ -470,7 +470,7 @@ var date = curr.toISOString().substr(0,10);
                 </select>
 
                 <input
-                  className="mb-3 mt-10 xl:w-20 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                  className="mb-3 md:mt-10 xl:w-20 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
       py-2
       text-xl
       font-normal
@@ -490,7 +490,7 @@ var date = curr.toISOString().substr(0,10);
                         required
                     />
                     <input
-                        className="mb-3 mt-10 xl:w-28 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                        className="mb-3 md:mt-10 xl:w-28 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
       py-2
       text-xl
       font-normal
@@ -512,14 +512,14 @@ var date = curr.toISOString().substr(0,10);
                     <input
                         type={"submit"}
                         value={"ADD"}
-                        className="mb-3 mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                        className="mb-3 md:mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                         onClick={addWork}
                     />
                   </div>
 
-              <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
+              <div className="flex flex-wrap -md:mx-3 md:mb-6 md:space-x-20 justify-center">
                 <select
-                  className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                  className="mb-3 xl:w-96 md:mt-12 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
       py-2
       text-xl
       font-normal
@@ -543,7 +543,7 @@ var date = curr.toISOString().substr(0,10);
                       ))}
                     </select>
                     <input
-                        className="mb-3 xl:w-20 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                        className="mb-3 xl:w-20 md:mt-10 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
       py-2
       text-xl
       font-normal
@@ -563,7 +563,7 @@ var date = curr.toISOString().substr(0,10);
                         required
                     />
                     <input
-                        className="mb-3 xl:w-28 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                        className="mb-3 xl:w-28 md:mt-10 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
       py-2
       text-xl
       font-normal
@@ -586,16 +586,16 @@ var date = curr.toISOString().substr(0,10);
                         type={"submit"}
                         value={"ADD"}
                         className={
-                          "mb-3 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                          "mb-3 xl:w-30 bg-rose-500 md:mt-10 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                         }
                         onClick={addMaterial}
                     />
                   </div>
 
                   <div className="grid justify-center">
-                    <div className="flex flex-wrap mx-auto mb-7 space-x-40">
+                    <div className="flex flex-wrap mx-auto mb-7 md:space-x-40">
                       <div className="flex  items-center justify-center">
-                        <div className="datepicker relative form-floating mb-3 xl:w-96">
+                        <div className="datepicker  relative form-floating mb-3 xl:w-96">
                           Booking Date:
                           <input
                               className="form-control block font-bold  w-full px-3 py-5 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
