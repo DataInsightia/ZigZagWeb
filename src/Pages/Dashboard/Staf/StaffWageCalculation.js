@@ -153,7 +153,7 @@ function StaffWageCalculation() {
             <div>
               <div className=" p-10 mt-10 border-none">
                 {/* <h1 className={styles.title}></h1> */}
-                <div className="flex justify-between bg-gradient-to-r from-rose-600 to-rose-400 rounded-md p-2 text-white">
+                <div className="flex justify-between bg-white shadow-lg rounded-lg p-2 text-black">
                   <div className="w-2/6 px-2 flex justify-center">
                     <span className="font-extrabold text-lg uppercase">
                       Staff Name -
@@ -180,8 +180,8 @@ function StaffWageCalculation() {
                     <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                       <div className="inline-block py-2 min-w-full sm:px-6 lg:px-8">
                         <div className="overflow-hidden shadow-lg">
-                          <table className="min-w-full  rounded-md p-2 text-white text-xl font-bold">
-                            <thead className="bg-gradient-to-r from-rose-600 to-rose-400">
+                          <table className="min-w-full rounded-lg p-2 text-black text-xl font-bold">
+                            <thead className="bg-white">
                               <tr>
                                 <th scope="col" className={styles.tablehead}>
                                   Order ID

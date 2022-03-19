@@ -31,34 +31,35 @@ export default function Customer() {
     <div>
       <div className={'p-10 mt-12'}>
         {/* customer lists */}
-        <div class="container mx-auto px-4 sm:px-8">
+        <div class="container px-4 sm:px-8">
           <div class="py-8">
             <div>
               <h2 class="text-2xl justify-center font-semibold leading-tight">
                 Customer Lists
               </h2>
             </div>
-            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-              <div class="min-w-full shadow-lg  overflow-hidden">
-                <table class="min-w-full leading-normal table-auto">
-                  <thead className="bg-gradient-to-r from-rose-600 to-rose-400">
+            
+            <div class="my-2 shadow-2xl overflow-x-auto">
+              <div class="">
+                <table class="w-full">
+                  <thead className="w-full bg-gradient-to-r from-rose-600 to-rose-500">
                     <tr>
-                      <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                      <th class="py-3 text-center text-xs font-semibold text-white uppercase">
                         Customer ID
                       </th>
-                      <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                      <th class="py-3 text-center text-xs font-semibold text-white uppercase">
                         Customer Name
                       </th>
-                      <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                      <th class="py-3 text-center text-xs font-semibold text-white uppercase">
                         Mobile
                       </th>
-                      <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                      <th class="py-3 text-center text-xs font-semibold text-white uppercase">
                         Address
                       </th>
-                      <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                      <th class="py-3 text-center text-xs font-semibold text-white uppercase">
                         City
                       </th>
-                      <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                      <th class="py-3 text-center text-xs font-semibold text-white uppercase">
                         Pincode
                       </th>
                     </tr>

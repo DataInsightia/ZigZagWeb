@@ -3,14 +3,6 @@ import axios from 'axios'
 import API from '../../../api'
 
 export default function Staff() {
-  // const Styles = {
-  //   TabHeadButton:
-  //     'shadow-lg mx-4 py-1 uppercase font-bold px-3 font-xs bg-rose-500 border-2 border-rose-500 text-white hover:text-rose-500 hover:border-rose-500 hover:bg-transparent rounded-md',
-  //   TabPanel: '',
-  //   WorkFormInput:
-  //     'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2',
-  // }
-
   const [staff, fetchstaff] = useState([])
   const [staffstate, fetchstaffstate] = useState(false)
 
@@ -30,17 +22,17 @@ export default function Staff() {
     <div>
       <div className={'p-10 mt-12'}>
         {/* staff lists */}
-        <div class="container mx-auto px-4 sm:px-8">
+        <div class="mx-auto px-4 sm:px-3">
           <div class="py-8">
             <div>
-              <h2 class="text-2xl justify-center font-semibold leading-tight">
+              <h2 class="text-2xl justify-center font-semibold">
                 Staff Lists
               </h2>
             </div>
-            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
-              <div class=" min-w-full shadow-lg overflow-x-auto">
+            <div class="py-4">
+              <div class="w-full shadow-lg overflow-x-auto">
                 <table class="overflow-x-auto">
-                  <thead className="bg-gradient-to-r from-rose-600 to-rose-400">
+                  <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                     <tr>
                       <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
                         Staff
@@ -54,12 +46,12 @@ export default function Staff() {
                       <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
                         Mobile
                       </th>
-                      <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                      {/* <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
                         Address
                       </th>
                       <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
                         City
-                      </th>
+                      </th> */}
                       <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
                         Salary Type
                       </th>
@@ -94,12 +86,12 @@ export default function Staff() {
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
                               {e.mobile}
                             </td>
-                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                            {/* <td class="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
                               {e.address}
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
                               {e.city}
-                            </td>
+                            </td> */}
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
                               {e.salary_type}
                             </td>

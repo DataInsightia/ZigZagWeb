@@ -47,11 +47,14 @@ export default function CustomerRegister() {
           name={'name'}
         />
         <input
-          type={'text'}
+          type={'number'}
           placeholder={'Mobile'}
           value={data.mobile}
           onChange={handleEvent}
           name={'mobile'}
+          maxLength="10"
+         
+         
         />
         <input
           type={'email'}

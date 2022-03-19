@@ -5,6 +5,14 @@ import axios from 'axios'
 import API from '../../../api'
 
 export default function EditProfile() {
+  const Styles = {
+    InputError: 'text-red-500 text-xs',
+    LoginButton:
+      'bg-red-500 text-white border border-red-500 hover:text-red-500 hover:bg-transparent text-sm font-bold uppercase px-6 py-3 rounded-2xl shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150',
+    Label: 'block border-none uppercase text-black text-xs font-bold mb-2',
+    Input:
+      'border px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-2xl text-sm focus:ring-red-500 w-full  ease-linear transition-all duration-150',
+  }
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -125,7 +133,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-6/12 px-4">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="username"
                               >
                                 Username
@@ -134,7 +142,7 @@ export default function EditProfile() {
                                 type="text"
                                 id="username"
                                 name="usename"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem('cust_name')}
                                 disabled
                               />
@@ -143,7 +151,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="email"
                               >
                                 Email address
@@ -152,7 +160,7 @@ export default function EditProfile() {
                                 type="email"
                                 id="email"
                                 name="email"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem('email')}
                               />
                             </div>
@@ -168,7 +176,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-12/12 px-10">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="address"
                               >
                                 Address
@@ -177,7 +185,7 @@ export default function EditProfile() {
                                 type="text"
                                 id="address"
                                 name="address"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem('address')}
                               />
                             </div>
@@ -185,7 +193,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="city"
                               >
                                 City
@@ -194,7 +202,7 @@ export default function EditProfile() {
                                 type="text"
                                 id="city"
                                 name="city"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem('city')}
                               />
                             </div>
@@ -202,7 +210,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="postal"
                               >
                                 Postal Code
@@ -211,7 +219,7 @@ export default function EditProfile() {
                                 type="text"
                                 id="postal"
                                 name="pincode"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem('pincode')}
                               />
                             </div>
@@ -332,7 +340,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-6/12 px-4">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="username"
                               >
                                 Username
@@ -341,7 +349,7 @@ export default function EditProfile() {
                                 type="text"
                                 id="username"
                                 name="username"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem(
                                   'staff_name',
                                 )}
@@ -352,7 +360,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="mobile"
                               >
                                 Mobile
@@ -361,7 +369,7 @@ export default function EditProfile() {
                                 type="text"
                                 id="mobile"
                                 name="mobile"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem('mobile')}
                               />
                             </div>
@@ -377,7 +385,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-12/12 px-10">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="address"
                               >
                                 Address
@@ -386,7 +394,7 @@ export default function EditProfile() {
                                 type="text"
                                 id="address"
                                 name="address"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem('address')}
                               />
                             </div>
@@ -394,7 +402,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="city"
                               >
                                 City
@@ -403,7 +411,7 @@ export default function EditProfile() {
                                 type="text"
                                 id="city"
                                 name="city"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem('city')}
                               />
                             </div>
@@ -411,7 +419,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="work_type"
                               >
                                 Work Type
@@ -420,7 +428,7 @@ export default function EditProfile() {
                                 type="text"
                                 id="work_type"
                                 name="work_type"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem('work_type')}
                               />
                             </div>
@@ -428,7 +436,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="salary_type"
                               >
                                 Salary Type
@@ -437,7 +445,7 @@ export default function EditProfile() {
                                 type="text"
                                 id="salary_type"
                                 name="salary_type"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem(
                                   'salary_type',
                                 )}
@@ -448,7 +456,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="salary"
                               >
                                 Salary
@@ -457,7 +465,7 @@ export default function EditProfile() {
                                 type="text"
                                 id="salary"
                                 name="salary"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem('salary')}
                                 disabled
                               />
@@ -466,7 +474,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="acc_no"
                               >
                                 Account Number
@@ -475,7 +483,7 @@ export default function EditProfile() {
                                 type="text"
                                 id="acc_no"
                                 name="acc_no"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem('acc_no')}
                               />
                             </div>
@@ -483,7 +491,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="ifsc"
                               >
                                 IFSC
@@ -492,7 +500,7 @@ export default function EditProfile() {
                                 type="text"
                                 id="ifsc"
                                 name="ifsc"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem('ifsc')}
                               />
                             </div>
@@ -500,7 +508,7 @@ export default function EditProfile() {
                           <div className="w-full lg:w-6/12 px-10">
                             <div className="relative w-full mb-3">
                               <label
-                                className="block uppercase text-black text-xs font-bold mb-2 border-none"
+                                className={Styles.Label}
                                 htmlFor="bank"
                               >
                                 Bank
@@ -509,7 +517,7 @@ export default function EditProfile() {
                                 type="text"
                                 id="bank"
                                 name="bank"
-                                className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                className={Styles.Input}
                                 defaultValue={localStorage.getItem('bank')}
                               />
                             </div>
