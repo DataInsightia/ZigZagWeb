@@ -605,11 +605,12 @@ var date = curr.toISOString().substr(0,10);
                         <div className="datepicker relative form-floating mb-3 xl:w-96">
                           Booking Date:
                           <input
-                              className="form-control block font-extrabold  w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                              type={"date"}
+                              className="form-control block font-bold  w-full px-3 py-5 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              type={"text"}
                               name={"due_date"}
                               onChange={handleOther}
                               defaultValue={date}
+                              disabled
                           />
                         </div>
                       </div>
@@ -618,7 +619,7 @@ var date = curr.toISOString().substr(0,10);
                         <div className="datepicker relative form-floating mb-3 xl:w-96">
                           Due Date:
                           <input
-                              className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              className="form-control block w-full text-4xl px-3 date-3xl py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                               type={"date"}
                               name={"due_date"}
                               onChange={handleOther}
@@ -658,8 +659,32 @@ var date = curr.toISOString().substr(0,10);
                         </select>
                       </snap>
 
+                        {others.pickup_type === "other" ? (
+                            <div>
+                                <p className="font-semibold flex flex-wrap">Other Details : </p>
+                                <textarea
+                                    className="mb-6 xl:w-96 form-select form-select-lg mb-3 appearance-none block px-4
+      py-2
+      text-xl
+      font-normal
+      text-gray-700
+      bg-white bg-clip-padding bg-no-repeat
+      border border-solid border-gray-300
+      rounded
+      transition
+      ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 h-20 focus:outline-none"
+                                    name={"courier_address"}
+                                    placeholder={"Other Details"}
+                                />
+                            </div>
+                        ) : (
+                            ""
+                        )}
+
+
                       {others.pickup_type === "courier" ? (
                           <snap>
+                              <p className="font-semibold flex flex-wrap">Courier Charge : </p>
                             <input
                                 className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
       py-2
@@ -684,7 +709,7 @@ var date = curr.toISOString().substr(0,10);
                                 }}
                             />
 
-
+                              <p className="font-semibold flex flex-wrap">Courier Address : </p>
 <textarea
       className="mb-6 xl:w-96 form-select form-select-lg mb-3 appearance-none block px-4
       py-2

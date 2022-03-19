@@ -108,7 +108,7 @@ export default function EditProfile() {
         if (auth === 'customer') {
           return (
             <>
-              <div className="flex justify-center flex-wrap mt-16">
+              <div className="flex justify-center flex-wrap md:mt-16">
                 <div className="w-full lg:w-8/12 px-4">
                   <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
                     <div className="flex-auto bg-white py-10 pt-0">

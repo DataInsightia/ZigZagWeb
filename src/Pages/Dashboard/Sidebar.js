@@ -5,6 +5,7 @@ import nav_logo from "../../assets/img/logo.png"
 export default function Sidebar() {
   const auth = localStorage.getItem('role')
   return (
+<<<<<<< HEAD
     <div className="relative min-h-screen md:flex">
       <div className="bg-gray-800 text-gray-100 flex justify-between md:hidden">
         <button className="block p-4 text-black font-bold">
@@ -28,6 +29,9 @@ export default function Sidebar() {
           </svg>
         </button>
       </div>
+=======
+    <div className="relative min-h-screen hidden sm:block md:flex">
+>>>>>>> dev
 
       <div className="sidebar bg-white text-blue-100 w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
         <button className="text-black flex items-center space-x-2 px-4">
@@ -91,9 +95,6 @@ export default function Sidebar() {
                   >
                     ORDER STATUS
                   </Link>
-          
-
-                  
                   <Link
                     to={"/dashboard/work_assign/"}
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
