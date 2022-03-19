@@ -652,7 +652,6 @@ var date = curr.toISOString().substr(0,10);
                         </select>
                       </snap>
 
-<<<<<<< HEAD
                         {others.pickup_type === "other" ? (
                             <div>
                                 <p className="font-semibold flex flex-wrap">Other Details : </p>
@@ -677,9 +676,6 @@ var date = curr.toISOString().substr(0,10);
 
 
                       {others.pickup_type === "courier" ? (
-=======
-                      {others.pickup_type === "hj" ? (
->>>>>>> origin/angappanmuthu
                           <snap>
                               <p className="font-semibold flex flex-wrap">Courier Charge : </p>
                             <input

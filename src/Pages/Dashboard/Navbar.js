@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 
 export default function Navbar() {
   const navigate = useNavigate()
@@ -49,7 +49,7 @@ export default function Navbar() {
 
         {/*Mobile  DropDown*/}
 
-        <div className="ml-6 mr-auto rounded-lg lg:hidden shadow-lg ring-1 justify-center mb-0 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
+        <div className="ml-6 -mt-16 mr-auto rounded-lg lg:hidden shadow-lg ring-1 justify-center mb-0 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
             <div className="pt-5 pb-4 px-5">
                 <div className="flex items-center justify-between">
                     <div>
