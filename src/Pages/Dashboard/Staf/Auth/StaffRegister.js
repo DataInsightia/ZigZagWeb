@@ -78,7 +78,7 @@ export default function StaffRegister() {
       const res = await axios.post(API + "/api/staff_register/",data);
       if(res.data.status){
         isLogin(true)
-        alert("Register Sucessfully")
+        alert(res.data.message)
         setFormData({
           staff_name: '',
           password: '',
@@ -92,7 +92,7 @@ export default function StaffRegister() {
           ifsc: '',
         })
       }else{
-        alert("Not Register Check Now")
+        alert(res.data.message)
         setFormData(
           {
             staff_name: '',
