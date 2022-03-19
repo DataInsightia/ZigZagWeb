@@ -6,9 +6,9 @@ import "./sidebar.css"
 export default function Sidebar() {
   const auth = localStorage.getItem('role')
   return (
-    <div className="relative min-h-screen hidden sm:block md:flex">
+    <div className="relative  min-h-screen hidden sm:block md:flex-wrap">
 
-      <div className="sidebar bg-white text-blue-100 w-72 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
+      <div className="sidebar  bg-white text-blue-100 w-72 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
         <button className="text-black flex items-center space-x-2 px-4">
           {/*<svg*/}
           {/*  className="w-8 h-8"*/}

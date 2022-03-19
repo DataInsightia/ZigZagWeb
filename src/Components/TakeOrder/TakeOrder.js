@@ -364,7 +364,7 @@ var date = curr.toISOString().substr(0,10);
 
   return (
       <div>
-        <div className="mt-10">
+        <div className="md:mt-10">
           <div className="border-x-0 rounded  px-8 pt-8 pb-8 mb-4">
               <div className="mt-10 flex flex-wrap justify-evenly bg-white shadow-2xl">
                   <div className="flex flex-col">
@@ -442,10 +442,10 @@ var date = curr.toISOString().substr(0,10);
 
 
           {cust ? (
-            <div className="bg-white drop-shadow-2xl ">
-              <div className=" flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
+            <div className="bg-white drop-shadow-2xl overflow-auto overflow-x-scroll ">
+              <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
                 <select
-                  className="mb-3 mt-10 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                    className="mb-3 sm:justify-center md:mt-12 inline-block sm:mt-60 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
       py-2
       text-xl
       font-normal
@@ -456,7 +456,7 @@ var date = curr.toISOString().substr(0,10);
       transition
       ease-in-out
       m-0
-      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none w-3"
+      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   name={"work_id"}
                   onChange={handleWorkEvent}
                   required

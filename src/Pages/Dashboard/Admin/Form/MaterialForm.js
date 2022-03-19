@@ -144,23 +144,33 @@ export default function MaterialForm() {
 
   return (
     <div>
-      <div class="mt-16 container mx-auto px-4 sm:px-8">
-        <div class="py-24">
-          <div className="flex justify-between">
-            <h2 class="text-2xl justify-center font-semibold leading-tight">
-              Material
-            </h2>
-            <button
-              onClick={openFromAddModal}
-              className="px-2 py-1 shadow-lg border border-red-500 bg-red-500 text-white hover:bg-transparent hover:text-red-500 rounded text-lg font-bold"
-            >
-              Add Material
-            </button>
-          </div>
-          <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-            <div class="inline-block min-w-full shadow-lg rounded-lg overflow-hidden">
-              <table class="min-w-full leading-normal ">
-                <thead>
+
+
+      {/*<div className="flex scroll items-center md:mt-0 justify-center min-h-screen ">*/}
+
+      {/*  <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">*/}
+      {/*  </div>*/}
+      {/*</div>*/}
+
+      <div className="flex scroll items-center md:mt-0 justify-center min-h-screen">
+
+        <div className="md:w-full overflow-auto overflow-x-scroll p-4">
+          <div class="py-24">
+            <div className="flex overflow-auto justify-between">
+              <h2 class="text-2xl justify-center font-semibold leading-tight">
+                Material
+              </h2>
+              <button
+                  onClick={openFromAddModal}
+                  className="px-2 py-1 shadow-lg border border-red-500 bg-red-500 text-white hover:bg-transparent hover:text-red-500 rounded text-lg font-bold"
+              >
+                Add Material
+              </button>
+            </div>
+            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+              <div class="inline-block min-w-full shadow-lg rounded-lg overflow-hidden">
+                <table class="min-w-full leading-normal ">
+                  <thead>
                   <tr>
                     <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
                       Material Name
@@ -174,160 +184,160 @@ export default function MaterialForm() {
                     <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"></th>
                     <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"></th>
                   </tr>
-                </thead>
-                <tbody>
+                  </thead>
+                  <tbody>
                   {MaterialState ? (
-                    <>
-                      {material.map((e) => (
-                        <tr className="text-center">
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm uppercase">
-                            {e.material_name}
-                          </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm uppercase">
-                            {e.amount}
-                          </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm uppercase">
-                            {e.measurement}
-                          </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm uppercase">
-                            <button
-                              onClick={() =>
-                                openFromUpdateModal(`${e.material_id}`)
-                              }
-                              className="px-2 py-1 bg-red-200 text-red-900 rounded font-bold"
-                            >
-                              Update
-                            </button>
-                          </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            <button
-                              onClick={() =>
-                                openFromDeleteModal(`${e.material_id}`)
-                              }
-                              className="px-2 py-1 bg-red-200 text-red-900 rounded font-bold"
-                            >
-                              Delete
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </>
+                      <>
+                        {material.map((e) => (
+                            <tr className="text-center">
+                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm uppercase">
+                                {e.material_name}
+                              </td>
+                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm uppercase">
+                                {e.amount}
+                              </td>
+                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm uppercase">
+                                {e.measurement}
+                              </td>
+                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm uppercase">
+                                <button
+                                    onClick={() =>
+                                        openFromUpdateModal(`${e.material_id}`)
+                                    }
+                                    className="px-2 py-1 bg-red-200 text-red-900 rounded font-bold"
+                                >
+                                  Update
+                                </button>
+                              </td>
+                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <button
+                                    onClick={() =>
+                                        openFromDeleteModal(`${e.material_id}`)
+                                    }
+                                    className="px-2 py-1 bg-red-200 text-red-900 rounded font-bold"
+                                >
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+                        ))}
+                      </>
                   ) : (
-                    ''
+                      ''
                   )}
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* add form modal */}
-      <Transition appear show={isFormAddOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-25"
-          onClose={closeFromAddModal}
-        >
-          <div className="min-h-screen px-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Dialog.Overlay className="fixed inset-0" />
-            </Transition.Child>
+        {/* add form modal */}
+        <Transition appear show={isFormAddOpen} as={Fragment}>
+          <Dialog
+              as="div"
+              className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-25"
+              onClose={closeFromAddModal}
+          >
+            <div className="min-h-screen px-4 text-center">
+              <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+              >
+                <Dialog.Overlay className="fixed inset-0" />
+              </Transition.Child>
 
-            {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className="inline-block h-screen align-middle mt-3"
-              aria-hidden="true"
-            >
+              {/* This element is to trick the browser into centering the modal contents. */}
+              <span
+                  className="inline-block h-screen align-middle mt-3"
+                  aria-hidden="true"
+              >
               &#8203;
             </span>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
-                >
-                  Add Material
-                </Dialog.Title>
-                <div className="mt-2">
-                  <form onSubmit={AddMaterialHandler}>
-                    <div class="relative z-0 mb-6 w-full group">
-                      <input
-                        type="text"
-                        id="floating_materialname"
-                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer"
-                        placeholder=" "
-                        required
-                        name="material_name"
-                      />
-                      <label
-                        for="floating_materialname"
-                        class="border-0 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      >
-                        Material Name
-                      </label>
-                    </div>
-                    <div class="relative z-0 mb-6 w-full group">
-                      <input
-                        type="number"
-                        id="floating_amount"
-                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer"
-                        placeholder=" "
-                        required
-                        name="amount"
-                      />
-                      <label
-                        for="floating_amount"
-                        class="border-0 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      >
-                        Amount
-                      </label>
-                    </div>
-                    <div class="relative z-0 mb-6 w-full group">
-                      <label
-                        for="measurement"
-                        class="border-0 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-                      >
-                        Select Measurement
-                      </label>
+              <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+              >
+                <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                  <Dialog.Title
+                      as="h3"
+                      className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    Add Material
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <form onSubmit={AddMaterialHandler}>
+                      <div class="relative z-0 mb-6 w-full group">
+                        <input
+                            type="text"
+                            id="floating_materialname"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer"
+                            placeholder=" "
+                            required
+                            name="material_name"
+                        />
+                        <label
+                            for="floating_materialname"
+                            class="border-0 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Material Name
+                        </label>
+                      </div>
+                      <div class="relative z-0 mb-6 w-full group">
+                        <input
+                            type="number"
+                            id="floating_amount"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer"
+                            placeholder=" "
+                            required
+                            name="amount"
+                        />
+                        <label
+                            for="floating_amount"
+                            class="border-0 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Amount
+                        </label>
+                      </div>
+                      <div class="relative z-0 mb-6 w-full group">
+                        <label
+                            for="measurement"
+                            class="border-0 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                        >
+                          Select Measurement
+                        </label>
 
-                      <select
-                        id="measurement"
-                        name="measurement"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
-                      >
-                        <option selected>Please select</option>
+                        <select
+                            id="measurement"
+                            name="measurement"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
+                        >
+                          <option selected>Please select</option>
 
-                        <option value={'number'}>Number</option>
-                        <option value={'inch'}>Inch</option>
-                        <option value={'Meter'}>Meter</option>
-                      </select>
-                    </div>
-                    <button
-                      type="submit"
-                      class="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
-                    >
-                      Add Material
-                    </button>
-                  </form>
-                </div>
-                {/* <div className="mt-4">
+                          <option value={'number'}>Number</option>
+                          <option value={'inch'}>Inch</option>
+                          <option value={'Meter'}>Meter</option>
+                        </select>
+                      </div>
+                      <button
+                          type="submit"
+                          class="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
+                      >
+                        Add Material
+                      </button>
+                    </form>
+                  </div>
+                  {/* <div className="mt-4">
                   <button
                     type="button"
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
@@ -336,128 +346,128 @@ export default function MaterialForm() {
                     Got it, thanks!
                   </button>
                 </div> */}
-              </div>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition>
-      {/* add form modal */}
-      {/* update form modal */}
-      <Transition appear show={isFormUpdateOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-25"
-          onClose={closeFromUpdateModal}
-        >
-          <div className="min-h-screen px-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Dialog.Overlay className="fixed inset-0" />
-            </Transition.Child>
+                </div>
+              </Transition.Child>
+            </div>
+          </Dialog>
+        </Transition>
+        {/* add form modal */}
+        {/* update form modal */}
+        <Transition appear show={isFormUpdateOpen} as={Fragment}>
+          <Dialog
+              as="div"
+              className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-25"
+              onClose={closeFromUpdateModal}
+          >
+            <div className="min-h-screen px-4 text-center">
+              <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+              >
+                <Dialog.Overlay className="fixed inset-0" />
+              </Transition.Child>
 
-            {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className="inline-block h-screen align-middle mt-3"
-              aria-hidden="true"
-            >
+              {/* This element is to trick the browser into centering the modal contents. */}
+              <span
+                  className="inline-block h-screen align-middle mt-3"
+                  aria-hidden="true"
+              >
               &#8203;
             </span>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
-                >
-                  Update Material
-                </Dialog.Title>
-                <div className="mt-2">
-                  <form onSubmit={UpdateMaterialHandler}>
-                    <div class="relative z-0 mb-6 w-full group">
-                      <input
-                        type="text"
-                        name="material_id"
-                        value={updateworkid.material_id}
-                        hidden
-                      />{' '}
-                      <input
-                        type="text"
-                        name="floating_materialname"
-                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer"
-                        placeholder=" "
-                        defaultValue={updateworkid.material_name}
-                        required
-                        name="material_name"
-                      />
-                      <label
-                        for="floating_materialname"
-                        class="border-0 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      >
-                        Material Name
-                      </label>
-                    </div>
-                    <div class="relative z-0 mb-6 w-full group">
-                      <input
-                        type="number"
-                        name="floating_amount"
-                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer"
-                        placeholder=" "
-                        required
-                        name="amount"
-                        defaultValue={updateworkid.amount}
-                      />
-                      <label
-                        for="floating_amount"
-                        class="border-0 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      >
-                        Amount
-                      </label>
-                    </div>
-                    <div class="relative z-0 mb-6 w-full group">
-                      <select
-                        id="floating_measurement"
-                        name="measurement"
-                        className={Styles.WorkFormInput}
-                      >
-                        <option value={updateworkid.measurement}>
-                          Please select
-                        </option>
+              <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+              >
+                <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                  <Dialog.Title
+                      as="h3"
+                      className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    Update Material
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <form onSubmit={UpdateMaterialHandler}>
+                      <div class="relative z-0 mb-6 w-full group">
+                        <input
+                            type="text"
+                            name="material_id"
+                            value={updateworkid.material_id}
+                            hidden
+                        />{' '}
+                        <input
+                            type="text"
+                            name="floating_materialname"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer"
+                            placeholder=" "
+                            defaultValue={updateworkid.material_name}
+                            required
+                            name="material_name"
+                        />
+                        <label
+                            for="floating_materialname"
+                            class="border-0 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Material Name
+                        </label>
+                      </div>
+                      <div class="relative z-0 mb-6 w-full group">
+                        <input
+                            type="number"
+                            name="floating_amount"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer"
+                            placeholder=" "
+                            required
+                            name="amount"
+                            defaultValue={updateworkid.amount}
+                        />
+                        <label
+                            for="floating_amount"
+                            class="border-0 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Amount
+                        </label>
+                      </div>
+                      <div class="relative z-0 mb-6 w-full group">
+                        <select
+                            id="floating_measurement"
+                            name="measurement"
+                            className={Styles.WorkFormInput}
+                        >
+                          <option value={updateworkid.measurement}>
+                            Please select
+                          </option>
 
-                        <option value={'number'}>Number</option>
-                        <option value={'inch'}>Inch</option>
-                        <option value={'Meter'}>Meter</option>
-                      </select>
-                      <label
-                        for="floating_measurement"
-                        class="border-0 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                          <option value={'number'}>Number</option>
+                          <option value={'inch'}>Inch</option>
+                          <option value={'Meter'}>Meter</option>
+                        </select>
+                        <label
+                            for="floating_measurement"
+                            class="border-0 absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                          Wage Type
+                        </label>
+                      </div>
+                      <button
+                          type="submit"
+                          class="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
                       >
-                        Wage Type
-                      </label>
-                    </div>
-                    <button
-                      type="submit"
-                      class="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
-                    >
-                      Update Work
-                    </button>
-                  </form>
-                </div>
+                        Update Work
+                      </button>
+                    </form>
+                  </div>
 
-                {/* <div className="mt-4">
+                  {/* <div className="mt-4">
                   <button
                     type="button"
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
@@ -466,202 +476,203 @@ export default function MaterialForm() {
                     Got it, thanks!
                   </button>
                 </div> */}
-              </div>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition>
+                </div>
+              </Transition.Child>
+            </div>
+          </Dialog>
+        </Transition>
 
-      {/* update form modal */}
-      {/* delete form modal */}
-      <Transition appear show={isFromDeleteOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-25"
-          onClose={closeFromDeleteModal}
-        >
-          <div className="min-h-screen px-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Dialog.Overlay className="fixed inset-0" />
-            </Transition.Child>
+        {/* update form modal */}
+        {/* delete form modal */}
+        <Transition appear show={isFromDeleteOpen} as={Fragment}>
+          <Dialog
+              as="div"
+              className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-25"
+              onClose={closeFromDeleteModal}
+          >
+            <div className="min-h-screen px-4 text-center">
+              <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+              >
+                <Dialog.Overlay className="fixed inset-0" />
+              </Transition.Child>
 
-            {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
+              {/* This element is to trick the browser into centering the modal contents. */}
+              <span
+                  className="inline-block h-screen align-middle"
+                  aria-hidden="true"
+              >
               &#8203;
             </span>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
-                >
-                  Delete Work
-                </Dialog.Title>
-
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                    Are you want to delete,Please confirm
-                  </p>
-                </div>
-
-                <div className="mt-4 flex">
-                  <button
-                    type="button"
-                    className="mx-2 inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
-                    onClick={closeFromDeleteModal}
+              <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+              >
+                <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                  <Dialog.Title
+                      as="h3"
+                      className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Cancel
-                  </button>
-                  <form onSubmit={DeleteMaterialHandler}>
-                    <input type="text" name="id" value={deleteworkid} hidden />
+                    Delete Work
+                  </Dialog.Title>
+
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                      Are you want to delete,Please confirm
+                    </p>
+                  </div>
+
+                  <div className="mt-4 flex">
                     <button
-                      type="submit"
-                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
+                        type="button"
+                        className="mx-2 inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
+                        onClick={closeFromDeleteModal}
                     >
-                      Delete
+                      Cancel
                     </button>
-                  </form>
+                    <form onSubmit={DeleteMaterialHandler}>
+                      <input type="text" name="id" value={deleteworkid} hidden />
+                      <button
+                          type="submit"
+                          className="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
+                      >
+                        Delete
+                      </button>
+                    </form>
+                  </div>
                 </div>
-              </div>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition>
-      {/* delete form modal */}
+              </Transition.Child>
+            </div>
+          </Dialog>
+        </Transition>
+        {/* delete form modal */}
 
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50"
-          onClose={closeModal}
-        >
-          <div className="min-h-screen px-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Dialog.Overlay className="fixed inset-0" />
-            </Transition.Child>
+        <Transition appear show={isOpen} as={Fragment}>
+          <Dialog
+              as="div"
+              className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50"
+              onClose={closeModal}
+          >
+            <div className="min-h-screen px-4 text-center">
+              <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+              >
+                <Dialog.Overlay className="fixed inset-0" />
+              </Transition.Child>
 
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
+              <span
+                  className="inline-block h-screen align-middle"
+                  aria-hidden="true"
+              >
               &#8203;
             </span>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-center align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-bold leading-6 text-gray-900"
-                >
-                  Material Added
-                </Dialog.Title>
-
-                <div className="mt-4">
-                  <button
-                    type="button"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                    onClick={closeModal}
+              <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+              >
+                <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-center align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                  <Dialog.Title
+                      as="h3"
+                      className="text-lg font-bold leading-6 text-gray-900"
                   >
-                    Close
-                  </button>
+                    Material Added
+                  </Dialog.Title>
+
+                  <div className="mt-4">
+                    <button
+                        type="button"
+                        className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                        onClick={closeModal}
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition>
+              </Transition.Child>
+            </div>
+          </Dialog>
+        </Transition>
 
-      {/* delete modal */}
-      <Transition appear show={isDeleteOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50"
-          onClose={closeDeleteModal}
-        >
-          <div className="min-h-screen px-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Dialog.Overlay className="fixed inset-0" />
-            </Transition.Child>
+        {/* delete modal */}
+        <Transition appear show={isDeleteOpen} as={Fragment}>
+          <Dialog
+              as="div"
+              className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-50"
+              onClose={closeDeleteModal}
+          >
+            <div className="min-h-screen px-4 text-center">
+              <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+              >
+                <Dialog.Overlay className="fixed inset-0" />
+              </Transition.Child>
 
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
+              <span
+                  className="inline-block h-screen align-middle"
+                  aria-hidden="true"
+              >
               &#8203;
             </span>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-center align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-bold leading-6 text-gray-900"
-                >
-                  Material Deleted
-                </Dialog.Title>
-
-                <div className="mt-4">
-                  <button
-                    type="button"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                    onClick={closeDeleteModal}
+              <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+              >
+                <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-center align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                  <Dialog.Title
+                      as="h3"
+                      className="text-lg font-bold leading-6 text-gray-900"
                   >
-                    Close
-                  </button>
+                    Material Deleted
+                  </Dialog.Title>
+
+                  <div className="mt-4">
+                    <button
+                        type="button"
+                        className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                        onClick={closeDeleteModal}
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition>
+              </Transition.Child>
+            </div>
+          </Dialog>
+        </Transition>
+      </div>
       {/* delete modal  */}
     </div>
   )

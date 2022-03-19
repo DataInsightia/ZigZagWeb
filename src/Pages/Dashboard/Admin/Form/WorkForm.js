@@ -153,7 +153,8 @@ export default function WorkForm() {
     <div>
       <div class="md:mt-16 container mx-auto px-4 sm:px-8">
         <div class="py-24">
-        <div className="md:flex justify-between">
+
+        <div className="flex overflow-auto justify-between">
             <h2 class="text-2xl justify-center font-semibold leading-tight">
               Work
             </h2>
@@ -164,8 +165,22 @@ export default function WorkForm() {
               Add Work
             </button>
           </div>
-          <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-            <div class="inline-block min-w-full shadow-lg rounded-lg overflow-hidden">
+
+          {/*<div className="flex scroll items-center md:mt-0 justify-center min-h-screen ">*/}
+
+          {/*  <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+
+          {/*<div className="-mx-4 sm:-mx-8  px-4 sm:px-8 py-4 overflow-auto overflow-x-scroll ">*/}
+          {/*  <div className="inline-block min-w-full shadow-lg rounded-lg">*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+
+
+              <div className="flex scroll items-center md:-mt-80   justify-center min-h-screen ">
+
+                <div className=" min-w-full mt-0 overflow-auto overflow-x-scroll bg:hidden  p-4">
               <table class="min-w-full leading-normal ">
                 <thead>
                   <tr>
@@ -674,6 +689,7 @@ export default function WorkForm() {
         </Dialog>
       </Transition>
       {/* delete form modal */}
-    </div>
+        </div>
+
   )
 }

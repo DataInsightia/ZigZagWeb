@@ -29,7 +29,7 @@ if (auth) {
 }
 
 const Navbar = () => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     return (
         <nav id="header" className="fixed w-full bg-white z-30 top-0 text-black">
             <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
