@@ -651,7 +651,7 @@ var date = curr.toISOString().substr(0,10);
                         </select>
                       </snap>
 
-                      {others.pickup_type === "courier" ? (
+                      {others.pickup_type === "hj" ? (
                           <snap>
                             <input
                                 className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4

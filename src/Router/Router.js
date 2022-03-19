@@ -29,6 +29,7 @@ import Customer from '../Pages/Dashboard/Admin/CustomerLists'
 import CustomerOrderHistory from '../Pages/Dashboard/Customer/Order_History';
 import Product from '../Pages/Dashboard/Admin/Product'
 import Product_Home from "../Pages/Product/Product_Home"
+import Delivery from '../Pages/Dashboard/Admin/Delivery'
 
 
 
@@ -80,7 +81,10 @@ export default function Router() {
         // { path: 'order_status', element: <Order_Status /> },
         { path: 'customer_order_status', element: <CustomerOrderStatus /> },
         { path: 'order_history', element: <OrderHistory/>},
-        { path: 'products', element: <Product />}
+        { path: 'products', element: <Product />},
+
+        // DELIVERY
+        { path: 'delivery', element: <Delivery />}
 
       ],
     },

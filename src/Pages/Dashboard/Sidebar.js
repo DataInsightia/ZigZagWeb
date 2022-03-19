@@ -131,6 +131,12 @@ export default function Sidebar() {
                   >
                     CUSTOMER LISTS
                   </Link>
+                  <Link
+                    to="/dashboard/delivery"
+                    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                  >
+                    DELIVERY
+                  </Link>
                 </div>
               )
             } else if (auth === 'staff') {
