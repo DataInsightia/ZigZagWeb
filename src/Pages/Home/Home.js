@@ -5,15 +5,13 @@ import './home.css'
 import API from "../../api"
 import axios from 'axios'
 import Contact from './Contact'
-import { Link } from 'react-router-dom'
 import Stretch from '../../assets/svg/stitching.svg'
-import Logo from '../../assets/img/logo.png'
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Scroll from "./Scroll";
 import "../../pre.css";
-import Scroll_Car from "./Scroll_Car";
-import Galary from "./Galary";
+import {Link} from 'react-router-dom'
+
 
 
 //nav menu js function
@@ -40,7 +38,7 @@ function check(e) {
 }
 function checkParent(t, elm) {
   while (t.parentNode) {
-    if (t == elm) {
+    if (t === elm) {
       return true
     }
     t = t.parentNode

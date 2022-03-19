@@ -10,11 +10,6 @@ import ReactToPrint from 'react-to-print';
 export default function Invoice(){
 
   const componentRef = useRef();
-
-  const [tmpwork,setTmpWork] = useState([]);
-  const [tmpmaterial,setTmpMaterial] = useState([]);
-  const [tmpworktotal,setTmpWorkTotal] = useState(0)
-  const [tmpmaterialtotal,setMaterialTotal] = useState(0)
   const [customerdetails,setCustomerDetails] = useState([]);
 
   const [order,setOrder] = useState({});
@@ -65,7 +60,7 @@ export default function Invoice(){
              Chettinad ZigZag
            </span><br/>
            <span className="text-xl">
-             Mobile:+91 7878787878
+             Mobile:+91 9940682836
            </span><br/>
              <span className="text-sm font-bold">
             Address: 333A Poisolla Meiyar Street Near Daily Market, Udhyam Lodge Building, Karaikudi, Tamil Nadu 630001 
@@ -120,6 +115,8 @@ export default function Invoice(){
                  orderMaterial.map((e) => <Row prod_name={e.material_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
                 }  
 
+                
+
 
                 <tr className="bg-gray-800">
                   <th colSpan="2"></th>
@@ -135,7 +132,10 @@ export default function Invoice(){
           </div>
         </div>
 
-        <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} other_charge={order.courier_amount} mobile={customerdetails.mobile} />
+        <AllAmount total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount}/>
+
+
+        <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount} mobile={customerdetails.mobile} />
 
 
         <div className="flex justify-end">
@@ -176,18 +176,24 @@ const TotalStrip = (props) => {
                 className="object-contain qr-code "
                 value={window.location.href} />
           </div>
+          
         </div>
-        <div className="w-full h-0.5 bg-black" ></div>
-        <div className="flex justify-center columns-5 space-x-5 mx-10">
-          <div className="text-lg">Amount : ₹{props.total}</div>
-          <div className="text-lg">Advance : ₹{props.advance} </div>
-          <div className="text-lg">Other Charge : ₹{props.other_charge}</div>
-          <div className="text-lg">Balance : ₹{props.balance}</div>
-        </div>
-
-        <div className="w-full h-0.5 bg-black" ></div>
+        <AllAmount total={props.total} advance={props.advance} courier_charge={props.courier_charge} balance={props.balance}/>
     </div>
   )
+}
+
+const AllAmount = (props) => {
+  return (<div className="mt-2">
+    <div className="w-full h-0.5 bg-black" ></div>
+    <div className="flex justify-center columns-5 space-x-5 mx-10">
+          <div className="text-lg">Amount : ₹{props.total}</div>
+          <div className="text-lg">Advance : ₹{props.advance} </div>
+          <div className="text-lg">Courier Charge : ₹{props.courier_charge}</div>
+          <div className="text-lg">Balance : ₹{props.balance}</div>
+        </div>
+    <div className="w-full h-0.5 bg-black" ></div>
+  </div>)
 }
 
 

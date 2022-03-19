@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import Navbar from "../Home/Navbar";
 import Footer from "../Home/Footer";
-import axios from "axios";
-import API from "../../api";
+// import axios from "axios";
+// import API from "../../api";
 import Scroll from "../Home/Scroll";
 
 export default function Product_Home() {
-    const [product,setProduct] = useState([{}]);
-    useEffect(() => {
-        axios.get(`${API}/api/product_display/`).then(res => {setProduct(res.data)}).catch(err=>console.log(err))
-    },[]);
+    // const [product,setProduct] = useState([{}]);
+    // useEffect(() => {
+    //     axios.get(`${API}/api/product_display/`).then(res => {setProduct(res.data)}).catch(err=>console.log(err))
+    // },[]);
     return (
         <div>
             <Navbar/>

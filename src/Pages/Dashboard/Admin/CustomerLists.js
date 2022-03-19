@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import API from '../../../api'
 
-import { Link } from 'react-router-dom'
 
 export default function Customer() {
-  const Styles = {
-    TabHeadButton:
-      'shadow-lg mx-4 py-1 uppercase font-bold px-3 font-xs bg-rose-500 border-2 border-rose-500 text-white hover:text-rose-500 hover:border-rose-500 hover:bg-transparent rounded-md',
-    TabPanel: '',
-    WorkFormInput:
-      'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2',
-  }
+  // const Styles = {
+  //   TabHeadButton:
+  //     'shadow-lg mx-4 py-1 uppercase font-bold px-3 font-xs bg-rose-500 border-2 border-rose-500 text-white hover:text-rose-500 hover:border-rose-500 hover:bg-transparent rounded-md',
+  //   TabPanel: '',
+  //   WorkFormInput:
+  //     'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2',
+  // }
 
   const [customers, fetchcustomers] = useState([])
   const [customerstate, fetchcustomerstate] = useState(false)
@@ -32,34 +31,35 @@ export default function Customer() {
     <div>
       <div className={'p-10 mt-12'}>
         {/* customer lists */}
-        <div class="container mx-auto px-4 sm:px-8">
+        <div class="container px-4 sm:px-8">
           <div class="py-8">
             <div>
               <h2 class="text-2xl justify-center font-semibold leading-tight">
                 Customer Lists
               </h2>
             </div>
-            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-              <div class="min-w-full shadow-lg  overflow-hidden">
-                <table class="min-w-full leading-normal table-auto">
-                  <thead className="bg-gradient-to-r from-rose-600 to-rose-400">
+            
+            <div class="my-2 shadow-2xl overflow-x-auto">
+              <div class="">
+                <table class="w-full">
+                  <thead className="w-full bg-gradient-to-r from-rose-600 to-rose-500">
                     <tr>
-                      <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                      <th class="py-3 text-center text-xs font-semibold text-white uppercase">
                         Customer ID
                       </th>
-                      <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                      <th class="py-3 text-center text-xs font-semibold text-white uppercase">
                         Customer Name
                       </th>
-                      <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                      <th class="py-3 text-center text-xs font-semibold text-white uppercase">
                         Mobile
                       </th>
-                      <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                      <th class="py-3 text-center text-xs font-semibold text-white uppercase">
                         Address
                       </th>
-                      <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                      <th class="py-3 text-center text-xs font-semibold text-white uppercase">
                         City
                       </th>
-                      <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                      <th class="py-3 text-center text-xs font-semibold text-white uppercase">
                         Pincode
                       </th>
                     </tr>

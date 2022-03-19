@@ -1,15 +1,36 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import nav_logo from "../../assets/img/logo.png"
 
 export default function Sidebar() {
-  const navigate = useNavigate()
   const auth = localStorage.getItem('role')
   return (
-    <div className="relative min-h-screen hidden sm:block md:flex">
+    <div className="relative min-h-screen md:flex">
+      <div className="bg-gray-800 text-gray-100 flex justify-between md:hidden">
+        <button className="block p-4 text-black font-bold">
+          Zig Zag
+        </button>
+
+        <button className="mobile-menu-button p-4 focus:outline-none focus:bg-gray-700">
+          <svg
+            className="h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
 
       <div className="sidebar bg-white text-blue-100 w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
-        <a href="#" className="text-black flex items-center space-x-2 px-4">
+        <button className="text-black flex items-center space-x-2 px-4">
           {/*<svg*/}
           {/*  className="w-8 h-8"*/}
           {/*  xmlns="http://www.w3.org/2000/svg"*/}
@@ -26,7 +47,7 @@ export default function Sidebar() {
           {/*</svg>*/}
           {/*<span className="text-2xl text-black font-extrabold">ZigZag</span>*/}
           <img src={nav_logo} sizes="50"/>
-        </a>
+        </button>
 
         <nav>
           {(() => {
@@ -70,6 +91,9 @@ export default function Sidebar() {
                   >
                     ORDER STATUS
                   </Link>
+          
+
+                  
                   <Link
                     to={"/dashboard/work_assign/"}
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
@@ -88,6 +112,7 @@ export default function Sidebar() {
                   >
                     WAGE
                   </Link>
+                  
                   <Link
                     to="/dashboard/staff_register"
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
@@ -172,18 +197,7 @@ export default function Sidebar() {
                   >
                     HOME
                   </Link>
-                  <Link
-                  to={`/dashboard/customer_orders/${localStorage.getItem('cid')}/`}
-                  className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                  >
-                    ORDERS
-                  </Link>
-                  <Link
-                    to="/dashboard/invoice"
-                    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                  >
-                    INVOICE
-                  </Link>
+                
                   <Link
                     to={`/dashboard/customer_order_history/${localStorage.getItem('cid')}`}
                     className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"

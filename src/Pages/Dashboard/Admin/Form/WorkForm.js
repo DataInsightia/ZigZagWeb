@@ -153,13 +153,13 @@ export default function WorkForm() {
     <div>
       <div class="mt-16 container mx-auto px-4 sm:px-8">
         <div class="py-24">
-          <div>
+        <div className="flex justify-between">
             <h2 class="text-2xl justify-center font-semibold leading-tight">
               Work
             </h2>
             <button
               onClick={openFromAddModal}
-              className="px-2 py-1 shadow-lg bg-red-200 text-red-900 rounded text-lg font-bold"
+              className="px-2 py-1 shadow-lg border border-red-500 bg-red-500 text-white hover:bg-transparent hover:text-red-500 rounded text-lg font-bold"
             >
               Add Work
             </button>
@@ -169,17 +169,17 @@ export default function WorkForm() {
               <table class="min-w-full leading-normal ">
                 <thead>
                   <tr>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
                       Work Name
                     </th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
                       Amount
                     </th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
                       Wage Type
                     </th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"></th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"></th>
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"></th>
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"></th>
                   </tr>
                 </thead>
                 <tbody>
