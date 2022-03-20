@@ -442,7 +442,7 @@ var date = curr.toISOString().substr(0,10);
 
 
           {cust ? (
-            <div className="bg-white drop-shadow-2xl overflow-auto overflow-x-scroll ">
+            <div className="bg-white drop-shadow-2xl ">
               <div className="flex flex-wrap -md:mx-3 md:mb-6 md:space-x-20 justify-center">
                 <select
                     className="mb-3 sm:justify-center md:mt-12 inline-flex mt-12 inline-block xl:w-96 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
@@ -624,7 +624,7 @@ var date = curr.toISOString().substr(0,10);
                       <snap>
                         <p>Advance Amount</p>
                       <input
-                          className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none h-15"
+                          className="mb-3 xl:w-96 inline-block w-72 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none h-15"
                           type={"text"}
                           value={others.advance_amount}
                           name={"advance_amount"}
@@ -636,11 +636,11 @@ var date = curr.toISOString().substr(0,10);
                           placeholder={"Advance Amount"}
                       />
                       </snap>
-                        <div className="md:flex justify-center inline-block -w-28">
+                        <div className="md:flex justify-start inline-block">
                       <snap>
                         <p className="font-semibold">Pickup Type : </p>
                         <select
-                            className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            className="mb-3 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             name={"pickup_type"}
                             onChange={handleOther}
                         >
@@ -683,7 +683,7 @@ var date = curr.toISOString().substr(0,10);
                           <snap>
                               <p className="font-semibold flex flex-wrap">Courier Charge : </p>
                             <input
-                                className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                                className="mb-3 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block w-full md:px-4
       py-2
       text-xl
       font-normal
@@ -692,7 +692,7 @@ var date = curr.toISOString().substr(0,10);
       border border-solid border-gray-300
       rounded
       transition
-      ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 h-20 focus:outline-none"
+      ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 md:h-20 focus:outline-none"
                                 type={"text"}
                                 name={"courier_amount"}
                                 placeholder={"Courier Charge"}
@@ -708,7 +708,7 @@ var date = curr.toISOString().substr(0,10);
 
                               <p className="font-semibold flex flex-wrap">Courier Address : </p>
 <textarea
-      className="mb-6 xl:w-96 form-select form-select-lg mb-3 appearance-none block px-4
+      className="mb-6 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block px-4
       py-2
       text-xl
       font-normal
@@ -737,7 +737,7 @@ var date = curr.toISOString().substr(0,10);
                     </div>
                   </div>
                   {/*take order table*/}
-                  <div className={"flex md:justify-center inline-block justify-start overflow-auto overflow-x-scroll"}>
+                  <div className={"flex md:justify-center inline-block justify-start overflow-auto md:overflow-x-scroll inline-block md:flex"}>
                     <table className={"border-collapse text-center"}>
                       <tr>
                         <th className={"border border-slate-600 p-3"}>Work Name</th>
