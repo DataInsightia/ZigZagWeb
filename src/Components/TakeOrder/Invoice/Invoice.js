@@ -51,31 +51,33 @@ export default function Invoice(){
   return (
     <div className="flex scroll items-center mt-16 justify-center min-h-screen bg-gray-100">
       <div ref={componentRef} className="w-1/2 bg-white shadow-lg">
-        <div  className="flex justify-center p-1 flex">
+        <div className="">
+
+        <div  className="justify-center p-1">
           <div className="flex justify-center">
             <img src={invoiceimg} className="w-20 md:w-32 lg:w-28"/>
-           <div className="w-30 text-center">
-             <br/>
-           <span className="text-rose-500 text-2xl">
-             Chettinad ZigZag
-           </span><br/>
-           <span className="text-xl">
-             Mobile:+91 9940682836
-           </span><br/>
-             <span className="text-sm font-bold">
-            Address: 333A Poisolla Meiyar Street Near Daily Market, Udhyam Lodge Building, Karaikudi, Tamil Nadu 630001 
-           </span>
-           
-           </div>
+            <div className="w-30 text-center">
+              <br/>
+              <span className="text-rose-500 text-2xl">
+                Chettinad ZigZag
+              </span>
+              <br/>
+              <span className="text-xl">
+                Mobile:+91 9940682836
+              </span><br/>
+              <span className="text-sm font-bold">
+              Address: 333A Poisolla Meiyar Street Near Daily Market, Udhyam Lodge Building, Karaikudi, Tamil Nadu 630001 
+              </span>
+            </div>
           </div>
-          <div className="p-2">
-          </div>
+          <div className="p-2"></div>
         </div>
-        <div className="w-full h-0.5 bg-indigo-500"></div>
+      <div className="w-full h-0.5 bg-indigo-500"></div>
         <div className="flex justify-between p-4">
           <div>
               <h6 className="font-bold text-xl">ORDER ID : {orderid}</h6>
             <span className="text-sm">Customer Name : {customerdetails.cust_name}</span>
+            <div className="text-sm">Mobile : {customerdetails.mobile}</div>
             <address className="text-sm">
               <span className="font-bold"> Address : </span>
               {customerdetails.address}
@@ -135,7 +137,7 @@ export default function Invoice(){
         <AllAmount total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount}/>
 
 
-        <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount} mobile={customerdetails.mobile} />
+        {/* <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount} mobile={customerdetails.mobile} /> */}
 
 
         <div className="flex justify-end">
@@ -152,9 +154,112 @@ export default function Invoice(){
           <br/>
           <PrintButton componentRef={componentRef}/>
         </div>
-        
+
+
+        <div  className="flex justify-center p-1 flex">
+          <div className="flex justify-center">
+            <img src={invoiceimg} className="w-20 md:w-32 lg:w-28"/>
+            <div className="w-30 text-center">
+              <br/>
+              <span className="text-rose-500 text-2xl">
+                Chettinad ZigZag
+              </span>
+              <br/>
+              <span className="text-xl">
+                Mobile:+91 9940682836
+              </span><br/>
+              <span className="text-sm font-bold">
+              Address: 333A Poisolla Meiyar Street Near Daily Market, Udhyam Lodge Building, Karaikudi, Tamil Nadu 630001 
+              </span>
+            </div>
+          </div>
+          <div className="p-2"></div>
+        </div>
+      <div className="w-full h-0.5 bg-indigo-500"></div>
+        <div className="flex justify-between p-4">
+          <div>
+              <h6 className="font-bold text-xl">ORDER ID : {orderid}</h6>
+            <span className="text-sm">Customer Name : {customerdetails.cust_name}</span>
+            <div className="text-sm">Mobile : {customerdetails.mobile}</div>
+            <address className="text-sm">
+              <span className="font-bold"> Address : </span>
+              {customerdetails.address}
+            </address>
+          </div>
+          <div className="w-50">
+          <QRCode
+              size={80}
+              className="object-contain qr-code "
+              value={window.location.href}/>
+          </div>
+          <div></div> 
+        </div>
+
+        <div className="flex justify-center ">
+          <div className="border-b border-gray-200 shadow">
+            <table className="w-5/5">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-2 py-2 text-xs text-gray-500 ">
+                    Product Name
+                  </th>
+                  <th className="px-2 py-2 text-xs text-gray-500 ">Quantity</th>
+                  <th className="px-2 py-2 text-xs text-gray-500 ">Rate</th>
+                  <th className="px-2 py-2 text-xs text-gray-500 ">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white">
+
+                
+                {
+                  orderWork.map((e) => <Row prod_name={e.work_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
+                }
+
+              
+                {
+                 orderMaterial.map((e) => <Row prod_name={e.material_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
+                }  
+
+                
+
+
+                <tr className="bg-gray-800">
+                  <th colSpan="2"></th>
+                  <td className="text-lg font-bold text-center text-white">
+                    <b>Total</b>
+                  </td>
+                  <td className="text-lg font-bold text-center text-white">
+                    <b>₹ {order.total_amount}</b>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <AllAmount total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount}/>
+
+
+        {/* <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount} mobile={customerdetails.mobile} /> */}
+
+
+        <div className="flex justify-end">
+          <div className="p-4">
+            <h3>Signature</h3>
+            <div className="text-2xl italic text-indigo-500">AAAAA</div>
+          </div>
+        </div>
+
+        <div className="p-4">
+          <div className="flex text-xl items-center justify-center">
+            Thank you very much for ordering with us.
+          </div>
+          <br/>
+          <PrintButton componentRef={componentRef}/>
+        </div>
+
+        </div>
       </div>
-      
     </div>
   );
 }
@@ -191,7 +296,7 @@ const AllAmount = (props) => {
           <div className="text-lg">Advance : ₹{props.advance} </div>
           <div className="text-lg">Courier Charge : ₹{props.courier_charge}</div>
           <div className="text-lg">Balance : ₹{props.balance}</div>
-        </div>
+    </div>
     <div className="w-full h-0.5 bg-black" ></div>
   </div>)
 }
