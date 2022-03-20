@@ -30,14 +30,6 @@ function CustomerOrderStatus() {
         })
     }
 
-    // useEffect(async() => {
-    //     const os_res = await axios.post(API + '/api/order_status/',orderid)
-    //     if (os_res.data.status) {setStage(os_res.data.details)} 
-
-    //     const wsa_os_res = await axios.post(API + '/api/order_status_oa/',orderid)
-    //     if (wsa_os_res) {setWAstage(wsa_os_res.data)} 
-        
-    // },[]);
 
     return (
         <div className="bg-gray-50 mt-16">
@@ -134,81 +126,6 @@ function CustomerOrderStatus() {
 </div>
 )}
 
-
-                   
-{/* 
-                    <div className="flex md:contents">
-                        <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
-                            <div className="h-full w-6 flex items-center justify-center">
-                                <i className="h-full w-2 bg-green-500 pointer-events-none"></i>
-                            </div>
-                            <div
-                                className="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-green-500 shadow text-center">
-                                <i className="fa fa-check-circle text-white"></i>
-                            </div>
-                        </div>
-                        <div
-                            className="bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
-                            <h3 className="font-semibold text-lg mb-1">Package Booked</h3>
-                            <p className="leading-tight text-justify w-full">
-                                21 July 2021, 04:30 PM
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex md:contents">
-                        <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
-                            <div className="h-full w-6 flex items-center justify-center">
-                                <div className="h-full w-2 bg-green-500 pointer-events-none"></div>
-                            </div>
-                            <div
-                                className="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-green-500 shadow text-center">
-                                <i className="fa fa-check-circle text-white"></i>
-                            </div>
-                        </div>
-                        <div
-                            className="bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
-                            <h3 className="font-semibold text-lg mb-1">Out for Delivery</h3>
-                            <p className="leading-tight text-justify">
-                                22 July 2021, 01:00 PM
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex md:contents">
-                        <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
-                            <div className="h-full w-6 flex items-center justify-center">
-                                <div className="h-full w-2 bg-red-500 pointer-events-none"></div>
-                            </div>
-                            <div className="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-red-500 shadow text-center">
-                                <i className="fa fa-times-circle text-white"></i>
-                            </div>
-                        </div>
-                        <div className="bg-red-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
-                            <h3 className="font-semibold text-lg mb-1 text-gray-50">Cancelled</h3>
-                            <p className="leading-tight text-justify">
-                                Customer cancelled the order
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex md:contents">
-                        <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
-                            <div className="h-full w-6 flex items-center justify-center">
-                                <div className="h-full w-2 bg-rose-500 pointer-events-none"></div>
-                            </div>
-                            <div className="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-rose-500 shadow text-center">
-                                <i className="fa fa-exclamation-circle text-white-500"></i>
-                            </div>
-                        </div>
-                        <div
-                            className="bg-rose-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
-                            <h3 className="font-semibold text-lg mb-1 text-white">Delivered</h3>
-                            <p className="leading-tight text-justify">
-
-                            </p>
-                        </div>
-                    </div> */}
 
                 </div>
             </div>

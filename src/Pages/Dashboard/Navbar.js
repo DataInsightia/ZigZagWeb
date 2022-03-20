@@ -152,7 +152,7 @@ export default function Navbar() {
                                                     </Link>
                                                     <li>
                                                         <Link
-                                                            to="/dashboard/order_status"
+                                                            to="/dashboard/customer_order_status"
                                                             className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                                                         >
                                                             ORDER STATUS
