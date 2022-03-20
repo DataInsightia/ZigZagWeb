@@ -594,11 +594,11 @@ var date = curr.toISOString().substr(0,10);
 
                   <div className="grid justify-center">
                     <div className="flex flex-wrap mx-auto mb-7 md:space-x-40">
-                      <div className="flex  items-center justify-center">
-                        <div className="datepicker  relative form-floating mb-3 xl:w-96">
+                      <div className="flex  items-center  justify-center">
+                        <div className="datepicker md:relative inline-flex justify-center form-floating   md:mb-3 xl:w-96">
                           Booking Date:
                           <input
-                              className="form-control block font-bold  w-full px-3 py-5 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              className="form-control block font-bold  w-full mb-8 px-3 py-5 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                               type={"text"}
                               name={"due_date"}
                               onChange={handleOther}
@@ -609,7 +609,7 @@ var date = curr.toISOString().substr(0,10);
                       </div>
 
                       <div className="flex items-center justify-center">
-                        <div className="datepicker relative form-floating mb-3 xl:w-96">
+                        <div className="datepicker md:relative inline-flex justify-center form-floating mb-3 md:w-96">
                           Due Date:
                           <input
                               className="form-control block w-full text-4xl px-3 date-3xl py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
@@ -636,6 +636,7 @@ var date = curr.toISOString().substr(0,10);
                           placeholder={"Advance Amount"}
                       />
                       </snap>
+                        <div className="md:flex justify-center inline-block -w-28">
                       <snap>
                         <p className="font-semibold">Pickup Type : </p>
                         <select
@@ -650,13 +651,16 @@ var date = curr.toISOString().substr(0,10);
                           <option value={"courier"}>COURIER</option>
                           <option value={"other"}>OTHER</option>
                         </select>
+
                       </snap>
+                        </div>
 
                         {others.pickup_type === "other" ? (
                             <div>
                                 <p className="font-semibold flex flex-wrap">Other Details : </p>
                                 <textarea
                                     className="mb-6 xl:w-96 form-select form-select-lg mb-3 appearance-none block px-4
+
       py-2
       text-xl
       font-normal
@@ -733,7 +737,7 @@ var date = curr.toISOString().substr(0,10);
                     </div>
                   </div>
                   {/*take order table*/}
-                  <div className={"flex justify-center"}>
+                  <div className={"flex md:justify-center inline-block justify-start overflow-auto overflow-x-scroll"}>
                     <table className={"border-collapse text-center"}>
                       <tr>
                         <th className={"border border-slate-600 p-3"}>Work Name</th>
