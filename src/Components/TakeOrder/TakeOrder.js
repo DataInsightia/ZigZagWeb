@@ -5,7 +5,6 @@ import QRCode from 'react-qr-code'
 import './qr.css'
 import $ from 'jquery'
 import './button.css'
-import { useNavigate } from 'react-router-dom'
 import { Navigate } from 'react-router'
 import { Dialog, Transition } from '@headlessui/react'
 
@@ -26,8 +25,6 @@ function TakeOrder() {
   function openModal() {
     setIsOpen(true)
   }
-
-  let history = useNavigate()
 
   const [orderid, setOrderid] = useState('')
   const [isInvoice, setIsinvoice] = useState(false)
@@ -101,16 +98,6 @@ function TakeOrder() {
       })
   }, [orderid])
 
-  const current_date = () => {
-    var today = new Date()
-    var dd = String(today.getDate()).padStart(2, '0')
-    var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
-    var yyyy = today.getFullYear()
-
-    today = dd + '-' + mm + '-' + yyyy
-    return today
-  }
-
   const yyyymmdd = (dateIn) => {
     var parts = dateIn.split('-')
     return parts[0] + '-' + parts[1] + '-' + parts[2]
@@ -170,12 +157,12 @@ function TakeOrder() {
   const getWorkAmount = (wn) =>
     setWork({
       ...work,
-      ['amount']: works.find((e) => e.work_id === wn)['amount'],
+      'amount': works.find((e) => e.work_id === wn)['amount'],
     })
   const getMaterialAmount = (mn) =>
     setMaterial({
       ...material,
-      ['amount']: materials.find((e) => e.material_id === mn)['amount'],
+      'amount': materials.find((e) => e.material_id === mn)['amount'],
     })
 
   const addWork = (e) => {
@@ -183,7 +170,6 @@ function TakeOrder() {
     work['cust_id'] = customer_details['cust_id']
     work['order_id'] = orderid
     work['total'] = parseInt(work['qty']) * parseInt(work['amount'])
-    console.log(work)
     // Insert to tmp_work
     axios
       .post(API + '/api/tmp_work/', work)
@@ -191,6 +177,9 @@ function TakeOrder() {
         console.log(res.data)
         fetch_work_table()
         fetch()
+        e.target.work_id.value = ""
+        e.target.qty.value = ""
+        e.target.amount.value = ""
       })
       .catch((err) => console.log(err))
     fetch_work_table()
@@ -206,8 +195,13 @@ function TakeOrder() {
     axios
       .post(API + '/api/tmp_material/', material)
       .then((res) => {
-        fetch_material_table()
-        fetch()
+        if (res.data.status){
+          fetch_material_table()
+          fetch()
+          e.target.material_id.value = ""
+          e.target.qty.value = ""
+          e.target.amount.value = ""
+        }
       })
       .catch((err) => console.log(err))
     fetch_material_table()
@@ -465,152 +459,156 @@ function TakeOrder() {
           {cust ? (
             <div className="bg-white drop-shadow-2xl overflow-auto overflow-x-scroll ">
               <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
-                <select
-                    className="mb-3 sm:justify-center md:mt-12 inline-block sm:mt-60 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
-      py-2
-      text-xl
-      font-normal
-      text-gray-700
-      bg-white bg-clip-padding bg-no-repeat
-      border border-solid border-gray-300
-      rounded
-      transition
-      ease-in-out
-      m-0
-      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none w-3"
-                  name={'work_id'}
-                  onChange={handleWorkEvent}
-                  required
-                >
-                  <option selected hidden>
-                    Work
-                  </option>
-                  {works.map((e) => (
-                    <option value={e.work_id}>{e.work_name}</option>
-                  ))}
-                </select>
+                <form onSubmit={addWork} className='flex'>
+                    <select
+                        className="mb-3 sm:justify-center md:mt-12 inline-block sm:mt-60 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                        py-2
+                        text-xl
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding bg-no-repeat
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none w-3"
+                        name={'work_id'}
+                        onChange={handleWorkEvent}
+                        required
+                      >
+                        <option selected hidden>
+                          Work
+                        </option>
+                        {works.map((e) => (
+                          <option value={e.work_id}>{e.work_name}</option>
+                        ))}
+                    </select>
 
-                <input
-                  className="mb-3 mt-10 xl:w-20 form-select form-select-lg mb-3 appearance-none block w-full px-4
-      py-2
-      text-xl
-      font-normal
-      text-gray-700
-      bg-white bg-clip-padding bg-no-repeat
-      border border-solid border-gray-300
-      rounded
-      transition
-      ease-in-out
-      m-0
-      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  type={'text'}
-                  name={'qty'}
-                  placeholder={'Qty'}
-                  onChange={handleWorkEvent}
-                  onBlur={() => getWorkAmount(work.work_id)}
-                  required
-                />
-                <input
-                  className="mb-3 mt-10 xl:w-28 form-select form-select-lg mb-3 appearance-none block w-full px-4
-      py-2
-      text-xl
-      font-normal
-      text-gray-700
-      bg-white bg-clip-padding bg-no-repeat
-      border border-solid border-gray-300
-      rounded
-      transition
-      ease-in-out
-      m-0
-      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  type={'text'}
-                  name={'amount'}
-                  placeholder={'Amount'}
-                  onChange={handleWorkEvent}
-                  value={work.amount}
-                  required
-                />
-                <input
-                  type={'submit'}
-                  value={'ADD'}
-                  className="mb-3 mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                  onClick={addWork}
-                />
+                    <input
+                      className="mb-3 mt-10 xl:w-20 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                      py-2
+                      text-xl
+                      font-normal
+                      text-gray-700
+                      bg-white bg-clip-padding bg-no-repeat
+                      border border-solid border-gray-300
+                      rounded
+                      transition
+                      ease-in-out
+                      m-0
+                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                      type={'text'}
+                      name={'qty'}
+                      placeholder={'Qty'}
+                      onChange={handleWorkEvent}
+                      onBlur={(e) => getWorkAmount(e,work.work_id)}
+                      required
+                    />
+                    <input
+                      className="mb-3 mt-10 xl:w-28 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                      py-2
+                      text-xl
+                      font-normal
+                      text-gray-700
+                      bg-white bg-clip-padding bg-no-repeat
+                      border border-solid border-gray-300
+                      rounded
+                      transition
+                      ease-in-out
+                      m-0
+                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                      type={'text'}
+                      name={'amount'}
+                      placeholder={'Amount'}
+                      onChange={handleWorkEvent}
+                      value={work.amount}
+                      required
+                    />
+                    <input
+                      type={'submit'}
+                      value={'ADD'}
+                      className="mb-3 mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                      
+                    />
+                </form>
               </div>
+              
 
               <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
-                <select
-                  className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
-      py-2
-      text-xl
-      font-normal
-      text-gray-700
-      bg-white bg-clip-padding bg-no-repeat
-      border border-solid border-gray-300
-      rounded
-      transition
-      ease-in-out
-      m-0
-      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  name={'material_id'}
-                  onChange={handleMaterialEvent}
-                  required
-                >
-                  <option selected hidden>
-                    Material
-                  </option>
-                  {materials.map((e) => (
-                    <option value={e.material_id}>{e.material_name}</option>
-                  ))}
-                </select>
-                <input
-                  className="mb-3 xl:w-20 form-select form-select-lg mb-3 appearance-none block w-full px-4
-      py-2
-      text-xl
-      font-normal
-      text-gray-700
-      bg-white bg-clip-padding bg-no-repeat
-      border border-solid border-gray-300
-      rounded
-      transition
-      ease-in-out
-      m-0
-      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  type={'text'}
-                  name={'qty'}
-                  placeholder={'Qty'}
-                  onChange={handleMaterialEvent}
-                  onBlur={() => getMaterialAmount(material.material_id)}
-                  required
-                />
-                <input
-                  className="mb-3 xl:w-28 form-select form-select-lg mb-3 appearance-none block w-full px-4
-      py-2
-      text-xl
-      font-normal
-      text-gray-700
-      bg-white bg-clip-padding bg-no-repeat
-      border border-solid border-gray-300
-      rounded
-      transition
-      ease-in-out
-      m-0
-      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  type={'text'}
-                  name={'amount'}
-                  placeholder={'Amount'}
-                  onChange={handleMaterialEvent}
-                  value={material.amount}
-                  required
-                />
-                <input
-                  type={'submit'}
-                  value={'ADD'}
-                  className={
-                    'mb-3 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out'
-                  }
-                  onClick={addMaterial}
-                />
+                <form className='flex' onSubmit={addMaterial}>
+                  <select
+                    className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                    py-2
+                    text-xl
+                    font-normal
+                    text-gray-700
+                    bg-white bg-clip-padding bg-no-repeat
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    name={'material_id'}
+                    onChange={handleMaterialEvent}
+                    required
+                  >
+                    <option selected hidden>
+                      Material
+                    </option>
+                    {materials.map((e) => (
+                      <option value={e.material_id}>{e.material_name}</option>
+                    ))}
+                  </select>
+                  <input
+                    className="mb-3 xl:w-20 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                    py-2
+                    text-xl
+                    font-normal
+                    text-gray-700
+                    bg-white bg-clip-padding bg-no-repeat
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    type={'text'}
+                    name={'qty'}
+                    placeholder={'Qty'}
+                    onChange={handleMaterialEvent}
+                    onBlur={() => getMaterialAmount(material.material_id)}
+                    required
+                  />
+                  <input
+                    className="mb-3 xl:w-28 form-select form-select-lg mb-3 appearance-none block w-full px-4
+                    py-2
+                    text-xl
+                    font-normal
+                    text-gray-700
+                    bg-white bg-clip-padding bg-no-repeat
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    type={'text'}
+                    name={'amount'}
+                    placeholder={'Amount'}
+                    onChange={handleMaterialEvent}
+                    value={material.amount}
+                    required
+                  />
+                  <input
+                    type={'submit'}
+                    value={'ADD'}
+                    className={
+                      'mb-3 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out'
+                    }
+                  />
+                </form>
               </div>
 
               <div className="grid justify-center">
@@ -673,64 +671,115 @@ function TakeOrder() {
                     </select>
                   </snap>
 
-                  {others.pickup_type === 'courier' ? (
-                    <snap>
-                      <p className="font-semibold flex flex-wrap">
-                        Courier Charge :{' '}
-                      </p>
-                      <input
-                        className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4
-      py-2
-      text-xl
-      font-normal
-      text-gray-700
-      bg-white bg-clip-padding bg-no-repeat
-      border border-solid border-gray-300
-      rounded
-      transition
-      ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 h-20 focus:outline-none"
-                        type={'text'}
-                        name={'courier_amount'}
-                        placeholder={'Courier Charge'}
-                        onChange={(e) => {
-                          handleOther(e)
-                          update_balance_with_courier(e)
-                        }}
-                        onBlur={() => {
-                          // update_advance_amount();
-                          fetch()
-                        }}
-                      />
+                  {others.pickup_type === "courier" ? (
+                        <snap>
+                              <p className="font-semibold flex flex-wrap">Courier Charge : </p>
+                              <input
+                                  className="mb-3 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block w-full md:px-4
+                                  py-2
+                                  text-xl
+                                  font-normal
+                                  text-gray-700
+                                  bg-white bg-clip-padding bg-no-repeat
+                                  border border-solid border-gray-300
+                                  rounded
+                                  transition
+                                  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 md:h-20 focus:outline-none"
+                                  type={"text"}
+                                  name={"courier_amount"}
+                                  placeholder={"Courier Charge"}
+                                  onChange={(e) => {
+                                    handleOther(e);
+                                    update_balance_with_courier(e);
+                                  }}
+                                  onBlur={() => {
+                                    // update_advance_amount();
+                                    fetch();
+                                  }}
+                              />
 
-                      <p className="font-semibold flex flex-wrap">
-                        Courier Address :{' '}
-                      </p>
-                      <textarea
-                        className="mb-6 xl:w-96 form-select form-select-lg mb-3 appearance-none block px-4
-      py-2
-      text-xl
-      font-normal
-      text-gray-700
-      bg-white bg-clip-padding bg-no-repeat
-      border border-solid border-gray-300
-      rounded
-      transition
-      ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 h-20 focus:outline-none"
-                        name={'courier_address'}
-                        placeholder={'Courier Address'}
-                        onChange={(e) => {
-                          handleOther(e)
-                          update_balance_with_courier(e)
-                        }}
-                        onBlur={() => {
-                          // update_advance_amount();
-                          fetch()
-                        }}
-                      />
-                    </snap>
-                  ) : (
-                    ''
-                  )}
+                              <p className="font-semibold flex flex-wrap">Courier Address : </p>
+                              <textarea
+                                    className="mb-6 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block px-4
+                                    py-2
+                                    text-xl
+                                    font-normal
+                                    text-gray-700
+                                    bg-white bg-clip-padding bg-no-repeat
+                                    border border-solid border-gray-300
+                                    rounded
+                                    transition
+                                    ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 h-20 focus:outline-none"
+                                name={"courier_address"}
+                                placeholder={"Courier Address"}
+                                onChange={(e) => {
+                                  handleOther(e);
+                                  update_balance_with_courier(e);
+                                }}
+                                onBlur={() => {
+                                  // update_advance_amount();
+                                  fetch();
+                                }}
+                              />
+                        </snap>
+                      ) : (
+                          ""
+                      )}
+
+                    {others.pickup_type === "courier" ? (
+                          <snap>
+                              <p className="font-semibold flex flex-wrap">Courier Charge : </p>
+                              <input
+                                  className="mb-3 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block w-full md:px-4
+                              py-2
+                              text-xl
+                              font-normal
+                              text-gray-700
+                              bg-white bg-clip-padding bg-no-repeat
+                              border border-solid border-gray-300
+                              rounded
+                              transition
+                              ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 md:h-20 focus:outline-none"
+                                  type={"text"}
+                                  name={"courier_amount"}
+                                  placeholder={"Courier Charge"}
+                                  onChange={(e) => {
+                                    handleOther(e);
+                                    update_balance_with_courier(e);
+                                  }}
+                                  onBlur={() => {
+                                    // update_advance_amount();
+                                    fetch();
+                                  }}
+                              />
+
+                              <p className="font-semibold flex flex-wrap">Courier Address : </p>
+                              <textarea
+                                    className="mb-6 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block px-4
+                                    py-2
+                                    text-xl
+                                    font-normal
+                                    text-gray-700
+                                    bg-white bg-clip-padding bg-no-repeat
+                                    border border-solid border-gray-300
+                                    rounded
+                                    transition
+                                    ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 h-20 focus:outline-none"
+                                    name={"courier_address"}
+                                    placeholder={"Courier Address"}
+                                    onChange={(e) => {
+                                      handleOther(e);
+                                      update_balance_with_courier(e);
+                                    }}
+                                    onBlur={() => {
+                                      // update_advance_amount();
+                                      fetch();
+                                    }}
+                                />
+                          </snap>
+                        ) : (
+                            ""
+                        )}
                 </div>
               </div>
               {/*take order table*/}
