@@ -6,6 +6,7 @@ import './qr.css'
 import $ from 'jquery'
 import './button.css'
 import { Navigate } from 'react-router'
+import {Link} from 'react-router-dom'
 import { Dialog, Transition } from '@headlessui/react'
 
 function TakeOrder() {
@@ -41,7 +42,7 @@ function TakeOrder() {
   })
 
   var curr = new Date()
-  curr.setDate(curr.getDate() + 3)
+  curr.setDate(curr.getDate())
   var date = curr.toISOString().substr(0, 10)
 
   const [customer_details, SetCustomerDetails] = useState({})
@@ -250,6 +251,7 @@ function TakeOrder() {
       })
       .catch((err) => {
         openModal()
+
         console.log(err)
       })
   }
@@ -276,7 +278,7 @@ function TakeOrder() {
     } else if (pickup_type === 'courier') {
       return others.courier_address
     } else if (pickup_type === 'other') {
-      return ''
+      return others.courier_address
     }
   }
 
@@ -502,7 +504,7 @@ function TakeOrder() {
                       name={'qty'}
                       placeholder={'Qty'}
                       onChange={handleWorkEvent}
-                      onBlur={(e) => getWorkAmount(e,work.work_id)}
+                      onBlur={() => getWorkAmount(work.work_id)}
                       required
                     />
                     <input
@@ -661,6 +663,7 @@ function TakeOrder() {
                       className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                       name={'pickup_type'}
                       onChange={handleOther}
+                      required
                     >
                       <option selected hidden>
                         Choose Type
@@ -688,6 +691,61 @@ function TakeOrder() {
                                   type={"text"}
                                   name={"courier_amount"}
                                   placeholder={"Courier Charge"}
+                                  onChange={(e) => {
+                                    handleOther(e);
+                                    update_balance_with_courier(e);
+                                  }}
+                                  onBlur={() => {
+                                    // update_advance_amount();
+                                    fetch();
+                                  }}
+                              />
+
+                              <p className="font-semibold flex flex-wrap">Courier Address : </p>
+                              <textarea
+                                    className="mb-6 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block px-4
+                                    py-2
+                                    text-xl
+                                    font-normal
+                                    text-gray-700
+                                    bg-white bg-clip-padding bg-no-repeat
+                                    border border-solid border-gray-300
+                                    rounded
+                                    transition
+                                    ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 h-20 focus:outline-none"
+                                name={"courier_address"}
+                                placeholder={"Courier Address"}
+                                onChange={(e) => {
+                                  handleOther(e);
+                                  update_balance_with_courier(e);
+                                }}
+                                onBlur={() => {
+                                  // update_advance_amount();
+                                  fetch();
+                                }}
+                              />
+                        </snap>
+                      ) : (
+                          ""
+                      )}
+
+                      {others.pickup_type === "other" ? (
+                        <snap>
+                              <p className="font-semibold flex flex-wrap">Phone Number : </p>
+                              <input
+                                  className="mb-3 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block w-full md:px-4
+                                  py-2
+                                  text-xl
+                                  font-normal
+                                  text-gray-700
+                                  bg-white bg-clip-padding bg-no-repeat
+                                  border border-solid border-gray-300
+                                  rounded
+                                  transition
+                                  ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 md:h-20 focus:outline-none"
+                                  type={"text"}
+                                  name={"other_mobile"}
+                                  placeholder={"Mobile Number"}
                                   onChange={(e) => {
                                     handleOther(e);
                                     update_balance_with_courier(e);
@@ -966,11 +1024,23 @@ function TakeOrder() {
                 <div className="mt-4">
                   <button
                     type="button"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    className="m-2 inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                     onClick={closeModal}
                   >
                     Go Back
                   </button>
+
+
+                <Link to="/register" target="_blank">
+                  <button
+                    type="button"
+                    target="_blank"
+                    className="m-2 inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    onClick={(e) => {closeModal(e);}}
+                  >
+                    Register
+                  </button>
+                </Link>
                 </div>
               </div>
             </Transition.Child>

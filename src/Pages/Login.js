@@ -7,12 +7,15 @@ import { Link } from 'react-router-dom'
 import { Navigate } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { Dialog, Transition } from '@headlessui/react'
+import { upperCase } from 'lodash'
 
 export default function Login() {
   const Styles = {
     LoginButton:
       'bg-red-500 text-white border border-red-500 hover:text-red-500 hover:bg-transparent text-sm font-bold uppercase px-6 py-3 rounded-2xl shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150',
     Label: 'block border-none uppercase text-black text-xs font-bold mb-2',
+    InputID:
+      'uppercase border px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-2xl text-sm focus:ring-red-500 w-full  ease-linear transition-all duration-150',
     Input:
       'border px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-2xl text-sm focus:ring-red-500 w-full  ease-linear transition-all duration-150',
   }
@@ -195,8 +198,9 @@ export default function Login() {
                       <input
                         type="text"
                         required="required"
-                        className={Styles.Input}
+                        className={Styles.InputID}
                         placeholder="User ID / Mobile Number"
+                        onChange={(e) => e.target.value.toUpperCase()}
                         // value={data.cust_id}
                         // onChange={handleEvent}
                         name={'login_id'}

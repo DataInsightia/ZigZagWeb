@@ -10,6 +10,7 @@ function OrderStatus() {
     const [staffPic,setStaffPic] = useState('');
     const [orderid,setOrderID] = useState({});
     const [materialLocation,setMaterialLocation] = useState([{}]);
+    const [oc_stage,setOCstage] = useState([]);
 
     const handleEvent = (e) => setOrderID({ ...orderid, [e.target.name] : e.target.value });
 
@@ -36,12 +37,19 @@ function OrderStatus() {
         }).catch(err => alert(err))
 
         axios.get(API + `/api/material/${orderid.order_id}/`).then(res => {
-            if (res.data !== undefined) {setMaterialLocation(res.data[0]);} else {setMaterialLocation([{}]);}
+            if (res.data !== undefined) {setMaterialLocation(res.data);} else {setMaterialLocation([{}]);}
             console.log(res.data);
         }).catch(err => alert(err))
 
 
-        if (materialLocation === undefined | materialLocation.length === 1) { alert("Not Found") } 
+        axios.post(API + '/api/order_completion/',orderid).then(res => {
+            if (res.data.status) {
+                setOCstage(res.data.data);
+            } else {
+                console.log("no data")
+            }
+        })
+
         // alert(materialLocation.length)
         
     }
@@ -79,7 +87,8 @@ function OrderStatus() {
                                             {/* <img src="https://randomuser.me/api/portraits/men/5.jpg"/> */}
                                         </div>
                                             <div className="flex-1 pl-2">
-                                                <h2 className="text-white mb-1">Current Material Location : {(materialLocation !== undefined) ? materialLocation.material_location : "Not Found"}</h2>
+                                                <h2 className="text-white mb-1">{materialLocation.material_location === "" ? "Order Not Found" : ""}</h2>
+                                                <h2 className="text-white mb-1">Current Material Location : {(materialLocation !== undefined) ? materialLocation.material_location : "?"}</h2>
                                                 {/* <p className="text-white opacity-50 text-xs">May 18</p> */}
                                             </div>
                                         </div>
@@ -187,6 +196,30 @@ function OrderStatus() {
         <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
     ) : null}
+
+
+
+
+
+{oc_stage.map((e)=>
+
+                
+<div className="flex md:contents">
+<div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
+   <div className="h-full w-6 flex items-center justify-center">
+          <i className={"h-full w-2 bg-green-700 pointer-events-none" }></i>
+      </div>
+      <div
+          className={"w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-green-700 shadow text-center"}>
+          <i className="fa fa-check-circle text-white"></i>
+      </div>
+  </div>
+  <div
+      className={"bg-green-700 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
+      <h3 className={"font-semibold text-lg mb-1 text-white"}>Complete</h3>
+  </div>
+</div>
+)}
                   
         </div>
         </div>
