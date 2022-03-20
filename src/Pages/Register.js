@@ -115,7 +115,7 @@ export default function Register() {
                 <div className="rounded-t mb-0 px-6 py-6">
                   <div className="text-center mb-3">
                     <h1 className="text-black font-semibold text-2xl">
-                      Register
+                      Customer Registeration
                     </h1>
                   </div>
                   <hr className="mt-6 border-b-1 border-blueGray-300" />

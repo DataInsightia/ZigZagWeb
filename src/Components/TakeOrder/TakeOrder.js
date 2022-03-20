@@ -673,7 +673,7 @@ function TakeOrder() {
                     </select>
                   </snap>
 
-                  {others.pickup_type === 'hj' ? (
+                  {others.pickup_type === 'courier' ? (
                     <snap>
                       <p className="font-semibold flex flex-wrap">
                         Courier Charge :{' '}

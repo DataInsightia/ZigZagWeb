@@ -358,7 +358,7 @@ export default function Navbar() {
                         className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-rose-500 hover:bg-indigo-700"
                         onClick={() => {
                             localStorage.clear()
-                            navigate('/login')
+                            navigate('/')
                         }}
                     >
                        Logout
@@ -456,7 +456,7 @@ export default function Navbar() {
                 className="block font-bold py-2.5 px-4 text-white  rounded transition duration-200 hover:bg-white hover:text-black"
                 onClick={() => {
                   localStorage.clear()
-                  navigate('/login')
+                  navigate('/')
                 }}
               >
                 LOGOUT

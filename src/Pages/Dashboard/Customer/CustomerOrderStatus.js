@@ -7,8 +7,9 @@ function CustomerOrderStatus() {
     const [stage,setStage] = useState([])
     const [wa_stage,setWAstage] = useState([])
     const [orderid,setOrderID] = useState({});
+    const [oc_stage,setOCstage] = useState([]);
 
-    const handleEvent = (e) => setOrderID({ ...orderid, [e.target.name]: e.target.value });
+    const handleEvent = (e) => setOrderID({ ...orderid, [e.target.name]: e.target.value.toUpperCase() });
 
     const checkOrder = (e) => {
         e.preventDefault();
@@ -28,6 +29,14 @@ function CustomerOrderStatus() {
                 console.log("no data")
             }
         })
+
+        axios.post(API + '/api/order_completion/',orderid).then(res => {
+            if (res.data.status) {
+                setOCstage(res.data.data);
+            } else {
+                console.log("no data")
+            }
+        })
     }
 
 
@@ -37,11 +46,10 @@ function CustomerOrderStatus() {
             <h1 className="text-4xl text-center font-semibold mb-6">Order status</h1>
             <br/>
 
-
             <div className="container">
 
             <form className="grid justify-center" onSubmit={checkOrder}>
-        <input required  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" placeholder={'Order ID'} onChange={handleEvent}/>
+        <input required  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" placeholder={'Order ID'} onChange={handleEvent} value={orderid.order_id}/>
         <div className="grid justify-center">
             <input  className={"justify-center button text-white rounded p-3 m-3 bg-pink-600"} type="submit" /></div>
     </form>
@@ -59,21 +67,12 @@ function CustomerOrderStatus() {
                             <div className="w-4/6 p-5">
                                 <h2 className="text-white leading-normal text-lg">Work Complete</h2>
                                 <div className="flex flex-wrap justify-between items-center mt-20">
-                                    <div className="inline-flex items-center">
-                                        <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
-                                            <img src="https://randomuser.me/api/portraits/men/5.jpg"/>
-                                        </div>
-                                        <div className="flex-1 pl-2">
-                                            <h2 className="text-white mb-1">Luke Nunez</h2>
-                                            <p className="text-white opacity-50 text-xs">May 18</p>
-                                        </div>
-                                    </div>
+                                    
                                     <span className="text-white opacity-50">
-              <div>
-
-                                <i className="fa fa-check-circle text-white"></i>
-                            </div>
-            </span>
+                                        <div>
+                                            <i className="fa fa-check-circle text-white"></i>
+                                        </div>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -126,6 +125,103 @@ function CustomerOrderStatus() {
 </div>
 )}
 
+
+{oc_stage.map((e)=>
+
+                
+<div className="flex md:contents">
+<div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
+   <div className="h-full w-6 flex items-center justify-center">
+          <i className={"h-full w-2 bg-green-700 pointer-events-none" }></i>
+      </div>
+      <div
+          className={"w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-green-700 shadow text-center"}>
+          <i className="fa fa-check-circle text-white"></i>
+      </div>
+  </div>
+  <div
+      className={"bg-green-700 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
+      <h3 className={"font-semibold text-lg mb-1 text-white"}>Delivered</h3>
+  </div>
+</div>
+)}
+
+
+
+                   
+{/* 
+                    <div className="flex md:contents">
+                        <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
+                            <div className="h-full w-6 flex items-center justify-center">
+                                <i className="h-full w-2 bg-green-500 pointer-events-none"></i>
+                            </div>
+                            <div
+                                className="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-green-500 shadow text-center">
+                                <i className="fa fa-check-circle text-white"></i>
+                            </div>
+                        </div>
+                        <div
+                            className="bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
+                            <h3 className="font-semibold text-lg mb-1">Package Booked</h3>
+                            <p className="leading-tight text-justify w-full">
+                                21 July 2021, 04:30 PM
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="flex md:contents">
+                        <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
+                            <div className="h-full w-6 flex items-center justify-center">
+                                <div className="h-full w-2 bg-green-500 pointer-events-none"></div>
+                            </div>
+                            <div
+                                className="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-green-500 shadow text-center">
+                                <i className="fa fa-check-circle text-white"></i>
+                            </div>
+                        </div>
+                        <div
+                            className="bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
+                            <h3 className="font-semibold text-lg mb-1">Out for Delivery</h3>
+                            <p className="leading-tight text-justify">
+                                22 July 2021, 01:00 PM
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="flex md:contents">
+                        <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
+                            <div className="h-full w-6 flex items-center justify-center">
+                                <div className="h-full w-2 bg-red-500 pointer-events-none"></div>
+                            </div>
+                            <div className="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-red-500 shadow text-center">
+                                <i className="fa fa-times-circle text-white"></i>
+                            </div>
+                        </div>
+                        <div className="bg-red-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
+                            <h3 className="font-semibold text-lg mb-1 text-gray-50">Cancelled</h3>
+                            <p className="leading-tight text-justify">
+                                Customer cancelled the order
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="flex md:contents">
+                        <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
+                            <div className="h-full w-6 flex items-center justify-center">
+                                <div className="h-full w-2 bg-rose-500 pointer-events-none"></div>
+                            </div>
+                            <div className="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-rose-500 shadow text-center">
+                                <i className="fa fa-exclamation-circle text-white-500"></i>
+                            </div>
+                        </div>
+                        <div
+                            className="bg-rose-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full">
+                            <h3 className="font-semibold text-lg mb-1 text-white">Delivered</h3>
+                            <p className="leading-tight text-justify">
+
+                            </p>
+                        </div>
+                    </div> */}
 
                 </div>
             </div>
