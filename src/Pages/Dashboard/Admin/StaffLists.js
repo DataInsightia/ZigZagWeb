@@ -22,7 +22,7 @@ export default function Staff() {
     <div>
 
 
-      <div className="flex scroll items-center md:mt-0 justify-center min-h-screen ">
+      <div className="flex scroll md:mt-0 justify-center min-h-screen">
 
         <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">
           <div className="py-4">
@@ -31,8 +31,8 @@ export default function Staff() {
                 Staff Lists
               </h2>
             </div>
-            <div className="w-full shadow-lg overflow-x-auto">
-              <table className="overflow-x-auto">
+            <div className="w-full  overflow-x-auto">
+              <table className="overflow-x-auto md:mt-24 shadow-lg">
                 <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                 <tr>
                   <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">

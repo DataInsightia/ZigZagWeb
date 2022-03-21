@@ -127,7 +127,7 @@ function OrderWorkStaffCompletion() {
           openModal()
             setMessage("Material Location Updated")
           // alert("Material Location Updated");
-            setRedirect(true);
+            // setRedirect(true);
          }
       })
       .catch((err) => console.log(err))

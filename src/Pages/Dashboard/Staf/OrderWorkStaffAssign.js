@@ -436,12 +436,20 @@ function OrderWorkStaffAssign() {
                 
                     <input
                       type="text"
-                      id="work_id"
-                      name="work_id"
-                      value={e.data.work.work_id}
+                      
+                      value={e.data.work.work_name}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
                       disabled
 
+                    />
+                     <input
+                      type="text"
+                      id="work_id"
+                      name="work_id"
+                      value={e.data.work.work_id}
+                      
+                      
+                      hidden
                     />
                   </div>
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
