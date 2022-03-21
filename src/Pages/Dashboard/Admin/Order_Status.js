@@ -6,6 +6,7 @@ import API from '../../../api'
 function OrderStatus() {
     const [stage,setStage] = useState([])
     const [wa_stage,setWAstage] = useState([])
+    const [new_stage,setNewstage] = useState({})
     const [showModal, setShowModal] = useState(false);
     const [staffPic,setStaffPic] = useState('');
     const [orderid,setOrderID] = useState({});
@@ -50,6 +51,15 @@ function OrderStatus() {
             }
         })
 
+        axios.post(API + '/api/order_status_admin_v2/',orderid).then(res => {
+            if (res.data.status) {
+                setNewstage(res.data);
+                console.log(res.data);
+            } else {
+                console.log("no data")
+            }
+        })
+
         // alert(materialLocation.length)
         
     }
@@ -69,10 +79,7 @@ function OrderStatus() {
 
 
                 {/*product status start*/}
-
-
                 <div className="flex py-6 px-16  justify-center">
-
                     <div className="md:w-full px-3 mb-12 w-full">
                         <div className="flex w-full h-full  flex-wrap bg-rose-500 overflow-hidden rounded">
                             <div className="md:w-2/6">
@@ -81,7 +88,11 @@ function OrderStatus() {
                             </div>
                             <div className="md:w-4/6 p-5">
                                 <h2 className="text-white leading-normal text-lg">Work Complete</h2>
-                                <div className="flex flex-wrap justify-between items-center md:mt-20">
+                                {/* {JSON.stringify(new_stage.order_work_staff_assign[0].order_work_label)}
+                                {JSON.stringify(new_stage.order_work_staff_assign[0].assign_stage)} */}
+                                {/* {JSON.stringify(new_stage.order_work_staff_assign[0].assign_date_time)} */}
+                                {/* {JSON.stringify(new_stage.order_work_staff_taken[0].taken_date_time)} */}
+                                <div className="flex flex-wrap justify-between items-center .md:mt-20">
                                     <div className="inline-flex items-center">
                                         <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
                                             {/* <img src="https://randomuser.me/api/portraits/men/5.jpg"/> */}
@@ -105,7 +116,15 @@ function OrderStatus() {
 
 
       
-                
+                {/* {
+                    JSON.stringify(new_stage) !== "{}" ?
+                    new_stage.order_work_staff_assign.map((e,k) => <div>
+                        <p>Assign Date : {new_stage.order_work_staff_assign[k].assign_date_time}</p>
+                        <p>Taken Date : {new_stage.order_work_staff_taken[0].taken_date_time}</p>
+                        </div>) : ""
+                    // "full" : "empty"
+                    // JSON.stringify(new_stage)
+                } */}
 
                
                 {/*product status end*/}
@@ -201,7 +220,7 @@ function OrderStatus() {
 
 
 
-{oc_stage.map((e)=>
+{/* {oc_stage.map((e)=>
 
                 
 <div className="flex md:contents">
@@ -219,7 +238,7 @@ function OrderStatus() {
       <h3 className={"font-semibold text-lg mb-1 text-white"}>Complete</h3>
   </div>
 </div>
-)}
+)} */}
                   
         </div>
         </div>
