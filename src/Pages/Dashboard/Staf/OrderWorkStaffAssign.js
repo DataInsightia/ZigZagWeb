@@ -3,6 +3,7 @@ import axios from 'axios'
 import API from '../../../api'
 import styles from '../Staf/Style/Styles'
 import { Dialog, Transition } from '@headlessui/react'
+import { toast } from 'react-toastify'
 
 
 
@@ -120,7 +121,7 @@ function OrderWorkStaffAssign() {
     )
     
     openModal()
-    setMessage(res.data.details)
+    // setMessage(res.data.details)
   }
 
   return (

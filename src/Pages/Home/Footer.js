@@ -135,7 +135,7 @@ const Footer = () => {
                 </div>
             </footer>
             <footer className="bg-gray-900 h-16 mb-0">
-                <p className="pt-5 text-center text-white">Copyright © ZigZag 2022</p>
+                <p className="pt-5 text-center text-white">Copyright © Datainsightia Technologies 2022</p>
             </footer>
         </div>
     );

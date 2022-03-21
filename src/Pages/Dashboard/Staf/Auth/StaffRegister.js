@@ -78,7 +78,7 @@ export default function StaffRegister() {
       const res = await axios.post(API + "/api/staff_register/",data);
       if(res.data.status){
         isLogin(true)
-        alert("Register Sucessfully")
+        alert(res.data.message)
         setFormData({
           staff_name: '',
           password: '',
@@ -92,7 +92,7 @@ export default function StaffRegister() {
           ifsc: '',
         })
       }else{
-        alert("Not Register Check Now")
+        alert(res.data.message)
         setFormData(
           {
             staff_name: '',
@@ -164,14 +164,17 @@ export default function StaffRegister() {
                           // value={password}
                           className={Styles.Input}
                           // required
-                          {...register('password', { required: true })}
+                          {...register('password', { required: true,
+                            maxLength: 30,
+                            minLength: 5,
+                           })}
                           onKeyUp={() => {
                             trigger('password')
                           }}
                         />
                         {errors.password && (
                           <span className={Styles.InputError}>
-                            This field is required
+                            This field is required with minimun 5 charector
                           </span>
                         )}
                       </div>
@@ -304,6 +307,30 @@ export default function StaffRegister() {
 
                     </div>:''
                     }
+                    <div className="p-2 w-full">
+                      <div className="relative">
+                        <label htmlFor="bank" className={Styles.Label}>
+                          bank
+                        </label>
+                        <input
+                          type="text"
+                          id="bank"
+                          name="bank"
+                          // onChange={onChange}
+                          // value={acc_no}
+                          className={Styles.Input}
+                          {...register('bank', { required: true })}
+                          onKeyUp={() => {
+                            trigger('bank')
+                          }}
+                        />
+                        {errors.bank && (
+                          <span className={Styles.InputError}>
+                            This field is required
+                          </span>
+                        )}
+                      </div>
+                    </div>
                     <div className="p-2 w-full">
                       <div className="relative">
                         <label htmlFor="acc_no" className={Styles.Label}>

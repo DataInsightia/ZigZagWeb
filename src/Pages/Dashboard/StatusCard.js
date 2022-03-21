@@ -4,6 +4,7 @@ import CardHeader from '@material-tailwind/react/CardHeader';
 import CardStatus from '@material-tailwind/react/CardStatus';
 import CardStatusFooter from '@material-tailwind/react/CardStatusFooter';
 import Icon from '@material-tailwind/react/Icon';
+import React from 'react';
 
 export default function StatusCard({
     color,
