@@ -68,6 +68,9 @@ export default function Staff() {
                   <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
                     Work Type
                   </th>
+                  <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                    Password
+                  </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -107,6 +110,9 @@ export default function Staff() {
                             </td>
                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
                               {e.work_type}
+                            </td>
+                            <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                              {e.password}
                             </td>
                           </tr>
                       ))}
