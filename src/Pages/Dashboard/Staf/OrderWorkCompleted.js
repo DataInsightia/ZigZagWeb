@@ -35,7 +35,7 @@ function OrderWorkCompleted() {
   return (
     <div>
       
-        <div className="bg-white p-10 mt-10">
+        <div className="bg-white p-10 md:mt-10">
           <div className="p-3 bg-white shadow-lg bg-opacity-25">
             <h1 className={styles.title}>Completed Works</h1>
 

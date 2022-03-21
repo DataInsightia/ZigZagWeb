@@ -30,9 +30,9 @@ export default function Customer() {
   return (
     <div>
 
-      <div className="flex scroll items-center md:mt-0 justify-center min-h-screen bg-gray-100">
+      <div className="flex scroll items-center md:mt-0 justify-center min-h-screen ">
 
-      <div className="md:w-1/2 overflow-auto overflow-x-scroll bg-white shadow-lg p-4">
+      <div className="md:w-full overflow-auto overflow-x-scroll p-4">
 
           <div className="">
             <table className="w-full">

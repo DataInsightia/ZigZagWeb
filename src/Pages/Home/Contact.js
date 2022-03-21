@@ -29,7 +29,7 @@ export default function Contact() {
         </div>
         <div class="">
           <div>
-            <span class="uppercase text-sm text-gray-600 font-bold">
+            <span required class="uppercase text-sm text-gray-600 font-bold">
               Full Name
             </span>
             <input
@@ -52,7 +52,9 @@ export default function Contact() {
             <textarea class="w-full h-32 bg-gray-300 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"></textarea>
           </div>
           <div class="mt-8">
-            <button class="uppercase text-sm font-bold tracking-wide bg-pink-600 text-gray-100 p-3 rounded-lg w-full focus:outline-none focus:shadow-outline">
+            <button class="uppercase text-sm font-bold tracking-wide bg-pink-600 text-gray-100 p-3 rounded-lg w-full focus:outline-none focus:shadow-outline"
+            type="submit"
+            >
               Send Message
             </button>
           </div>

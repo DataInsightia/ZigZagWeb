@@ -40,13 +40,14 @@ function CustomerOrderStatus() {
     // },[]);
 
     return (
-        <div className="bg-gray-50 mt-16">
-        <div className="p-4 mt-4">
-            <h1 className="text-4xl text-center font-semibold mb-6">Order status</h1>
+        <div className="md:mt-16">
+        <div className="p-4 md:mt-4">
+
             <br/>
 
 
             <div className="container">
+                <h1 className="text-4xl text-center font-semibold mb-6">Order status</h1>
 
             <form className="grid justify-center" onSubmit={checkOrder}>
         <input required  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" placeholder={'Order ID'} onChange={handleEvent}/>
@@ -60,11 +61,11 @@ function CustomerOrderStatus() {
 
                     <div className="md:w-full px-3 mb-12 w-full">
                         <div className="flex w-full h-full  flex-wrap bg-rose-500 overflow-hidden rounded">
-                            <div className="w-2/6">
+                            <div className="md:w-2/6">
                                 <img className="object-cover h-full w-full"
                                      src="https://www.polaroidfotobar.com/wp-content/uploads/2018/10/How-to-Start-Tailoring-Shop.jpg"/>
                             </div>
-                            <div className="w-4/6 p-5">
+                            <div className="md:w-4/6 p-5">
                                 <h2 className="text-white leading-normal text-lg">Work Complete</h2>
                                 <div className="flex flex-wrap justify-between items-center mt-20">
                                     <div className="inline-flex items-center">
@@ -119,7 +120,7 @@ function CustomerOrderStatus() {
                 
 <div className="flex md:contents">
 <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
-   <div className="h-full w-6 flex items-center justify-center">
+   <div className="h-full md:w-6 flex md:items-center justify-center">
           <i className={"h-full w-2 bg-gray-500 pointer-events-none" }></i>
       </div>
       <div

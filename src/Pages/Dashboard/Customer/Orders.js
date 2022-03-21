@@ -22,7 +22,7 @@ function Orders() {
     },[]);
 
   return (
-    <div className="flex scroll items-center mt-16 justify-center min-h-screen bg-gray-100">
+    <div className="flex scroll items-center md:mt-16 justify-center min-h-screen bg-gray-100">
         <div className="w-2/5 bg-white shadow-lg">
             <div className="flex justify-center p-1 flex">
                 <div className="flex justify-center">

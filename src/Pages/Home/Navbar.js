@@ -33,7 +33,9 @@ const Navbar = () => {
     return (
         <nav id="header" className="fixed w-full bg-white z-30 top-0 text-black">
             <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
-                <img src={Logo} className="md:w-28 w-16 md:w-32 lg:w-20" />
+                <img src={Logo} className="md:w-28 w-16 md:w-32 lg:w-20" /> <a href="#" className="block md:p-4 text-black md:text-2xl font-bold">
+                Chettinad Orginal ZigZag
+            </a>
                 <div className="pl-4 flex items-center ml-auto">
 
                     <div className="pr-4">

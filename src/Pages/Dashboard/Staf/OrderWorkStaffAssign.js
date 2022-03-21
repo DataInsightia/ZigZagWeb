@@ -184,14 +184,14 @@ function OrderWorkStaffAssign() {
         </Dialog>
       </Transition>
       {pendingworksbool ? (
-        <div className="bg-white p-10 mt-10">
+        <div className="bg-white p-10 md:mt-10">
           <div className="p-3 bg-white shadow-lg bg-opacity-25">
-          <h1>Pending Orders to Assign</h1>
-            <div className='flex justify-center'>
+          <h1>Pending Orders to Assign</h1><br/>
+            <div className='md:flex justify-center inline-block justify-start'>
             
               <div className={styles.title}>Search Orders</div>
               <form onSubmit={(e) => {getPendingWork(e,orderid)}}>
-                <div className="flex">
+                <div className="flex flex-wrap">
                 <input type="text" className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2 mr-2' onChange={onOrderChange} value={orderid} placeholder={'Order ID'} />
                 <input type="submit" className={styles.check_button} value={'Check'} />
                 </div>
@@ -415,7 +415,7 @@ function OrderWorkStaffAssign() {
             {pendingworks.map((e) => (
               <form onSubmit={onSubmit}>
                 <div className="flex flex-wrap">
-                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                  <div className="px-3  w-full md:w-1/2 lg:w-1/6">
                     <input
                       type="text"
                       id="id"
@@ -503,7 +503,7 @@ function OrderWorkStaffAssign() {
                   </div>
 
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                    <div className="flex justify-between">
+                    <div className="flex justify-center">
                       <button
                         type="submit"
                         className={styles.pinkbutton}

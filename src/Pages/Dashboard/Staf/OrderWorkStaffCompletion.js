@@ -120,7 +120,7 @@ function OrderWorkStaffCompletion() {
   return (redirect) ? (<Navigate to="/dashboard/dhome/" />) : (
     <div>
       {completionbool ? (
-        <div className=" p-10 mt-10">
+        <div className=" p-10 md:mt-10">
           <div className="p-3">
             <h1 className={styles.title}>Staff Stage Completion</h1>
             <div class="flex flex-col bg-white shadow-lg">

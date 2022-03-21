@@ -114,7 +114,7 @@ function StaffWorkTaken() {
         <ToastContainer />
       </div>
       {assingedworksbool ? (
-        <div className=" p-10 mt-10">
+        <div className=" p-10 md:mt-10">
           <div className="p-3">
             <h1 className={styles.title}>Take Orders</h1>
             <div class="flex flex-col bg-white shadow-lg text-black">
