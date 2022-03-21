@@ -263,9 +263,11 @@ function TakeOrder() {
   }
 
   const update_balance_with_advance = (e) => {
-    var advance = parseInt(e.target.value)
-    setAdvance(advance)
-    setBalance(total - advance)
+    console.log(e.target.value)
+    var advance = parseInt((e.target.value))
+    console.log(advance,total)
+    setAdvance(isNaN(advance) ? 0 : advance) 
+    setBalance(total - (isNaN(advance) ? 0 : advance))
   }
 
   const nextChar = (c) => {
@@ -285,6 +287,8 @@ function TakeOrder() {
   const printOrder = (e) => {
     e.preventDefault()
 
+   
+
     if (others.due_date !== '') {
       const order_payload = {
         ...{
@@ -303,8 +307,15 @@ function TakeOrder() {
       axios
         .post(API + '/api/add_order/', order_payload)
         .then((res) => {
+         
           console.log('add_order', res.data)
           if (res.data.status) {
+
+            axios.post(`${API}/api/takeorder_other_option/`,{"order_id" : orderid,"mobile" : others.other_mobile})
+            .then(res => {
+              alert(res.data.message)
+            }).catch(err => console.log(err));
+
             var wc = 'A'
             for (var i = 0; i < tmpworks.length; i++) {
               const tmpwork_payload = {
@@ -756,7 +767,7 @@ function TakeOrder() {
                                   }}
                               />
 
-                              <p className="font-semibold flex flex-wrap">Courier Address : </p>
+                              <p className="font-semibold flex flex-wrap">Alternative Address : </p>
                               <textarea
                                     className="mb-6 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block px-4
                                     py-2
@@ -784,60 +795,7 @@ function TakeOrder() {
                           ""
                       )}
 
-                    {others.pickup_type === "courier" ? (
-                          <snap>
-                              <p className="font-semibold flex flex-wrap">Courier Charge : </p>
-                              <input
-                                  className="mb-3 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block w-full md:px-4
-                              py-2
-                              text-xl
-                              font-normal
-                              text-gray-700
-                              bg-white bg-clip-padding bg-no-repeat
-                              border border-solid border-gray-300
-                              rounded
-                              transition
-                              ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 md:h-20 focus:outline-none"
-                                  type={"text"}
-                                  name={"courier_amount"}
-                                  placeholder={"Courier Charge"}
-                                  onChange={(e) => {
-                                    handleOther(e);
-                                    update_balance_with_courier(e);
-                                  }}
-                                  onBlur={() => {
-                                    // update_advance_amount();
-                                    fetch();
-                                  }}
-                              />
-
-                              <p className="font-semibold flex flex-wrap">Courier Address : </p>
-                              <textarea
-                                    className="mb-6 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block px-4
-                                    py-2
-                                    text-xl
-                                    font-normal
-                                    text-gray-700
-                                    bg-white bg-clip-padding bg-no-repeat
-                                    border border-solid border-gray-300
-                                    rounded
-                                    transition
-                                    ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 h-20 focus:outline-none"
-                                    name={"courier_address"}
-                                    placeholder={"Courier Address"}
-                                    onChange={(e) => {
-                                      handleOther(e);
-                                      update_balance_with_courier(e);
-                                    }}
-                                    onBlur={() => {
-                                      // update_advance_amount();
-                                      fetch();
-                                    }}
-                                />
-                          </snap>
-                        ) : (
-                            ""
-                        )}
+                    
                 </div>
               </div>
               {/*take order table*/}
