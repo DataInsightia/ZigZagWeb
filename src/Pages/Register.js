@@ -289,7 +289,9 @@ export default function Register() {
                         //     {errors.password}
                         //   </span>
                         // )} */}
-                        {...register('password', { required: true })}
+                        {...register('password', {  required: true,
+                          maxLength: 30,
+                          minLength: 5, })}
                         onKeyUp={() => {
                           trigger('password')
                         }}
