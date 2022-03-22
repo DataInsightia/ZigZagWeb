@@ -30,6 +30,8 @@ import CustomerOrderHistory from '../Pages/Dashboard/Customer/Order_History';
 import Product from '../Pages/Dashboard/Admin/Product'
 import Product_Home from "../Pages/Product/Product_Home"
 import Delivery from '../Pages/Dashboard/Admin/Delivery'
+import OtherPickup from "../Pages/Dashboard/Admin/OtherPickup";
+import PayAdvance from "../Pages/Dashboard/Admin/PayAdvance";
 
 
 
@@ -84,8 +86,11 @@ export default function Router() {
         { path: 'products', element: <Product />},
 
         // DELIVERY
-        { path: 'delivery', element: <Delivery />}
-
+        { path: 'delivery', element: <Delivery />},
+        // OTHER DELIVERY
+        {path : 'other_pickup', element: <OtherPickup />},
+        // PAY ADVANCE
+        {path : 'pay_advance', element: <PayAdvance />},
       ],
     },
     { path: '*', element: <Navigate to="/" replace /> },
