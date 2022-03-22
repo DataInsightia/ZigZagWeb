@@ -55,7 +55,7 @@ function Delivery() {
     axios
       .post(`${API}/api/proceed_delivery/`, payload)
       .then((res) => {
-        alert(JSON.stringify(res.data))
+        alert('Amount Paid')
       })
       .catch((err) => console.log(err))
   }

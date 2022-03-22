@@ -88,9 +88,8 @@ function OtherPickup() {
     axios
       .post(`${API}/api/proceed_other_delivery/`, formData)
       .then((res) => {
-        alert(JSON.stringify(res.data))
+        alert("Amount Paid");
         // axios.put(`${API}/api/find_order/`,{"order_id" : e.target.order_id.value,"address" : address}).then(res => console.log(res.data)).catch(err => console.log(err))
-        alert(amount2pay.courier_address)
       })
       .catch((err) => console.log(err))
   }
