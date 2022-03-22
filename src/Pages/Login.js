@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom'
 import { Navigate } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { Dialog, Transition } from '@headlessui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faCheckSquare, faCoffee, faHome} from '@fortawesome/fontawesome-free-solid'
 
 export default function Login() {
   const Styles = {
@@ -255,6 +257,14 @@ export default function Login() {
                         to="/register"
                       >
                         <h5>Create new account</h5>
+                      </Link>
+                      <br/>
+                      <Link
+                          className="text-red-500 font-bold mb-0"
+                          to="/home"
+                      >
+                        <FontAwesomeIcon icon={faHome}
+                                         style={{ height : 30 }}></FontAwesomeIcon>
                       </Link>
                     </div>
                   </form>
