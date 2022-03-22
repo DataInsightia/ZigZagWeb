@@ -11,7 +11,6 @@ function OtherPickup() {
     const [balance,setBalance] = useState(0);
     const [amount2pay,setAmountToPay] = useState({});
     const [address,setAddress] = useState('');
-    const [proof,setProof] = useState('')
     const handleEvent = (e) => setData({...data,[e.target.name]:e.target.value});
     const handleEventProceed = (e) => setAmountToPay({...amount2pay,[e.target.name]:e.target.value});
     const handleEventAddress = (e) => setAddress({...address,[e.target.name] : e.target.value});

@@ -13,6 +13,8 @@ function OrderStatus() {
     const [materialLocation,setMaterialLocation] = useState([{}]);
     const [oc_stage,setOCstage] = useState([]);
 
+    const [orderStatus,setOrderStatus] = useState([]);
+
     const handleEvent = (e) => setOrderID({ ...orderid, [e.target.name] : e.target.value });
 
     const checkOrder = (e) => {
@@ -23,6 +25,7 @@ function OrderStatus() {
                 res.data.details !== undefined ? setStage(res.data.details) : setStage([]);
             } else {
                 console.log(res.data.details)
+                setOrderStatus(res.data)
                 setShowModal(false)
             }
         }).catch(err => alert(err))
@@ -133,28 +136,30 @@ function OrderStatus() {
                 </div>
             </div>       
                 <div className="flex flex-col md:grid grid-cols-12 text-gray-50 px-72">
-                {stage.map((e)=>        
-                                e.status ? (<div className="flex md:contents">
+
+                    {/*{orderStatus.map(e => <li>{e.staff.photo}</li>)}*/}
+
+
+                {orderStatus.map((e)=> ( e.assign_date_time != null && e.ordertaken.taken_date_time != null && e.ordercompletion.work_completed_date_time != null || e.assign_stage === 'complete_final_stage') ?
+                    (
+                        <div className="flex md:contents">
                                 <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
                                     <div className="h-full w-6 flex items-center justify-center">
-                                        <i className={(e.status ? "h-full w-2 bg-green-500 pointer-events-none" : "h-full w-2 bg-red-500 pointer-events-none")}></i>
+                                        <i className={(e.assign_stage === 'complete_final_stage') ? "h-full w-2 bg-green-500 pointer-events-none" : "h-full w-2 bg-yellow-600 pointer-events-none"}></i>
                                     </div>
                                     <div
-                                        className={(e.status ?  "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-green-500 shadow text-center" : "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-red-500 shadow text-center")}>
-                                        {(e.status ? <i className="fa fa-check-circle text-white"></i> : <i className="fa fa-times-circle text-white"></i>)}
+                                        className={(e.assign_stage === 'complete_final_stage') ? "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-green-500 shadow text-center" : "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-yellow-600 shadow text-center"}>
+                                        {<i className="fa fa-check-circle text-white"></i>}
                                     </div>
                                 </div>
                                 <div
-                                    className={(e.status ? "bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full" : "bg-red-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full")}>
-                                    <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.stage} - by ({e.staff_name})</h3>
-                                    <h5>{new Date(e.completion_date_time).toLocaleString('en-TN')}</h5>
+                                    className={(e.assign_stage === 'complete_final_stage') ? "bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full" : "bg-yellow-600 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
+                                    <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.order_work_label} - {e.assign_stage} (on Going) - {e.staff.staff_name}</h3>
+                                    <h2 className={"font-semibold text-lg mb-1 text-white"}>A: {new Date(e.assign_date_time).toLocaleString('en-TN')} | T : {new Date(e.ordertaken.taken_date_time).toLocaleString('en-TN')} | C : {new Date(e.ordercompletion.work_completed_date_time).toLocaleString('en-TN')}</h2>
+                                    {/*<h5>{new Date(e.completion_date_time).toLocaleString('en-TN')}</h5>*/}
                                 </div>
-                            </div>) : ""
-                )}
-
-
-                {wa_stage.map((e)=>             
-                <div className="flex md:contents">
+                        </div>
+                    ) : (    <div className="flex md:contents">
                     <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
                         <div className="h-full w-6 flex items-center justify-center">
                         <i className={"h-full w-2 bg-gray-500 pointer-events-none" }></i>
@@ -164,12 +169,15 @@ function OrderStatus() {
                         <i className="fa fa-check-circle text-white"></i>
                     </div>
                 </div>
-                <div 
+                <div
                 onClick={() => {setShowModal(true);setStaffPic(API + e.staff.photo);}}
                     className={"bg-gray-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
-                    <h3 className={"font-semibold text-lg mb-1 text-white"}>(On Going) {e.orderworkstaffassign.order_work_label} {e.work_staff_completion_stage} - {e.orderworkstaffassign.staff.staff_name}</h3>
+                    <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.order_work_label} - {e.assign_stage} (on Going) - {e.staff.staff_name}</h3>
+                    <h2 className={"font-semibold text-lg mb-1 text-white"}>A: {e.assign_date_time} | T : {e.ordertaken.taken_date_time} | C : {e.ordercompletion.work_completed_date_time}</h2>
                 </div>
-            </div>)}
+            </div>)
+
+                )}
 
 
 
@@ -215,30 +223,6 @@ function OrderStatus() {
         <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
     ) : null}
-
-
-
-
-
-{/* {oc_stage.map((e)=>
-
-                
-<div className="flex md:contents">
-<div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
-   <div className="h-full w-6 flex items-center justify-center">
-          <i className={"h-full w-2 bg-green-700 pointer-events-none" }></i>
-      </div>
-      <div
-          className={"w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-green-700 shadow text-center"}>
-          <i className="fa fa-check-circle text-white"></i>
-      </div>
-  </div>
-  <div
-      className={"bg-green-700 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
-      <h3 className={"font-semibold text-lg mb-1 text-white"}>Complete</h3>
-  </div>
-</div>
-)} */}
                   
         </div>
         </div>
