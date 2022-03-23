@@ -23,7 +23,7 @@ const Footer = () => {
                             {/*</a>*/}
                             <img src={Logo} className="w-16 md:w-32 lg:w-40" />
                         </div>
-                        <div className="flex-1">
+                        {/* <div className="flex-1">
                             <p className="uppercase text-gray-500 md:mb-6">Links</p>
                             <ul className="list-reset mb-6">
                                 <li className="mt-2 inline-block mr-2 md:block md:mr-0">
@@ -72,7 +72,7 @@ const Footer = () => {
                                     </a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> */}
                         <div className="flex-1">
                             <p className="uppercase text-gray-500 md:mb-6">Social</p>
                             <ul className="list-reset mb-6">
@@ -86,18 +86,10 @@ const Footer = () => {
                                 </li>
                                 <li className="mt-2 inline-block mr-2 md:block md:mr-0">
                                     <a
-                                        href="#"
+                                        href="https://www.instagram.com/chettinadzigzag/" target="_blank"
                                         className="no-underline hover:underline text-gray-800 hover:text-pink-500"
                                     >
-                                        Linkedin
-                                    </a>
-                                </li>
-                                <li className="mt-2 inline-block mr-2 md:block md:mr-0">
-                                    <a
-                                        href="#"
-                                        className="no-underline hover:underline text-gray-800 hover:text-pink-500"
-                                    >
-                                        Twitter
+                                        Instagram
                                     </a>
                                 </li>
                             </ul>
@@ -105,14 +97,7 @@ const Footer = () => {
                         <div className="flex-1">
                             <p className="uppercase text-gray-500 md:mb-6">Company</p>
                             <ul className="list-reset mb-6">
-                                <li className="mt-2 inline-block mr-2 md:block md:mr-0">
-                                    <a
-                                        href="#"
-                                        className="no-underline hover:underline text-gray-800 hover:text-pink-500"
-                                    >
-                                        Official Blog
-                                    </a>
-                                </li>
+                               
                                 <li className="mt-2 inline-block mr-2 md:block md:mr-0">
                                     <a
                                         href="#"
@@ -135,7 +120,8 @@ const Footer = () => {
                 </div>
             </footer>
             <footer className="bg-gray-900 h-16 mb-0">
-                <p className="pt-5 text-center text-white">Copyright © ZigZag 2022</p>
+                <p className="py-5 text-center text-white">Copyright © Chettinad ZigZag 2022</p>
+                <p className="p-2 text-right text-white bg-gray-900">Design & Developed by <a href="https://datainsightia.in" className="text-yellow-400" target="_blank">Data Insightia Technologies</a></p>
             </footer>
         </div>
     );

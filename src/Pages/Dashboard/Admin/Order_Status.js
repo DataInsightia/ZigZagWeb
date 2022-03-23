@@ -6,10 +6,14 @@ import API from '../../../api'
 function OrderStatus() {
     const [stage,setStage] = useState([])
     const [wa_stage,setWAstage] = useState([])
+    const [new_stage,setNewstage] = useState({})
     const [showModal, setShowModal] = useState(false);
     const [staffPic,setStaffPic] = useState('');
     const [orderid,setOrderID] = useState({});
     const [materialLocation,setMaterialLocation] = useState([{}]);
+    const [oc_stage,setOCstage] = useState([]);
+
+    const [orderStatus,setOrderStatus] = useState([]);
 
     const handleEvent = (e) => setOrderID({ ...orderid, [e.target.name] : e.target.value });
 
@@ -21,6 +25,7 @@ function OrderStatus() {
                 res.data.details !== undefined ? setStage(res.data.details) : setStage([]);
             } else {
                 console.log(res.data.details)
+                setOrderStatus(res.data)
                 setShowModal(false)
             }
         }).catch(err => alert(err))
@@ -36,12 +41,28 @@ function OrderStatus() {
         }).catch(err => alert(err))
 
         axios.get(API + `/api/material/${orderid.order_id}/`).then(res => {
-            if (res.data !== undefined) {setMaterialLocation(res.data[0]);} else {setMaterialLocation([{}]);}
+            if (res.data !== undefined) {setMaterialLocation(res.data);} else {setMaterialLocation([{}]);}
             console.log(res.data);
         }).catch(err => alert(err))
 
 
-        if (materialLocation === undefined | materialLocation.length === 1) { alert("Not Found") } 
+        axios.post(API + '/api/order_completion/',orderid).then(res => {
+            if (res.data.status) {
+                setOCstage(res.data.data);
+            } else {
+                console.log("no data")
+            }
+        })
+
+        axios.post(API + '/api/order_status_admin_v2/',orderid).then(res => {
+            if (res.data.status) {
+                setNewstage(res.data);
+                console.log(res.data);
+            } else {
+                console.log("no data")
+            }
+        })
+
         // alert(materialLocation.length)
         
     }
@@ -61,10 +82,7 @@ function OrderStatus() {
 
 
                 {/*product status start*/}
-
-
                 <div className="flex py-6 px-16  justify-center">
-
                     <div className="md:w-full px-3 mb-12 w-full">
                         <div className="flex w-full h-full  flex-wrap bg-rose-500 overflow-hidden rounded">
                             <div className="md:w-2/6">
@@ -72,14 +90,14 @@ function OrderStatus() {
                                      src="https://www.polaroidfotobar.com/wp-content/uploads/2018/10/How-to-Start-Tailoring-Shop.jpg"/>
                             </div>
                             <div className="md:w-4/6 p-5">
-                                <h2 className="text-white leading-normal text-lg">Work Complete</h2>
-                                <div className="flex flex-wrap justify-between items-center md:mt-20">
+                                <div className="flex flex-wrap justify-between items-center .md:mt-20">
                                     <div className="inline-flex items-center">
                                         <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
                                             {/* <img src="https://randomuser.me/api/portraits/men/5.jpg"/> */}
                                         </div>
                                             <div className="flex-1 pl-2">
-                                                <h2 className="text-white mb-1">Current Material Location : {(materialLocation !== undefined) ? materialLocation.material_location : "Not Found"}</h2>
+                                                <h1 className="text-white mb-1">Track Your Order</h1>
+
                                                 {/* <p className="text-white opacity-50 text-xs">May 18</p> */}
                                             </div>
                                         </div>
@@ -96,7 +114,15 @@ function OrderStatus() {
 
 
       
-                
+                {/* {
+                    JSON.stringify(new_stage) !== "{}" ?
+                    new_stage.order_work_staff_assign.map((e,k) => <div>
+                        <p>Assign Date : {new_stage.order_work_staff_assign[k].assign_date_time}</p>
+                        <p>Taken Date : {new_stage.order_work_staff_taken[0].taken_date_time}</p>
+                        </div>) : ""
+                    // "full" : "empty"
+                    // JSON.stringify(new_stage)
+                } */}
 
                
                 {/*product status end*/}
@@ -105,28 +131,31 @@ function OrderStatus() {
                 </div>
             </div>       
                 <div className="flex flex-col md:grid grid-cols-12 text-gray-50 px-72">
-                {stage.map((e)=>        
-                                e.status ? (<div className="flex md:contents">
+
+                    {/*{orderStatus.map(e => <li>{e.staff.photo}</li>)}*/}
+
+
+                {orderStatus.map((e)=> ( e.assign_date_time != null && e.ordertaken.taken_date_time != null && e.ordercompletion.work_completed_date_time != null || e.assign_stage === 'complete_final_stage') ?
+                    (
+                        <div className="flex md:contents">
                                 <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
                                     <div className="h-full w-6 flex items-center justify-center">
-                                        <i className={(e.status ? "h-full w-2 bg-green-500 pointer-events-none" : "h-full w-2 bg-red-500 pointer-events-none")}></i>
+                                        <i className={(e.assign_stage === 'complete_final_stage') ? "h-full w-2 bg-green-500 pointer-events-none" : "h-full w-2 bg-yellow-600 pointer-events-none"}></i>
                                     </div>
                                     <div
-                                        className={(e.status ?  "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-green-500 shadow text-center" : "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-red-500 shadow text-center")}>
-                                        {(e.status ? <i className="fa fa-check-circle text-white"></i> : <i className="fa fa-times-circle text-white"></i>)}
+                                        className={(e.assign_stage === 'complete_final_stage') ? "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-green-500 shadow text-center" : "w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-yellow-600 shadow text-center"}>
+                                        {<i className="fa fa-check-circle text-white"></i>}
                                     </div>
                                 </div>
                                 <div
-                                    className={(e.status ? "bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full" : "bg-red-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full")}>
-                                    <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.stage} - by ({e.staff_name})</h3>
-                                    <h5>{new Date(e.completion_date_time).toLocaleString('en-TN')}</h5>
+                                    className={(e.assign_stage === 'complete_final_stage') ? "bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full" : "bg-yellow-600 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
+                                    <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.order_work_label} - {e.assign_stage} (Completed) - {e.staff.staff_name}</h3>
+                                    <h2 className={"font-semibold text-lg mb-1 text-white"}>A : {new Date(e.assign_date_time).toLocaleDateString('en-TN')} | T : {new Date(e.ordertaken.taken_date_time).toLocaleDateString('en-TN')} | C : {new Date(e.ordercompletion.work_completed_date_time).toLocaleDateString('en-TN')}</h2>
+                                    <h1 className={"font-semibold text-lg mb-1 text-white"}>Material Location : {e.materiallocation.material_location}</h1>
+                                    {/*<h5>{new Date(e.completion_date_time).toLocaleString('en-TN')}</h5>*/}
                                 </div>
-                            </div>) : ""
-                )}
-
-
-                {wa_stage.map((e)=>             
-                <div className="flex md:contents">
+                        </div>
+                    ) : (    <div className="flex md:contents">
                     <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
                         <div className="h-full w-6 flex items-center justify-center">
                         <i className={"h-full w-2 bg-gray-500 pointer-events-none" }></i>
@@ -136,12 +165,16 @@ function OrderStatus() {
                         <i className="fa fa-check-circle text-white"></i>
                     </div>
                 </div>
-                <div 
+                <div
                 onClick={() => {setShowModal(true);setStaffPic(API + e.staff.photo);}}
                     className={"bg-gray-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
-                    <h3 className={"font-semibold text-lg mb-1 text-white"}>(On Going) {e.orderworkstaffassign.order_work_label} {e.work_staff_completion_stage} - {e.orderworkstaffassign.staff.staff_name}</h3>
+                    <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.order_work_label} - {e.assign_stage} (on Going) - {e.staff.staff_name}</h3>
+                    <h2 className={"font-semibold text-lg mb-1 text-white"}>A: {e.assign_date_time} | T : {e.ordertaken.taken_date_time} | C : {e.ordercompletion.work_completed_date_time}</h2>
+                    <h1 className={"font-semibold text-lg mb-1 text-white"}>Material Location : {e.materiallocation.material_location}</h1>
                 </div>
-            </div>)}
+            </div>)
+
+                )}
 
 
 

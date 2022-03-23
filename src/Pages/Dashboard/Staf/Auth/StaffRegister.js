@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import axios from 'axios'
 import API from '../../../../api'
 import { useForm } from 'react-hook-form'
+import { Dialog, Transition } from '@headlessui/react'
+import { Link, Navigate } from 'react-router-dom'
+
 
 export default function StaffRegister() {
   const Styles = {
@@ -24,18 +27,17 @@ export default function StaffRegister() {
     acc_no: '',
     ifsc: '',
   })
-  // const {
-  //   staff_name,
-  //   password,
-  //   mobile,
-  //   address,
-  //   city,
-  //   salary_type,
-  //   salary,
-  //   worktype,
-  //   acc_no,
-  //   ifsc,
-  // } = formData
+ 
+  let [isOpen, setIsOpen] = useState(false)
+
+  function closeModal() {
+    setIsOpen(false)
+  }
+
+  function openModal() {
+    setIsOpen(true)
+  }
+
 
   const [file, setFile] = useState('')
 
@@ -44,48 +46,18 @@ export default function StaffRegister() {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
-  // const onSubmit = async(e) => {
-  //   e.preventDefault()
-  //   const data = new FormData()
-  //   data.append('file', file)
-  //   data.append('data', JSON.stringify(formData))
-  //   const res = await axios.post(API + "/api/staff_register/",data);
-  //   if(res.data.status){
-  //     alert("Register Sucessfully")
-  //     setFormData({
-  //       staff_name: '',
-  //       password: '',
-  //       mobile: '',
-  //       address: '',
-  //       city: '',
-  //       salary_type: '',
-  //       salary: '',
-  //       worktype: '',
-  //       acc_no: '',
-  //       ifsc: '',
-  //     })
-  //   }else{
-  //     alert("Not Register Check Now")
-  //     setFormData(
-  //       {
-  //         staff_name: '',
-  //         password: '',
-  //         mobile: '',
-  //         address: '',
-  //         city: '',
-  //         salary_type: '',
-  //         salary: '',
-  //         worktype: '',
-  //         acc_no: '',
-  //         ifsc: '',
-  //       }
-  //     )
-  //   }
-  //   console.log(res.data);
-  //   // alert(JSON.stringify(res.data))
-  // }
+  const mobile_val = (e) => {
+    const mobile = e.target.value
+    if (mobile.length < 4) {
+      if (mobile === '+91') {
+        openModal()
+        e.target.value = ''
+      }
+    }
+  }
 
-  
+
+  const [Login, isLogin] = useState(false)
 
   const {
     register,
@@ -94,17 +66,53 @@ export default function StaffRegister() {
     reset,
     formState: { errors },
   } = useForm()
-  const onSubmit = (e) => {
-    console.log(e.username)
-    // e.mobile,
-    // e.email
-    // e.address
-    // e.pincode
-    // e.city
-    // e.password
+  const onSubmit = async (e) => {
+    console.log(e)
+
+    const data = new FormData()
+      data.append('file', file)
+      data.append('mobile',formData.mobile)
+      data.append('salary_type',formData.salary_type)
+      data.append('work_type',formData.work_type)
+      data.append('data', JSON.stringify(e))
+      const res = await axios.post(API + "/api/staff_register/",data);
+      if(res.data.status){
+        isLogin(true)
+        alert(res.data.message)
+        setFormData({
+          staff_name: '',
+          password: '',
+          mobile: '',
+          address: '',
+          city: '',
+          salary_type: '',
+          salary: '',
+          worktype: '',
+          acc_no: '',
+          ifsc: '',
+        })
+      }else{
+        alert(res.data.message)
+        setFormData(
+          {
+            staff_name: '',
+            password: '',
+            mobile: '',
+            address: '',
+            city: '',
+            salary_type: '',
+            salary: '',
+            worktype: '',
+            acc_no: '',
+            ifsc: '',
+          }
+        )
+      }
     reset()
   }
-  return (
+  return  Login ? (
+    <Navigate to="/dashboard/dhome" />
+  ) : (
     <div>
       <div className="container mx-auto px-4 h-full  bg-gradient-to-tr from-red-50 to-red-200">
         <div className="flex content-center items-center justify-center h-full">
@@ -156,14 +164,17 @@ export default function StaffRegister() {
                           // value={password}
                           className={Styles.Input}
                           // required
-                          {...register('password', { required: true })}
+                          {...register('password', { required: true,
+                            maxLength: 30,
+                            minLength: 5,
+                           })}
                           onKeyUp={() => {
                             trigger('password')
                           }}
                         />
                         {errors.password && (
                           <span className={Styles.InputError}>
-                            This field is required
+                            This field is required with minimun 5 charector
                           </span>
                         )}
                       </div>
@@ -180,17 +191,21 @@ export default function StaffRegister() {
                           // onChange={onChange}
                           // value={mobile}
                           className={Styles.Input}
-                          // required
-                          {...register('mobile', { required: true })}
-                          onKeyUp={() => {
-                            trigger('mobile')
+                          onChange={(e) => {
+                            onChange(e)
+                            mobile_val(e)
                           }}
+                          // required
+                          // {...register('mobile', { required: true })}
+                          // onKeyUp={() => {
+                          //   trigger('mobile')
+                          // }}
                         />
-                        {errors.mobile && (
+                        {/* {errors.mobile && (
                           <span className={Styles.InputError}>
                             This field is required
                           </span>
-                        )}
+                        )} */}
                       </div>
                     </div>
                     <div className="p-2 w-full">
@@ -275,7 +290,7 @@ export default function StaffRegister() {
                           type="salary"
                           id="salary"
                           name="salary"
-                          // onChange={onChange}
+                          onChange={onChange}
                           // value={salary}
                           className={Styles.Input}
                           {...register('salary', { required: true })}
@@ -292,6 +307,30 @@ export default function StaffRegister() {
 
                     </div>:''
                     }
+                    <div className="p-2 w-full">
+                      <div className="relative">
+                        <label htmlFor="bank" className={Styles.Label}>
+                          bank
+                        </label>
+                        <input
+                          type="text"
+                          id="bank"
+                          name="bank"
+                          // onChange={onChange}
+                          // value={acc_no}
+                          className={Styles.Input}
+                          {...register('bank', { required: true })}
+                          onKeyUp={() => {
+                            trigger('bank')
+                          }}
+                        />
+                        {errors.bank && (
+                          <span className={Styles.InputError}>
+                            This field is required
+                          </span>
+                        )}
+                      </div>
+                    </div>
                     <div className="p-2 w-full">
                       <div className="relative">
                         <label htmlFor="acc_no" className={Styles.Label}>
@@ -324,7 +363,7 @@ export default function StaffRegister() {
 
                         <select
                           name="worktype"
-                          value={formData.worktype}
+                          // value={formData.worktype}
                           onChange={onChange}
                           className={Styles.Input}
                         >
@@ -376,16 +415,16 @@ export default function StaffRegister() {
                           accept="image/jpeg"
                           onChange={onFileChange}
                           className={Styles.Input}
-                          {...register('file', { required: true })}
-                          onKeyUp={() => {
-                            trigger('file')
-                          }}
+                          // {...register('file', { required: true })}
+                          // onKeyUp={() => {
+                          //   trigger('file')
+                          // }}
                         />
-                        {errors.file && (
+                        {/* {errors.file && (
                           <span className={Styles.InputError}>
                             This field is required
                           </span>
-                        )}
+                        )} */}
                       </div>
                     </div>
 
@@ -403,6 +442,62 @@ export default function StaffRegister() {
           </div>
         </div>
       </div>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-25"
+          onClose={closeModal}
+        >
+          <div className="min-h-screen px-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg font-medium leading-6 text-gray-900"
+                >
+                  Please enter mobile number only
+                </Dialog.Title>
+                <div className="mt-4">
+                  <button
+                    type="button"
+                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    onClick={closeModal}
+                  >
+                    Got ahead
+                  </button>
+                </div>
+              </div>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
     </div>
   )
 }

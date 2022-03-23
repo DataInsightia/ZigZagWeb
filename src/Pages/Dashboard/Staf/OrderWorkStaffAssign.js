@@ -42,11 +42,12 @@ function OrderWorkStaffAssign() {
       },
       { withCredentials: true },
     )
-    notify(response.data.details)
+    // notify(response.data.details)
     console.log(response.data);
-    window.location.reload()
+    return response
+    // window.location.reload()
   }
-  const notify = (detail) => toast(`${detail}`)
+  // const notify = (detail) => toast(`${detail}`)
   const [staff, setStaff] = useState([])
   const [orderid,setOrderID] = useState('')
   const [pendingworks, setPendingworks] = useState([])
@@ -109,7 +110,7 @@ function OrderWorkStaffAssign() {
   const onSubmit = async (e) => {
     e.preventDefault()
     console.log(e.target.material_location.value)
-    Assign_Work(
+   const res = await Assign_Work(
       e.target.id.value,
       e.target.order_id.value,
       e.target.work_id.value,
@@ -415,7 +416,7 @@ function OrderWorkStaffAssign() {
             {pendingworks.map((e) => (
               <form onSubmit={onSubmit}>
                 <div className="flex flex-wrap">
-                  <div className="px-3  w-full md:w-1/2 lg:w-1/6">
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                     <input
                       type="text"
                       id="id"
@@ -440,9 +441,9 @@ function OrderWorkStaffAssign() {
                       id="work_id"
                       name="work_id"
                       value={e.data.work.work_id}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
-                      disabled
 
+
+                      hidden
                     />
                   </div>
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">

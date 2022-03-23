@@ -93,19 +93,19 @@ function StaffList() {
                         <table className="min-w-full rounded-md p-2 text-white text-xl font-bold">
                           <thead className="bg-gradient-to-r from-rose-600 to-rose-400">
                             <tr>
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
                                 Order ID
                               </th>
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
                                 Work ID
                               </th>
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
                                 Wage
                               </th>
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
                                 Completion Date
                               </th>
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
                                 Approval Date
                               </th>
                             </tr>
@@ -150,19 +150,19 @@ function StaffList() {
                         <table className="min-w-full bg-white">
                           <thead className="bg-gradient-to-r from-rose-600 to-rose-400 ">
                             <tr>
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
                                 Order ID
                               </th>
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
                                 Work ID
                               </th>
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
                                 Wage
                               </th>
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
                                 Completion Date
                               </th>
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
                                 Approval Date
                               </th>
                             </tr>
@@ -251,7 +251,7 @@ function StaffList() {
                               <>
                                 <tr className="border-b border-x-0 border-8 border-white bg-white">
                                   <td className="py-4 px-6 text-sm text-white whitespace-nowrap text-center uppercase ">
-                                 
+                                 {e.salary_type == "wage" ? (
                                     <Link
                                     className="bg-rose-600 py-2 px-4 border-2 border-rose-600 hover:bg-transparent hover:border-rose-600 hover:text-rose-600"
                                       to={`${e.staff_id}`}
@@ -259,6 +259,7 @@ function StaffList() {
                                     >
                                       {e.staff_id}
                                     </Link>
+                                 ):<button type="button" className="bg-gray-600 py-2 px-4 border-2 border-gray-600  font-bold">Disabled</button>}
                                   </td>
                                   <td className="py-4 px-6 text-sm text-black whitespace-nowrap text-center uppercase ">
                                     {e.staff_name}

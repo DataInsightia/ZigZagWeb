@@ -7,8 +7,9 @@ function CustomerOrderStatus() {
     const [stage,setStage] = useState([])
     const [wa_stage,setWAstage] = useState([])
     const [orderid,setOrderID] = useState({});
+    const [oc_stage,setOCstage] = useState([]);
 
-    const handleEvent = (e) => setOrderID({ ...orderid, [e.target.name]: e.target.value });
+    const handleEvent = (e) => setOrderID({ ...orderid, [e.target.name]: e.target.value.toUpperCase() });
 
     const checkOrder = (e) => {
         e.preventDefault();
@@ -28,16 +29,16 @@ function CustomerOrderStatus() {
                 console.log("no data")
             }
         })
+
+        axios.post(API + '/api/order_completion/',orderid).then(res => {
+            if (res.data.status) {
+                setOCstage(res.data.data);
+            } else {
+                console.log("no data")
+            }
+        })
     }
 
-    // useEffect(async() => {
-    //     const os_res = await axios.post(API + '/api/order_status/',orderid)
-    //     if (os_res.data.status) {setStage(os_res.data.details)} 
-
-    //     const wsa_os_res = await axios.post(API + '/api/order_status_oa/',orderid)
-    //     if (wsa_os_res) {setWAstage(wsa_os_res.data)} 
-        
-    // },[]);
 
     return (
         <div className="md:mt-16">
@@ -45,12 +46,11 @@ function CustomerOrderStatus() {
 
             <br/>
 
-
             <div className="container">
                 <h1 className="text-4xl text-center font-semibold mb-6">Order status</h1>
 
             <form className="grid justify-center" onSubmit={checkOrder}>
-        <input required  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" placeholder={'Order ID'} onChange={handleEvent}/>
+        <input required  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" placeholder={'Order ID'} onChange={handleEvent} value={orderid.order_id}/>
         <div className="grid justify-center">
             <input  className={"justify-center button text-white rounded p-3 m-3 bg-pink-600"} type="submit" /></div>
     </form>
@@ -68,21 +68,12 @@ function CustomerOrderStatus() {
                             <div className="md:w-4/6 p-5">
                                 <h2 className="text-white leading-normal text-lg">Work Complete</h2>
                                 <div className="flex flex-wrap justify-between items-center mt-20">
-                                    <div className="inline-flex items-center">
-                                        <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
-                                            <img src="https://randomuser.me/api/portraits/men/5.jpg"/>
-                                        </div>
-                                        <div className="flex-1 pl-2">
-                                            <h2 className="text-white mb-1">Luke Nunez</h2>
-                                            <p className="text-white opacity-50 text-xs">May 18</p>
-                                        </div>
-                                    </div>
+                                    
                                     <span className="text-white opacity-50">
-              <div>
-
-                                <i className="fa fa-check-circle text-white"></i>
-                            </div>
-            </span>
+                                        <div>
+                                            <i className="fa fa-check-circle text-white"></i>
+                                        </div>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -134,6 +125,28 @@ function CustomerOrderStatus() {
   </div>
 </div>
 )}
+
+
+{oc_stage.map((e)=>
+
+                
+<div className="flex md:contents">
+<div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
+   <div className="h-full w-6 flex items-center justify-center">
+          <i className={"h-full w-2 bg-green-700 pointer-events-none" }></i>
+      </div>
+      <div
+          className={"w-7 h-7 absolute top-1/2 -mt-3 rounded-full bg-green-700 shadow text-center"}>
+          <i className="fa fa-check-circle text-white"></i>
+      </div>
+  </div>
+  <div
+      className={"bg-green-700 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
+      <h3 className={"font-semibold text-lg mb-1 text-white"}>Delivered</h3>
+  </div>
+</div>
+)}
+
 
 
                    

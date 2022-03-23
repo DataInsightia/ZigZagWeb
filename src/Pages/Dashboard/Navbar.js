@@ -152,7 +152,7 @@ export default function Navbar() {
                                                     </Link>
                                                     <li>
                                                         <Link
-                                                            to="/dashboard/order_status"
+                                                            to="/dashboard/customer_order_status"
                                                             className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                                                         >
                                                             ORDER STATUS
@@ -352,7 +352,7 @@ export default function Navbar() {
                         className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-rose-500 hover:bg-indigo-700"
                         onClick={() => {
                             localStorage.clear()
-                            navigate('/login')
+                            navigate('/')
                         }}
                     >
                        Logout
@@ -385,19 +385,29 @@ export default function Navbar() {
                 if (auth === 'admin') {
                   return (
                     <div>
-                      <h2>ADMIN</h2>
+                      <h4>ADMIN</h4>
                     </div>
                   )
                 } else if (auth === 'staff') {
                   return (
                     <div>
-                      <h2>STAFF</h2>
+                      <h4>
+                        <span className="capitalize">
+                          {localStorage.getItem('staff_name')}
+                        </span>{' '}
+                        (STAFF)
+                      </h4>
                     </div>
                   )
                 } else if (auth === 'customer') {
                   return (
                     <div>
-                      <h2>CUSTOMER</h2>
+                      <h4>
+                        <span className="capitalize">
+                          {localStorage.getItem('cust_name')}
+                        </span>{' '}
+                        (CUSTOMER)
+                      </h4>
                     </div>
                   )
                 }
@@ -440,7 +450,7 @@ export default function Navbar() {
                 className="block font-bold py-2.5 px-4 text-white  rounded transition duration-200 hover:bg-white hover:text-black"
                 onClick={() => {
                   localStorage.clear()
-                  navigate('/login')
+                  navigate('/')
                 }}
               >
                 LOGOUT
