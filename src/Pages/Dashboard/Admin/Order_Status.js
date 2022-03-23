@@ -90,19 +90,14 @@ function OrderStatus() {
                                      src="https://www.polaroidfotobar.com/wp-content/uploads/2018/10/How-to-Start-Tailoring-Shop.jpg"/>
                             </div>
                             <div className="md:w-4/6 p-5">
-                                <h2 className="text-white leading-normal text-lg">Work Complete</h2>
-                                {/* {JSON.stringify(new_stage.order_work_staff_assign[0].order_work_label)}
-                                {JSON.stringify(new_stage.order_work_staff_assign[0].assign_stage)} */}
-                                {/* {JSON.stringify(new_stage.order_work_staff_assign[0].assign_date_time)} */}
-                                {/* {JSON.stringify(new_stage.order_work_staff_taken[0].taken_date_time)} */}
                                 <div className="flex flex-wrap justify-between items-center .md:mt-20">
                                     <div className="inline-flex items-center">
                                         <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
                                             {/* <img src="https://randomuser.me/api/portraits/men/5.jpg"/> */}
                                         </div>
                                             <div className="flex-1 pl-2">
-                                                <h2 className="text-white mb-1">{materialLocation.material_location === "" ? "Order Not Found" : ""}</h2>
-                                                <h2 className="text-white mb-1">Current Material Location : {(materialLocation !== undefined) ? materialLocation.material_location : "?"}</h2>
+                                                <h1 className="text-white mb-1">Track Your Order</h1>
+
                                                 {/* <p className="text-white opacity-50 text-xs">May 18</p> */}
                                             </div>
                                         </div>
@@ -154,8 +149,9 @@ function OrderStatus() {
                                 </div>
                                 <div
                                     className={(e.assign_stage === 'complete_final_stage') ? "bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full" : "bg-yellow-600 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
-                                    <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.order_work_label} - {e.assign_stage} (on Going) - {e.staff.staff_name}</h3>
-                                    <h2 className={"font-semibold text-lg mb-1 text-white"}>A: {new Date(e.assign_date_time).toLocaleString('en-TN')} | T : {new Date(e.ordertaken.taken_date_time).toLocaleString('en-TN')} | C : {new Date(e.ordercompletion.work_completed_date_time).toLocaleString('en-TN')}</h2>
+                                    <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.order_work_label} - {e.assign_stage} (Completed) - {e.staff.staff_name}</h3>
+                                    <h2 className={"font-semibold text-lg mb-1 text-white"}>A : {new Date(e.assign_date_time).toLocaleDateString('en-TN')} | T : {new Date(e.ordertaken.taken_date_time).toLocaleDateString('en-TN')} | C : {new Date(e.ordercompletion.work_completed_date_time).toLocaleDateString('en-TN')}</h2>
+                                    <h1 className={"font-semibold text-lg mb-1 text-white"}>Material Location : {e.materiallocation.material_location}</h1>
                                     {/*<h5>{new Date(e.completion_date_time).toLocaleString('en-TN')}</h5>*/}
                                 </div>
                         </div>
@@ -174,6 +170,7 @@ function OrderStatus() {
                     className={"bg-gray-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
                     <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.order_work_label} - {e.assign_stage} (on Going) - {e.staff.staff_name}</h3>
                     <h2 className={"font-semibold text-lg mb-1 text-white"}>A: {e.assign_date_time} | T : {e.ordertaken.taken_date_time} | C : {e.ordercompletion.work_completed_date_time}</h2>
+                    <h1 className={"font-semibold text-lg mb-1 text-white"}>Material Location : {e.materiallocation.material_location}</h1>
                 </div>
             </div>)
 

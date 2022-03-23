@@ -11,6 +11,7 @@ function PayAdvance() {
   const [balance, setBalance] = useState(0)
   const [amount2pay, setAmountToPay] = useState({})
   const [address, setAddress] = useState('')
+  const [show,setShow] = useState(false);
   const handleEvent = (e) =>
     setData({ ...data, [e.target.name]: e.target.value })
   const handleEventProceed = (e) =>
@@ -19,6 +20,12 @@ function PayAdvance() {
     setAddress({ ...address, [e.target.name]: e.target.value })
   const checkButton = (e) => {
     e.preventDefault()
+    axios
+      .post(`${API}/api/is_order/`, data)
+      .then((res) => {
+        if (res.data.status) { setShow(true) } else { alert("Order ID not found !") }
+
+      }).catch(err => console.log(err));
     axios
       .post(`${API}/api/is_order_completed/`, data)
       .then((res) => {
@@ -127,7 +134,7 @@ function PayAdvance() {
           </form>
         </div>
         <div className="flex w-full p-10">
-          {staffs.length > 0 ? (
+          {show ? (
             <form onSubmit={checkout}>
               <div className="flex flex-wrap shadow-xl bg-white mt-8 p-5">
                 <div className="w-full md:w-1/2 lg:w-1/3 mb-5 px-5">

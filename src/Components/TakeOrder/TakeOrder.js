@@ -253,13 +253,15 @@ function TakeOrder() {
         openModal()
 
         console.log(err)
+
       })
   }
 
   const update_balance_with_courier = (e) => {
     var courier = parseInt(e.target.value)
     // setTotal(total + parseInt(courier));
-    setBalance(total + parseInt(courier) - advance)
+    setBalance(total + (isNaN(courier) ? 0 : courier) - advance)
+    setOthers({...others,[e.target.name] : isNaN(courier) ? 0 : courier})
   }
 
   const update_balance_with_advance = (e) => {
@@ -301,8 +303,11 @@ function TakeOrder() {
           balance_amount: balance,
           courier_amount: parseInt(others.courier_amount),
           courier_address: get_courier_address(others.pickup_type),
+
         },
       }
+
+
 
       axios
         .post(API + '/api/add_order/', order_payload)
@@ -398,7 +403,7 @@ function TakeOrder() {
               <br />
               <div className="grid justify-center mt-4">
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="uppercase shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type={'text'}
                   placeholder={'Mobile or Customer ID'}
                   value={customer.cust_id}
@@ -726,9 +731,10 @@ function TakeOrder() {
                                     ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 h-20 focus:outline-none"
                                 name={"courier_address"}
                                 placeholder={"Courier Address"}
+                                // defaultValue={customer_details.address}
                                 onChange={(e) => {
                                   handleOther(e);
-                                  update_balance_with_courier(e);
+                                  // update_balance_with_courier(e);
                                 }}
                                 onBlur={() => {
                                   // update_advance_amount();
