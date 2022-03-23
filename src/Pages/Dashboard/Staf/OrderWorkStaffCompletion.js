@@ -112,6 +112,12 @@ function OrderWorkStaffCompletion() {
       e.target.order_work_label.value,
     )
 
+      // e.target.order_id.value = ""
+      // e.target.work_id.value = ""
+      // e.target.date.value = ""
+      // e.target.assign_stage.value = ""
+      // e.target.order_work_label.value = ""
+
 
 
     // Stroring MaterialLocation in Backend

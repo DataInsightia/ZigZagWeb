@@ -20,16 +20,16 @@ function OrderStatus() {
     const checkOrder = (e) => {
         e.preventDefault();
 
-        axios.post(API + '/api/order_status_admin/',orderid).then(res => {
+        axios.post(API + '/api/order_admin_status/',orderid).then(res => {
             if (res.data.status) {
                 res.data.details !== undefined ? setStage(res.data.details) : setStage([]);
+
             } else {
-                console.log(res.data.details)
                 setOrderStatus(res.data)
                 setShowModal(false)
             }
+
         }).catch(err => alert(err))
-        
 
         axios.post(API + '/api/order_status_oa_admin/',orderid).then(res => {
             if (res.data.status) {
@@ -64,7 +64,7 @@ function OrderStatus() {
         })
 
         // alert(materialLocation.length)
-        
+
     }
     return (
         <div className="bg-gray-50 md:mt-16">
@@ -113,7 +113,7 @@ function OrderStatus() {
                 </div>
 
 
-      
+
                 {/* {
                     JSON.stringify(new_stage) !== "{}" ?
                     new_stage.order_work_staff_assign.map((e,k) => <div>
@@ -124,12 +124,12 @@ function OrderStatus() {
                     // JSON.stringify(new_stage)
                 } */}
 
-               
+
                 {/*product status end*/}
 
 
                 </div>
-            </div>       
+            </div>
                 <div className="flex flex-col md:grid grid-cols-12 text-gray-50 px-72">
 
                     {/*{orderStatus.map(e => <li>{e.staff.photo}</li>)}*/}
@@ -169,7 +169,7 @@ function OrderStatus() {
                 onClick={() => {setShowModal(true);setStaffPic(API + e.staff.photo);}}
                     className={"bg-gray-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
                     <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.order_work_label} - {e.assign_stage} (on Going) - {e.staff.staff_name}</h3>
-                    <h2 className={"font-semibold text-lg mb-1 text-white"}>A: {e.assign_date_time} | T : {e.ordertaken.taken_date_time} | C : {e.ordercompletion.work_completed_date_time}</h2>
+                    <h2 className={"font-semibold text-lg mb-1 text-white"}>A : {new Date(e.assign_date_time).toLocaleDateString('en-TN')} | T : {new Date(e.ordertaken.taken_date_time).toLocaleDateString('en-TN')} | C : {new Date(e.ordercompletion.work_completed_date_time).toLocaleDateString('en-TN')}</h2>
                     <h1 className={"font-semibold text-lg mb-1 text-white"}>Material Location : {e.materiallocation.material_location}</h1>
                 </div>
             </div>)
@@ -220,7 +220,7 @@ function OrderStatus() {
         <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
     ) : null}
-                  
+
         </div>
         </div>
     );

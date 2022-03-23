@@ -63,9 +63,7 @@ export default function Home() {
       <div className="pt-28">
         <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row">
           <div className="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
-            <p className="uppercase text-white flex justify-center tracking-loose w-full">
-              What business are you?
-            </p>
+
             <h1 className="font-bold text-white lg:text-5xl">
               Wear our products to feel every occasion as special!
               <br/>

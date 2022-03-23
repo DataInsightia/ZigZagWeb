@@ -68,6 +68,14 @@ function OrderWorkStaffApproval() {
       e.target.state.value,
       e.target.order_work_label.value,
     )
+
+     // e.target.order_id.value = ""
+     //  e.target.work_id.value = ""
+     //  e.target.staff_id.value = ""
+     //  e.target.stage.value = ""
+     //  e.target.state.value = ""
+     //  e.target.order_work_label.value =""
+
     if (res.data.status == true){
       openModal()
       setMessage('Order Approved Sucessfully')

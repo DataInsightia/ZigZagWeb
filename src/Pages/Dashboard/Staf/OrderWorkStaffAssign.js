@@ -79,9 +79,7 @@ function OrderWorkStaffAssign() {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
-  const getPendingWork = (e,orderid) => {
-    e.preventDefault()
-    axios.post(API +'/api/staff_work_assign_by_order/',{order_id : orderid}).then((res) => {
+  const fetch_pending_work = (orderid) => axios.post(API +'/api/staff_work_assign_by_order/',{order_id : orderid}).then((res) => {
       if (res.data.status === true) {
         setOrderPending(res.data.data)
         setOrderWorkBool(true)
@@ -90,6 +88,11 @@ function OrderWorkStaffAssign() {
         setOrderWorkBool(false)
       }
     });
+
+  const getPendingWork = (e) => {
+    fetch_pending_work(e.target.order_id.value)
+    e.preventDefault()
+
   }
 
   let [isOpen, setIsOpen] = useState(false)
@@ -119,7 +122,13 @@ function OrderWorkStaffAssign() {
       e.target.order_work_label.value,
       e.target.material_location.value,
     )
-    
+     e.target.id.value = ""
+      e.target.order_id.value = ""
+      e.target.work_id.value = ""
+      e.target.staff_id.value = ""
+      e.target.assign_stage.value = ""
+      e.target.order_work_label.value = ""
+      e.target.material_location.value = ""
     openModal()
     // setMessage(res.data.details)
   }
@@ -145,7 +154,6 @@ function OrderWorkStaffAssign() {
               <Dialog.Overlay className="fixed inset-0" />
             </Transition.Child>
 
-            {/* This element is to trick the browser into centering the modal contents. */}
             <span
               className="inline-block h-screen align-middle"
               aria-hidden="true"
@@ -168,7 +176,7 @@ function OrderWorkStaffAssign() {
                 >
                   {message}
                 </Dialog.Title>
-                
+
 
                 <div className="mt-4">
                   <button
@@ -185,15 +193,14 @@ function OrderWorkStaffAssign() {
         </Dialog>
       </Transition>
       {pendingworksbool ? (
-        <div className="bg-white p-10 md:mt-10">
-          <div className="p-3 bg-white shadow-lg bg-opacity-25">
-          <h1>Pending Orders to Assign</h1><br/>
-            <div className='md:flex justify-center inline-block justify-start'>
-            
+        <div className="p-10 mt-10">
+          <div className="p-3 bg-white shadow-xl">
+            <div className='flex justify-center'>
+
               <div className={styles.title}>Search Orders</div>
-              <form onSubmit={(e) => {getPendingWork(e,orderid)}}>
-                <div className="flex flex-wrap">
-                <input type="text" className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2 mr-2' onChange={onOrderChange} value={orderid} placeholder={'Order ID'} />
+              <form onSubmit={(e) => {getPendingWork(e)}}>
+                <div className="flex">
+                <input type="text" name={'order_id'} className='uppercase bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2 mr-2' onChange={onOrderChange} value={orderid} placeholder={'Order ID'} />
                 <input type="submit" className={styles.check_button} value={'Check'} />
                 </div>
               </form>
@@ -291,10 +298,10 @@ function OrderWorkStaffAssign() {
                       value={e.data.order_work_label}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
                       disabled
-                      
+
                     />
                   </div>
-                  
+
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                     <select
                       id="staff_id"
@@ -435,8 +442,16 @@ function OrderWorkStaffAssign() {
                     />
                   </div>
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                
+
                     <input
+                      type="text"
+
+                      value={e.data.work.work_name}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+
+                    />
+                     <input
                       type="text"
                       id="work_id"
                       name="work_id"
@@ -454,10 +469,10 @@ function OrderWorkStaffAssign() {
                       value={e.data.order_work_label}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
                       disabled
-                      
+
                     />
                   </div>
-                  
+
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                     <select
                       id="staff_id"
@@ -504,7 +519,7 @@ function OrderWorkStaffAssign() {
                   </div>
 
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                    <div className="flex justify-center">
+                    <div className="flex justify-between">
                       <button
                         type="submit"
                         className={styles.pinkbutton}
