@@ -385,19 +385,29 @@ export default function Navbar() {
                 if (auth === 'admin') {
                   return (
                     <div>
-                      <h2>ADMIN</h2>
+                      <h4>ADMIN</h4>
                     </div>
                   )
                 } else if (auth === 'staff') {
                   return (
                     <div>
-                      <h2>STAFF</h2>
+                      <h4>
+                        <span className="capitalize">
+                          {localStorage.getItem('staff_name')}
+                        </span>{' '}
+                        (STAFF)
+                      </h4>
                     </div>
                   )
                 } else if (auth === 'customer') {
                   return (
                     <div>
-                      <h2>CUSTOMER</h2>
+                      <h4>
+                        <span className="capitalize">
+                          {localStorage.getItem('cust_name')}
+                        </span>{' '}
+                        (CUSTOMER)
+                      </h4>
                     </div>
                   )
                 }

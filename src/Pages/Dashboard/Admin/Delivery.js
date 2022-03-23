@@ -14,16 +14,16 @@ function Delivery() {
     const checkButton = (e) => {
         e.preventDefault();
         axios.post(`${API}/api/is_order_completed/`,data)
-            .then(res => {
-                if (res.data.status) {
-                    axios.post(`${API}/api/delivery/`,data).then(res => {
-                        alert(JSON.stringify(res.data.order_work_staff_assign[0].order.balance_amount))
-                        setOrderID(res.data.order_work_staff_assign[0].order.order_id)
-                        setWorkID(res.data.order_work_staff_assign[0].work.work_id)
-                        setBalance(res.data.order_work_staff_assign[0].order.balance_amount)
-                    }).catch(err => console.log(err))
-                }
-            }).catch(err => console.log(err))
+        .then(res => {
+            if (res.data.status) {
+                axios.post(`${API}/api/delivery/`,data).then(res => {
+                    alert(JSON.stringify(res.data.order_work_staff_assign[0].order.balance_amount))
+                    setOrderID(res.data.order_work_staff_assign[0].order.order_id)
+                    setWorkID(res.data.order_work_staff_assign[0].work.work_id)
+                    setBalance(res.data.order_work_staff_assign[0].order.balance_amount)
+                }).catch(err => console.log(err))
+            }
+        }).catch(err => console.log(err))
         axios.get(`${API}/api/staff/`).then(res => setStaffs(res.data)).catch(err => console.log(err));
     }
 
@@ -42,69 +42,61 @@ function Delivery() {
     var date = curr.toISOString().substr(0,10);
 
 
-    return (
-        <div>
+  return (
+    <div>
 
-            <div className="flex scroll px-8 pt-8 pb-8 mb-4 items-center mt-16 justify-center min-h-screen bg-gray-100">
-                <div className="w-2/5 ">
-<div className={'flex flex-col'}>
-    <div className={'mt-10 flex flex-wrap justify-evenly '}>
-        <form onSubmit={checkButton}>
-            <div className="grid justify-center mt-4">
-                <input type="text" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="order_id" onChange={handleEvent}/>
-                <input type="submit" value="Search" className='button text-white cursor-pointer rounded p-2 my-2 bg-red-500 border border-red-500 hover:text-red-500 hover:bg-transparent'/>
+        <div className="flex scroll items-center mt-16 justify-center min-h-screen bg-gray-100">
+            <div className="w-2/5 bg-white shadow-lg">
+
+                    <form onSubmit={checkButton}>
+                        <input type="text" name="order_id" onChange={handleEvent}/>
+                        <input type="submit" value="Search" className='button bg-rose-500'/>
+                    </form>
             </div>
-        </form>
+            <div className='flex w-full'>
+            {staffs.length > 0 ? (
+                <form onSubmit={checkout} >
+                <table>
+                <tr>
+                    <th>ORDER ID</th>
+                    <th>WORK ID</th>
+                    <th>STAFFS</th>
+                    <th>DELIVERY DATE</th>
+                    <th>BALANCE</th>
+                    <th>AMOUNT TO PAY</th>
+                </tr>
 
-    </div>
+                <tr>
+                    <td><input name="order_id" value={orderid} disabled/></td>
+                    <td><input name="work_id" value={workid} disabled/></td>
+                    <td>
+                        <select name="staff_id" onChange={handleEventProceed} required>
+                            <option selected hidden>Select Staff</option>
+                            {
+                            staffs.length > 0 ? staffs.map(e => <option value={e.staff_id}>{e.staff_name}</option>) : ""
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <input
+                              className="form-control block font-extrabold  w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              type={"date"}
+                              defaultValue={date}
+                          />
+                    </td>
+                </tr>
+                <td><input name="blance_amount" value={balance} disabled/></td>
+                <td><input name="amount_to_pay" onChange={handleEventProceed} /></td>
+                <td><input type="submit" value="Checkout"/></td>
+            </table>
 
-</div>
-
-                </div>
-                <div className='flex flex-wrap'>
-                    {staffs.length > 0 ? (
-                        <form onSubmit={checkout} >
-                            <table>
-                                <tr>
-                                    <th>ORDER ID</th>
-                                    <th>WORK ID</th>
-                                    <th>STAFFS</th>
-                                    <th>DELIVERY DATE</th>
-                                    <th>BALANCE</th>
-                                    <th>AMOUNT TO PAY</th>
-                                </tr>
-
-                                <tr>
-                                    <td><input name="order_id" value={orderid} disabled/></td>
-                                    <td><input name="work_id" value={workid} disabled/></td>
-                                    <td>
-                                        <select name="staff_id" onChange={handleEventProceed} required>
-                                            <option selected hidden>Select Staff</option>
-                                            {
-                                                staffs.length > 0 ? staffs.map(e => <option value={e.staff_id}>{e.staff_name}</option>) : ""
-                                            }
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input
-                                            className="form-control block font-extrabold  w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                            type={"date"}
-                                            defaultValue={date}
-                                        />
-                                    </td>
-                                </tr>
-                                <td><input name="blance_amount" value={balance} disabled/></td>
-                                <td><input name="amount_to_pay" onChange={handleEventProceed} /></td>
-                                <td><input type="submit" value="Checkout"/></td>
-                            </table>
-
-                        </form>
-                    )  : ""}
-                </div>
-
+                </form>
+                )  : ""}
             </div>
+
         </div>
-    )
+    </div>
+  )
 }
 
 export default Delivery
