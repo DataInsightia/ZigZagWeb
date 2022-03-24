@@ -197,7 +197,7 @@ export default function Login() {
                       <input
                         type="text"
                         required="required"
-                        className={Styles.Input}
+                        className={`${Styles.Input} uppercase`}
                         placeholder="User ID / Mobile Number"
                         // value={data.cust_id}
                         // onChange={handleEvent}

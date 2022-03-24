@@ -28,8 +28,10 @@ function CustomerOrderStatus() {
                 setOrderStatus(res.data)
                 setShowModal(false)
             }
-
-        }).catch(err => alert(err))
+        }).catch(err => {
+            console.log(err);
+            alert("Order Not Found!")
+        })
 
         axios.post(API + '/api/order_status_oa_admin/',orderid).then(res => {
             if (res.data.status) {
@@ -38,12 +40,12 @@ function CustomerOrderStatus() {
                 console.log("no data")
                 setShowModal(false)
             }
-        }).catch(err => alert(err))
+        }).catch(err => console.log(err))
 
         axios.get(API + `/api/material/${orderid.order_id}/`).then(res => {
             if (res.data !== undefined) {setMaterialLocation(res.data);} else {setMaterialLocation([{}]);}
             console.log(res.data);
-        }).catch(err => alert(err))
+        }).catch(err => console.log(err))
 
 
         axios.post(API + '/api/order_completion/',orderid).then(res => {
@@ -74,7 +76,7 @@ function CustomerOrderStatus() {
             <div className="container">
 
             <form className="grid justify-center" onSubmit={checkOrder}>
-                <input required  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" placeholder={'Order ID'} onChange={handleEvent}/>
+                <input required  className="uppercase shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" placeholder={'Order ID'} onChange={handleEvent}/>
                 <div className="grid justify-center">
                     <input  className={"justify-center button text-white rounded p-3 m-3 bg-pink-600"} type="submit" /></div>
             </form>
