@@ -149,7 +149,6 @@ export default function StaffRegister() {
                     <div className="p-2 w-full">
                       <center>
                         <h2>STAFF REGISTER</h2>
-                        <p>{JSON.stringify({...{"data": "test"} ,...{"salary" : 0}})}</p>
                       </center>
                       <br />
                       <div className="relative">
@@ -312,14 +311,10 @@ export default function StaffRegister() {
                           type="salary"
                           id="salary"
                           name="salary"
-                          // onChange={onChange}
+                          onChange={onChange}
                           defaultValue={0}
                           // value={salary}
                           className={Styles.Input}
-                          {...register('salary', { required: true })}
-                          onKeyUp={() => {
-                            trigger('salary')
-                          }}
                         />
                         {errors.salary && (
                           <span className={Styles.InputError}>

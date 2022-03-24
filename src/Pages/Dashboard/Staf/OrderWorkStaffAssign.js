@@ -310,8 +310,9 @@ function OrderWorkStaffAssign() {
                       className={styles.select}
                     >
                       <option selected>Please select</option>
+                        // (T - {e.takenOrders}) | (A - {e.assignOrders})  | (N-{e.nottakenOrders})
                       {staff.map((e) => (
-                        <option value={e.staff_id}>{e.staff_name} (T - {e.takenOrders}) | (A-{e.nottakenOrders})</option>
+                        <option value={e.staff_id}>{e.staff_name} </option>
                       ))}
                     </select>
                   </div>

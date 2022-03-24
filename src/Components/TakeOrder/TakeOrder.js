@@ -10,12 +10,6 @@ import {Link} from 'react-router-dom'
 import { Dialog, Transition } from '@headlessui/react'
 
 function TakeOrder() {
-  $(function () {
-    $('#datepicker').datepicker({
-      dateFormat: 'dd-mm-yy',
-      duration: 'fast',
-    })
-  })
 
   let [isOpen, setIsOpen] = useState(false)
 
@@ -41,18 +35,15 @@ function TakeOrder() {
     cust_id: '',
   })
 
-  var curr = new Date()
-  curr.setDate(curr.getDate())
-  var date = curr.toISOString().substr(0, 10)
+  var date = (new Date()).toLocaleDateString('en-GB')
 
   const [customer_details, SetCustomerDetails] = useState({})
 
   const [others, setOthers] = useState({
-    pickup_type: '',
-    due_date: '',
-    courier_amount: '0',
-    advance_amount: '0',
-    balance_amount: '0',
+    "advance_amount":'0',
+    "pickup_type":"",
+    "courier_amount":'0',
+    "courier_address": ""
   })
 
   const [material, setMaterial] = useState({
@@ -152,8 +143,8 @@ function TakeOrder() {
     setMaterial({ ...material, [e.target.name]: e.target.value })
   const handleCustomer = (e) =>
     setCustomer({ ...customer, [e.target.name]: e.target.value })
-  const handleOther = (e) =>
-    setOthers({ ...others, [e.target.name]: e.target.value })
+  const handleOther = async  (e) =>
+    await setOthers({ ...others, [e.target.name]: e.target.value })
 
   const getWorkAmount = (wn) =>
     setWork({
@@ -241,7 +232,7 @@ function TakeOrder() {
   const findCustomer = (e) => {
     e.preventDefault()
     axios
-      .post(API + '/api/customer_details/', customer)
+      .post(API + '/api/takeorder_customer_details/', customer)
       .then((res) => {
         if (res.data.length !== 0) {
 
@@ -257,19 +248,22 @@ function TakeOrder() {
       })
   }
 
-  const update_balance_with_courier = (e) => {
-    var courier = parseInt(e.target.value)
-    // setTotal(total + parseInt(courier));
+  const update_balance_with_courier = (e,courier_amount) => {
+    var courier = parseInt(courier_amount)
+    // setBalance(total + (isNaN(courier) ? 0 : courier) - advance)
     setBalance(total + (isNaN(courier) ? 0 : courier) - advance)
-    setOthers({...others,[e.target.name] : isNaN(courier) ? 0 : courier})
+    setOthers({...others,['courier_amount'] : isNaN(courier) ? 0 : courier})
   }
 
-  const update_balance_with_advance = (e) => {
-    console.log(e.target.value)
-    var advance = parseInt((e.target.value))
-    console.log(advance,total)
+  const update_balance_with_advance = (e,advance_amount) => {
+    var advance = parseInt(advance_amount)
+    // advance = (advance) ? 0 : advance
+    console.log(isNaN(advance),advance)
     setAdvance(isNaN(advance) ? 0 : advance)
     setBalance(total - (isNaN(advance) ? 0 : advance))
+
+    // setAdvance(advance)
+    // setBalance(total - ((advance) ? 0 : advance))
   }
 
   const nextChar = (c) => {
@@ -481,6 +475,7 @@ function TakeOrder() {
                   />
                 </div>
                 Address :{customer_details.address}
+                Advance{JSON.stringify(others)}
               </div>
             </div>
           </div>
@@ -651,7 +646,7 @@ function TakeOrder() {
                         className="form-control block font-bold  w-full px-3 py-5 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         type={'text'}
                         name={'due_date'}
-                        onChange={handleOther}
+                        onChange={(e) => handleOther(e).then(() => alert("hi"))}
                         defaultValue={date}
                         disabled
                       />
@@ -676,12 +671,17 @@ function TakeOrder() {
                     <input
                       className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none h-15"
                       type={'text'}
-                      value={others.advance_amount}
+                      // value={others.advance_amount}
                       name={'advance_amount'}
+                      defaultValue={0}
                       onChange={(e) => {
-                        handleOther(e)
-                        // update_balance(e);
-                        update_balance_with_advance(e)
+                        handleOther(e).then(() => {
+                          update_balance_with_advance(e,e.target.value);
+                          update_balance_with_courier(e,others.courier_amount);
+                          // let courier = others.courier_amount
+                          // setBalance(total + (isNaN(courier) ? 0 : courier) - advance)
+                          // setOthers({...others,['courier_amount'] : isNaN(courier) ? 0 : courier})
+                        }).catch(err => console.log(err))
                       }}
                       placeholder={'Advance Amount'}
                     />
@@ -719,10 +719,13 @@ function TakeOrder() {
                                   ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 md:h-20 focus:outline-none"
                                   type={"text"}
                                   name={"courier_amount"}
+                                  defaultValue={0}
                                   placeholder={"Courier Charge"}
                                   onChange={(e) => {
-                                    handleOther(e);
-                                    update_balance_with_courier(e);
+                                    handleOther(e).then(() => {
+                                      update_balance_with_courier(e,e.target.value);
+                                      update_balance_with_advance(e,others.advance_amount);
+                                    })
                                   }}
                                   // onBlur={() => {
                                   //   // update_advance_amount();
@@ -777,8 +780,7 @@ function TakeOrder() {
                                   name={"other_mobile"}
                                   placeholder={"Mobile Number"}
                                   onChange={(e) => {
-                                    handleOther(e);
-                                    update_balance_with_courier(e);
+                                    handleOther(e).then(() => update_balance_with_courier(e))
                                   }}
                                   onBlur={() => {
                                     // update_advance_amount();
@@ -801,8 +803,7 @@ function TakeOrder() {
                                 name={"courier_address"}
                                 placeholder={"Courier Address"}
                                 onChange={(e) => {
-                                  handleOther(e);
-                                  update_balance_with_courier(e);
+                                  handleOther(e).then((res) => update_balance_with_courier(e))
                                 }}
                                 onBlur={() => {
                                   // update_advance_amount();
@@ -910,7 +911,7 @@ function TakeOrder() {
                       Courier Amount
                     </td>
                     <td className={'border border-slate-600 p-3'}>
-                      <b>{others.courier_amount}</b>
+                      <b>{(others.courier_amount) ? others.courier_amount : 0}</b>
                     </td>
                   </tr>
 
