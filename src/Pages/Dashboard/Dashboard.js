@@ -10,7 +10,7 @@ export default function Dashboard() {
       <Sidebar />
       <Navbar />
     
-      <div className="flex-1 body_content p-0 text-2xl font-bold bg-gray-50">
+      <div className="flex-1 body_content p-0 text-2xl font-bold bg-gray-50 h-[820px] overflow-y-scroll">
         <Outlet />
       </div>
     </div>

@@ -469,6 +469,19 @@ function TakeOrder() {
                 </div>
                 Email:{customer_details.email}
               </div>
+
+              <div className="flex flex-wrap">
+                <div className=" w-10 h-10">
+                  <img
+                    className="w-full h-full rounded-full"
+                    src={
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnpdHWJg7i_tQSZnkW-0Ovp9ORPGcBLB4q7Q&usqp=CAU'
+                    }
+                    alt=""
+                  />
+                </div>
+                Address :{customer_details.address}
+              </div>
             </div>
           </div>
 
@@ -711,10 +724,10 @@ function TakeOrder() {
                                     handleOther(e);
                                     update_balance_with_courier(e);
                                   }}
-                                  onBlur={() => {
-                                    // update_advance_amount();
-                                    fetch();
-                                  }}
+                                  // onBlur={() => {
+                                  //   // update_advance_amount();
+                                  //   fetch();
+                                  // }}
                               />
 
                               <p className="font-semibold flex flex-wrap">Courier Address : </p>
@@ -736,10 +749,10 @@ function TakeOrder() {
                                   handleOther(e);
                                   // update_balance_with_courier(e);
                                 }}
-                                onBlur={() => {
-                                  // update_advance_amount();
-                                  fetch();
-                                }}
+                                // onBlur={() => {
+                                //   // update_advance_amount();
+                                //   fetch();
+                                // }}
                               />
                         </snap>
                       ) : (
