@@ -103,7 +103,7 @@ export default function DashboardHome() {
   return (
     <div className="px-3 md:px-8">
 
-      <div className="container mx-auto max-w-full">
+      <div className="container mx-auto max-w-full ">
         {(() => { 
           if (auth === 'admin') {
             return (
@@ -144,7 +144,7 @@ export default function DashboardHome() {
             )
           } else if (auth === 'staff') {
             return (
-              <div className="grid mt-14 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 mb-4">
+              <div className="grid md:mt-14 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 mb-4">
                 <StatusCard
                   color="pink"
                   icon="TW"
@@ -189,7 +189,7 @@ export default function DashboardHome() {
             )
           } else if (auth === 'customer') {
             return (
-              <div className="grid mt-14 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 mb-4">
+              <div className="grid md:mt-14 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 mb-4">
                 <StatusCard
                   color="pink"
                   icon="OGO"

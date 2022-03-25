@@ -128,7 +128,7 @@ function StaffWorkTaken() {
     <div>
     
       {assingedworksbool ? (
-        <div className=" p-10 mt-10">
+        <div className=" p-10 md:mt-10">
           <div className="p-3">
             <h1 className={styles.title}>Take Orders</h1>
 

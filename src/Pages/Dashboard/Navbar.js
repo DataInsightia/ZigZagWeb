@@ -6,6 +6,9 @@ export default function Navbar() {
   const auth = localStorage.getItem('role')
 
     const [open, setOpen] = React.useState(false);
+    const logout = async () => {
+        await localStorage.clear()
+    }
   return (
 
 
@@ -42,7 +45,7 @@ export default function Navbar() {
             className={
                open
                     ? " opacity-100 translate-y-0 transition ease-out duration-200 absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2"
-                    : " opacity-0 translate-y-1 absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2"
+                    : " opacity-0 translate-y-1 absolute z-10 -ml-4 mt-3 transform invisible px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2"
             }
         >
 
@@ -321,18 +324,6 @@ export default function Navbar() {
                                             HOME
                                         </Link>
                                         <Link
-                                            to={`/dashboard/customer_orders/${localStorage.getItem('cid')}/`}
-                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                        >
-                                            ORDERS
-                                        </Link>
-                                        <Link
-                                            to="/dashboard/invoice"
-                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                        >
-                                            INVOICE
-                                        </Link>
-                                        <Link
                                             to={`/dashboard/customer_order_history/${localStorage.getItem('cid')}`}
                                             className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                                         >
@@ -343,6 +334,12 @@ export default function Navbar() {
                                             className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                                         >
                                             PROFILE EDIT
+                                        </Link>
+                                        <Link
+                                            to="/dashboard/customer_order_status"
+                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                        >
+                                           ORDER STATUS
                                         </Link>
                                     </div>
                                 )
@@ -357,8 +354,9 @@ export default function Navbar() {
                         href="#"
                         className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-rose-500 hover:bg-indigo-700"
                         onClick={() => {
-                            localStorage.clear()
-                            navigate('/')
+                            logout().then(() => {
+                                navigate('/');window.location.reload();
+                            })
                         }}
                     >
                        Logout
@@ -451,12 +449,13 @@ export default function Navbar() {
               {/*    <a className="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">CONTACT US</a>*/}
               {/*</li>*/}
             </ul>
-            <div className="group text-lg relative h-full sm:w-10/12 md:w-3/12">
+            <div className="group text-lg relative h-full sm:w-10/12  md:w-4/12">
               <button
                 className="block font-bold py-2.5 px-4 text-white  rounded transition duration-200 hover:bg-white hover:text-black"
                 onClick={() => {
-                  localStorage.clear()
-                  navigate('/')
+                   logout().then(() => {
+                       navigate('/');window.location.reload();
+                   })
                 }}
               >
                 LOGOUT

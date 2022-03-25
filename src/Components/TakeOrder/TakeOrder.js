@@ -10,12 +10,6 @@ import {Link} from 'react-router-dom'
 import { Dialog, Transition } from '@headlessui/react'
 
 function TakeOrder() {
-  $(function () {
-    $('#datepicker').datepicker({
-      dateFormat: 'dd-mm-yy',
-      duration: 'fast',
-    })
-  })
 
   let [isOpen, setIsOpen] = useState(false)
 
@@ -41,18 +35,15 @@ function TakeOrder() {
     cust_id: '',
   })
 
-  var curr = new Date()
-  curr.setDate(curr.getDate())
-  var date = curr.toISOString().substr(0, 10)
+  var date = (new Date()).toLocaleDateString('en-GB')
 
   const [customer_details, SetCustomerDetails] = useState({})
 
   const [others, setOthers] = useState({
-    pickup_type: '',
-    due_date: '',
-    courier_amount: '0',
-    advance_amount: '0',
-    balance_amount: '0',
+    "advance_amount":'0',
+    "pickup_type":"",
+    "courier_amount":'0',
+    "courier_address": ""
   })
 
   const [material, setMaterial] = useState({
@@ -152,8 +143,8 @@ function TakeOrder() {
     setMaterial({ ...material, [e.target.name]: e.target.value })
   const handleCustomer = (e) =>
     setCustomer({ ...customer, [e.target.name]: e.target.value })
-  const handleOther = (e) =>
-    setOthers({ ...others, [e.target.name]: e.target.value })
+  const handleOther = async  (e) =>
+    await setOthers({ ...others, [e.target.name]: e.target.value })
 
   const getWorkAmount = (wn) =>
     setWork({
@@ -241,10 +232,10 @@ function TakeOrder() {
   const findCustomer = (e) => {
     e.preventDefault()
     axios
-      .post(API + '/api/customer_details/', customer)
+      .post(API + '/api/takeorder_customer_details/', customer)
       .then((res) => {
         if (res.data.length !== 0) {
-          
+
           SetCustomerDetails(res.data[0])
           setCust(true)
         }
@@ -253,19 +244,26 @@ function TakeOrder() {
         openModal()
 
         console.log(err)
+
       })
   }
 
-  const update_balance_with_courier = (e) => {
-    var courier = parseInt(e.target.value)
-    // setTotal(total + parseInt(courier));
-    setBalance(total + parseInt(courier) - advance)
+  const update_balance_with_courier = (e,courier_amount) => {
+    var courier = parseInt(courier_amount)
+    // setBalance(total + (isNaN(courier) ? 0 : courier) - advance)
+    setBalance(total + (isNaN(courier) ? 0 : courier) - advance)
+    setOthers({...others,['courier_amount'] : isNaN(courier) ? 0 : courier})
   }
 
-  const update_balance_with_advance = (e) => {
-    var advance = parseInt(e.target.value)
-    setAdvance(advance)
-    setBalance(total - advance)
+  const update_balance_with_advance = (e,advance_amount) => {
+    var advance = parseInt(advance_amount)
+    // advance = (advance) ? 0 : advance
+    console.log(isNaN(advance),advance)
+    setAdvance(isNaN(advance) ? 0 : advance)
+    setBalance(total - (isNaN(advance) ? 0 : advance))
+
+    // setAdvance(advance)
+    // setBalance(total - ((advance) ? 0 : advance))
   }
 
   const nextChar = (c) => {
@@ -285,6 +283,8 @@ function TakeOrder() {
   const printOrder = (e) => {
     e.preventDefault()
 
+
+
     if (others.due_date !== '') {
       const order_payload = {
         ...{
@@ -297,14 +297,24 @@ function TakeOrder() {
           balance_amount: balance,
           courier_amount: parseInt(others.courier_amount),
           courier_address: get_courier_address(others.pickup_type),
+
         },
       }
+
+
 
       axios
         .post(API + '/api/add_order/', order_payload)
         .then((res) => {
+
           console.log('add_order', res.data)
           if (res.data.status) {
+
+            axios.post(`${API}/api/takeorder_other_option/`,{"order_id" : orderid,"mobile" : others.other_mobile})
+            .then(res => {
+              alert(res.data.message)
+            }).catch(err => console.log(err));
+
             var wc = 'A'
             for (var i = 0; i < tmpworks.length; i++) {
               const tmpwork_payload = {
@@ -387,7 +397,7 @@ function TakeOrder() {
               <br />
               <div className="grid justify-center mt-4">
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="uppercase shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type={'text'}
                   placeholder={'Mobile or Customer ID'}
                   value={customer.cust_id}
@@ -452,6 +462,20 @@ function TakeOrder() {
                   />
                 </div>
                 Email:{customer_details.email}
+              </div>
+
+              <div className="flex flex-wrap">
+                <div className=" w-10 h-10">
+                  <img
+                    className="w-full h-full rounded-full"
+                    src={
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnpdHWJg7i_tQSZnkW-0Ovp9ORPGcBLB4q7Q&usqp=CAU'
+                    }
+                    alt=""
+                  />
+                </div>
+                Address :{customer_details.address}
+                Advance{JSON.stringify(others)}
               </div>
             </div>
           </div>
@@ -531,11 +555,11 @@ function TakeOrder() {
                       type={'submit'}
                       value={'ADD'}
                       className="mb-3 mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                      
+
                     />
                 </form>
               </div>
-              
+
 
               <div className="flex flex-wrap -mx-3 mb-6 space-x-20 justify-center">
                 <form className='flex' onSubmit={addMaterial}>
@@ -622,7 +646,7 @@ function TakeOrder() {
                         className="form-control block font-bold  w-full px-3 py-5 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         type={'text'}
                         name={'due_date'}
-                        onChange={handleOther}
+                        onChange={(e) => handleOther(e).then(() => alert("hi"))}
                         defaultValue={date}
                         disabled
                       />
@@ -647,12 +671,17 @@ function TakeOrder() {
                     <input
                       className="mb-3 xl:w-96 form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none h-15"
                       type={'text'}
-                      value={others.advance_amount}
+                      // value={others.advance_amount}
                       name={'advance_amount'}
+                      defaultValue={0}
                       onChange={(e) => {
-                        handleOther(e)
-                        // update_balance(e);
-                        update_balance_with_advance(e)
+                        handleOther(e).then(() => {
+                          update_balance_with_advance(e,e.target.value);
+                          update_balance_with_courier(e,others.courier_amount);
+                          // let courier = others.courier_amount
+                          // setBalance(total + (isNaN(courier) ? 0 : courier) - advance)
+                          // setOthers({...others,['courier_amount'] : isNaN(courier) ? 0 : courier})
+                        }).catch(err => console.log(err))
                       }}
                       placeholder={'Advance Amount'}
                     />
@@ -690,15 +719,18 @@ function TakeOrder() {
                                   ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 md:h-20 focus:outline-none"
                                   type={"text"}
                                   name={"courier_amount"}
+                                  defaultValue={0}
                                   placeholder={"Courier Charge"}
                                   onChange={(e) => {
-                                    handleOther(e);
-                                    update_balance_with_courier(e);
+                                    handleOther(e).then(() => {
+                                      update_balance_with_courier(e,e.target.value);
+                                      update_balance_with_advance(e,others.advance_amount);
+                                    })
                                   }}
-                                  onBlur={() => {
-                                    // update_advance_amount();
-                                    fetch();
-                                  }}
+                                  // onBlur={() => {
+                                  //   // update_advance_amount();
+                                  //   fetch();
+                                  // }}
                               />
 
                               <p className="font-semibold flex flex-wrap">Courier Address : </p>
@@ -715,14 +747,15 @@ function TakeOrder() {
                                     ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 h-20 focus:outline-none"
                                 name={"courier_address"}
                                 placeholder={"Courier Address"}
+                                // defaultValue={customer_details.address}
                                 onChange={(e) => {
                                   handleOther(e);
-                                  update_balance_with_courier(e);
+                                  // update_balance_with_courier(e);
                                 }}
-                                onBlur={() => {
-                                  // update_advance_amount();
-                                  fetch();
-                                }}
+                                // onBlur={() => {
+                                //   // update_advance_amount();
+                                //   fetch();
+                                // }}
                               />
                         </snap>
                       ) : (
@@ -747,8 +780,7 @@ function TakeOrder() {
                                   name={"other_mobile"}
                                   placeholder={"Mobile Number"}
                                   onChange={(e) => {
-                                    handleOther(e);
-                                    update_balance_with_courier(e);
+                                    handleOther(e).then(() => update_balance_with_courier(e))
                                   }}
                                   onBlur={() => {
                                     // update_advance_amount();
@@ -756,7 +788,7 @@ function TakeOrder() {
                                   }}
                               />
 
-                              <p className="font-semibold flex flex-wrap">Courier Address : </p>
+                              <p className="font-semibold flex flex-wrap">Alternative Address : </p>
                               <textarea
                                     className="mb-6 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block px-4
                                     py-2
@@ -771,8 +803,7 @@ function TakeOrder() {
                                 name={"courier_address"}
                                 placeholder={"Courier Address"}
                                 onChange={(e) => {
-                                  handleOther(e);
-                                  update_balance_with_courier(e);
+                                  handleOther(e).then((res) => update_balance_with_courier(e))
                                 }}
                                 onBlur={() => {
                                   // update_advance_amount();
@@ -784,60 +815,7 @@ function TakeOrder() {
                           ""
                       )}
 
-                    {others.pickup_type === "courier" ? (
-                          <snap>
-                              <p className="font-semibold flex flex-wrap">Courier Charge : </p>
-                              <input
-                                  className="mb-3 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block w-full md:px-4
-                              py-2
-                              text-xl
-                              font-normal
-                              text-gray-700
-                              bg-white bg-clip-padding bg-no-repeat
-                              border border-solid border-gray-300
-                              rounded
-                              transition
-                              ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 md:h-20 focus:outline-none"
-                                  type={"text"}
-                                  name={"courier_amount"}
-                                  placeholder={"Courier Charge"}
-                                  onChange={(e) => {
-                                    handleOther(e);
-                                    update_balance_with_courier(e);
-                                  }}
-                                  onBlur={() => {
-                                    // update_advance_amount();
-                                    fetch();
-                                  }}
-                              />
 
-                              <p className="font-semibold flex flex-wrap">Courier Address : </p>
-                              <textarea
-                                    className="mb-6 xl:w-96 inline-block w-52 form-select form-select-lg mb-3 appearance-none block px-4
-                                    py-2
-                                    text-xl
-                                    font-normal
-                                    text-gray-700
-                                    bg-white bg-clip-padding bg-no-repeat
-                                    border border-solid border-gray-300
-                                    rounded
-                                    transition
-                                    ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 h-20 focus:outline-none"
-                                    name={"courier_address"}
-                                    placeholder={"Courier Address"}
-                                    onChange={(e) => {
-                                      handleOther(e);
-                                      update_balance_with_courier(e);
-                                    }}
-                                    onBlur={() => {
-                                      // update_advance_amount();
-                                      fetch();
-                                    }}
-                                />
-                          </snap>
-                        ) : (
-                            ""
-                        )}
                 </div>
               </div>
               {/*take order table*/}
@@ -933,7 +911,7 @@ function TakeOrder() {
                       Courier Amount
                     </td>
                     <td className={'border border-slate-600 p-3'}>
-                      <b>{others.courier_amount}</b>
+                      <b>{(others.courier_amount) ? others.courier_amount : 0}</b>
                     </td>
                   </tr>
 
@@ -1020,7 +998,7 @@ function TakeOrder() {
                 >
                   Customer Not Found
                 </Dialog.Title>
-               
+
                 <div className="mt-4">
                   <button
                     type="button"

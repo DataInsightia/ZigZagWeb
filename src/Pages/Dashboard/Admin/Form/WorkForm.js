@@ -177,9 +177,8 @@ export default function WorkForm() {
           {/*</div>*/}
 
 
-              <div className="flex scroll items-center md:-mt-80   justify-center min-h-screen ">
-
-                <div className=" min-w-full mt-0 overflow-auto overflow-x-scroll bg:hidden  p-4">
+          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+            <div className="inline-block min-w-full shadow-lg rounded-lg overflow-hidden">
               <table class="min-w-full leading-normal ">
                 <thead>
                   <tr>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import API from '../../../api'
 
-
 export default function Customer() {
   // const Styles = {
   //   TabHeadButton:
@@ -29,80 +28,73 @@ export default function Customer() {
 
   return (
     <div>
-
-      <div className="flex scroll items-center md:mt-0 justify-center min-h-screen bg-gray-100">
-
-      <div className="md:w-1/2 overflow-auto overflow-x-scroll bg-white shadow-lg p-4">
-
+      <div className="flex scroll  md:mt-0 justify-center min-h-screen bg-gray-100">
+        <div className="md:w-1/1 overflow-auto overflow-x-scroll p-4">
           <div className="">
-            <table className="w-full">
-              <thead className="w-full  bg-gradient-to-r from-rose-600 to-rose-500">
-              <tr>
-                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                  Customer ID
-                </th>
-                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                  Customer Name
-                </th>
-                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                  Mobile
-                </th>
-                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                  Address
-                </th>
-                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                  City
-                </th>
-                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                  Pincode
-                </th>
-                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                  Password
-                </th>
-              </tr>
+            <table className="w-full md:mt-24 shadow-lg">
+              <thead className=" bg-gradient-to-r from-rose-600 to-rose-500">
+                <tr>
+                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                    Customer ID
+                  </th>
+                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                    Customer Name
+                  </th>
+                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                    Mobile
+                  </th>
+                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                    Address
+                  </th>
+                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                    City
+                  </th>
+                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                    Pincode
+                  </th>
+                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                    Password
+                  </th>
+                </tr>
               </thead>
               <tbody>
-              {customerstate ? (
+                {customerstate ? (
                   <>
                     {customers.map((e) => (
-                        <tr>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                            {e.cust_id}
-                          </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                            {e.cust_name}
-                          </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                            {e.mobile}
-                          </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                            {e.address}
-                          </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                            {e.city}
-                          </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                            {e.pincode}
-                          </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                            {e.salary}
-                          </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                            {e.password}
-                          </td>
-                        </tr>
+                      <tr>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {e.cust_id}
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {e.cust_name}
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {e.mobile}
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {e.address}
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {e.city}
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {e.pincode}
+                        </td>
+
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {e.password}
+                        </td>
+                      </tr>
                     ))}
                   </>
-              ) : (
+                ) : (
                   ''
-              )}
+                )}
               </tbody>
             </table>
           </div>
+        </div>
       </div>
-
-      </div>
-
 
       {/*<div className={'p-10 md:mt-12'}>*/}
 
@@ -114,7 +106,6 @@ export default function Customer() {
       {/*          Customer List*/}
       {/*        </h2>*/}
       {/*      </div>*/}
-
 
       {/*      */}
       {/*      <div class="my-2 shadow-2xl overflow-auto">*/}

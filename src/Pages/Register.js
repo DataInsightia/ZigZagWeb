@@ -91,12 +91,18 @@ export default function Register() {
         password,
       })
       .then((res) => {
-        console.log(res)
+
         if (res.data.status) {
-          alert(`Registration ${res.data.message}`)
+          axios.post(`${API}/api/customer_details/`,{"cust_id" : mobile}).then(res => {
+            const customer = res.data[0];
+            console.log(res.data[0])
+            console.log(res.data.status)
+            alert(`Registration Success,\nYour Customer ID : ${customer.cust_id}\n Your Mobile No : ${customer.mobile}\n\tYour Can Login with your CUSTOMER ID or MOBILE NUMBER`)
+          }).catch(err => console.log(err))
           isLogin(true)
+        }else{
+          alert(res.data.message);
         }
-        console.log(res.data)
       })
       .catch((err) => {
         console.log(err)
@@ -104,6 +110,15 @@ export default function Register() {
       })
     // reset()
   }
+
+  const is_user = (e,mobile) => {
+    axios.post(`${API}/api/is_user/`,{"cust_id" : mobile}).then(res => {
+        if (res.data.status) {
+          alert(res.data.message)
+          e.target.value = ""
+        }
+    }).catch(err => console.log(err))
+  };
 
   return Login ? (
     <Navigate to="/login" />
@@ -160,6 +175,7 @@ export default function Register() {
                         type="number"
                         className={Styles.Input}
                         placeholder="Mobile"
+                        onBlur={(e) => is_user(e,e.target.value)}
                         // value={data.mobile}
                         onChange={(e) => {
                           handleEvent(e)

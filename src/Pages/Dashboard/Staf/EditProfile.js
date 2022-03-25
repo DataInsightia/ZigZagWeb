@@ -102,8 +102,7 @@ export default function EditProfile() {
   }
   return (
     <>
-      <DashboardHome />
-      <div className="border"></div>
+      <div className="border md:mt-12"></div>
       {(() => {
         if (auth === 'customer') {
           return (
