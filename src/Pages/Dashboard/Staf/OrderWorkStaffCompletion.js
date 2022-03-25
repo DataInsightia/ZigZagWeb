@@ -112,6 +112,8 @@ function OrderWorkStaffCompletion() {
       e.target.order_work_label.value,
     )
 
+    window.location.reload();
+
       // e.target.order_id.value = ""
       // e.target.work_id.value = ""
       // e.target.date.value = ""

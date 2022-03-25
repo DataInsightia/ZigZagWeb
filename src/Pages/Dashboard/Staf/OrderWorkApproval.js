@@ -76,13 +76,15 @@ function OrderWorkStaffApproval() {
      //  e.target.state.value = ""
      //  e.target.order_work_label.value =""
 
-    if (res.data.status == true){
+    if (res.data.status === true){
       openModal()
       setMessage('Order Approved Sucessfully')
+      window.location.reload()
     }
     else{
       openModal()
       setMessage('Unable to Approve')
+      window.location.reload()
     }
     
   }
