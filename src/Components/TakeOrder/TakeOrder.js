@@ -920,7 +920,7 @@ function TakeOrder() {
                       Advance Amount
                     </td>
                     <td className={'border border-slate-600 p-3'}>
-                      <b>{advance}</b>
+                      <b>{others.advance_amount}</b>
                     </td>
                   </tr>
 
