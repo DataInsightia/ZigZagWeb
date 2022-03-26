@@ -196,7 +196,6 @@ export default function Login() {
                       </label>
                       <input
                         type="text"
-                        required="required"
                         className={Styles.Input}
                         placeholder="User ID / Mobile Number"
                         // value={data.cust_id}
@@ -219,7 +218,6 @@ export default function Login() {
                       </label>
                       <input
                         type="password"
-                        required="required"
                         className={Styles.Input}
                         placeholder="Password"
                         // value={data.password}
