@@ -34,6 +34,7 @@ import OtherPickup from "../Pages/Dashboard/Admin/OtherPickup";
 import PayAdvance from "../Pages/Dashboard/Admin/PayAdvance";
 import CustomerInfo from "../Pages/Dashboard/Customer/CustomerInfo";
 import NewTakeOrder from "../Components/TakeOrder/NewTakeOrder";
+import DisplayList from '../Pages/Dashboard/DisplayList'
 
 
 
@@ -94,6 +95,9 @@ export default function Router() {
         {path : 'other_pickup', element: <OtherPickup />},
         // PAY ADVANCE
         {path : 'pay_advance', element: <PayAdvance />},
+
+        //DISPLAY DASHBOARD ITEM LISTS
+        { path: 'lists/:state', element: <DisplayList /> },
       ],
     },
     { path: '*', element: <Navigate to="/" replace /> },

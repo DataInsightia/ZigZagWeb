@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import StatusCard from './StatusCard'
 import 'font-awesome/css/font-awesome.min.css'
+import { Link } from 'react-router-dom'
+
 import {
   OngoingOrdersServices,
   CompletedOrdersServices,
@@ -102,28 +104,41 @@ export default function DashboardHome() {
 
   return (
     <div className="px-3 md:px-8">
-
       <div className="container mx-auto max-w-full ">
-        {(() => { 
+        {(() => {
           if (auth === 'admin') {
             return (
               <div className="grid md:mt-14 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 sm:h-full mb-4">
-                <StatusCard
-                  color="pink"
-                  icon="UAW"
-                  title="Un Assigned Work"
-                  amount={unassigned_works}
-                  percentage="7"
-                  date="Since last month"
-                />
-                <StatusCard
-                  color="red"
-                  icon="NTW"
-                  title="Not Taken Work"
-                  amount={assigned_nottaken_works}
-                  percentage="9"
-                  date="Since last week"
-                />
+                <Link
+                  to={'/dashboard/work_assign/'}
+                  
+                >
+                  <StatusCard
+                    color="pink"
+                    icon="UAW"
+                    title="Un Assigned Work"
+                    amount={unassigned_works}
+                    percentage="7"
+                    date="Since last month"
+                  />
+                </Link>
+                <Link
+                  to={`/dashboard/lists/not_taken_works`}
+                  state={'not_taken_works'}
+                >
+                  <StatusCard
+                    color="red"
+                    icon="NTW"
+                    title="Not Taken Work"
+                    amount={assigned_nottaken_works}
+                    percentage="9"
+                    date="Since last week"
+                  />
+                </Link>
+                <Link
+                  to={`/dashboard/lists/today_due_delivery`}
+                  state={'today_due_delivery'}
+                >
                 <StatusCard
                   color="purple"
                   icon="TWD"
@@ -132,6 +147,11 @@ export default function DashboardHome() {
                   percentage="1.10"
                   date="Since yesterday"
                 />
+                </Link>
+                 <Link
+                  to={`/dashboard/lists/week_due_delivery`}
+                  state={'week_due_delivery'}
+                >
                 <StatusCard
                   color="blue"
                   icon="WD"
@@ -140,11 +160,16 @@ export default function DashboardHome() {
                   percentage="12"
                   date="Since last month"
                 />
+                </Link>
               </div>
             )
           } else if (auth === 'staff') {
             return (
               <div className="grid md:mt-14 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 mb-4">
+                <Link
+                  to={`/dashboard/lists/total_works`}
+                  state={'total_works'}
+                >
                 <StatusCard
                   color="pink"
                   icon="TW"
@@ -153,6 +178,10 @@ export default function DashboardHome() {
                   percentage="3.48"
                   date="Since last month"
                 />
+                </Link>
+                <Link
+                  to={`/dashboard/work_complete`}
+                >
                 <StatusCard
                   color="red"
                   icon="STW"
@@ -161,6 +190,10 @@ export default function DashboardHome() {
                   percentage="3.48"
                   date="Since last week"
                 />
+                </Link>
+                <Link
+                  to={`/dashboard/orders/`}
+                >
                 <StatusCard
                   color="purple"
                   icon="NT"
@@ -169,6 +202,11 @@ export default function DashboardHome() {
                   percentage="1.10"
                   date="Since yesterday"
                 />
+                </Link>
+                <Link
+                  to={`/dashboard/lists/today_due_works`}
+                  state={'today_due_works'}
+                >
                 <StatusCard
                   color="green"
                   icon="OW"
@@ -177,6 +215,11 @@ export default function DashboardHome() {
                   percentage="1.10"
                   date="Since yesterday"
                 />
+                </Link>
+                <Link
+                  to={`/dashboard/lists/today_due_works`}
+                  state={'today_due_works'}
+                >
                 <StatusCard
                   color="yellow"
                   icon="WWD"
@@ -185,11 +228,16 @@ export default function DashboardHome() {
                   percentage="1.10"
                   date="Since yesterday"
                 />
+                </Link>
               </div>
             )
           } else if (auth === 'customer') {
             return (
               <div className="grid md:mt-14 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 mb-4">
+                 <Link
+                  to={`/dashboard/lists/pending_orders`}
+                  state={'pending_orders'}
+                >
                 <StatusCard
                   color="pink"
                   icon="OGO"
@@ -198,6 +246,11 @@ export default function DashboardHome() {
                   percentage="3.48"
                   date="Since last month"
                 />
+                </Link>
+                <Link
+                  to={`/dashboard/lists/completed_orders`}
+                  state={'completed_orders'}
+                >
                 <StatusCard
                   color="red"
                   icon="CO"
@@ -206,6 +259,11 @@ export default function DashboardHome() {
                   percentage="3.48"
                   date="Since last week"
                 />
+                </Link>
+                <Link
+                  to={`/dashboard/lists/customer_orders`}
+                  state={'customer_orders'}
+                >
                 <StatusCard
                   color="purple"
                   icon="TO"
@@ -214,6 +272,11 @@ export default function DashboardHome() {
                   percentage="1.10"
                   date="Since yesterday"
                 />
+                </Link>
+                <Link
+                  to={`/dashboard/lists/delivery_ready_orders`}
+                  state={'delivery_ready_orders'}
+                >
                 <StatusCard
                   color="green"
                   icon="DRO"
@@ -222,6 +285,7 @@ export default function DashboardHome() {
                   percentage="1.10"
                   date="Since yesterday"
                 />
+                </Link>
               </div>
             )
           }
