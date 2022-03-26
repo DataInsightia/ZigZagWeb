@@ -33,6 +33,7 @@ import Delivery from '../Pages/Dashboard/Admin/Delivery'
 import OtherPickup from "../Pages/Dashboard/Admin/OtherPickup";
 import PayAdvance from "../Pages/Dashboard/Admin/PayAdvance";
 import CustomerInfo from "../Pages/Dashboard/Customer/CustomerInfo";
+import NewTakeOrder from "../Components/TakeOrder/NewTakeOrder";
 
 
 
@@ -60,7 +61,7 @@ export default function Router() {
         { path: 'dhome', element: <DashboardHome /> },
         { path: 'work', element: <WorkForm/>},
         { path: 'material', element: <MaterialForm/>},
-        { path: 'takeorder', element: <TakeOrder /> },
+        { path: 'takeorder', element: <NewTakeOrder /> },
         // { path: 'invoice/', element: <Invoice /> },
         { path: 'invoice/:custid/:orderid', element: <Invoice /> },
         { path: 'customer_orders/:custid', element: <Orders /> },
