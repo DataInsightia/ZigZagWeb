@@ -400,7 +400,6 @@ function NewTakeOrder() {
                         <div className="flex flex-col">
                             <div className="text-center grid grid-cols-0 mt-10">
                                 <h6 className="text-black">Order No : {orderid}</h6>
-                                <p>{JSON.stringify(others)}</p>
                             </div>
                             <br />
                             <div className="grid justify-items-center ">

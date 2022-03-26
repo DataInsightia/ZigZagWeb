@@ -74,6 +74,7 @@ function Delivery() {
       get()
   }, [])
 
+    var date = (new Date()).toLocaleDateString('en-GB')
 
   // const { order_id, work_id, staff_id, assign_stage } = formData
 
@@ -225,11 +226,6 @@ function Delivery() {
                             </div>
                             <div className="lg:w-1/6">
                               <th scope="col" className={styles.tablehead}>
-                                Work
-                              </th>
-                            </div>
-                            <div className="lg:w-1/6">
-                              <th scope="col" className={styles.tablehead}>
                                 Reference
                               </th>
                             </div>
@@ -282,17 +278,7 @@ function Delivery() {
                       disabled
                     />
                   </div>
-                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                    <input
-                      type="text"
-                      id="work_id"
-                      name="work_id"
-                      value={e.data.work.work_id}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
-                      disabled
 
-                    />
-                  </div>
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                     <input
                       type="text"
@@ -322,25 +308,13 @@ function Delivery() {
                     </select>
                   </div>
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                    <select
-                      id="assign_stage"
-                      name="assign_stage"
-                      onChange={onChange}
-                      className={styles.select}
-                      required
-                    >
-                      <option selected value={''}>
-                        Please select
-                      </option>
-                      {e.nextstage.finishedassign.map((c) => (
-                        <option value={c.stage} disabled>
-                          {c.stage}
-                        </option>
-                      ))}
-                      {e.nextstage.nextassign.map((c) => (
-                        <option value={c.stage}>{c.stage}</option>
-                      ))}
-                    </select>
+                    <input
+                        className="form-control block font-bold  w-full mb-8 px-3 py-5 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        type={'text'}
+                        defaultValue={date}
+                        required
+                        disabled
+                    />
                   </div>
 
 
