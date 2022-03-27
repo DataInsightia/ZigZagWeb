@@ -196,7 +196,8 @@ export default function Login() {
                       </label>
                       <input
                         type="text"
-                        className={Styles.Input}
+                        required="required"
+                        className={`${Styles.Input} uppercase`}
                         placeholder="User ID / Mobile Number"
                         // value={data.cust_id}
                         // onChange={handleEvent}
@@ -218,6 +219,7 @@ export default function Login() {
                       </label>
                       <input
                         type="password"
+                        required="required"
                         className={Styles.Input}
                         placeholder="Password"
                         // value={data.password}

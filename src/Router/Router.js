@@ -30,7 +30,12 @@ import CustomerOrderHistory from '../Pages/Dashboard/Customer/Order_History';
 import Product from '../Pages/Dashboard/Admin/Product'
 import Product_Home from "../Pages/Product/Product_Home"
 import Delivery from '../Pages/Dashboard/Admin/Delivery'
+import OtherPickup from "../Pages/Dashboard/Admin/OtherPickup";
+import PayAdvance from "../Pages/Dashboard/Admin/PayAdvance";
+import CustomerInfo from "../Pages/Dashboard/Customer/CustomerInfo";
+import NewTakeOrder from "../Components/TakeOrder/NewTakeOrder";
 import TakeOrderMod from "../Components/TakeOrder/TakeOrderMod";
+import InvoiceMob from "../Components/TakeOrder/Invoice/InvoiceMob";
 
 
 
@@ -47,6 +52,7 @@ export default function Router() {
         { path: 'login', element: <Login /> },
         { path: 'register', element: <Register /> },
         { path: 'product_home', element: <Product_Home /> },
+        { path: 'customer_info', element: <CustomerInfo /> },
         { path: 'order_status_home', element: <Order_Status_Home /> },
       ],
     },
@@ -58,10 +64,12 @@ export default function Router() {
         { path: 'dhome', element: <DashboardHome /> },
         { path: 'work', element: <WorkForm/>},
         { path: 'material', element: <MaterialForm/>},
-        { path: 'takeorder', element: <TakeOrder /> },
+        { path: 'takeorder', element: <NewTakeOrder /> },
         { path: 'takeordermod', element: <TakeOrderMod /> },
+        { path: 'takeorder', element: <NewTakeOrder /> },
         // { path: 'invoice/', element: <Invoice /> },
         { path: 'invoice/:custid/:orderid', element: <Invoice /> },
+        { path: 'invoicemob/:custid/:orderid', element: <InvoiceMob /> },
         { path: 'customer_orders/:custid', element: <Orders /> },
         { path: 'work_assign', element: <OrderWorkStaffAssign /> },
         { path: 'order_approval', element: <OrderWorkApproval /> },
@@ -87,8 +95,11 @@ export default function Router() {
         { path: 'products', element: <Product />},
 
         // DELIVERY
-        { path: 'delivery', element: <Delivery />}
-
+        { path: 'delivery', element: <Delivery />},
+        // OTHER DELIVERY
+        {path : 'other_pickup', element: <OtherPickup />},
+        // PAY ADVANCE
+        {path : 'pay_advance', element: <PayAdvance />},
       ],
     },
     { path: '*', element: <Navigate to="/" replace /> },

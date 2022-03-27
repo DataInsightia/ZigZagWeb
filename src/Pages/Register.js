@@ -5,6 +5,8 @@ import slideImg1 from '../assets/img/register_bg_2.png'
 import { Link, Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { Dialog, Transition } from '@headlessui/react'
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 export default function Register() {
   const Styles = {
@@ -43,11 +45,15 @@ export default function Register() {
 
   const mobile_val = (e) => {
     const mobile = e.target.value
-    if (mobile.length < 4) {
-      if (mobile === '+91') {
-        openModal()
-        e.target.value = ''
-      }
+    
+    if (mobile.length > 10) {
+      alert("Enter only 10 digits without +91")
+      e.target.value = ""
+      // if (mobile === '+91') {
+      //   // openModal()
+      //   alert("Avoid Using +91")
+      //   e.target.value = ''
+      // }
       //  if (mobile.length <= 10){
       //    alert("10 Number only allowed")
       //  }else{
@@ -85,12 +91,18 @@ export default function Register() {
         password,
       })
       .then((res) => {
-        console.log(res)
+
         if (res.data.status) {
-          alert(res.data.message)
+          axios.post(`${API}/api/customer_details/`,{"cust_id" : mobile}).then(res => {
+            const customer = res.data[0];
+            console.log(res.data[0])
+            console.log(res.data.status)
+            alert(`Registration Success,\nYour Customer ID : ${customer.cust_id}\n Your Mobile No : ${customer.mobile}\n\tYour Can Login with your CUSTOMER ID or MOBILE NUMBER`)
+          }).catch(err => console.log(err))
           isLogin(true)
+        }else{
+          alert(res.data.message);
         }
-        console.log(res.data)
       })
       .catch((err) => {
         console.log(err)
@@ -98,6 +110,15 @@ export default function Register() {
       })
     // reset()
   }
+
+  const is_user = (e,mobile) => {
+    axios.post(`${API}/api/is_user/`,{"cust_id" : mobile}).then(res => {
+        if (res.data.status) {
+          alert(res.data.message)
+          e.target.value = ""
+        }
+    }).catch(err => console.log(err))
+  };
 
   return Login ? (
     <Navigate to="/login" />
@@ -115,7 +136,7 @@ export default function Register() {
                 <div className="rounded-t mb-0 px-6 py-6">
                   <div className="text-center mb-3">
                     <h1 className="text-black font-semibold text-2xl">
-                      Register
+                      Customer Registeration
                     </h1>
                   </div>
                   <hr className="mt-6 border-b-1 border-blueGray-300" />
@@ -150,10 +171,11 @@ export default function Register() {
                       <label className={Styles.Label} htmlFor="grid-password">
                         Mobile
                       </label>
-                      <input
+                      <TextField
                         type="number"
                         className={Styles.Input}
                         placeholder="Mobile"
+                        onBlur={(e) => is_user(e,e.target.value)}
                         // value={data.mobile}
                         onChange={(e) => {
                           handleEvent(e)
@@ -163,6 +185,11 @@ export default function Register() {
                         maxLength={10}
                         minLength={10}
                         id="mobile"
+                        InputProps={{
+                          startAdornment: <InputAdornment position="start">
+                             +91
+                             </InputAdornment>,
+                        }}
                       />
                     </div>
 
@@ -289,14 +316,14 @@ export default function Register() {
                         //     {errors.password}
                         //   </span>
                         // )} */}
-                        {...register('password', { required: true })}
+                        {...register('password', { required: true,minLength : 5,maxLength : 8 })}
                         onKeyUp={() => {
                           trigger('password')
                         }}
                       />
                       {errors.password && (
                         <span className="text-red-500">
-                          This field is required
+                          This field is required with minimum of 5 charectors
                         </span>
                       )}
                     </div>

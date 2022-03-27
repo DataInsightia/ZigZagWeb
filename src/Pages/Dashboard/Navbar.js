@@ -6,6 +6,9 @@ export default function Navbar() {
   const auth = localStorage.getItem('role')
 
     const [open, setOpen] = React.useState(false);
+    const logout = async () => {
+        await localStorage.clear()
+    }
   return (
 
 
@@ -445,12 +448,13 @@ export default function Navbar() {
               {/*    <a className="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#">CONTACT US</a>*/}
               {/*</li>*/}
             </ul>
-            <div className="group text-lg relative h-full sm:w-10/12 md:w-4/12">
+            <div className="group text-lg relative h-full sm:w-10/12  md:w-4/12">
               <button
                 className="block font-bold py-2.5 px-4 text-white  rounded transition duration-200 hover:bg-white hover:text-black"
                 onClick={() => {
-                  localStorage.clear()
-                  navigate('/login')
+                   logout().then(() => {
+                       navigate('/');window.location.reload();
+                   })
                 }}
               >
                 LOGOUT

@@ -58,7 +58,7 @@ const CustomerOrderHistory = () => {
                                                     <div class="flex">
                                                         <div class="flex-shrink-0 w-10 h-10">
                                                             <Link
-                                                            to={"/dashboard/invoice/" + custid +"/" + e.order_id}
+                                                            to={"/dashboard/invoicemob/" + custid +"/" + e.order_id}
                                                             className="w-full h-full rounded-full"
                                                             >
                                                                 <img

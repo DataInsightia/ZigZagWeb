@@ -112,6 +112,14 @@ function OrderWorkStaffCompletion() {
       e.target.order_work_label.value,
     )
 
+    window.location.reload();
+
+      // e.target.order_id.value = ""
+      // e.target.work_id.value = ""
+      // e.target.date.value = ""
+      // e.target.assign_stage.value = ""
+      // e.target.order_work_label.value = ""
+
 
 
     // Stroring MaterialLocation in Backend
@@ -127,7 +135,7 @@ function OrderWorkStaffCompletion() {
           openModal()
             setMessage("Material Location Updated")
           // alert("Material Location Updated");
-            setRedirect(true);
+            // setRedirect(true);
          }
       })
       .catch((err) => console.log(err))
@@ -206,7 +214,7 @@ function OrderWorkStaffCompletion() {
                       id="order_id"
                       name="order_id"
                       value={e.order.order_id}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      className="uppercase bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
                       disabled
                     />
                   </div>

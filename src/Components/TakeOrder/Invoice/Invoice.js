@@ -49,10 +49,10 @@ export default function Invoice(){
 
 
   return (
-      <div ref={componentRef} className="flex scroll items-center mt-16 ml-10 mr-10 justify-center min-h-screen mx-auto my-auto">
-        <div className="w-1/2 bg-white shadow-lg">
-          <div className="">
 
+      <div ref={componentRef} className="flex items-center md:mt-16 ml-10 mr-10 justify-center min-h-screen mx-auto my-auto">
+        <div className="md:w-1/2 bg-white shadow-lg">
+          <div className="">
             <div  className="justify-center p-1">
               <div className="flex justify-center">
                 <img src={invoiceimg} className="w-20 md:w-32 lg:w-28"/>
@@ -92,8 +92,8 @@ export default function Invoice(){
               <div className="w-50">
                 <QRCode
                     size={80}
-                    className="object-contain qr-code "
-                    value={window.location.href}/>
+                    className="object-contain qr-code"
+                    value={`${window.location.origin}/#/dashboard/invoicemob/${custid}/${orderid}`}/>
               </div>
               <div></div>
             </div>
@@ -167,7 +167,7 @@ export default function Invoice(){
           <div className=" border-l-4 border-l-black h-full"></div>
         </div>
 
-        <div className="w-1/2 bg-white shadow-lg">
+        <div className="md:w-1/2 bg-white shadow-lg">
           <div className="">
 
             <div  className="justify-center p-1">
@@ -279,9 +279,9 @@ export default function Invoice(){
             </div>
           </div>
         </div>
-
-
       </div>
+
+
   );
 }
 

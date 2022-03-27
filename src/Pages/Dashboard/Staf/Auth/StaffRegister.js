@@ -4,6 +4,8 @@ import API from '../../../../api'
 import { useForm } from 'react-hook-form'
 import { Dialog, Transition } from '@headlessui/react'
 import { Link, Navigate } from 'react-router-dom'
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 
 export default function StaffRegister() {
@@ -22,8 +24,8 @@ export default function StaffRegister() {
     address: '',
     city: '',
     salary_type: '',
-    salary: '',
-    worktype: '',
+    salary: 0,
+    work_type: '',
     acc_no: '',
     ifsc: '',
   })
@@ -46,13 +48,22 @@ export default function StaffRegister() {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
-  const mobile_val = (e) => {
+   const mobile_val = (e) => {
     const mobile = e.target.value
-    if (mobile.length < 4) {
-      if (mobile === '+91') {
-        openModal()
-        e.target.value = ''
-      }
+
+    if (mobile.length > 10) {
+      alert("Enter only 10 digits without +91")
+      e.target.value = ""
+      // if (mobile === '+91') {
+      //   // openModal()
+      //   alert("Avoid Using +91")
+      //   e.target.value = ''
+      // }
+      //  if (mobile.length <= 10){
+      //    alert("10 Number only allowed")
+      //  }else{
+      //    alert('10 Number only allowed')
+      //  }
     }
   }
 
@@ -67,18 +78,22 @@ export default function StaffRegister() {
     formState: { errors },
   } = useForm()
   const onSubmit = async (e) => {
-    console.log(e)
 
     const data = new FormData()
+      if (formData.salary_type == "wages"){
+          formData.salary = 0;
+      }
       data.append('file', file)
       data.append('mobile',formData.mobile)
       data.append('salary_type',formData.salary_type)
       data.append('work_type',formData.work_type)
-      data.append('data', JSON.stringify(e))
+      data.append('data', JSON.stringify({...e,...{"salary" : formData.salary}}))
+
       const res = await axios.post(API + "/api/staff_register/",data);
+    console.log(res.data)
       if(res.data.status){
         isLogin(true)
-        alert("Register Sucessfully")
+        alert(res.data.message)
         setFormData({
           staff_name: '',
           password: '',
@@ -86,30 +101,40 @@ export default function StaffRegister() {
           address: '',
           city: '',
           salary_type: '',
-          salary: '',
+          salary: 0,
           worktype: '',
           acc_no: '',
           ifsc: '',
         })
       }else{
-        alert("Not Register Check Now")
-        setFormData(
-          {
-            staff_name: '',
-            password: '',
-            mobile: '',
-            address: '',
-            city: '',
-            salary_type: '',
-            salary: '',
-            worktype: '',
-            acc_no: '',
-            ifsc: '',
-          }
-        )
+        console.log(res.data)
+        // setFormData(
+        //   {
+        //     staff_name: '',
+        //     password: '',
+        //     mobile: '',
+        //     address: '',
+        //     city: '',
+        //     salary_type: '',
+        //     salary: '',
+        //     worktype: '',
+        //     acc_no: '',
+        //     ifsc: '',
+        //   }
+        // )
       }
-    reset()
+    // reset()
   }
+
+  const is_user = (e,mobile) => {
+    axios.post(`${API}/api/is_staff/`,{"cust_id" : mobile}).then(res => {
+        if (res.data.status) {
+          alert(res.data.message)
+          e.target.value = ""
+        }
+    }).catch(err => console.log(err))
+  };
+
   return  Login ? (
     <Navigate to="/dashboard/dhome" />
   ) : (
@@ -134,10 +159,9 @@ export default function StaffRegister() {
                           type="text"
                           // onChange={onChange}
                           // value={staff_name}
-                          id="name"
                           name="staff_name"
                           className={Styles.Input}
-                          onChange={onChange}
+                          // onChange={onChange}
                           id="staff_name"
                           {...register('staff_name', { required: true })}
                           onKeyUp={() => {
@@ -164,47 +188,47 @@ export default function StaffRegister() {
                           // value={password}
                           className={Styles.Input}
                           // required
-                          {...register('password', { required: true })}
+                          {...register('password', { required: true,
+                            maxLength: 30,
+                            minLength: 5,
+                           })}
                           onKeyUp={() => {
                             trigger('password')
                           }}
                         />
                         {errors.password && (
                           <span className={Styles.InputError}>
-                            This field is required
+                            This field is required with minimun 5 charector
                           </span>
                         )}
                       </div>
                     </div>
-                    <div className="p-2 w-full">
-                      <div className="relative">
-                        <label htmlFor="mobile" className={Styles.Label}>
-                          Mobile
-                        </label>
-                        <input
-                          type="number"
-                          id="mobile"
-                          name="mobile"
-                          // onChange={onChange}
-                          // value={mobile}
-                          className={Styles.Input}
-                          onChange={(e) => {
-                            onChange(e)
-                            mobile_val(e)
-                          }}
-                          // required
-                          // {...register('mobile', { required: true })}
-                          // onKeyUp={() => {
-                          //   trigger('mobile')
-                          // }}
-                        />
-                        {/* {errors.mobile && (
-                          <span className={Styles.InputError}>
-                            This field is required
-                          </span>
-                        )} */}
-                      </div>
+                     <div className="relative w-full mb-3">
+                      <label className={Styles.Label} htmlFor="grid-password">
+                        Mobile
+                      </label>
+                      <TextField
+                        type="number"
+                        className={Styles.Input}
+                        placeholder="Mobile"
+                        onBlur={(e) => is_user(e,e.target.value)}
+                        // value={data.mobile}
+                        onChange={(e) => {
+                          onChange(e)
+                          mobile_val(e)
+                        }}
+                        name={'mobile'}
+                        maxLength={10}
+                        minLength={10}
+                        id="mobile"
+                        InputProps={{
+                          startAdornment: <InputAdornment position="start">
+                             +91
+                             </InputAdornment>,
+                        }}
+                      />
                     </div>
+
                     <div className="p-2 w-full">
                       <div className="relative">
                         <label htmlFor="address" className={Styles.Label}>
@@ -288,12 +312,9 @@ export default function StaffRegister() {
                           id="salary"
                           name="salary"
                           onChange={onChange}
+                          defaultValue={0}
                           // value={salary}
                           className={Styles.Input}
-                          {...register('salary', { required: true })}
-                          onKeyUp={() => {
-                            trigger('salary')
-                          }}
                         />
                         {errors.salary && (
                           <span className={Styles.InputError}>
@@ -304,6 +325,30 @@ export default function StaffRegister() {
 
                     </div>:''
                     }
+                    <div className="p-2 w-full">
+                      <div className="relative">
+                        <label htmlFor="bank" className={Styles.Label}>
+                          bank
+                        </label>
+                        <input
+                          type="text"
+                          id="bank"
+                          name="bank"
+                          // onChange={onChange}
+                          // value={acc_no}
+                          className={Styles.Input}
+                          {...register('bank', { required: true })}
+                          onKeyUp={() => {
+                            trigger('bank')
+                          }}
+                        />
+                        {errors.bank && (
+                          <span className={Styles.InputError}>
+                            This field is required
+                          </span>
+                        )}
+                      </div>
+                    </div>
                     <div className="p-2 w-full">
                       <div className="relative">
                         <label htmlFor="acc_no" className={Styles.Label}>
@@ -335,7 +380,7 @@ export default function StaffRegister() {
                         </label>
 
                         <select
-                          name="worktype"
+                          name="work_type"
                           // value={formData.worktype}
                           onChange={onChange}
                           className={Styles.Input}
@@ -346,7 +391,6 @@ export default function StaffRegister() {
                           <option value="tailor">tailor</option>
                           <option value="aari">aari</option>
                           <option value="embroidery">embroidery</option>
-                          <option value="photo">photo</option>
                         </select>
                       </div>
                     </div>
