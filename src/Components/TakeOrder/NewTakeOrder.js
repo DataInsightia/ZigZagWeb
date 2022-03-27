@@ -882,13 +882,25 @@ function NewTakeOrder() {
 
                             {/*Advance Amount*/}
 
+                            <div className={'text-center'}>
+                                <button
+                                    className={
+                                        'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
+                                    }
+                                    onClick={calculate}
+                                >
+                                    Calculate
+                            </button>
+                            </div>
+
 
                             {/*Table 2*/}
 
 
                             {
                                 is_calculate ? (
-                                       <div className={'flex md:justify-center inline-block justify-start overflow-auto md:overflow-x-scroll inline-block md:flex'}>
+                                       <div>
+                                           <div className={'flex md:justify-center inline-block justify-start overflow-auto md:overflow-x-scroll inline-block md:flex'}>
                                 <table className={'border-collapse text-center'}>
                                     <tr>
                                         <th className={'border border-slate-600 p-3'}>Work Name</th>
@@ -972,18 +984,10 @@ function NewTakeOrder() {
                                         </td>
                                     </tr>
                                 </table>
+
+
                             </div>
-                                ) : ""
-                            }
-
-
-                            {/*Table 2*/}
-
-
-
-                            {/*take order end*/}
-
-                            <div className={'flex justify-center'}>
+                                           <div className={'flex justify-center'}>
                                 <button
                                     className={
                                         'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
@@ -993,14 +997,7 @@ function NewTakeOrder() {
                                     Print Order
                                 </button>
 
-                                <button
-                                    className={
-                                        'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
-                                    }
-                                    onClick={calculate}
-                                >
-                                    Calculate
-                                </button>
+
 
                                 {isInvoice ? (
                                     <Navigate
@@ -1014,6 +1011,17 @@ function NewTakeOrder() {
                                     ''
                                 )}
                             </div>
+                            </div>
+                                ) : ""
+                            }
+
+
+                            {/*Table 2*/}
+
+
+
+                            {/*take order end*/}
+
                         </div>
                     ) : (
                         ''
