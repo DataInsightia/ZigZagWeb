@@ -35,6 +35,7 @@ import PayAdvance from "../Pages/Dashboard/Admin/PayAdvance";
 import CustomerInfo from "../Pages/Dashboard/Customer/CustomerInfo";
 import NewTakeOrder from "../Components/TakeOrder/NewTakeOrder";
 import DisplayList from '../Pages/Dashboard/DisplayList'
+import CustomerMeasurement from "../Pages/Dashboard/Admin/CustomerMeasurement";
 
 
 
@@ -98,6 +99,7 @@ export default function Router() {
 
         //DISPLAY DASHBOARD ITEM LISTS
         { path: 'lists/:state', element: <DisplayList /> },
+        { path: 'customer_measurement', element: <CustomerMeasurement /> },
       ],
     },
     { path: '*', element: <Navigate to="/" replace /> },

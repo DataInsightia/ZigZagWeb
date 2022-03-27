@@ -79,21 +79,30 @@ export default function Sidebar() {
 
                         <li>
                           <Link
-                            to="/dashboard/other_pickup"
+                            to="/dashboard/customer_measurement"
                             className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                           >
-                            OTHER PICKUP
+                            CUSTOMER MEASUREMENT
                           </Link>
                         </li>
 
-                        <li>
-                          <Link
-                            to="/dashboard/pay_advance"
-                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                          >
-                            PAY ADVANCE
-                          </Link>
-                        </li>
+                        {/*<li>*/}
+                        {/*  <Link*/}
+                        {/*    to="/dashboard/other_pickup"*/}
+                        {/*    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"*/}
+                        {/*  >*/}
+                        {/*    OTHER PICKUP*/}
+                        {/*  </Link>*/}
+                        {/*</li>*/}
+
+                        {/*<li>*/}
+                        {/*  <Link*/}
+                        {/*    to="/dashboard/pay_advance"*/}
+                        {/*    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"*/}
+                        {/*  >*/}
+                        {/*    PAY ADVANCE*/}
+                        {/*  </Link>*/}
+                        {/*</li>*/}
                       </li>
                     </ul>
                   </div>
