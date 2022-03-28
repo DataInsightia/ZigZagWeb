@@ -12,13 +12,13 @@ export default function Product() {
   const [currentPicture,setCurrentPicture] = useState('');
   const [productList,setProductList] = useState([]);
   const [currentProduct,setCurrentProduct] = useState({});
-  
+
   const closeUpdateModal = () => setUpdateIsOpen(false);
   const openUpdateModal = () => setUpdateIsOpen(true);
   const resetPicture = () => setPicture('');
   const resetProduct = () => setProduct({});
   const resetCurrentProduct = () => setCurrentProduct({});
-  
+
 
   const styles = {
     'rose-button' : "inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500"
@@ -50,7 +50,7 @@ export default function Product() {
       console.log(err);
       fetch();
     });
-    
+
   }
 
   const getProduct = (e,pid) => {
@@ -71,7 +71,7 @@ export default function Product() {
         fetch();
         resetCurrentProduct();
     }).catch(err => console.log(err))
-    
+
   }
 
 const handleEvent = (e) => setProduct({ ...product, [e.target.name] : e.target.value })
