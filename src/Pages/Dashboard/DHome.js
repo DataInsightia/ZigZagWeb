@@ -180,7 +180,8 @@ export default function DashboardHome() {
                 />
                 </Link>
                 <Link
-                  to={`/dashboard/work_complete`}
+                  to={`/dashboard/lists/taken_works`}
+                  state={'taken_works'}
                 >
                 <StatusCard
                   color="red"
@@ -217,8 +218,8 @@ export default function DashboardHome() {
                 />
                 </Link>
                 <Link
-                  to={`/dashboard/lists/today_due_works`}
-                  state={'today_due_works'}
+                  to={`/dashboard/lists/week_due_works`}
+                  state={'week_due_works'}
                 >
                 <StatusCard
                   color="yellow"

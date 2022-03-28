@@ -89,6 +89,7 @@ function StaffWageCalculation() {
     e.preventDefault()
     for (var i = 0; i < wagepending.length; i++) {
       ids.push(wagepending[i].id)
+  
     }
 
     var payment_date = e.target.payment_date.value
