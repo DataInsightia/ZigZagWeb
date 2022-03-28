@@ -58,7 +58,7 @@ export default function Router() {
 
     {
       path: '/dashboard',
-      element: <Dashboard />,
+      element: <Protected cmp={Dashboard} />,
       children: [
         { path: 'dhome', element: <DashboardHome /> },
         { path: 'work', element: <WorkForm/>},
