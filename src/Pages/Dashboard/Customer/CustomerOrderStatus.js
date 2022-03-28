@@ -72,7 +72,7 @@ function CustomerOrderStatus() {
         // alert(materialLocation.length)
     }
 
-    const [dataa, setData] = useState('No result');
+    const [qr_value, setQrValue] = useState('No result');
 
 
     return (
@@ -95,7 +95,7 @@ function CustomerOrderStatus() {
                                 videoId = 'video'
                                 onResult={(result, error) => {
                                     if (result) {
-                                        setData(result);
+                                        setOrderID({...orderid,['order_id'] : result});
                                     }
 
                                     if (!!error) {
@@ -113,7 +113,7 @@ function CustomerOrderStatus() {
             <div className="container">
 
             <form className="grid justify-center" onSubmit={checkOrder}>
-                <input    className="uppercase shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" placeholder={dataa} onChange={handleEvent}/>
+                <input    className="uppercase shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" value={orderid.order_id} onChange={handleEvent}/>
                 <div className="grid justify-center">
                     <input  className={"justify-center button text-white rounded p-3 m-3 bg-pink-600"} type="submit" /></div>
             </form>

@@ -12,13 +12,13 @@ export default function Product() {
   const [currentPicture,setCurrentPicture] = useState('');
   const [productList,setProductList] = useState([]);
   const [currentProduct,setCurrentProduct] = useState({});
-  
+
   const closeUpdateModal = () => setUpdateIsOpen(false);
   const openUpdateModal = () => setUpdateIsOpen(true);
   const resetPicture = () => setPicture('');
   const resetProduct = () => setProduct({});
   const resetCurrentProduct = () => setCurrentProduct({});
-  
+
 
   const styles = {
     'rose-button' : "inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500"
@@ -50,7 +50,7 @@ export default function Product() {
       console.log(err);
       fetch();
     });
-    
+
   }
 
   const getProduct = (e,pid) => {
@@ -71,7 +71,7 @@ export default function Product() {
         fetch();
         resetCurrentProduct();
     }).catch(err => console.log(err))
-    
+
   }
 
 const handleEvent = (e) => setProduct({ ...product, [e.target.name] : e.target.value })
@@ -273,8 +273,8 @@ const fetch = () => {
                     <input required onChange={handleFile} name="product_image" class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
                     <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A product picture is useful to confirm your product.</div>
 
-                    <label><input type="button" onClick={(e) => handleToggler(e,product.display)} defaultValue={product.display ? "show" : "hide"} name="display" /> Display</label><br />
-                    <label><input type="button" onClick={(e) => handleToggler(e,product.new_arrival)} defaultValue={product.new_arrival ? "show" : "hide"} name="new_arrival" /> New Arrival</label><br />
+                    <label className={ product.display ? 'button border-none rounded-2xl bg-green-500 text-white font-bold' : 'button border-none rounded-2xl bg-red-500 text-white font-bold'}><input type="button" onClick={(e) => handleToggler(e,product.display)} defaultValue={product.display ? "Click to Hide " : "Click to Show "} name="display" /> Product</label><br />
+                    <label className={ product.new_arrival ? 'button border-none rounded-2xl bg-green-500 text-white font-bold' : 'button border-none rounded-2xl bg-red-500 text-white font-bold'}><input type="button" onClick={(e) => handleToggler(e,product.new_arrival)} defaultValue={product.new_arrival ? "Click to Hide " : "Click to Show "} name="new_arrival" /> New Arrival</label><br />
 
                     <div className='mt-4'>
                     <button type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500" >Submit</button>    
