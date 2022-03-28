@@ -429,22 +429,23 @@ function NewTakeOrder() {
                                 />
                             </div>
                         </div>
-                        <div className="grid col-auto mt-12 w-1/4 mb-16">
+                        <div className="grid col-auto mt-12 md:w-1/4 mb-16">
                             <div className="flex flex-wrap">
                                 <h3 className="text-xl subpixel-antialiased">Customer Id:{customer_details.cust_id}</h3>
                             </div>
+                           <br/>
                             <div className="flex flex-wrap">
-
                                 <h3 className="text-xl subpixel-antialiased">Name :{customer_details.cust_name}</h3>
                             </div>
+                            <br/>
                             <div className="flex flex-wrap">
-
                                 <h3 className="text-xl subpixel-antialiased">Mobile :{customer_details.mobile}</h3>
                             </div>
+                            <br/>
                             <div className="flex flex-wrap">
                                 <h3 className="text-xl subpixel-antialiased">Email:{customer_details.email}</h3>
                             </div>
-
+                            <br/>
                             <div className="flex flex-wrap">
                                 <h3 className="text-xl subpixel-antialiased">Address :{customer_details.address}</h3>
                             </div>
