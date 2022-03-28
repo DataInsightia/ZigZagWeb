@@ -61,11 +61,7 @@ const CustomerOrderHistory = () => {
                                                             to={"/dashboard/invoicemob/" + custid +"/" + e.order_id}
                                                             className="w-full h-full rounded-full"
                                                             >
-                                                                <img
-                                                                    className="w-full h-full rounded-full m-2"
-                                                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                                                    alt=""
-                                                                />
+                                                             
                                                             </Link>
                                                         </div>
                                                         <div class="ml-3">

@@ -1,15 +1,12 @@
-import React, { useState} from 'react';
+import React,{useState} from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import axios from 'axios';
 import API from '../../../api'
+import {QrReader} from 'react-qr-reader'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCamera, faHome} from "@fortawesome/fontawesome-free-solid";
-import {QrReader} from "react-qr-reader";
-
-
+import {faCamera} from "@fortawesome/fontawesome-free-solid";
 
 function CustomerOrderStatus() {
-
     const [stage,setStage] = useState([])
     const [wa_stage,setWAstage] = useState([])
     const [new_stage,setNewstage] = useState({})
@@ -73,10 +70,10 @@ function CustomerOrderStatus() {
         })
 
         // alert(materialLocation.length)
-
     }
 
     const [dataa, setData] = useState('No result');
+
 
     return (
         <div className="bg-gray-50 md:mt-16">

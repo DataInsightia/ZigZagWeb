@@ -1,100 +1,530 @@
-import axios from 'axios';
-import React, { useState } from 'react'
-import API from '../../../api';
+import React, { Fragment,useState, useEffect } from 'react'
+import axios from 'axios'
+import API from '../../../api'
+import styles from '../Staf/Style/Styles'
+import { Dialog, Transition } from '@headlessui/react'
+// import { toast } from 'react-toastify'
 
 function Delivery() {
-    const [data,setData] = useState({});
-    const [staffs,setStaffs] = useState([]);
-    const [orderid,setOrderID] = useState('');
-    const [workid,setWorkID] = useState('');
-    const [balance,setBalance] = useState(0);
-    const [amount2pay,setAmountToPay] = useState({});
-    const handleEvent = (e) => setData({...data,[e.target.name]:e.target.value});
-    const handleEventProceed = (e) => setAmountToPay({...data,[e.target.name]:e.target.value});
-    const checkButton = (e) => {
-        e.preventDefault();
-        axios.post(`${API}/api/is_order_completed/`,data)
+
+  const [formData, setFormData] = useState({
+    order_id: '',
+    work_id: '',
+    staff_id: '',
+    assign_stage: '',
+  })
+
+  const [tmpDelivery,setTmpDelivery] = useState([]);
+
+  const Assign_Work = async (
+    id,
+    order_id,
+    work_id,
+    staff_id,
+    assign_stage,
+    order_work_label,
+    material_location
+
+  ) => {
+    console.log(material_location)
+    const response = await axios.post(API + '/api/staff_work_assign/',
+      {
+        id,
+        order_id,
+        work_id,
+        staff_id,
+        assign_stage,
+        order_work_label,
+        material_location
+      },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      },
+      { withCredentials: true },
+    )
+    // notify(response..details)
+    console.log(response.data);
+    return response
+    // window.location.reload()
+  }
+  // const notify = (detail) => toast(`${detail}`)
+  const [staff, setStaff] = useState([])
+  const [orderid,setOrderID] = useState('')
+  const [currentOrder,setCurrentOrder] = useState({})
+  const [pendingworks, setPendingworks] = useState([])
+  const [orderPendingWork,setOrderPending] = useState([])
+  const [orderPendingWorkBool,setOrderWorkBool] = useState(false);
+  const [pendingworksbool, setPendingworksbool] = useState(false)
+  const [checkout_data,setCheckoutData] = useState({
+    balance_amount : 0,
+    current_amount : 0,
+    pending_amount : 0
+  });
+
+  const delete_tmp_delivery = (orderid) => {
+    axios.delete(API +'/api/tmp_delivery/',{"order_id" : orderid}).then((res) => {
+      console.log(res.data.meassage);
+    }).catch(err => err);
+  }
+  const fetchUnAssignedWorks = async () =>{
+  await axios.get(API +'/api/order_assign_completed/').then((res) => {
+    console.log(res.data)
+      if (res.data.status === true) {
+        console.log(res.data.data)
+        setPendingworks(res.data.data)
+        setPendingworksbool(true)
+      } else {
+        setPendingworks([])
+        setPendingworksbool(false)
+      }
+    })
+  }
+  useEffect(() => {
+      const get = async () => {
+      await fetchUnAssignedWorks()
+      await  axios.get(API +'/api/tmp_delivery/').then((res) => setTmpDelivery(res.data.data))
+      await  axios.get(API +'/api/staff/').then((res) => setStaff(res.data))
+      }
+      get();
+  }, [])
+
+    var date = (new Date()).toLocaleDateString('en-GB')
+
+  // const { order_id, work_id, staff_id, assign_stage } = formData
+
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+
+  const handleCheckout = (e) =>
+    setCheckoutData({ ...checkout_data, [e.target.name]: e.target.value })
+
+  const fetch_pending_work = (orderid) => axios.post(API +'/api/order_assign_completed/',{order_id : orderid}).then((res) => {
+    console.log(res.data)
+      if (res.data.status === true) {
+        setOrderPending(res.data.data)
+        setOrderWorkBool(true)
+      } else {
+        setOrderPending([])
+        setOrderWorkBool(false)
+      }
+    });
+
+  const getPendingWork = (e) => {
+    fetch_pending_work(e.target.order_id.value)
+    e.preventDefault()
+  }
+
+  const getOrder = (e) => {
+    axios.get(`${API}/api/find_order/${e.target.order_id.value}`)
         .then(res => {
-            if (res.data.status) {
-                axios.post(`${API}/api/delivery/`,data).then(res => {
-                    alert(JSON.stringify(res.data.order_work_staff_assign[0].order.balance_amount))
-                    setOrderID(res.data.order_work_staff_assign[0].order.order_id)
-                    setWorkID(res.data.order_work_staff_assign[0].work.work_id)
-                    setBalance(res.data.order_work_staff_assign[0].order.balance_amount)
-                }).catch(err => console.log(err))
-            }
-        }).catch(err => console.log(err))
-        axios.get(`${API}/api/staff/`).then(res => setStaffs(res.data)).catch(err => console.log(err));
-    }
+          // setCheckoutData({...checkout_data,['balance_amount'] : currentOrder.balance_amount})
+          console.log()
+          setCurrentOrder(res.data)
+          console.log(res.data)
+        })
+        .catch(err => console.log(err))
+  }
 
-    const checkout = (e) => {
-        e.preventDefault()
-        // Insert To Delivery Model
-        const payload = {"order_id": e.target.order_id.value, "staff_id" : e.target.staff_id.value,"amount_to_pay" : e.target.amount_to_pay.value}
-        axios.post(`${API}/api/proceed_delivery/`,payload).then(res => {
-            alert(JSON.stringify(res.data))
-        }).catch(err => console.log(err))
-    }
+  let [isOpen, setIsOpen] = useState(false)
+  let [message, setMessage] = useState('')
 
+  function closeModal () {
+    fetchUnAssignedWorks()
+    setIsOpen(false)
+    setMessage()
+  }
 
-    var curr = new Date();
-    curr.setDate(curr.getDate());
-    var date = curr.toISOString().substr(0,10);
+  function openModal() {
+    setIsOpen(true)
+  }
 
+  const onOrderChange = (e) => setOrderID(e.target.value);
+
+  const onSubmit = async (e) => {
+    e.preventDefault()
+   // const res = await Assign_Work(
+   //    e.target.id.value,
+   //    e.target.order_id.value,
+   //    e.target.work_id.value,
+   //    e.target.staff_id.value,
+   //    e.target.assign_stage.value,
+   //    e.target.order_work_label.value,
+   //    e.target.material_location.value,
+   //  )
+
+    axios.post(`${API}/api/tmp_delivery/`,{
+      "order_id" : e.target.order_id.value,
+      "staff_id" : e.target.staff_id.value,
+      "order_work_label" : e.target.order_work_label.value,
+    }).then(res => {
+        alert(JSON.stringify(res.data));
+    }).catch(err => console.log(err))
+      e.target.id.value = ""
+      e.target.order_id.value = ""
+      e.target.work_id.value = ""
+      e.target.staff_id.value = ""
+      e.target.assign_stage.value = ""
+      e.target.order_work_label.value = ""
+      e.target.material_location.value = ""
+    openModal()
+    // setMessage(res.data.details)
+  }
 
   return (
     <div>
 
-        <div className="flex scroll items-center mt-16 justify-center min-h-screen bg-gray-100">
-            <div className="w-2/5 bg-white shadow-lg">
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-25"
+          onClose={closeModal}
+        >
+          <div className="min-h-screen px-4 text-center">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0" />
+            </Transition.Child>
 
-                    <form onSubmit={checkButton}>
-                        <input type="text" name="order_id" onChange={handleEvent}/>
-                        <input type="submit" value="Search" className='button bg-rose-500'/>
-                    </form>
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg font-medium leading-6 text-gray-900"
+                >
+                  {message}
+                </Dialog.Title>
+
+
+                <div className="mt-4">
+                  <button
+                    type="button"
+                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    onClick={(e) => {
+                        closeModal(e);
+                        window.location.reload();
+                    }}
+                  >
+                    Go ahead
+                  </button>
+                </div>
+              </div>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
+      {pendingworksbool ? (
+        <div className="p-10 mt-10">
+          <div className="p-3 bg-white shadow-xl">
+            <div className='flex justify-center'>
+
+              <div className={styles.title}>Search Orders</div>
+              <form onSubmit={(e) => {getPendingWork(e);getOrder(e)}}>
+                <div className="flex">
+                <input type="text" name={'order_id'} className='uppercase bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2 mr-2' onChange={onOrderChange} value={orderid} placeholder={'Order ID'} />
+                <input type="submit" className={styles.check_button} value={'Check'} />
+                </div>
+              </form>
             </div>
-            <div className='flex w-full'>
-            {staffs.length > 0 ? (
-                <form onSubmit={checkout} >
-                <table>
-                <tr>
-                    <th>ORDER ID</th>
-                    <th>WORK ID</th>
-                    <th>STAFFS</th>
-                    <th>DELIVERY DATE</th>
-                    <th>BALANCE</th>
-                    <th>AMOUNT TO PAY</th>
-                </tr>
+            <div>
+              <div className="flex flex-col">
+              <div className="overflow-x-auto">
+                <div className="inline-block py-2 min-w-full ">
+                  <div className="overflow-hidden">
+                    {
+                      orderPendingWorkBool ? (<table className="min-w-full">
+                      <thead>
+                        <tr>
+                          <div className="flex flex-wrap">
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Order
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Reference
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Staff
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Date
+                              </th>
+                            </div>
 
-                <tr>
-                    <td><input name="order_id" value={orderid} disabled/></td>
-                    <td><input name="work_id" value={workid} disabled/></td>
-                    <td>
-                        <select name="staff_id" onChange={handleEventProceed} required>
-                            <option selected hidden>Select Staff</option>
-                            {
-                            staffs.length > 0 ? staffs.map(e => <option value={e.staff_id}>{e.staff_name}</option>) : ""
-                            }
-                        </select>
-                    </td>
-                    <td>
-                        <input
-                              className="form-control block font-extrabold  w-full px-3 py-1.5 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                              type={"date"}
-                              defaultValue={date}
-                          />
-                    </td>
-                </tr>
-                <td><input name="blance_amount" value={balance} disabled/></td>
-                <td><input name="amount_to_pay" onChange={handleEventProceed} /></td>
-                <td><input type="submit" value="Checkout"/></td>
-            </table>
-
-                </form>
-                )  : ""}
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}></th>
+                            </div>
+                          </div>
+                        </tr>
+                      </thead>
+                    </table>) : ""
+                    }
+                  </div>
+                </div>
+              </div>
             </div>
 
+            {orderPendingWork.map((e) => (
+              <form onSubmit={onSubmit}>
+                <div className="flex flex-wrap">
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+
+                    <input
+                      type="text"
+                      id="order_id"
+                      name="order_id"
+                      value={e.order.order_id}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                    />
+                  </div>
+
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      id="order_work_label"
+                      name="order_work_label"
+                      value={e.order_work_label}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+
+                    />
+                  </div>
+
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <select
+                      id="staff_id"
+                      name="staff_id"
+                      onChange={onChange}
+                      className={styles.select}
+                      required
+                    >
+                      <option selected>Please select</option>
+                        {
+                            // (T - {e.takenOrders}) | (A - {e.assignOrders})  | (N - {e.nottakenOrders})
+                        }
+                      {staff.map((e) => (
+                        <option value={e.staff_id}>{e.staff_name} (T - {e.takenOrders}) | (A - {e.assignOrders})  | (N - {e.nottakenOrders})</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                        className="form-control block font-bold  w-full mb-8 px-3 py-3 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        type={'text'}
+                        defaultValue={date}
+                        required
+                        disabled
+                    />
+                  </div>
+
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <div className="flex justify-between">
+                      <button
+                        type="submit"
+                        className={styles.pinkbutton}
+                      >
+                        Delivery
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="h-2"></div>
+
+                <div></div>
+              </form>
+            ))}
+
+
+              { orderPendingWorkBool ? (<div className={'text-lg m-10'}>
+              <h1 className={styles.title}>Items to Deliver</h1>
+              <div className={'flex'}>
+                <table className={'border-collapse text-center'}>
+                  <tr>
+                    <th className={'border border-slate-600 p-2'}>ORDER ID</th>
+                    <th className={'border border-slate-600 p-2'}>ORDER WORK LABEL</th>
+                    <th className={'border border-slate-600 p-2'}>STAFF NAME</th>
+                    <th className={'border border-slate-600 p-2'}>DATE</th>
+                  </tr>
+                  {
+                  tmpDelivery.map(e => <tr>
+                    <td className={'border border-slate-600 p-2'}>{e.order.order_id}</td>
+                    <td className={'border border-slate-600 p-2'}>{e.order_work_label}</td>
+                    <td className={'border border-slate-600 p-2'}>{e.staff.staff_name}</td>
+                    <td className={'border border-slate-600 p-2'}>{new Date().toLocaleDateString()}</td>
+                  </tr>)
+                  }
+                </table>
+                <div className={'border-2 p-2 m-2'}>
+                  <form>
+                    <p className={'m-1'}>Old Balance : <input name={'balance_amount'} className={'border-2'} type={'text'} value={checkout_data.balance_amount} onChange={handleCheckout} disabled/></p>
+                    <p className={'m-1'}>Current Payment : <input name={'current_balance'} className={'border-2'} type={'text'} defaultValue={0} onChange={handleCheckout} /></p>
+                    <p className={'m-1'}>Pending Amount : <input name={'pending_amount'} className={'border-2'} type={'text'} value={checkout_data.pending_amount} onChange={(e) => {
+                      handleCheckout(e);
+                      setCheckoutData({...checkout_data,[e.target.name]: (parseInt(checkout_data.balance_amount) - parseInt(checkout_data.current_amount))})
+                    }} /></p>
+
+                    <input type={'submit'} className={'bg-rose-500 text-white rounded-xl p-1 font-bold'} value={'Print Delivery'} />
+                    {JSON.stringify(checkout_data)}
+                  </form>
+
+                </div>
+              </div>
+            </div>) : "" }
+
+              </div>
+
+
+            <h1 className={styles.title}>Pending Orders to Delivery</h1>
+
+            <div className="flex flex-col">
+              <div className="overflow-x-auto">
+                <div className="inline-block py-2 min-w-full ">
+                  <div className="overflow-hidden">
+                    <table className="min-w-full">
+                      <thead>
+                        <tr>
+                          <div className="flex flex-wrap">
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Order
+                              </th>
+                            </div>
+
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Reference
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Staff
+                              </th>
+                            </div>
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}>
+                                Date
+                              </th>
+                            </div>
+
+                            <div className="lg:w-1/6">
+                              <th scope="col" className={styles.tablehead}></th>
+                            </div>
+                          </div>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {pendingworks.map((e) => (
+              <form onSubmit={onSubmit}>
+                <div className="flex flex-wrap">
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      id="id"
+                      name="id"
+                      // value={e.data.id}
+                      disabled
+                      hidden
+                    />
+                    <input
+                      type="text"
+                      id="order_id"
+                      name="order_id"
+                      value={e.order.order_id}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+                    />
+                  </div>
+
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                      type="text"
+                      id="order_work_label"
+                      name="order_work_label"
+                      value={e.order_work_label}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                      disabled
+
+                    />
+                  </div>
+
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <select
+                      id="staff_id"
+                      name="staff_id"
+                      onChange={onChange}
+                      className={styles.select}
+                      required
+                    >
+                      <option selected>Please select</option>
+                      {staff.map((e) => (
+                        <option value={e.staff_id}>{e.staff_name} (T - {e.takenOrders}) | (A - {e.assignOrders})  | (N - {e.nottakenOrders})</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <input
+                        className="form-control block font-bold  w-full mb-8 px-3 py-3 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        type={'text'}
+                        defaultValue={date}
+                        required
+                        disabled
+                    />
+                  </div>
+                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    <div className="flex justify-between">
+                      <button
+                        type="submit"
+                        className={styles.pinkbutton}
+                      >
+                        Delivery
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="h-2"></div>
+
+                <div></div>
+              </form>
+            ))}
+          </div>
         </div>
+      ) : (
+        ''
+      )}
     </div>
   )
 }

@@ -100,45 +100,51 @@ function OrderWorkStaffCompletion() {
     fetchStaffCompletion()
   }, [])
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault()
     var staff_id = localStorage.getItem('login_id')
-   const res = await Stage_Completion_Request(
+   Stage_Completion_Request(
       e.target.order_id.value,
       e.target.work_id.value,
       staff_id,
       e.target.date.value,
       e.target.assign_stage.value,
       e.target.order_work_label.value,
-    )
+    ).then(res => {
+        // Stroring MaterialLocation in Backend
+       if(res.data.status) {
+           axios
+          .post(API + '/api/materialc/', {
+            material_location: e.target.material_location.value,
+            staff_id: staff_id,
+            order_id: e.target.order_id.value,
+            order_work_label : e.target.order_work_label.value
+          })
+          .then((res) => {
+              console.log("asdfasdfsf")
+            if (res.data.status) {
+                alert("Material Updated")
+                console.log(res.data)
+                openModal()
 
-    window.location.reload();
+                setMessage("Material Location Updated")
+              // alert("Material Location Updated");
+                // setRedirect(true);
+             }
+          })
+          .catch((err) => console.log(err))
+       }else{
+           alert(res.data.message);
+       }
+   }).catch(err => console.log(err))
 
-      // e.target.order_id.value = ""
-      // e.target.work_id.value = ""
-      // e.target.date.value = ""
-      // e.target.assign_stage.value = ""
-      // e.target.order_work_label.value = ""
+      e.target.order_id.value = ""
+      e.target.work_id.value = ""
+      e.target.date.value = ""
+      e.target.assign_stage.value = ""
+      e.target.order_work_label.value = ""
 
-
-
-    // Stroring MaterialLocation in Backend
-
-    axios
-      .post(API + '/api/material/', {
-        material_location: e.target.material_location.value,
-        staff_id: staff_id,
-        order_id: e.target.order_id.value,
-      })
-      .then((res) => {
-        if (res.data.status) { 
-          openModal()
-            setMessage("Material Location Updated")
-          // alert("Material Location Updated");
-            // setRedirect(true);
-         }
-      })
-      .catch((err) => console.log(err))
+       window.location.reload();
   }
 
   const current = new Date()

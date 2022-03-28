@@ -17,7 +17,6 @@ export const StaffWageUpdate = async (order_id, work_id, staff_id) => {
     },
     { withCredentials: true },
   )
-  console.log(response.data.details)
 }
 
 function StaffWageCalculation() {
@@ -115,8 +114,9 @@ function StaffWageCalculation() {
       .then((res) => {
         if (res.data.status) {
           alert('wage paid Sucessfully')
+
         } else {
-          alert('Not paid')
+          alert('Not paid or Already Paid')
         }
       })
       .catch((error) => console.log(error))

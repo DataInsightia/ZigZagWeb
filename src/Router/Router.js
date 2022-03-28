@@ -34,10 +34,10 @@ import OtherPickup from "../Pages/Dashboard/Admin/OtherPickup";
 import PayAdvance from "../Pages/Dashboard/Admin/PayAdvance";
 import CustomerInfo from "../Pages/Dashboard/Customer/CustomerInfo";
 import NewTakeOrder from "../Components/TakeOrder/NewTakeOrder";
+import DisplayList from '../Pages/Dashboard/DisplayList'
+import CustomerMeasurement from "../Pages/Dashboard/Admin/CustomerMeasurement";
 import TakeOrderMod from "../Components/TakeOrder/TakeOrderMod";
 import InvoiceMob from "../Components/TakeOrder/Invoice/InvoiceMob";
-
-
 
 
 // ----------------------------------------------------------------------
@@ -52,7 +52,6 @@ export default function Router() {
         { path: 'login', element: <Login /> },
         { path: 'register', element: <Register /> },
         { path: 'product_home', element: <Product_Home /> },
-        { path: 'customer_info', element: <CustomerInfo /> },
         { path: 'order_status_home', element: <Order_Status_Home /> },
       ],
     },
@@ -66,7 +65,6 @@ export default function Router() {
         { path: 'material', element: <MaterialForm/>},
         { path: 'takeorder', element: <NewTakeOrder /> },
         { path: 'takeordermod', element: <TakeOrderMod /> },
-        { path: 'takeorder', element: <NewTakeOrder /> },
         // { path: 'invoice/', element: <Invoice /> },
         { path: 'invoice/:custid/:orderid', element: <Invoice /> },
         { path: 'invoicemob/:custid/:orderid', element: <InvoiceMob /> },
@@ -96,10 +94,16 @@ export default function Router() {
 
         // DELIVERY
         { path: 'delivery', element: <Delivery />},
-        // OTHER DELIVERY
-        {path : 'other_pickup', element: <OtherPickup />},
+
         // PAY ADVANCE
         {path : 'pay_advance', element: <PayAdvance />},
+
+        // OTHER DELIVERY
+        {path : 'other_pickup', element: <OtherPickup />},
+
+        //DISPLAY DASHBOARD ITEM LISTS
+        { path: 'lists/:state', element: <DisplayList /> },
+        { path: 'customer_measurement', element: <CustomerMeasurement /> },
       ],
     },
     { path: '*', element: <Navigate to="/" replace /> },

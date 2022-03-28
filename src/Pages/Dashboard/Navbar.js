@@ -155,7 +155,7 @@ export default function Navbar() {
                                                     </Link>
                                                     <li>
                                                         <Link
-                                                            to="/dashboard/order_status"
+                                                            to="/dashboard/customer_order_status"
                                                             className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                                                         >
                                                             ORDER STATUS
@@ -354,8 +354,9 @@ export default function Navbar() {
                         href="#"
                         className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-rose-500 hover:bg-indigo-700"
                         onClick={() => {
-                            localStorage.clear()
-                            navigate('/login')
+                            logout().then(() => {
+                                navigate('/');window.location.reload();
+                            })
                         }}
                     >
                        Logout
