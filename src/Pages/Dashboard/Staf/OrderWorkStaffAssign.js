@@ -3,9 +3,7 @@ import axios from 'axios'
 import API from '../../../api'
 import styles from '../Staf/Style/Styles'
 import { Dialog, Transition } from '@headlessui/react'
-import { toast } from 'react-toastify'
-
-
+// import { toast } from 'react-toastify'
 
 function OrderWorkStaffAssign() {
 
@@ -68,9 +66,12 @@ function OrderWorkStaffAssign() {
       }
     })
   }
-  useEffect(async() => {
-  await fetchUnAssignedWorks()
-  await  axios.get(API +'/api/staff/').then((res) => setStaff(res.data))
+  useEffect(() => {
+      const get = async () => {
+      await fetchUnAssignedWorks()
+      await  axios.get(API +'/api/staff/').then((res) => setStaff(res.data))
+      }
+      get()
   }, [])
 
   
@@ -92,7 +93,6 @@ function OrderWorkStaffAssign() {
   const getPendingWork = (e) => {
     fetch_pending_work(e.target.order_id.value)
     e.preventDefault()
-
   }
 
   let [isOpen, setIsOpen] = useState(false)
@@ -176,7 +176,7 @@ function OrderWorkStaffAssign() {
                 >
                   {message}
                 </Dialog.Title>
-
+                
 
                 <div className="mt-4">
                   <button
@@ -310,9 +310,11 @@ function OrderWorkStaffAssign() {
                       className={styles.select}
                     >
                       <option selected>Please select</option>
-                        
+                        {
+                            // (T - {e.takenOrders}) | (A - {e.assignOrders})  | (N - {e.nottakenOrders})
+                        }
                       {staff.map((e) => (
-                        <option value={e.staff_id}>{e.staff_name} (T - {e.takenOrders}) | (A - {e.assignOrders})  | (N-{e.nottakenOrders})</option>
+                        <option value={e.staff_id}>{e.staff_name} (T - {e.takenOrders}) | (A - {e.assignOrders})  | (N - {e.nottakenOrders})</option>
                       ))}
                     </select>
                   </div>
@@ -344,7 +346,7 @@ function OrderWorkStaffAssign() {
                         type="text"
                         name="material_location"
                         value={e.data.material_location}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                        className="uppercase bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
                         required
                       />
                   </div>
@@ -483,7 +485,7 @@ function OrderWorkStaffAssign() {
                     >
                       <option selected>Please select</option>
                       {staff.map((e) => (
-                        <option value={e.staff_id}>{e.staff_name} (T - {e.takenOrders}) | (A - {e.assignOrders})  | (N-{e.nottakenOrders})</option>
+                        <option value={e.staff_id}>{e.staff_name} (T - {e.takenOrders}) | (A - {e.assignOrders})  | (N - {e.nottakenOrders})</option>
                       ))}
                     </select>
                   </div>
@@ -514,7 +516,7 @@ function OrderWorkStaffAssign() {
                         type="text"
                         name="material_location"
                         onChange={onChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
+                        className="uppercase bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2"
                         required
                       />
                   </div>

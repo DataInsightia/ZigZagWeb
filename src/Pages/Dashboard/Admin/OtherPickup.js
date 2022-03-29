@@ -23,7 +23,7 @@ function OtherPickup() {
     axios
       .post(`${API}/api/is_order/`, data)
       .then((res) => {
-        if (res.data.status) { setShow(true) } else { alert("Order ID not found !") }
+        if (res.data.status) { setShow(true) } else { alert("Order ID not found !");window.location.reload() }
 
       }).catch(err => console.log(err));
     axios
@@ -122,7 +122,7 @@ function OtherPickup() {
                 type="text"
                 name="order_id"
                 onChange={handleEvent}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="uppercase shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
             <div className="mx-2">
@@ -138,46 +138,37 @@ function OtherPickup() {
           {show ? (
             <form onSubmit={checkout}>
               <div className="flex flex-wrap shadow-xl bg-white mt-8 p-5">
-                <div className="w-full md:w-1/2 lg:w-1/3 mb-5 px-5">
-                  <div className="font-bold mb-2">ORDER ID</div>
-                  <div className="">
-                    <input
-                      name="order_id"
-                      value={orderid}
-                      disabled
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    />
-                  </div>
-                </div>
-                <div className="w-full md:w-1/2 lg:w-1/3 mb-5 px-5">
-                  <div className="font-bold mb-2">WORK ID</div>
-                  <div className="">
-                    <input
-                      name="work_id"
-                      value={workid}
-                      disabled
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    />
-                  </div>
-                </div>
-                <div className="w-full md:w-1/2 lg:w-1/3 mb-5 px-5">
+                <div className="w-full md:w-1/2 lg:w-1/2 mb-5 px-5">
                   <div className="font-bold mb-2">Pickup Type</div>
-                  <div className="">
-                    <select
-                      name={'pickup_type'}
-                      onChange={(e) => {
-                        handleEventProceed(e)
-                      }}
-                      onBlur={fix_address}
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      required
-                    >
+                    <div className="">
+                      <select
+                        name={'pickup_type'}
+                        onChange={(e) => {
+                          handleEventProceed(e)
+                        }}
+                        onBlur={fix_address}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
+                      >
                       <option selected hidden value={''}>
                         Select Pickup Type
                       </option>
                       <option value={'courier'}>COURIER</option>
                       <option value={'other'}>OTHER</option>
                     </select>
+                  </div>
+                </div>
+
+                <div className="w-full md:w-1/2 lg:w-1/2 mb-5 px-5">
+                  <div className="font-bold mb-2">Balance</div>
+                  <div className="">
+                    <input
+                      type="text"
+                      name="blance_amount"
+                      value={balance}
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      disabled
+                    />
                   </div>
                 </div>
                 <div className="w-full mb-5 px-5">
@@ -217,42 +208,22 @@ function OtherPickup() {
 
                 <div className="w-full md:w-1/2 lg:w-1/2 mb-5 px-5">
                   <div className="font-bold mb-2">Payment Method</div>
-                  <div className="">
-                    <select
-                      name={'payment_mode'}
-                      onChange={handleEventProceed}
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      required
-                    >
-                      <option selected hidden value={''}>
-                        Select Payment Mode
-                      </option>
-                      <option value={'self'}>SELF</option>
-                      <option value={'other'}>OTHER</option>
-                      <option value={'online'}>ONLINE</option>
-                    </select>
-                  </div>
+                    <div className="">
+                      <select
+                        name={'payment_mode'}
+                        onChange={handleEventProceed}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required >
+                        <option selected hidden value={''}>
+                          Select Payment Mode
+                        </option>
+                        <option value={'self'}>SELF</option>
+                        <option value={'other'}>OTHER</option>
+                        <option value={'online'}>ONLINE</option>
+                      </select>
+                    </div>
                 </div>
-                <div className="w-full md:w-1/2 lg:w-1/2 mb-5 px-5">
-                  <div className="font-bold mb-2">STAFF</div>
-                  <div className="">
-                    <select
-                      name="staff_id"
-                      onChange={handleEventProceed}
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      required
-                    >
-                      <option selected hidden value={''}>
-                        Select Staff
-                      </option>
-                      {staffs.length > 0
-                        ? staffs.map((e) => (
-                            <option value={e.staff_id}>{e.staff_name}</option>
-                          ))
-                        : ''}
-                    </select>
-                  </div>
-                </div>
+
                 <div className="w-full md:w-1/2 lg:w-1/2 mb-5 px-5">
                   <div className="font-bold mb-2">Date</div>
                   <div className="">
@@ -264,18 +235,7 @@ function OtherPickup() {
                     />
                   </div>
                 </div>
-                <div className="w-full md:w-1/2 lg:w-1/2 mb-5 px-5">
-                  <div className="font-bold mb-2">Balance</div>
-                  <div className="">
-                    <input
-                      type="text"
-                      name="blance_amount"
-                      value={balance}
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      disabled
-                    />
-                  </div>
-                </div>
+
                 <div className="w-full md:w-1/2 lg:w-1/2 mb-5 px-5">
                   <div className="font-bold mb-2">Amount To Pay</div>
                   <div className="">

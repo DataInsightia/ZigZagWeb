@@ -58,14 +58,14 @@ function OrderStatus() {
             }
         })
 
-        axios.post(API + '/api/order_status_admin_v2/',orderid).then(res => {
-            if (res.data.status) {
-                setNewstage(res.data);
-                console.log(res.data);
-            } else {
-                console.log("no data")
-            }
-        })
+        // axios.post(API + '/api/order_status_admin_v2/',orderid).then(res => {
+        //     if (res.data.status) {
+        //         setNewstage(res.data);
+        //         console.log(res.data);
+        //     } else {
+        //         console.log("no data")
+        //     }
+        // })
 
         // alert(materialLocation.length)
 
@@ -153,7 +153,7 @@ function OrderStatus() {
                                 </div>
                                 <div
                                     className={(e.assign_stage === 'complete_final_stage') ? "bg-green-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full" : "bg-yellow-600 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
-                                    <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.order_work_label} - {e.assign_stage} (Completed) - {e.staff.staff_name}</h3>
+                                    <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.order_work_label} - {e.assign_stage} (Completed) - {e.staff !== null ? e.staff.staff_name : ""}</h3>
                                     <h2 className={"font-semibold text-lg mb-1 text-white"}>A : {new Date(e.assign_date_time).toLocaleDateString('en-TN')} | T : {new Date(e.ordertaken.taken_date_time).toLocaleDateString('en-TN')} | C : {new Date(e.ordercompletion.work_completed_date_time).toLocaleDateString('en-TN')}</h2>
                                     <h1 className={"font-semibold text-lg mb-1 text-white"}>Material Location : {e.materiallocation.material_location}</h1>
                                     {/*<h5>{new Date(e.completion_date_time).toLocaleString('en-TN')}</h5>*/}
@@ -169,13 +169,15 @@ function OrderStatus() {
                         <i className="fa fa-check-circle text-white"></i>
                     </div>
                 </div>
+
                 <div
-                onClick={() => {setShowModal(true);setStaffPic(API + e.staff.photo);}}
-                    className={"bg-gray-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
-                    <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.order_work_label} - {e.assign_stage} (on Going) - {e.staff.staff_name}</h3>
-                    <h2 className={"font-semibold text-lg mb-1 text-white"}>A : {new Date(e.assign_date_time).toLocaleDateString('en-TN')} | T : {e.ordertaken.taken_date_time !== null ? new Date(e.ordertaken.taken_date_time).toLocaleDateString('en-TN') : "--"} | C : {e.ordercompletion.work_completed_date_time !== null ? new Date(e.ordercompletion.work_completed_date_time).toLocaleDateString('en-TN') : "--"}</h2>
-                    <h1 className={"font-semibold text-lg mb-1 text-white"}>Material Location : {e.materiallocation.material_location}</h1>
+                    onClick={() => {setShowModal(e.staff !== null ? true : false);setStaffPic(API + e.staff.photo);}}
+                        className={"bg-gray-500 col-start-4 col-end-12 p-4 rounded-xl my-4 mr-auto shadow-md w-full"}>
+                        <h3 className={"font-semibold text-lg mb-1 text-white"}>{e.order_work_label} - {e.assign_stage} (on Going) - {e.staff !== null ? e.staff.staff_name : ""}</h3>
+                        <h2 className={"font-semibold text-lg mb-1 text-white"}>A : {e.assign_date_time ? new Date(e.assign_date_time).toLocaleDateString('en-TN') : "--"} | T : {e.ordertaken.taken_date_time !== null ? new Date(e.ordertaken.taken_date_time).toLocaleDateString('en-TN') : "--"} | C : {e.ordercompletion.work_completed_date_time !== null ? new Date(e.ordercompletion.work_completed_date_time).toLocaleDateString('en-TN') : "--"}</h2>
+                        <h1 className={"font-semibold text-lg mb-1 text-white"}>Material Location : {e.materiallocation.material_location}</h1>
                 </div>
+
             </div>)
 
                 )}

@@ -43,7 +43,8 @@ function TakeOrder() {
     "advance_amount":'0',
     "pickup_type":"",
     "courier_amount":'0',
-    "courier_address": ""
+    "courier_address": "",
+    "balance_amount" : '0'
   })
 
   const [material, setMaterial] = useState({
@@ -85,6 +86,7 @@ function TakeOrder() {
         fetch()
         // console.log(res.data['order_id']);
       })
+        // setInterval(calculate,1000)
       .catch((err) => {
         console.log(err)
       })
@@ -255,6 +257,17 @@ function TakeOrder() {
     setOthers({...others,['courier_amount'] : isNaN(courier) ? 0 : courier})
   }
 
+  const calculate = () => {
+    var courier = parseInt(others.courier_amount)
+    var advance = parseInt(others.advance_amount)
+    setOthers({...others,['courier_amount'] : isNaN(courier) ? 0 : courier})
+    setOthers({...others,['advance_amount'] : isNaN(advance) ? 0 : advance})
+    setOthers({...others,['balance_amount'] : total + (isNaN(courier) ? 0 : courier) - advance})
+    setBalance((total + parseInt(others.courier_amount)) - parseInt(others.advance_amount))
+    console.log((parseInt(total) + parseInt(others.courier_amount)) - parseInt(others.advance_amount))
+    console.log("total : " + ((total) ,"courier_amount : " + parseInt(others.courier_amount)) ,"advance_amount : " + parseInt(others.advance_amount))
+  }
+
   const update_balance_with_advance = (e,advance_amount) => {
     var advance = parseInt(advance_amount)
     // advance = (advance) ? 0 : advance
@@ -379,6 +392,7 @@ function TakeOrder() {
 
   return (
     <div>
+      {/*{() => setInterval(calculate,1000)}*/}
       <div className="mt-10">
         <div className="border-x-0 rounded  px-8 pt-8 pb-8 mb-4">
           <div className="mt-10 flex flex-wrap justify-evenly bg-white shadow-2xl">
@@ -676,8 +690,8 @@ function TakeOrder() {
                       defaultValue={0}
                       onChange={(e) => {
                         handleOther(e).then(() => {
-                          update_balance_with_advance(e,e.target.value);
-                          update_balance_with_courier(e,others.courier_amount);
+                          // update_balance_with_advance(e,e.target.value);
+                          // update_balance_with_courier(e,others.courier_amount);
                           // let courier = others.courier_amount
                           // setBalance(total + (isNaN(courier) ? 0 : courier) - advance)
                           // setOthers({...others,['courier_amount'] : isNaN(courier) ? 0 : courier})
@@ -723,8 +737,8 @@ function TakeOrder() {
                                   placeholder={"Courier Charge"}
                                   onChange={(e) => {
                                     handleOther(e).then(() => {
-                                      update_balance_with_courier(e,e.target.value);
-                                      update_balance_with_advance(e,others.advance_amount);
+                                      // update_balance_with_courier(e,e.target.value);
+                                      // update_balance_with_advance(e,others.advance_amount);
                                     })
                                   }}
                                   // onBlur={() => {
@@ -780,7 +794,9 @@ function TakeOrder() {
                                   name={"other_mobile"}
                                   placeholder={"Mobile Number"}
                                   onChange={(e) => {
-                                    handleOther(e).then(() => update_balance_with_courier(e))
+                                    handleOther(e).then(() => {
+                                      // update_balance_with_courier(e)
+                                    })
                                   }}
                                   onBlur={() => {
                                     // update_advance_amount();
@@ -803,7 +819,9 @@ function TakeOrder() {
                                 name={"courier_address"}
                                 placeholder={"Courier Address"}
                                 onChange={(e) => {
-                                  handleOther(e).then((res) => update_balance_with_courier(e))
+                                  handleOther(e).then((res) => {
+                                    // update_balance_with_courier(e)
+                                  })
                                 }}
                                 onBlur={() => {
                                   // update_advance_amount();
@@ -902,7 +920,7 @@ function TakeOrder() {
                       Advance Amount
                     </td>
                     <td className={'border border-slate-600 p-3'}>
-                      <b>{advance}</b>
+                      <b>{others.advance_amount}</b>
                     </td>
                   </tr>
 
@@ -911,7 +929,7 @@ function TakeOrder() {
                       Courier Amount
                     </td>
                     <td className={'border border-slate-600 p-3'}>
-                      <b>{(others.courier_amount) ? others.courier_amount : 0}</b>
+                      <b>{others.courier_amount}</b>
                     </td>
                   </tr>
 
@@ -920,7 +938,7 @@ function TakeOrder() {
                       Balance Amount
                     </td>
                     <td className={'border border-slate-600 p-3'}>
-                      <b>{balance}</b>
+                      <b>{others.balance_amount}</b>
                     </td>
                   </tr>
                 </table>
@@ -936,6 +954,15 @@ function TakeOrder() {
                   onClick={printOrder}
                 >
                   Print Order
+                </button>
+
+                <button
+                  className={
+                    'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
+                  }
+                  onClick={calculate}
+                >
+                  Calculate
                 </button>
 
                 {isInvoice ? (

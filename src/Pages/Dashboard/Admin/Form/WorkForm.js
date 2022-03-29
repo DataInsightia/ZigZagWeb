@@ -150,7 +150,7 @@ export default function WorkForm() {
 
   return (
     <div>
-      <div class="md:mt-16 container mx-auto px-4 sm:px-8">
+      <div class=" container mx-auto px-4 sm:px-8">
         <div class="py-24">
 
         <div className="flex overflow-auto justify-between">
@@ -177,8 +177,9 @@ export default function WorkForm() {
           {/*</div>*/}
 
 
-          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-            <div className="inline-block min-w-full shadow-lg rounded-lg overflow-hidden">
+              <div className="flex scroll items-center md:-mt-80   justify-center min-h-screen ">
+
+                <div className=" min-w-full mt-0 overflow-auto overflow-x-scroll bg:hidden  p-4">
               <table class="min-w-full leading-normal ">
                 <thead>
                   <tr>
