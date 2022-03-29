@@ -314,7 +314,7 @@ export default function Login() {
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"
                 >
-                  Payment successful
+                  Login successfully
                 </Dialog.Title>
     
                 <div className="mt-4">
