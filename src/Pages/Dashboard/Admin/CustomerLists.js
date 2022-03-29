@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import axios from 'axios'
 import API from '../../../api'
+import ReactToPrint from "react-to-print";
 
 export default function Customer() {
-  // const Styles = {
-  //   TabHeadButton:
-  //     'shadow-lg mx-4 py-1 uppercase font-bold px-3 font-xs bg-rose-500 border-2 border-rose-500 text-white hover:text-rose-500 hover:border-rose-500 hover:bg-transparent rounded-md',
-  //   TabPanel: '',
-  //   WorkFormInput:
-  //     'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2',
-  // }
+  const componentRef = useRef();
 
   const [customers, fetchcustomers] = useState([])
   const [customerstate, fetchcustomerstate] = useState(false)
@@ -28,9 +23,10 @@ export default function Customer() {
 
   return (
     <div>
-      <div className="flex scroll  md:mt-0 justify-center min-h-screen bg-gray-100">
-        <div className="md:w-1/1 overflow-auto overflow-x-scroll p-4">
-          <div className="">
+      <div className="flex scroll  md:mt-0 justify-center min-h-screen">
+        <div ref={componentRef} className="md:w-1/1 overflow-auto overflow-x-scroll p-4">
+
+          <div className="py-4">
             <table className="w-full md:mt-24 shadow-lg">
               <thead className=" bg-gradient-to-r from-rose-600 to-rose-500">
               <tr>
@@ -93,6 +89,8 @@ export default function Customer() {
               </tbody>
             </table>
           </div>
+          <br/>
+          <PrintButton className={'w-1/2'} componentRef={componentRef}/>
         </div>
       </div>
 
@@ -174,5 +172,28 @@ export default function Customer() {
       {/*  /!* customer lists *!/*/}
       {/*</div>*/}
     </div>
+  )
+}
+
+const PrintButton = (props) => {
+  return (
+      <div className="flex items-end justify-end space-x-3">
+
+
+        <ReactToPrint
+            width={2}
+            scale={0.8}
+            trigger={() => <button className="px-4 py-2 text-sm text-white bg-rose-500">
+              Print
+            </button>}
+            content={() => props.componentRef.current}
+        />
+        {/* <button className="px-4 py-2 text-sm text-blue-600 bg-blue-100">
+              Save
+            </button>
+            <button className="px-4 py-2 text-sm text-red-600 bg-red-100">
+              Cancel
+            </button> */}
+      </div>
   )
 }

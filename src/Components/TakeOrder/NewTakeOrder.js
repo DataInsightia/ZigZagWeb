@@ -465,6 +465,38 @@ function NewTakeOrder() {
                     {cust ? (
                         <div className="bg-white drop-shadow-2xl ">
                             <div >
+                                <br/>
+                                <form onSubmit={addWork} className="flex flex-wrap -md:mx-3  md:mb-6 md:space-x-20 justify-center">
+                                <snap className={'md:w-1/3 mt-10'}>
+                                    <p className="font-semibold flex justify-center">Family Member</p>
+                                    <select
+                                        className=" sm:justify-center md:mt-2 inline-flex mt-12 inline-block xl:w-96 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
+      py-2
+      text-xl
+      font-normal
+      text-gray-700
+      bg-white bg-clip-padding bg-no-repeat
+      border border-solid border-gray-300
+      rounded
+      transition
+      ease-in-out
+      m-0
+      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        name={'work_id'}
+                                        onChange={handleWorkEvent}
+                                        required
+                                    >
+                                        <option selected hidden>
+                                            Choose Type
+                                        </option>
+                                        <option value={"self"}>Hari</option>
+                                        <option value={"courier"}>Haran</option>
+                                        <option value={"other"}>Angappan</option>
+                                    </select>
+
+                                </snap>
+                                </form>
+
                                 <form onSubmit={addWork} className="flex flex-wrap -md:mx-3  md:mb-6 md:space-x-20 justify-center">
 
                                     <snap>
@@ -874,7 +906,7 @@ function NewTakeOrder() {
                             <div className={'text-center'}>
                                 <button
                                     className={
-                                        'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
+                                        'text-white font-bold text-lg rounded button rounded p-3 m-3 bg-red-500'
                                     }
                                     onClick={calculate}
                                 >
