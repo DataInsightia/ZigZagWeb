@@ -139,7 +139,7 @@ export default function StaffRegister() {
     <Navigate to="/dashboard/dhome" />
   ) : (
     <div>
-      <div className="container mx-auto px-4 h-full  bg-gradient-to-tr from-red-50 to-red-200">
+      <div className="container mx-auto px-4 h-full  ">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full  lg:w-8/12 px-4 py-10 mt-10">
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 bg-white border-none shadow-2xl rounded-2xl">

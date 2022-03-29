@@ -150,20 +150,8 @@ export default function WorkForm() {
 
   return (
     <div>
-      <div class=" container mx-auto px-4 sm:px-8">
+      <div class="md:mt-0 container mx-auto px-4 sm:px-8">
         <div class="py-24">
-
-        <div className="flex overflow-auto justify-between">
-            <h2 class="text-2xl justify-center font-semibold leading-tight">
-              Work
-            </h2>
-            <button
-              onClick={openFromAddModal}
-              className="px-2 py-1 shadow-lg border border-red-500 bg-red-500 text-white hover:bg-transparent hover:text-red-500 rounded text-lg font-bold"
-            >
-              Add Work
-            </button>
-          </div>
 
           {/*<div className="flex scroll items-center md:mt-0 justify-center min-h-screen ">*/}
 
@@ -177,9 +165,20 @@ export default function WorkForm() {
           {/*</div>*/}
 
 
-              <div className="flex scroll items-center md:-mt-80   justify-center min-h-screen ">
+              <div className="flex scroll items-center    justify-center min-h-screen ">
 
-                <div className=" min-w-full mt-0 overflow-auto overflow-x-scroll bg:hidden  p-4">
+                <div className=" min-w-full  overflow-auto overflow-x-scroll bg:hidden  p-4">
+                  <div className="flex overflow-auto mb-6 justify-between">
+                    <h2 className="text-2xl justify-center  font-semibold leading-tight">
+                      Work
+                    </h2>
+                    <button
+                        onClick={openFromAddModal}
+                        className="px-2 py-1 shadow-lg border border-red-500 bg-red-500 text-white hover:bg-transparent hover:text-red-500 rounded text-lg font-bold"
+                    >
+                      Add Work
+                    </button>
+                  </div>
               <table class="min-w-full leading-normal ">
                 <thead>
                   <tr>

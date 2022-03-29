@@ -33,29 +33,29 @@ export default function Customer() {
           <div className="">
             <table className="w-full md:mt-24 shadow-lg">
               <thead className=" bg-gradient-to-r from-rose-600 to-rose-500">
-                <tr>
-                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                    Customer ID
-                  </th>
-                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                    Customer Name
-                  </th>
-                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                    Mobile
-                  </th>
-                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                    Address
-                  </th>
-                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                    City
-                  </th>
-                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                    Pincode
-                  </th>
-                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                    Password
-                  </th>
-                </tr>
+              <tr>
+                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  Customer ID
+                </th>
+                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  Customer Name
+                </th>
+                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  Mobile
+                </th>
+                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  Address
+                </th>
+                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  City
+                </th>
+                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  Pincode
+                </th>
+                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  Password
+                </th>
+              </tr>
               </thead>
               <tbody>
                 {customerstate ? (

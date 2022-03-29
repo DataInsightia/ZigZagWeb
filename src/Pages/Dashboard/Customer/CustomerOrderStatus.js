@@ -1,10 +1,11 @@
-import React,{useState} from 'react';
+import React,{useState,useRef} from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import axios from 'axios';
 import API from '../../../api'
-import {QrReader} from 'react-qr-reader'
+import {QrReader, useQrReader} from 'react-qr-reader'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCamera} from "@fortawesome/fontawesome-free-solid";
+import {faCamera} from "@fortawesome/fontawesome-free-solid"
+
 
 function CustomerOrderStatus() {
     const [stage,setStage] = useState([])
@@ -72,9 +73,6 @@ function CustomerOrderStatus() {
         // alert(materialLocation.length)
     }
 
-    const [qr_value, setQrValue] = useState('No result');
-
-
     return (
         <div className="bg-gray-50 md:mt-16">
         <div className="p-4 mt-4">
@@ -82,7 +80,7 @@ function CustomerOrderStatus() {
             <center
             ><div className={'className="text-red-500 font-bold mb-0"\n' +
                 '                to="/home"'}>
-                <FontAwesomeIcon icon={faCamera}
+                <FontAwesomeIcon  icon={faCamera}
                                  style={{ height : 30 }}
                 >
                 </FontAwesomeIcon>
@@ -91,7 +89,8 @@ function CustomerOrderStatus() {
                             <QrReader
                                 delay={300}
                                 key="environment"
-                                constraints={{ facingMode:'user' }}
+                                legacyMode
+                                constraints={{ facingMode:'rear' }}
                                 videoId = 'video'
                                 onResult={(result, error) => {
                                     if (result) {
@@ -105,6 +104,11 @@ function CustomerOrderStatus() {
                                 className={'w-44 h-44'}
                             />
                         </div>
+                        <form className="grid justify-center" onSubmit={checkOrder}>
+                            <input    className="uppercase shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" value={orderid.order_id} onChange={handleEvent}/>
+                            <div className="grid justify-center">
+                                <input  className={"justify-center button text-white rounded p-3 m-3 bg-pink-600"} type="submit" /></div>
+                        </form>
                     </center>
             </div>
             </center>
@@ -112,11 +116,7 @@ function CustomerOrderStatus() {
             <br/>
             <div className="container">
 
-            <form className="grid justify-center" onSubmit={checkOrder}>
-                <input    className="uppercase shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" value={orderid.order_id} onChange={handleEvent}/>
-                <div className="grid justify-center">
-                    <input  className={"justify-center button text-white rounded p-3 m-3 bg-pink-600"} type="submit" /></div>
-            </form>
+
 
 
 
