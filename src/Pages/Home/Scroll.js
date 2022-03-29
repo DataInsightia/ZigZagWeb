@@ -25,28 +25,27 @@ const Scroll = () => {
                                 }}
                             >
                                 <div className="flex justify-between">
-                                    <input type="checkbox" />
-                                    <button className="text-white hover:text-blue-500">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="h-6 w-6"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M12 4v16m8-8H4"
-                                            />
-                                        </svg>
-                                    </button>
+                                    {/*<button className="text-white hover:text-blue-500">*/}
+                                    {/*    <svg*/}
+                                    {/*        xmlns="http://www.w3.org/2000/svg"*/}
+                                    {/*        className="h-6 w-6"*/}
+                                    {/*        fill="none"*/}
+                                    {/*        viewBox="0 0 24 24"*/}
+                                    {/*        stroke="currentColor"*/}
+                                    {/*    >*/}
+                                    {/*        <path*/}
+                                    {/*            stroke-linecap="round"*/}
+                                    {/*            stroke-linejoin="round"*/}
+                                    {/*            stroke-width="2"*/}
+                                    {/*            d="M12 4v16m8-8H4"*/}
+                                    {/*        />*/}
+                                    {/*    </svg>*/}
+                                    {/*</button>*/}
                                 </div>
                                 <div>
-                    <span className="uppercase text-xs bg-green-50 p-0.5 border-green-500 border rounded text-green-700 font-medium select-none">
-                      booknow
-                    </span>
+                    {/*<span className="uppercase text-xs bg-green-50 p-0.5 border-green-500 border rounded text-green-700 font-medium select-none">*/}
+                    {/*  booknow*/}
+                    {/*</span>*/}
                                 </div>
                             </div>
                             <div className="p-4 flex flex-col items-center">

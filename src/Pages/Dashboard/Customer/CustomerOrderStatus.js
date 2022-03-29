@@ -87,7 +87,7 @@ function CustomerOrderStatus() {
                 >
                 </FontAwesomeIcon>
                     <center>
-                        <div  className='mt-10'>
+                        <div className='mt-10'>
                             <QrReader
                                 delay={300}
                                 key="environment"

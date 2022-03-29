@@ -7,6 +7,9 @@ import "../invoice.css";
 import { useParams } from "react-router-dom";
 import ReactToPrint from 'react-to-print';
 
+
+
+
 export default function Invoice(){
 
   const componentRef = useRef();
@@ -47,10 +50,9 @@ export default function Invoice(){
         });
   },[]);
 
-
   return (
 
-      <div ref={componentRef} className="flex items-center md:mt-16 ml-10 mr-10 justify-center min-h-screen mx-auto my-auto">
+      <div ref={componentRef}  className="flex items-center md:mt-16 ml-10 mr-10 justify-center min-h-screen mx-auto my-auto">
         <div className="md:w-1/2 bg-white shadow-lg">
           <div className="">
             <div  className="justify-center p-1">
@@ -70,20 +72,22 @@ export default function Invoice(){
               </span>
                 </div>
               </div>
+              <div className="w-full h-0.5 bg-indigo-500"></div>
+              <div className="p-2"></div>
+              <div className="flex justify-between">
+                <div className="font-bold text-lg">ORDER ID : {orderid}</div>
+                <div className="font-bold text-lg">MOBILE : {customerdetails.mobile}</div>
+              </div>
+
+              <div className="flex justify-between">
+                <div className="font-bold text-lg text-transform: uppercase">CUSTOMER NAME : {customerdetails.cust_name}</div>
+                <div className="font-bold text-lg">CUSTOMER ID : {customerdetails.cust_id}</div>
+              </div>
               <div className="p-2"></div>
             </div>
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="flex justify-between p-4">
               <div>
-                <div className="flex justify-between">
-                  <div className="font-bold text-lg">ORDER ID : {orderid}</div>
-                  <div className="font-bold text-lg">Mobile : {customerdetails.mobile}</div>
-                </div>
-
-                <div className="flex justify-between">
-                  <div className="font-bold text-sm">CUSTOMER NAME : {customerdetails.cust_name}</div>
-                  <div className="font-bold text-sm ml-1">CUSTOMER ID : {customerdetails.cust_id}</div>
-                </div>
                 <address className="text-sm">
                   <span className="font-bold"> Address : </span>
                   {customerdetails.address}
@@ -169,7 +173,6 @@ export default function Invoice(){
 
         <div className="md:w-1/2 bg-white shadow-lg">
           <div className="">
-
             <div  className="justify-center p-1">
               <div className="flex justify-center">
                 <img src={invoiceimg} className="w-20 md:w-32 lg:w-28"/>
@@ -187,20 +190,22 @@ export default function Invoice(){
               </span>
                 </div>
               </div>
+              <div className="w-full h-0.5 bg-indigo-500"></div>
+              <div className="p-2"></div>
+              <div className="flex justify-between">
+                <div className="font-bold text-lg">ORDER ID : {orderid}</div>
+                <div className="font-bold text-lg">MOBILE : {customerdetails.mobile}</div>
+              </div>
+
+              <div className="flex justify-between">
+                <div className="font-bold text-lg text-transform: uppercase">CUSTOMER NAME : {customerdetails.cust_name}</div>
+                <div className="font-bold text-lg">CUSTOMER ID : {customerdetails.cust_id}</div>
+              </div>
               <div className="p-2"></div>
             </div>
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="flex justify-between p-4">
               <div>
-                <div className="flex justify-between">
-                  <div className="font-bold text-lg">ORDER ID : {orderid}</div>
-                  <div className="font-bold text-lg">Mobile : {customerdetails.mobile}</div>
-                </div>
-
-                <div className="flex justify-between">
-                  <div className="font-bold text-sm">CUSTOMER NAME : {customerdetails.cust_name}</div>
-                  <div className="font-bold text-sm ml-1">CUSTOMER ID : {customerdetails.cust_id}</div>
-                </div>
                 <address className="text-sm">
                   <span className="font-bold"> Address : </span>
                   {customerdetails.address}
@@ -209,8 +214,8 @@ export default function Invoice(){
               <div className="w-50">
                 <QRCode
                     size={80}
-                    className="object-contain qr-code "
-                    value={window.location.href}/>
+                    className="object-contain qr-code"
+                    value={`${window.location.origin}/#/dashboard/invoicemob/${custid}/${orderid}`}/>
               </div>
               <div></div>
             </div>
@@ -275,7 +280,7 @@ export default function Invoice(){
                 Thank you very much for ordering with us.
               </div>
               <br/>
-              <PrintButton componentRef={componentRef}/>
+              <PrintButton  componentRef={componentRef}/>
             </div>
           </div>
         </div>
@@ -329,6 +334,8 @@ const PrintButton = (props) => {
 
 
         <ReactToPrint
+            width={2}
+            scale={0.8}
             trigger={() => <button className="px-4 py-2 text-sm text-green-600 bg-green-100">
               Print
             </button>}
