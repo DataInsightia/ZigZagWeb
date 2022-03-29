@@ -413,7 +413,7 @@ function TakeOrder() {
                 <input
                   className="uppercase shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type={'text'}
-                  placeholder={'Mobile or Customer ID'}
+                  placeholder={'Mobile or CustomerID'}
                   value={customer.cust_id}
                   onChange={handleCustomer}
                   name={'cust_id'}
