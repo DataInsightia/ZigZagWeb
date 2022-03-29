@@ -391,6 +391,14 @@ function NewTakeOrder() {
     console.log('advance', advance, 'balance', balance, 'total', total)
   }
 
+    const disablePastDate = () => {
+        const today = new Date();
+        const dd = String(today.getDate() + 1).padStart(2, "0");
+        const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+        const yyyy = today.getFullYear();
+        return yyyy + "-" + mm + "-" + dd;
+    };
+
     return (
         <div>
             {/*{() => setInterval(calculate,1000)}*/}
@@ -457,9 +465,12 @@ function NewTakeOrder() {
                     {cust ? (
                         <div className="bg-white drop-shadow-2xl ">
                             <div >
-                                <form onSubmit={addWork} className="flex flex-wrap -md:mx-3 md:mb-6 md:space-x-20 justify-center">
-                                    <select
-                                        className="mb-3 sm:justify-center md:mt-12 inline-flex mt-12 inline-block xl:w-96 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
+                                <form onSubmit={addWork} className="flex flex-wrap -md:mx-3  md:mb-6 md:space-x-20 justify-center">
+
+                                    <snap>
+                                        <p className="font-semibold">Work</p>
+                                        <select
+                                            className=" sm:justify-center md:mt-2 inline-flex mt-12 inline-block xl:w-96 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
       py-2
       text-xl
       font-normal
@@ -471,20 +482,26 @@ function NewTakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                        name={'work_id'}
-                                        onChange={handleWorkEvent}
-                                        required
-                                    >
-                                        <option selected hidden>
-                                            Work
-                                        </option>
-                                        {works.map((e) => (
-                                            <option value={e.work_id}>{e.work_name}</option>
-                                        ))}
-                                    </select>
+                                            name={'work_id'}
+                                            onChange={handleWorkEvent}
+                                            required
+                                        >
+                                            <option selected hidden>
+                                                Work
+                                            </option>
+                                            {works.map((e) => (
+                                                <option value={e.work_id}>{e.work_name}</option>
+                                            ))}
+                                        </select>
 
+                                    </snap>
+
+
+
+                                    <snap>
+                                        <p className="font-semibold">Qty</p>
                                     <input
-                                        className="mb-3 md:mt-10 xl:w-20 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
+                                        className="mb-3 md:mt-2 xl:w-20 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
       py-2
       text-xl
       font-normal
@@ -503,8 +520,12 @@ function NewTakeOrder() {
                                         onBlur={() => getWorkAmount(work.work_id)}
                                         required
                                     />
+                                    </snap>
+
+                                    <snap>
+                                        <p className="font-semibold">Amount</p>
                                     <input
-                                        className="mb-3 md:mt-10 xl:w-28 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
+                                        className="mb-3 md:mt-2 xl:w-28 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
       py-2
       text-xl
       font-normal
@@ -523,6 +544,8 @@ function NewTakeOrder() {
                                         value={work.amount}
                                         required
                                     />
+                                    </snap>
+
                                     <input
                                         type={'submit'}
                                         value={'ADD'}
@@ -535,8 +558,10 @@ function NewTakeOrder() {
 
                             <div>
                                 <form className='flex flex-wrap -md:mx-3 md:mb-6 md:space-x-20 justify-center' onSubmit={addMaterial}>
+                                    <snap>
+                                        <p className="font-semibold">Material</p>
                                     <select
-                                        className="mb-3 xl:w-96 md:mt-12 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
+                                        className="mb-3 xl:w-96 md:mt-2 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
       py-2
       text-xl
       font-normal
@@ -559,8 +584,11 @@ function NewTakeOrder() {
                                             <option value={e.material_id}>{e.material_name}</option>
                                         ))}
                                     </select>
+                                    </snap>
+                                    <snap>
+                                        <p className="font-semibold">Qty</p>
                                     <input
-                                        className="mb-3 xl:w-20 md:mt-10 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
+                                        className="mb-3 xl:w-20 md:mt-2 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
       py-2
       text-xl
       font-normal
@@ -578,9 +606,11 @@ function NewTakeOrder() {
                                         onChange={handleMaterialEvent}
                                         onBlur={() => getMaterialAmount(material.material_id)}
                                         required
-                                    />
+                                    /></snap>
+                                    <snap>
+                                        <p className="font-semibold">Amount</p>
                                     <input
-                                        className="mb-3 xl:w-28 md:mt-10 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
+                                        className="mb-3 xl:w-28 md:mt-2 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
       py-2
       text-xl
       font-normal
@@ -598,7 +628,7 @@ function NewTakeOrder() {
                                         onChange={handleMaterialEvent}
                                         value={material.amount}
                                         required
-                                    />
+                                    /></snap>
                                     <input
                                         type={'submit'}
                                         value={'ADD'}
@@ -629,7 +659,8 @@ function NewTakeOrder() {
                                         <div className="datepicker md:relative inline-flex justify-center form-floating mb-3 md:w-96">
                                             Due Date:
                                             <input
-                                                className="form-control block w-full text-4xl px-3 date-3xl py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                min={disablePastDate()}
+                                                className="datepicker max-h-860-px form-control block w-full text-4xl px-3 date-3xl py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                                 type={'date'}
                                                 name={'due_date'}
                                                 onChange={handleOther}

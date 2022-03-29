@@ -88,6 +88,7 @@ export default function Invoice(){
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="flex justify-between p-4">
               <div>
+                <div className="font-bold text-lg">Family Member Name:{customerdetails.cust_name}</div>
                 <address className="text-sm">
                   <span className="font-bold"> Address : </span>
                   {customerdetails.address}
@@ -206,6 +207,7 @@ export default function Invoice(){
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="flex justify-between p-4">
               <div>
+                <div className="font-bold text-lg">Family Member Name:{customerdetails.cust_name}</div>
                 <address className="text-sm">
                   <span className="font-bold"> Address : </span>
                   {customerdetails.address}
