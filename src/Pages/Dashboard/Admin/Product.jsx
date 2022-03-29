@@ -344,8 +344,8 @@ const fetch = () => {
                     <input onChange={handleCurrentFile} name="product_image" accept='image/jpeg' class="bg-gray-50 border border-gray-300 text-rose-900 text-sm rounded-lg focus:ring-rose-500 focus:border-rose-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
                     <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A product picture is useful to confirm your product.</div>
 
-                    <label><input type="button" onClick={(e) => handleCurrentToggler(e,currentProduct.display)} value={currentProduct.display ? "show" : "hide"} name="display" /> Display</label><br />
-                    <label><input type="button" onClick={(e) => handleCurrentToggler(e,currentProduct.new_arrival)} value={currentProduct.new_arrival ? "show" : "hide"} name="new_arrival" /> New Arrival</label><br />
+                   <label className={ product.display ? 'button border-none rounded-2xl bg-green-500 text-white font-bold' : 'button border-none rounded-2xl bg-red-500 text-white font-bold'}><input type="button" onClick={(e) => handleToggler(e,product.display)} defaultValue={product.display ? "Click to Hide " : "Click to Show "} name="display" /> Product</label><br />
+                    <label className={ product.new_arrival ? 'button border-none rounded-2xl bg-green-500 text-white font-bold' : 'button border-none rounded-2xl bg-red-500 text-white font-bold'}><input type="button" onClick={(e) => handleToggler(e,product.new_arrival)} defaultValue={product.new_arrival ? "Click to Hide " : "Click to Show "} name="new_arrival" /> New Arrival</label><br />
 
                     <div className='flex'>
                       <div className='m-4'>

@@ -21,6 +21,7 @@ function CustomerMeasurement() {
     const [cust, setCust] = useState(false)
     const [works, setWorks] = useState([{}])
     const [data,setData] = useState({})
+    const [image,setImage] = useState('')
     const [customer, setCustomer] = useState({
         cust_id: '',
     })
@@ -45,6 +46,8 @@ function CustomerMeasurement() {
 
     const handleChange = (e) => setData({ ...data, [e.target.name]: e.target.value })
 
+    const handleFile = (e) => setImage(e.target.files[0])
+
     const fetch_works = async () => {
         var works = await axios.get(API + '/api/works/')
         setWorks(works.data)
@@ -60,7 +63,6 @@ function CustomerMeasurement() {
             .post(API + '/api/takeorder_customer_details/', customer)
             .then((res) => {
                 if (res.data.length !== 0) {
-
                     SetCustomerDetails(res.data[0])
                     setCust(true)
                 }
@@ -78,7 +80,11 @@ function CustomerMeasurement() {
         const work_id = e.target.work_id.value;
         const measurement = e.target.measurement.value;
 
-        axios.post(`${API}/api/customer_measurement/`,{"work_id" : work_id,"measurement" : measurement,"cust_id" : customer_details.cust_id})
+        const formData = new FormData()
+        formData.append("image",image)
+        formData.append("data", JSON.stringify({"work_id" : work_id,"measurement" : measurement,"cust_id" : customer_details.cust_id}))
+
+        axios.post(`${API}/api/customer_measurement/`,formData)
             .then(res => {
                 alert(res.data.message)
                 window.location.reload()
@@ -204,12 +210,16 @@ function CustomerMeasurement() {
                                         placeholder={'Measurement'}
                                         required
                                     />
+                                    <input type={'file'} name={'size_image'} onChange={handleFile} required/>
                                     <input
                                         type={'submit'}
                                         value={'Insert'}
                                         className="font-bold text-lg text-white bg-rose-500 rounded-xl my-auto p-1"
                                     />
                                 </form>
+
+                                <img src={image !== "" ? URL.createObjectURL(image) : 'https://via.placeholder.com/150'} alt={"#"} height={150} width={150}/>
+
                             </div>
 
 

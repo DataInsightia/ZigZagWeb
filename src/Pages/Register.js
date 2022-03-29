@@ -18,18 +18,6 @@ export default function Register() {
       'border px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-2xl text-sm focus:ring-red-500 w-full  ease-linear transition-all duration-150',
   }
   const [data, setData] = useState({})
-  // const [register, setRegister] = useState(false)
-
-  // const formLogin = () => {
-  //   console.log('Callback function when form is submitted!')
-  //   console.log('Form Values ', values)
-  // }
-
-  //Custom hook call
-  // const { handleChange, values, errors, handleSubmit } = useForm()
-
-  // console.log(handleChange)
-
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -80,6 +68,8 @@ export default function Register() {
     const pincode = e.pincode
     const city = e.city
     const password = e.password
+    const family_members = e.family_members
+    alert(JSON.stringify(family_members))
     axios
       .post(API + '/api/customer_register/', {
         name,
@@ -93,6 +83,12 @@ export default function Register() {
       .then((res) => {
 
         if (res.data.status) {
+          // Insert Family members if present
+          if (family_members !== ""){
+
+          }
+
+          // Get Customer Details for Popup
           axios.post(`${API}/api/customer_details/`,{"cust_id" : mobile}).then(res => {
             const customer = res.data[0];
             console.log(res.data[0])
@@ -103,6 +99,7 @@ export default function Register() {
         }else{
           alert(res.data.message);
         }
+
       })
       .catch((err) => {
         console.log(err)
@@ -327,6 +324,31 @@ export default function Register() {
                         </span>
                       )}
                     </div>
+
+
+                    <div className="relative w-full mb-3">
+                      <label className={Styles.Label} htmlFor="grid-password">
+                        Family Members
+                      </label>
+                      <input
+                        type="text"
+                        className={Styles.Input}
+                        placeholder="Eg: Asha,Abu,"
+                        onChange={handleEvent}
+                        id="family_members"
+                        name={'family_members'}
+                      {...register('family_members', { required: true,minLength : 3 })}
+                        onKeyUp={() => {
+                          trigger('family_members')
+                        }}
+                      />
+                      {errors.family_members && (
+                        <span className="text-red-500">
+                          This field is required with minimum of 5 charectors
+                        </span>
+                      )}
+                    </div>
+
 
                     <div className="text-center mt-6">
                       <button className={Styles.LoginButton} type={'submit'}>
