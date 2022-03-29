@@ -11,12 +11,11 @@ import {
   GetWork,
 } from '../../../../services/WorkFormServices'
 import { Link } from 'react-router-dom'
+import Constants from '../../../../constants/Constants'
+
 
 export default function WorkForm() {
   const Styles = {
-    TabHeadButton:
-      'shadow-lg mx-4 py-1 uppercase font-bold px-3 font-xs bg-rose-500 border-2 border-rose-500 text-white hover:text-rose-500 hover:border-rose-500 hover:bg-transparent rounded-md',
-    TabPanel: '',
     WorkFormInput:
       'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2',
   }
@@ -150,8 +149,8 @@ export default function WorkForm() {
 
   return (
     <div>
-      <div class="md:mt-0 container mx-auto px-4 sm:px-8">
-        <div class="py-24">
+      <div class="md:mt-10 container mx-auto px-4 sm:px-8">
+        <div class="py-12">
 
           {/*<div className="flex scroll items-center md:mt-0 justify-center min-h-screen ">*/}
 
@@ -165,7 +164,7 @@ export default function WorkForm() {
           {/*</div>*/}
 
 
-              <div className="flex scroll items-center    justify-center min-h-screen ">
+              <div className="flex scroll   justify-center min-h-screen ">
 
                 <div className=" min-w-full  overflow-auto overflow-x-scroll bg:hidden  p-4">
                   <div className="flex overflow-auto mb-6 justify-between">
@@ -181,35 +180,35 @@ export default function WorkForm() {
                   </div>
               <table class="min-w-full leading-normal ">
                 <thead>
-                  <tr>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                  <tr className={`${Constants.large}`}>
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
                       Work Name
                     </th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
                       Amount
                     </th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
                       Wage Type
                     </th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"></th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center text-xs font-semibold text-gray-700 uppercase tracking-wider"></th>
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider"></th>
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider"></th>
                   </tr>
                 </thead>
                 <tbody>
                   {workState ? (
                     <>
                       {works.map((e) => (
-                        <tr className="text-center">
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm uppercase">
+                        <tr className={`text-center ${Constants.small}`}>
+                          <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
                             {e.work_name}
                           </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm uppercase">
+                          <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
                             {e.amount}
                           </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm uppercase">
+                          <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
                             {e.wage_type}
                           </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm uppercase">
+                          <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
                             <button
                               onClick={() =>
                                 openFromUpdateModal(`${e.work_id}`)
@@ -219,7 +218,7 @@ export default function WorkForm() {
                               Update
                             </button>
                           </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                          <td class="px-5 py-5 border-b border-gray-200 bg-white ">
                             <button
                               onClick={() =>
                                 openFromDeleteModal(`${e.work_id}`)
