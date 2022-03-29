@@ -56,6 +56,9 @@ export default function Customer() {
                 <th className="py-3 text-center text-xs font-semibold text-white uppercase">
                   Pincode
                 </th>
+                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  Password
+                </th>
               </tr>
               </thead>
               <tbody>
