@@ -29,11 +29,13 @@ function StaffList() {
   const [fetchiwageCompletebool, setfetchiwageCompletebool] = useState(false)
   const [fetchwageCompletei, setfetchwageCompletei] = useState([])
   const [fetchwageCompleteibool, setfetchwageCompleteibool] = useState(false)
+  const [filteredData, setFilteredData] = useState(fetchstaff)
 
   useEffect(() => {
     axios.get(API + '/api/staff/').then((res) => {
       if (res.data != []) {
         setStaff(res.data)
+        setFilteredData(res.data)
         setStaffbool(true)
       } else {
         setStaff([])
@@ -77,6 +79,15 @@ function StaffList() {
     }
   }, [])
 
+  const handleSearch = (event) => {
+    let value = event.target.value
+    let result = []
+    result = fetchstaff.filter((data) => {
+      return data.mobile.search(value) != -1
+    })
+    setFilteredData(result)
+  }
+
   const auth = localStorage.getItem('role')
   return (
     <div>
@@ -93,19 +104,34 @@ function StaffList() {
                         <table className="min-w-full rounded-md p-2 text-white text-xl font-bold">
                           <thead className="bg-gradient-to-r from-rose-600 to-rose-400">
                             <tr>
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
+                              <th
+                                scope="col"
+                                className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                              >
                                 Order ID
                               </th>
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
+                              <th
+                                scope="col"
+                                className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                              >
                                 Work ID
                               </th>
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
+                              <th
+                                scope="col"
+                                className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                              >
                                 Wage
                               </th>
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
+                              <th
+                                scope="col"
+                                className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                              >
                                 Completion Date
                               </th>
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
+                              <th
+                                scope="col"
+                                className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                              >
                                 Approval Date
                               </th>
                             </tr>
@@ -150,19 +176,35 @@ function StaffList() {
                         <table className="min-w-full bg-white">
                           <thead className="bg-gradient-to-r from-rose-600 to-rose-400 ">
                             <tr>
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
+                              <th
+                                scope="col"
+                                className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                              >
                                 Order ID
                               </th>
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
+                              <th
+                                scope="col"
+                                className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                              >
                                 Work ID
                               </th>
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
+                              <th
+                                scope="col"
+                                className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                              >
                                 Wage
                               </th>
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
+
+                              <th
+                                scope="col"
+                                className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                              >
                                 Completion Date
                               </th>
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase">
+                              <th
+                                scope="col"
+                                className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                              >
                                 Approval Date
                               </th>
                             </tr>
@@ -179,6 +221,7 @@ function StaffList() {
                                 <td className="py-4 px-6 text-sm text-black text-center whitespace-nowrap ">
                                   {e.wage}
                                 </td>
+
                                 <td className="py-4 px-6 text-sm text-black text-center whitespace-nowrap ">
                                   {new Date(
                                     e.completion_date_time,
@@ -204,7 +247,14 @@ function StaffList() {
           return (
             <div>
               <div className=" p-10 mt-10">
-
+                <div className="flex overflow-auto  justify-between">
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    onChange={(event) => handleSearch(event)}
+                    className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
+                  />
+                </div>
                 <div className="h-8"></div>
                 <div className="flex flex-col">
                   <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -235,6 +285,12 @@ function StaffList() {
                                 scope="col"
                                 className="py-4 px-6 text-sm text-white whitespace-nowrap"
                               >
+                                Mobile
+                              </th>
+                              <th
+                                scope="col"
+                                className="py-4 px-6 text-sm text-white whitespace-nowrap"
+                              >
                                 Salary Type
                               </th>
                               <th
@@ -243,29 +299,38 @@ function StaffList() {
                               >
                                 Image
                               </th>
-
                             </tr>
                           </thead>
                           <tbody>
-                            {fetchstaff.map((e) => (
+                            {filteredData.map((e) => (
                               <>
                                 <tr className="border-b border-x-0 border-8 border-white bg-white">
                                   <td className="py-4 px-6 text-sm text-white whitespace-nowrap text-center uppercase ">
-                                 {e.salary_type == "wage" ? (
-                                    <Link
-                                    className="bg-rose-600 py-2 px-4 border-2 border-rose-600 hover:bg-transparent hover:border-rose-600 hover:text-rose-600"
-                                      to={`${e.staff_id}`}
-                                      staff_id={e.staff_id}
-                                    >
-                                      {e.staff_id}
-                                    </Link>
-                                 ):<button type="button" className="bg-gray-600 py-2 px-4 border-2 border-gray-600  font-bold">Disabled</button>}
+                                    {e.salary_type == 'wage' ? (
+                                      <Link
+                                        className="bg-rose-600 py-2 px-4 border-2 border-rose-600 hover:bg-transparent hover:border-rose-600 hover:text-rose-600"
+                                        to={`${e.staff_id}`}
+                                        staff_id={e.staff_id}
+                                      >
+                                        {e.staff_id}
+                                      </Link>
+                                    ) : (
+                                      <button
+                                        type="button"
+                                        className="bg-gray-600 py-2 px-4 border-2 border-gray-600  font-bold"
+                                      >
+                                        Disabled
+                                      </button>
+                                    )}
                                   </td>
                                   <td className="py-4 px-6 text-sm text-black whitespace-nowrap text-center uppercase ">
                                     {e.staff_name}
                                   </td>
                                   <td className="py-4 px-6 text-sm text-black whitespace-nowrap text-center uppercase ">
                                     {e.address}
+                                  </td>
+                                  <td className="py-4 px-6 text-sm text-black whitespace-nowrap text-center uppercase ">
+                                    {e.mobile}
                                   </td>
                                   <td className="py-4 px-6 text-sm text-black whitespace-nowrap text-center uppercase ">
                                     {e.salary_type}

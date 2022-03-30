@@ -5,12 +5,15 @@ import API from '../../../api'
 export default function Staff() {
   const [staff, fetchstaff] = useState([])
   const [staffstate, fetchstaffstate] = useState(false)
+  const [filteredData, setFilteredData] = useState(staff)
+
 
   useEffect(() => {
     axios.get(`${API}/api/staff/`).then((res) => {
       if (res.status === 200) {
         fetchstaffstate(true)
         fetchstaff(res.data)
+        setFilteredData(res.data)
       } else {
         fetchstaff([])
         fetchstaffstate(false)
@@ -18,21 +21,36 @@ export default function Staff() {
     })
   }, [])
 
+  const handleSearch = (event) => {
+    let value = event.target.value
+    let result = []
+    result = staff.filter((data) => {
+      return data.mobile.search(value) != -1
+    })
+    setFilteredData(result)
+  }
+
   return (
     <div>
 
 
-      <div className="flex scroll md:mt-0 justify-center min-h-screen">
-
+      <div className="flex scroll md:mt-16 justify-center min-h-screen">
+     
         <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">
           <div className="py-4">
-            <div>
               <h2 className="text-2xl justify-center font-semibold">
                 Staff Lists
               </h2>
-            </div>
-            <div className="w-full  overflow-x-auto">
-              <table className="overflow-x-auto md:mt-24 shadow-lg">
+            <div className="flex overflow-auto  justify-between">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  onChange={(event) => handleSearch(event)}
+                  className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
+                />
+              </div>
+            <div className="w-full overflow-x-auto">
+              <table className="overflow-x-auto md:mt-10 shadow-lg">
                 <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                 <tr>
                   <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
@@ -76,7 +94,7 @@ export default function Staff() {
                 <tbody>
                 {staffstate ? (
                     <>
-                      {staff.map((e) => (
+                      {filteredData.map((e) => (
                           <tr>
                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
                               <img src={`${API}${e.photo}`} className="h-14 w-14"/>

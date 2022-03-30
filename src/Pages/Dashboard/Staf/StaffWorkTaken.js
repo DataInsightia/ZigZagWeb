@@ -132,12 +132,12 @@ function StaffWorkTaken() {
           <div className="p-3">
             <h1 className={styles.title}>Take Orders</h1>
 
-            <div class="flex flex-col bg-white shadow-lg text-black">
+            <div class="flex flex-col bg-white shadow-lg ">
               <div class="overflow-x-auto">
                 <div class="inline-block py-2 min-w-full ">
                   <div class="overflow-hidden">
                     <table class="min-w-full ">
-                      <thead className="bg-gradient-to-r from-rose-600 to-rose-400">
+                      <thead className="">
                         <tr>
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/5">
@@ -152,7 +152,7 @@ function StaffWorkTaken() {
                             </div>
                             <div className="lg:w-1/5">
                               <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
-                                Reference
+                                Sub Work
                               </th>
                             </div>
                             <div className="lg:w-1/5">
@@ -247,7 +247,7 @@ function StaffWorkTaken() {
                 <div class="inline-block py-2 min-w-full ">
                   <div class="overflow-hidden">
                     <table class="min-w-full">
-                      <thead className="bg-gradient-to-r from-rose-600 to-rose-400">
+                      <thead className="">
                         <tr>
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/4">
@@ -262,7 +262,7 @@ function StaffWorkTaken() {
                             </div>
                             <div className="lg:w-1/4">
                               <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
-                                reference
+                                Sub Work
                               </th>
                             </div>
                             <div className="lg:w-1/4">

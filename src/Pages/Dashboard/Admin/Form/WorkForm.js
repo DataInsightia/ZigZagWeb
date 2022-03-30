@@ -12,7 +12,7 @@ import {
 } from '../../../../services/WorkFormServices'
 import { Link } from 'react-router-dom'
 import Constants from '../../../../constants/Constants'
-
+import PaginationBar from '../../../../widget/PaginationBar'
 
 export default function WorkForm() {
   const Styles = {
@@ -68,12 +68,14 @@ export default function WorkForm() {
 
   const [works, fetchWorks] = useState([])
   const [workState, fetchWorkState] = useState(false)
+  const [filteredData, setFilteredData] = useState(works)
 
   const getWork = () => {
     axios.get(`${API}/api/works/`).then((res) => {
       if (res.status === 200) {
         fetchWorkState(true)
         fetchWorks(res.data)
+        setFilteredData(res.data)
       } else {
         // fetchWorks([])
         fetchWorkState(false)
@@ -146,99 +148,31 @@ export default function WorkForm() {
     }
     openDeleteModal()
   }
+  const handleSearch = (event) => {
+    let value = event.target.value
+    let result = []
+    result = works.filter((data) => {
+      return data.work_name.search(value) != -1
+    })
+    setFilteredData(result)
+  }
 
   return (
     <div>
       <div class="md:mt-10 container mx-auto px-4 sm:px-8">
-        <div class="py-12">
-
-          {/*<div className="flex scroll items-center md:mt-0 justify-center min-h-screen ">*/}
-
-          {/*  <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">*/}
-          {/*  </div>*/}
-          {/*</div>*/}
-
-          {/*<div className="-mx-4 sm:-mx-8  px-4 sm:px-8 py-4 overflow-auto overflow-x-scroll ">*/}
-          {/*  <div className="inline-block min-w-full shadow-lg rounded-lg">*/}
-          {/*  </div>*/}
-          {/*</div>*/}
-
-
-              <div className="flex scroll   justify-center min-h-screen ">
-
-                <div className=" min-w-full  overflow-auto overflow-x-scroll bg:hidden  p-4">
-                  <div className="flex overflow-auto mb-6 justify-between">
-                    <h2 className="text-2xl justify-center  font-semibold leading-tight">
-                      Work
-                    </h2>
-                    <button
-                        onClick={openFromAddModal}
-                        className="px-2 py-1 shadow-lg border border-red-500 bg-red-500 text-white hover:bg-transparent hover:text-red-500 rounded text-lg font-bold"
-                    >
-                      Add Work
-                    </button>
-                  </div>
-              <table class="min-w-full leading-normal ">
-                <thead>
-                  <tr className={`${Constants.large}`}>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
-                      Work Name
-                    </th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
-                      Amount
-                    </th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
-                      Wage Type
-                    </th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider"></th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {workState ? (
-                    <>
-                      {works.map((e) => (
-                        <tr className={`text-center ${Constants.small}`}>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
-                            {e.work_name}
-                          </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
-                            {e.amount}
-                          </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
-                            {e.wage_type}
-                          </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
-                            <button
-                              onClick={() =>
-                                openFromUpdateModal(`${e.work_id}`)
-                              }
-                              className="px-2 py-1 bg-red-200 text-red-900 rounded font-bold"
-                            >
-                              Update
-                            </button>
-                          </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white ">
-                            <button
-                              onClick={() =>
-                                openFromDeleteModal(`${e.work_id}`)
-                              }
-                              className="px-2 py-1 bg-red-200 text-red-900 rounded font-bold"
-                            >
-                              Delete
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </>
-                  ) : (
-                    ''
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+        {/* PAGINATION */}
+        <Pagination
+          data={filteredData}
+          pageLimit={2}
+          dataLimit={10}
+          handleSearch={handleSearch}
+          workState={workState}
+          filteredData={filteredData}
+          openFromDeleteModal={openFromDeleteModal}
+          openFromUpdateModal={openFromUpdateModal}
+          openFromAddModal={openFromAddModal}
+        />
+        {/* PAGINATION */}
       </div>
       <div className={'p-10 mt-12'}></div>
       <Transition appear show={isOpen} as={Fragment}>
@@ -686,7 +620,135 @@ export default function WorkForm() {
         </Dialog>
       </Transition>
       {/* delete form modal */}
-        </div>
+    </div>
+  )
+}
 
+function Pagination({
+  data,
+  pageLimit,
+  dataLimit,
+  handleSearch,
+  workState,
+  filteredData,
+  openFromDeleteModal,
+  openFromUpdateModal,
+  openFromAddModal,
+}) {
+  const [pages] = useState(Math.round(data.length / dataLimit))
+  const [currentPage, setCurrentPage] = useState(1)
+
+  function goToNextPage() {
+    setCurrentPage((page) => page + 1)
+  }
+
+  function goToPreviousPage() {
+    setCurrentPage((page) => page - 1)
+  }
+  function changePage(event) {
+    const pageNumber = Number(event.target.textContent)
+    setCurrentPage(pageNumber)
+  }
+  const getPaginatedData = () => {
+    const startIndex = currentPage * dataLimit - dataLimit
+    const endIndex = startIndex + dataLimit
+    return data.slice(startIndex, endIndex)
+  }
+
+  const getPaginationGroup = () => {
+    let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit
+    return new Array(pageLimit).fill().map((_, idx) => start + idx + 1)
+  }
+
+  return (
+    <div>
+      <div className="md:mt-20">
+        <div className="flex scroll  justify-center min-h-screen md:-mb-24">
+          <div className=" min-w-full  overflow-auto overflow-x-scroll bg:hidden  p-4">
+            <div className="flex overflow-auto mb-6 justify-between">
+              <h2 className="text-2xl justify-center  font-semibold leading-tight">
+                Work
+              </h2>
+              <button
+                onClick={openFromAddModal}
+                className="px-2 py-1 shadow-lg border border-red-500 bg-red-500 text-white hover:bg-transparent hover:text-red-500 rounded text-lg font-bold"
+              >
+                Add Work
+              </button>
+            </div>
+            <div className="flex overflow-auto mb-6 justify-between">
+              <input
+                type="text"
+                placeholder="Search"
+                onChange={(event) => handleSearch(event)}
+                className="border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
+              />
+            </div>
+            <table class="min-w-full leading-normal ">
+              <thead>
+                <tr className={`${Constants.large}`}>
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
+                    Work Name
+                  </th>
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
+                    Amount
+                  </th>
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
+                    Wage Type
+                  </th>
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider"></th>
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {workState ? (
+                  <>
+                    {getPaginatedData().map((e, index) => (
+                      <tr className={`text-center ${Constants.small}`}>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
+                          {e.work_name}
+                        </td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
+                          {e.amount}
+                        </td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
+                          {e.wage_type}
+                        </td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
+                          <button
+                            onClick={() => openFromUpdateModal(`${e.work_id}`)}
+                            className="px-2 py-1 bg-red-200 text-red-900 rounded font-bold"
+                          >
+                            Update
+                          </button>
+                        </td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white ">
+                          <button
+                            onClick={() => openFromDeleteModal(`${e.work_id}`)}
+                            className="px-2 py-1 bg-red-200 text-red-900 rounded font-bold"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+                ) : (
+                  ''
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <PaginationBar
+          goToPreviousPage={goToPreviousPage}
+          currentPage={currentPage}
+          getPaginationGroup={getPaginationGroup}
+          changePage={changePage}
+          goToNextPage={goToNextPage}
+          pages={pages}
+        />
+      </div>
+    </div>
   )
 }
