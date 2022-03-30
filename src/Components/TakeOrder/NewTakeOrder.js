@@ -37,6 +37,7 @@ function NewTakeOrder() {
     var date = (new Date()).toLocaleDateString('en-GB')
 
     const [customer_details, SetCustomerDetails] = useState({})
+    const [family_members, setFamilyMembers] = useState([])
 
     const [others, setOthers] = useState({
         "advance_amount":'0',
@@ -44,7 +45,8 @@ function NewTakeOrder() {
         "courier_amount":'0',
         "courier_address": "",
         "balance_amount" : '0',
-        "due_date" : ''
+        "due_date" : '',
+        "family_member" : ''
     })
 
     const [material, setMaterial] = useState({
@@ -242,6 +244,15 @@ function NewTakeOrder() {
 
                     SetCustomerDetails(res.data[0])
                     setCust(true)
+
+                    axios.post(`${API}/api/get_family_members/`,{"mobile" : res.data[0].mobile})
+                        .then(res => {
+                            if (res.data.length !== 0) {
+                                setFamilyMembers(res.data.data[0].members.split(','))
+                            } else{
+                                setFamilyMembers([])
+                            }
+                        }).catch(err => console.log(err));
                 }
             })
             .catch((err) => {
@@ -311,7 +322,7 @@ function NewTakeOrder() {
           balance_amount: others.balance_amount,
           courier_amount: parseInt(others.courier_amount),
           courier_address: get_courier_address(others.pickup_type),
-
+          family_member : others.family_member
         },
       }
 
@@ -338,6 +349,7 @@ function NewTakeOrder() {
                   qty: tmpworks[i].quantity,
                   work_amount: tmpworks[i].amount,
                   work_name: tmpworks[i].work_name,
+                  family_member : others.family_member
                 },
               }
               axios
@@ -351,6 +363,7 @@ function NewTakeOrder() {
                     order_id: orderid,
                     order_work_label: `${tmpworks[i].work_name}-${wc}`,
                     work_id: tmpworks[i].work_id,
+                    family_member : others.family_member
                   })
                   .then((res) => {
                     console.log('order_work_staff_assign', res.data)
@@ -476,7 +489,7 @@ function NewTakeOrder() {
                                         alt=""
                                     />
                                 </div>
-                                Email:{customer_details.email}
+                                Email : {customer_details.email}
                             </div>
 
                             <div className="flex flex-wrap">
@@ -489,7 +502,7 @@ function NewTakeOrder() {
                                         alt=""
                                     />
                                 </div>
-                                Address :{customer_details.address}
+                                Address : {customer_details.address}
                             </div>
                         </div>
                     </div>
@@ -498,8 +511,37 @@ function NewTakeOrder() {
 
                     {cust ? (
                         <div className="bg-white drop-shadow-2xl ">
-                            <div >
+                            <div>
+                                <div className={'flex md:justify-center inline-block justify-start overflow-auto md:overflow-x-scroll inline-block md:flex'}>
+                                     <select
+                                        className="mb-3 md:mt-10 xl:w-auto form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-auto px-4
+                                              py-2
+                                              text-xl
+                                              font-normal
+                                              text-gray-700
+                                              bg-white bg-clip-padding bg-no-repeat
+                                              border border-solid border-gray-300
+                                              rounded
+                                              transition
+                                              ease-in-out
+                                              m-0
+                                              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                        name={'family_member'}
+                                        required
+                                        onChange={handleOther}
+                                    >
+                                        <option selected hidden value={''}>
+                                            Family Members
+                                        </option>
+
+                                        {family_members.map((e) => (
+                                            <option value={e}>{e}</option>
+                                        ))}
+                                    </select>
+
+                                </div>
                                 <form onSubmit={addWork} className="flex flex-wrap -md:mx-3 md:mb-6 md:space-x-20 justify-center">
+
                                     <select
                                         className="mb-3 sm:justify-center md:mt-12 inline-flex mt-12 inline-block xl:w-96 form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-72 px-4
       py-2
@@ -573,7 +615,6 @@ function NewTakeOrder() {
                                     />
                                 </form>
                             </div>
-
 
                             <div>
                                 <form className='flex flex-wrap -md:mx-3 md:mb-6 md:space-x-20 justify-center' onSubmit={addMaterial}>

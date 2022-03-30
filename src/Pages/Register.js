@@ -69,7 +69,6 @@ export default function Register() {
     const city = e.city
     const password = e.password
     const family_members = e.family_members
-    alert(JSON.stringify(family_members))
     axios
       .post(API + '/api/customer_register/', {
         name,
@@ -85,20 +84,29 @@ export default function Register() {
         if (res.data.status) {
           // Insert Family members if present
           if (family_members !== ""){
+            // REGISTER FAMILY MEMBERS
+            axios.post(`${API}/api/family_members/`,{'mobile' : mobile ,'members' : family_members}).then(
+                res => {
+                  alert(`Family Members [${res.data.members}] Added`);
+                }
+            ).catch(err => console.log(err))
 
+            // Get Customer Details for Popup
+            axios.post(`${API}/api/customer_details/`,{"cust_id" : mobile}).then(res => {
+              const customer = res.data[0];
+              console.log(res.data[0])
+              console.log(res.data.status)
+              alert(`Registration Success,\nYour Customer ID : ${customer.cust_id}\n Your Mobile No : ${customer.mobile}\n\tYour Can Login with your CUSTOMER ID or MOBILE NUMBER`)
+            }).catch(err => console.log(err))
+              isLogin(true)
+            }else{
+              alert(res.data.message);
+            }
+          }else{
+            alert("Family Members Field is Empty")
           }
 
-          // Get Customer Details for Popup
-          axios.post(`${API}/api/customer_details/`,{"cust_id" : mobile}).then(res => {
-            const customer = res.data[0];
-            console.log(res.data[0])
-            console.log(res.data.status)
-            alert(`Registration Success,\nYour Customer ID : ${customer.cust_id}\n Your Mobile No : ${customer.mobile}\n\tYour Can Login with your CUSTOMER ID or MOBILE NUMBER`)
-          }).catch(err => console.log(err))
-          isLogin(true)
-        }else{
-          alert(res.data.message);
-        }
+
 
       })
       .catch((err) => {
@@ -123,7 +131,7 @@ export default function Register() {
     <>
       <section className="relative w-full h-full py-24 min-h-screen">
         <div className="absolute md:fixed top-0 w-full h-full bg-gradient-to-tr from-red-50 to-red-200 blur-sm">
-          <img src={slideImg1} />
+          <img src={slideImg1} alt={'#'}/>
         </div>
 
         <div className="container mx-auto px-4 h-full">
