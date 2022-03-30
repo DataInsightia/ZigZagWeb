@@ -1,11 +1,13 @@
-import React, {Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import axios from 'axios'
 import API from '../../../api'
 import styles from '../Staf/Style/Styles'
 import { Navigate } from 'react-router-dom'
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router'
 import { Nav } from '@material-tailwind/react'
 import { Dialog, Transition } from '@headlessui/react'
+import Constants from '../../../constants/Constants'
+import PaginationBar from '../../../widget/PaginationBar'
 
 export const Stage_Completion_Request = async (
   order_id,
@@ -33,9 +35,8 @@ export const Stage_Completion_Request = async (
   return response
 }
 
-
 function OrderWorkStaffCompletion() {
-  const [redirect,setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState(false)
   const [completion, setcompletion] = useState([])
   const [completionbool, setcompletionbool] = useState(false)
   const [completionreview, setcompletionreview] = useState([])
@@ -43,8 +44,10 @@ function OrderWorkStaffCompletion() {
   const staff = localStorage.getItem('login_id')
   let [isOpen, setIsOpen] = useState(false)
   let [message, setMessage] = useState('')
+  const [filteredData, setFilteredData] = useState(completion)
+  const [filterDataReview, setFilteredReviewData] = useState(completionreview)
 
-  function closeModal () {
+  function closeModal() {
     fetchStaffCompletion()
     setIsOpen(false)
     setMessage()
@@ -54,47 +57,48 @@ function OrderWorkStaffCompletion() {
     setIsOpen(true)
   }
 
-  const fetchStaffCompletion = () =>{
+  const fetchStaffCompletion = () => {
     axios
-    .post(
-      API + '/api/staff_work_assign_completion/',
-      {
-        staff,
-      },
-      {
-        headers: { 'Content-Type': 'application/json' },
-      },
-      { withCredentials: true },
-    )
-    .then((res) => {
-      if (res.data.status === true) {
-        setcompletion(res.data.data)
-        setcompletionbool(true)
-      } else {
-        setcompletion([])
-        setcompletionbool(false)
-      }
-    })
-  axios
-    .post(
-      API + '/api/staff_work_completion_review/',
-      {
-        staff,
-      },
-      {
-        headers: { 'Content-Type': 'application/json' },
-      },
-      { withCredentials: true },
-    )
-    .then((res) => {
-      if (res.data.status === true) {
-        setcompletionreview(res.data.data)
-        setcompletionreviewbool(true)
-      } else {
-        setcompletionreview([])
-        setcompletionreviewbool(false)
-      }
-    })
+      .post(
+        API + '/api/staff_work_assign_completion/',
+        {
+          staff,
+        },
+        {
+          headers: { 'Content-Type': 'application/json' },
+        },
+        { withCredentials: true },
+      )
+      .then((res) => {
+        if (res.data.status === true) {
+          setcompletion(res.data.data)
+          setFilteredData(res.data.data)
+          setcompletionbool(true)
+        } else {
+          setcompletion([])
+          setcompletionbool(false)
+        }
+      })
+    axios
+      .post(
+        API + '/api/staff_work_completion_review/',
+        {
+          staff,
+        },
+        {
+          headers: { 'Content-Type': 'application/json' },
+        },
+        { withCredentials: true },
+      )
+      .then((res) => {
+        if (res.data.status === true) {
+          setcompletionreview(res.data.data)
+          setcompletionreviewbool(true)
+        } else {
+          setcompletionreview([])
+          setcompletionreviewbool(false)
+        }
+      })
   }
   useEffect(() => {
     fetchStaffCompletion()
@@ -103,48 +107,49 @@ function OrderWorkStaffCompletion() {
   const onSubmit = (e) => {
     e.preventDefault()
     var staff_id = localStorage.getItem('login_id')
-   Stage_Completion_Request(
+    Stage_Completion_Request(
       e.target.order_id.value,
       e.target.work_id.value,
       staff_id,
       e.target.date.value,
       e.target.assign_stage.value,
       e.target.order_work_label.value,
-    ).then(res => {
+    )
+      .then((res) => {
         // Stroring MaterialLocation in Backend
-       if(res.data.status) {
-           axios
-          .post(API + '/api/materialc/', {
-            material_location: e.target.material_location.value,
-            staff_id: staff_id,
-            order_id: e.target.order_id.value,
-            order_work_label : e.target.order_work_label.value
-          })
-          .then((res) => {
-              console.log("asdfasdfsf")
-            if (res.data.status) {
-                alert("Material Updated")
+        if (res.data.status) {
+          axios
+            .post(API + '/api/materialc/', {
+              material_location: e.target.material_location.value,
+              staff_id: staff_id,
+              order_id: e.target.order_id.value,
+              order_work_label: e.target.order_work_label.value,
+            })
+            .then((res) => {
+              if (res.data.status) {
+                alert('Material Updated')
                 console.log(res.data)
                 openModal()
 
-                setMessage("Material Location Updated")
-              // alert("Material Location Updated");
+                setMessage('Material Location Updated')
+                // alert("Material Location Updated");
                 // setRedirect(true);
-             }
-          })
-          .catch((err) => console.log(err))
-       }else{
-           alert(res.data.message);
-       }
-   }).catch(err => console.log(err))
+              }
+            })
+            .catch((err) => console.log(err))
+        } else {
+          alert(res.data.message)
+        }
+      })
+      .catch((err) => console.log(err))
 
-      e.target.order_id.value = ""
-      e.target.work_id.value = ""
-      e.target.date.value = ""
-      e.target.assign_stage.value = ""
-      e.target.order_work_label.value = ""
+    e.target.order_id.value = ''
+    e.target.work_id.value = ''
+    e.target.date.value = ''
+    e.target.assign_stage.value = ''
+    e.target.order_work_label.value = ''
 
-       window.location.reload();
+    //  window.location.reload();
   }
 
   const current = new Date()
@@ -152,10 +157,38 @@ function OrderWorkStaffCompletion() {
     current.getMonth() + 1
   }/${current.getDate()}/${current.getFullYear()}`
 
-  return (redirect) ? (<Navigate to="/dashboard/dhome/" />) : (
+  const handleSearch = (event) => {
+    let value = event.target.value
+    let result = []
+    result = completion.filter((data) => {
+      return data.order.order_id.search(value) != -1
+    })
+    setFilteredData(result)
+  }
+
+  const handleSearchreview = (event) => {
+    let value = event.target.value
+    let result = []
+    result = completion.filter((data) => {
+      return data.order.order_id.search(value) != -1
+    })
+    setFilteredReviewData(result)
+  }
+
+  return redirect ? (
+    <Navigate to="/dashboard/dhome/" />
+  ) : (
     <div>
       {completionbool ? (
         <div className=" p-10 md:mt-10">
+          <div className="flex overflow-auto  justify-between mb-10">
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={(event) => handleSearch(event)}
+              className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
+            />
+          </div>
           <div className="p-3">
             <h1 className={styles.title}>Staff Stage Completion</h1>
             <div class="flex flex-col bg-white shadow-lg">
@@ -163,7 +196,7 @@ function OrderWorkStaffCompletion() {
                 <div class="inline-block py-2 min-w-full ">
                   <div class="overflow-hidden sm:rounded-lg">
                     <table class="min-w-full overflow-auto">
-                      <thead className="bg-gradient-to-r from-rose-600 to-rose-400">
+                      <thead>
                         <tr>
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/6">
@@ -211,7 +244,7 @@ function OrderWorkStaffCompletion() {
                 </div>
               </div>
             </div>
-            {completion.map((e) => (
+            {filteredData.map((e) => (
               <form onSubmit={onSubmit} className="bg-white shadow-lg">
                 <div className="flex flex-wrap">
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
@@ -297,6 +330,14 @@ function OrderWorkStaffCompletion() {
       {/* reviews page  */}
       {completionreviewbool ? (
         <div className=" p-10 mt-10">
+          <div className="flex overflow-auto  justify-between mb-10">
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={(event) => handleSearchreview(event)}
+              className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
+            />
+          </div>
           <div className="p-3 bg-white shadow-xl">
             <h1 className={styles.title}>Review Works</h1>
             <div class="flex flex-col">
@@ -340,7 +381,7 @@ function OrderWorkStaffCompletion() {
                 </div>
               </div>
             </div>
-            {completionreview.map((e) => (
+            {filterDataReview.map((e) => (
               <form onSubmit={onSubmit}>
                 <div className="flex flex-wrap">
                   <div className="px-3 w-full md:w-1/2 lg:w-1/5">
@@ -401,7 +442,7 @@ function OrderWorkStaffCompletion() {
       ) : (
         ''
       )}
-             <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
           className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-25"
@@ -443,7 +484,6 @@ function OrderWorkStaffCompletion() {
                 >
                   {message}
                 </Dialog.Title>
-                
 
                 <div className="mt-4">
                   <button

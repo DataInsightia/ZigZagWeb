@@ -3,6 +3,8 @@ import axios from 'axios'
 import API from '../../../api'
 import styles from '../Staf/Style/Styles'
 import { Dialog, Transition } from '@headlessui/react'
+import Constants from '../../../constants/Constants'
+import PaginationBar from '../../../widget/PaginationBar'
 
 export const Order_Approval = async (
   order_id,
@@ -36,11 +38,13 @@ function OrderWorkStaffApproval() {
   const [orderApprovalbool, setorderApprovalbool] = useState(false)
   let [isOpen, setIsOpen] = useState(false)
   let [message, setMessage] = useState('')
+  const [filteredData, setFilteredData] = useState(orderApproval)
 
   const fetch_pending_completion_works = () => {
     axios.get(API + '/api/staff_work_assign_completion_app/').then((res) => {
       if (res.data.status === true) {
         setorderApproval(res.data.data)
+        setFilteredData(res.data.data)
         setorderApprovalbool(true)
       } else {
         setorderApproval([])
@@ -89,13 +93,29 @@ function OrderWorkStaffApproval() {
     
   }
 
+  const handleSearch = (event) => {
+    let value = event.target.value
+    let result = []
+    result = orderApproval.filter((data) => {
+      return data.order.order_id.search(value) != -1
+    })
+    setFilteredData(result)
+  }
+
   return (
     <div>
       {orderApprovalbool ? (
-        <div className="bg-white p-10 mt-10">
-          <div className="p-3 bg-white shadow-lg bg-opacity-25">
+        <div className="p-10 mt-10">
+          <div className="flex overflow-auto  justify-between mb-10">
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={(event) => handleSearch(event)}
+            className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
+          />
+        </div>
+          <div className="p-3 bg-white shadow-lg">
             <h1 className={styles.title}>Approval Orders</h1>
-
             <div class="flex flex-col">
               <div class="overflow-x-auto">
                 <div class="inline-block py-2 min-w-full ">
@@ -116,7 +136,7 @@ function OrderWorkStaffApproval() {
                             </div>
                             <div className="lg:w-2/12">
                               <th scope="col" className={styles.tablehead}>
-                                Reference
+                                Sub Work
                               </th>
                             </div>
                             <div className="lg:w-1/12">
@@ -145,7 +165,7 @@ function OrderWorkStaffApproval() {
                 </div>
               </div>
             </div>
-            {orderApproval.map((e) => (
+            {filteredData.map((e) => (
               <form onSubmit={onSubmit}>
                 <div className="flex flex-wrap">
                   <div className="px-3 w-full md:w-1/2 lg:w-2/12">

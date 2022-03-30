@@ -5,6 +5,8 @@ import API from '../../../api'
 
 function OrderWorkCompleted() {
   const [workcompleted, setworkcompleted] = useState([])
+  const [filteredData, setFilteredData] = useState(workcompleted)
+
 
   // get staff_id from local storage
   var staff_id = localStorage.getItem('login_id')
@@ -22,21 +24,37 @@ function OrderWorkCompleted() {
         { withCredentials: true },
       )
       .then((res) => {
-        console.log(res.data)
         if (res.data.status === true) {
-          console.log(res.data.data)
           setworkcompleted(res.data.data)
+          setFilteredData(res.data.data)
         } else {
         setworkcompleted([])
         }
       })
   }, [])
 
+  const handleSearch = (event) => {
+    let value = event.target.value
+    let result = []
+    result = workcompleted.filter((data) => {
+      return data.orderworkstaffassign.order.order_id.search(value) != -1
+    })
+    setFilteredData(result)
+  }
+
   return (
     <div>
       
-        <div className="bg-white p-10 md:mt-10">
-          <div className="p-3 bg-white shadow-lg bg-opacity-25">
+        <div className="p-10 md:mt-10">
+        <div className="flex overflow-auto  justify-between mb-10">
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={(event) => handleSearch(event)}
+            className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
+          />
+        </div>
+          <div className="p-3 bg-white shadow-lg">
             <h1 className={styles.title}>Completed Works</h1>
 
             <div class="flex flex-col">
@@ -75,7 +93,7 @@ function OrderWorkCompleted() {
                 </div>
               </div>
             </div>
-            {workcompleted.map((e) => (
+            {filteredData.map((e) => (
               <form>
                 <div className="flex flex-wrap">
                   <div className="px-3 w-full md:w-1/2 lg:w-1/4">

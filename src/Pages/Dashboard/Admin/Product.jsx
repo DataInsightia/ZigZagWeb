@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Fragment, useEffect, useState } from 'react'
 import API from '../../../api'
 import React from 'react';
+import Constants from '../../../../src/constants/Constants'
+import PaginationBar from '../../../../src/widget/PaginationBar'
 
 export default function Product() {
 
@@ -23,9 +25,7 @@ export default function Product() {
   const resetCurrentProduct = () => setCurrentProduct({});
 
 
-  const styles = {
-    'rose-button': "inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500"
-  }
+  
 
   function closeModal() {
     setIsOpen(false)
@@ -110,144 +110,25 @@ export default function Product() {
 
   return (
     <>
-      <div className="p-4 mt-20">
-        <div className="flex overflow-auto  justify-between">
-          <input
-            type="text"
-            placeholder="Search"
-            onChange={(event) => handleSearch(event)}
-            className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
-          />
-        </div>
-      </div>
-      <div className="flex scroll items-center justify-center p-4">
 
-        <div className="md:w-full md:h-auto overflow-auto overflow-x-scroll bg-white shadow-lg p-4">
-
-          <div className='mx-auto'>
-            <button
-              type="button"
-              onClick={(e) => { openModal(e); resetProduct(e); resetPicture(e); }}
-              className="px-8 py-2 text-lg font-medium bg-red-500 text-white rounded-md hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-            >
-              ADD
-                    </button>
-          </div>
-          <div>
-            {/* <p>List</p>
-                    {
-                        productList.map(e => <li>{e.product_name} <button className={styles['rose-button']} onClick={(k) => {openUpdateModal(k);getProduct(k,e.product_id);}}>Update</button> <button class={styles['rose-button']}  onClick={() => axios.delete(`${API}/api/product/${e.product_id}/`).then(res => {alert(res.data.message);fetch();})}>{"Delete"}</button></li>)
-                    } */}
-
-            <br />
-            <table className="w-full">
-              <thead>
-                <tr>
-                  <th
-                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                  >
-                    Product Image
-                             </th>
-                  <th
-                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                  >
-                    Product Name
-                             </th>
-                  <th
-                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                  >
-                    Display
-                             </th>
-                  <th
-                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                  >
-                    New Arraval
-                             </th>
-                  <th
-                    className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                  >
-                    Update
-                             </th>
-                  <th
-                    className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                  >
-                    Delete
-                             </th>
-                  <th
-                    className=" py-3 border-b-2 border-gray-200 bg-gray-100"
-                  ></th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  filteredData.map(e => <>
-                    <tr>
-
-                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <div className="flex">
-                          <div className="flex-shrink-0 w-10 h-10">
-                            <img
-                              className="w-full h-full rounded-full"
-                              src={`${API}${e.picture}`}
-                              alt=""
-                            />
-                          </div>
-                          <div className="ml-3">
-                            <p className="text-gray-600 whitespace-no-wrap"></p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p className="text-gray-900 whitespace-no-wrap">{e.product_name}</p>
-                      </td>
-
-                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <span
-                          className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
-                        >
-                          <span
-                            aria-hidden
-                            className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                          ></span>
-                          <span className="relative">{e.display ? "True" : "False"}</span>
-                        </span>
-                      </td>
-                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <span
-                          className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
-                        >
-                          <span
-                            aria-hidden
-                            className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                          ></span>
-                          <span className="relative">{e.new_arrival ? "True" : "False"}</span>
-                        </span>
-                      </td>
-
-
-                      <td>
-                        <button className={styles['rose-button']} onClick={(k) => { openUpdateModal(k); getProduct(k, e.product_id); }}>Update</button>
-                      </td>
-
-                      <td>
-
-                        <button class={styles['rose-button']} onClick={() => axios.delete(`${API}/api/product/${e.product_id}/`).then(res => { alert(res.data.message); fetch(); })}>{"Delete"}</button>
-                      </td>
-
-                    </tr>
-                  </>)}
-              </tbody>
-            </table>
-
-          </div>
-        </div>
-      </div>
-
+ {/* PAGINATION */}
+ <Pagination
+          data={filteredData}
+          pageLimit={2}
+          dataLimit={10}
+          handleSearch={handleSearch}
+          openModal={openModal}
+          resetPicture={resetPicture}
+          resetProduct={resetProduct}
+          getProduct={getProduct}
+          openUpdateModal={openUpdateModal}
+        />
+        {/* PAGINATION */}
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-25"
+          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-25 p-10"
           onClose={closeModal}
         >
           <div className="min-h-screen px-4 text-center">
@@ -318,7 +199,7 @@ export default function Product() {
       <Transition appear show={isUpdateOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-25"
+          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-25 p-10"
           onClose={closeModal}
         >
           <div className="min-h-screen px-4 text-center">
@@ -391,5 +272,188 @@ export default function Product() {
       </Transition>
 
     </>
+  )
+}
+
+
+
+function Pagination({
+  data,
+  pageLimit,
+  dataLimit,
+  handleSearch,
+  openModal,
+  resetPicture,
+  resetProduct,
+  getProduct,
+  openUpdateModal
+}) {
+  const styles = {
+    'rose-button': "inline-flex justify-center px-4 py-2 text-sm font-medium text-rose-900 bg-rose-100 border border-transparent rounded-md hover:bg-rose-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-rose-500"
+  }
+  const [pages] = useState(Math.round(data.length / dataLimit))
+  const [currentPage, setCurrentPage] = useState(1)
+
+  function goToNextPage() {
+    setCurrentPage((page) => page + 1)
+  }
+
+  function goToPreviousPage() {
+    setCurrentPage((page) => page - 1)
+  }
+  function changePage(event) {
+    const pageNumber = Number(event.target.textContent)
+    setCurrentPage(pageNumber)
+  }
+  const getPaginatedData = () => {
+    const startIndex = currentPage * dataLimit - dataLimit
+    const endIndex = startIndex + dataLimit
+    return data.slice(startIndex, endIndex)
+  }
+
+  const getPaginationGroup = () => {
+    let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit
+    return new Array(pageLimit).fill().map((_, idx) => start + idx + 1)
+  }
+
+  return (
+    <div>
+      <div className="p-4 mt-24">
+        <div className="flex overflow-auto  justify-between">
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={(event) => handleSearch(event)}
+            className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
+          />
+        </div>
+      </div>
+      <div className="flex scroll items-center justify-center p-4">
+        <div className="md:w-full md:h-auto overflow-auto overflow-x-scroll bg-white shadow-lg p-4">
+
+          <div className='mx-auto'>
+            <button
+              type="button"
+              onClick={(e) => { openModal(e); resetProduct(e); resetPicture(e); }}
+              className="px-8 py-2 text-lg font-medium bg-red-500 text-white rounded-md hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+            >
+              ADD
+                    </button>
+          </div>
+          <div>
+            <br />
+            <table className="w-full">
+              <thead>
+                <tr>
+                  <th
+                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  >
+                    Product Image
+                             </th>
+                  <th
+                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  >
+                    Product Name
+                             </th>
+                  <th
+                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  >
+                    Display
+                             </th>
+                  <th
+                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  >
+                    New Arraval
+                             </th>
+                  <th
+                    className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  >
+                    Update
+                             </th>
+                  <th
+                    className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                  >
+                    Delete
+                             </th>
+                  <th
+                    className=" py-3 border-b-2 border-gray-200 bg-gray-100"
+                  ></th>
+                </tr>
+              </thead>
+              <tbody>
+                {getPaginatedData().map((e, index) => (
+                  <tr>
+
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <div className="flex">
+                        <div className="flex-shrink-0 w-10 h-10">
+                          <img
+                            className="w-full h-full rounded-full"
+                            src={`${API}${e.picture}`}
+                            alt=""
+                          />
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-gray-600 whitespace-no-wrap"></p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p className="text-gray-900 whitespace-no-wrap">{e.product_name}</p>
+                    </td>
+
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <span
+                        className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+                      >
+                        <span
+                          aria-hidden
+                          className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                        ></span>
+                        <span className="relative">{e.display ? "True" : "False"}</span>
+                      </span>
+                    </td>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <span
+                        className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+                      >
+                        <span
+                          aria-hidden
+                          className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                        ></span>
+                        <span className="relative">{e.new_arrival ? "True" : "False"}</span>
+                      </span>
+                    </td>
+
+
+                    <td>
+                      <button className={styles['rose-button']} onClick={(k) => { openUpdateModal(k); getProduct(k, e.product_id); }}>Update</button>
+                    </td>
+
+                    <td>
+
+                      <button class={styles['rose-button']} onClick={() => axios.delete(`${API}/api/product/${e.product_id}/`).then(res => { alert(res.data.message); fetch(); })}>{"Delete"}</button>
+                    </td>
+
+                  </tr>
+
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div className="md:mt-20">
+
+        <PaginationBar
+          goToPreviousPage={goToPreviousPage}
+          currentPage={currentPage}
+          getPaginationGroup={getPaginationGroup}
+          changePage={changePage}
+          goToNextPage={goToNextPage}
+          pages={pages}
+        />
+      </div>
+    </div>
   )
 }
