@@ -1,6 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react'
 import axios from 'axios'
 import API from '../../../api'
+import Constants from '../../../constants/Constants'
+import PaginationBar from '../../../widget/PaginationBar'
 import ReactToPrint from "react-to-print";
 
 export default function Customer() {
@@ -8,91 +10,40 @@ export default function Customer() {
 
   const [customers, fetchcustomers] = useState([])
   const [customerstate, fetchcustomerstate] = useState(false)
+  const [filteredData, setFilteredData] = useState(customers)
 
   useEffect(() => {
     axios.get(`${API}/api/customers/`).then((res) => {
       if (res.status === 200) {
         fetchcustomerstate(true)
         fetchcustomers(res.data)
+        setFilteredData(res.data)
       } else {
         fetchcustomers([])
         fetchcustomerstate(false)
       }
     })
   }, [])
+  const handleSearch = (event) => {
+    let value = event.target.value
+    let result = []
+    result = customers.filter((data) => {
+      return data.mobile.search(value) != -1
+    })
+    setFilteredData(result)
+  }
 
   return (
     <div>
-      <div className="flex scroll  md:mt-0 justify-center min-h-screen">
-        <div ref={componentRef} className="md:w-1/1 overflow-auto overflow-x-scroll p-4">
-
-          <div className="py-4">
-            <table className="w-full md:mt-24 shadow-lg">
-              <thead className=" bg-gradient-to-r from-rose-600 to-rose-500">
-              <tr>
-                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                  Customer ID
-                </th>
-                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                  Customer Name
-                </th>
-                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                  Mobile
-                </th>
-                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                  Address
-                </th>
-                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                  City
-                </th>
-                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                  Pincode
-                </th>
-                <th className="py-3 text-center text-xs font-semibold text-white uppercase">
-                  Password
-                </th>
-              </tr>
-              </thead>
-              <tbody>
-                {customerstate ? (
-                  <>
-                    {customers.map((e) => (
-                      <tr>
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                          {e.cust_id}
-                        </td>
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                          {e.cust_name}
-                        </td>
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                          {e.mobile}
-                        </td>
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                          {e.address}
-                        </td>
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                          {e.city}
-                        </td>
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                          {e.pincode}
-                        </td>
-
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
-                          {e.password}
-                        </td>
-                      </tr>
-                    ))}
-                  </>
-                ) : (
-                  ''
-                )}
-              </tbody>
-            </table>
-          </div>
-          <br/>
-          <PrintButton className={'w-1/2'} componentRef={componentRef}/>
-        </div>
-      </div>
+      {/* PAGINATION */}
+      <Pagination
+        data={filteredData}
+        pageLimit={2}
+        dataLimit={10}
+        handleSearch={handleSearch}
+        customerstate={customerstate}
+      />
+      {/* PAGINATION */}
 
       {/*<div className={'p-10 md:mt-12'}>*/}
 
@@ -175,25 +126,127 @@ export default function Customer() {
   )
 }
 
-const PrintButton = (props) => {
+function Pagination({
+  data,
+  pageLimit,
+  dataLimit,
+  handleSearch,
+  customerstate,
+}) {
+  const [pages] = useState(Math.round(data.length / dataLimit))
+  const [currentPage, setCurrentPage] = useState(1)
+
+  function goToNextPage() {
+    setCurrentPage((page) => page + 1)
+  }
+
+  function goToPreviousPage() {
+    setCurrentPage((page) => page - 1)
+  }
+
+  function changePage(event) {
+    const pageNumber = Number(event.target.textContent)
+    setCurrentPage(pageNumber)
+  }
+
+  const getPaginatedData = () => {
+    const startIndex = currentPage * dataLimit - dataLimit
+    const endIndex = startIndex + dataLimit
+    return data.slice(startIndex, endIndex)
+  }
+
+  const getPaginationGroup = () => {
+    let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit
+    return new Array(pageLimit).fill().map((_, idx) => start + idx + 1)
+  }
+
   return (
-      <div className="flex items-end justify-end space-x-3">
-
-
-        <ReactToPrint
-            width={2}
-            scale={0.8}
-            trigger={() => <button className="px-4 py-2 text-sm text-white bg-rose-500">
-              Print
-            </button>}
-            content={() => props.componentRef.current}
-        />
-        {/* <button className="px-4 py-2 text-sm text-blue-600 bg-blue-100">
-              Save
-            </button>
-            <button className="px-4 py-2 text-sm text-red-600 bg-red-100">
-              Cancel
-            </button> */}
+    <div>
+      <div className="p-4 md:mt-24">
+        <div className="flex overflow-auto  justify-between">
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={(event) => handleSearch(event)}
+            className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
+          />
+        </div>
       </div>
+      <div className="flex flex-col p-4">
+        <div className="overflow-x-auto">
+          <div className="inline-block py-2 min-w-full">
+            <table className="w-full md:mt-2 shadow-lg">
+              <thead className=" bg-gradient-to-r from-rose-600 to-rose-500">
+                <tr>
+                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                    Customer ID
+                  </th>
+                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                    Customer Name
+                  </th>
+                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                    Mobile
+                  </th>
+                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                    Address
+                  </th>
+                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                    City
+                  </th>
+                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                    Pincode
+                  </th>
+                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                    Password
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {customerstate ? (
+                  <>
+                    {getPaginatedData().map((e, index) => (
+                      <tr>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {e.cust_id}
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {e.cust_name}
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {e.mobile}
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {e.address}
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {e.city}
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {e.pincode}
+                        </td>
+
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {e.password}
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+                ) : (
+                  ''
+                )}
+              </tbody>
+            </table>
+          </div>
+          <PaginationBar
+            goToPreviousPage={goToPreviousPage}
+            currentPage={currentPage}
+            getPaginationGroup={getPaginationGroup}
+            changePage={changePage}
+            goToNextPage={goToNextPage}
+            pages={pages}
+          />
+        </div>
+      </div>
+    </div>
   )
 }

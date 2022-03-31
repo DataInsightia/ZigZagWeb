@@ -37,6 +37,9 @@ function StaffWorkTaken() {
   const [takenworksbool, settakenworksbool] = useState(false)
   let [isOpen, setIsOpen] = useState(false)
   let [message, setMessage] = useState('')
+  const [filteredData, setFilteredData] = useState(assingedworks)
+  const [ongoingfilteredData, setongoingFilteredData] = useState(takenworks)
+
 
   function closeModal () {
     fetchStaffOrders()
@@ -69,6 +72,7 @@ function StaffWorkTaken() {
         if (res.data.status === true) {
           console.log(res.data.data)
           setAssingedWorks(res.data.data)
+          setFilteredData(res.data.data)
           setAssingedWorksbool(true)
         } else {
           setAssingedWorks([])
@@ -89,6 +93,7 @@ function StaffWorkTaken() {
       .then((res) => {
         if (res.data.status === true) {
           settakenworks(res.data.data)
+          setongoingFilteredData(res.data.data)
           settakenworksbool(true)
         } else {
           settakenworks([])
@@ -124,20 +129,44 @@ function StaffWorkTaken() {
     setMessage(res.data.details)
   }
 
+  const handleSearch = (event) => {
+    let value = event.target.value
+    let result = []
+    result = assingedworks.filter((data) => {
+      return data.orderworkstaffassign.order.order_id.search(value) != -1
+    })
+    setFilteredData(result)
+  }
+  const ongoinghandleSearch = (event) => {
+    let value = event.target.value
+    let result = []
+    result = takenworks.filter((data) => {
+      return data.orderworkstaffassign.order.order_id.search(value) != -1
+    })
+    setFilteredData(result)
+  }
   return (
     <div>
     
       {assingedworksbool ? (
         <div className=" p-10 md:mt-10">
+           <div className="flex overflow-auto  justify-between  md:mt-10 p-4">
+        <input
+          type="text"
+          placeholder="Search"
+          onChange={(event) => handleSearch(event)}
+          className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
+        />
+      </div>
           <div className="p-3">
-            <h1 className={styles.title}>Take Orders</h1>
+            <h1 className={styles.title}>Pending Work</h1>
 
-            <div class="flex flex-col bg-white shadow-lg text-black">
+            <div class="flex flex-col bg-white shadow-lg ">
               <div class="overflow-x-auto">
                 <div class="inline-block py-2 min-w-full ">
                   <div class="overflow-hidden">
                     <table class="min-w-full ">
-                      <thead className="bg-gradient-to-r from-rose-600 to-rose-400">
+                      <thead className="">
                         <tr>
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/5">
@@ -152,7 +181,7 @@ function StaffWorkTaken() {
                             </div>
                             <div className="lg:w-1/5">
                               <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
-                                Reference
+                                Sub Work
                               </th>
                             </div>
                             <div className="lg:w-1/5">
@@ -171,7 +200,7 @@ function StaffWorkTaken() {
                 </div>
               </div>
             </div>
-            {assingedworks.map((e) => (
+            {filteredData.map((e) => (
               <form onSubmit={onSubmit} className="bg-white shadow-lg">
                 <div className="flex flex-wrap">
                   <div className="px-3 w-full md:w-1/2 lg:w-1/5">
@@ -239,15 +268,23 @@ function StaffWorkTaken() {
 
       {takenworksbool ? (
         <div className="p-10 mt-10">
-          <div className="p-3 bg-opacity-25">
-            <h1 className={styles.title}>Taken Orders</h1>
+            <div className="flex overflow-auto  justify-between  md:mt-10 p-4">
+        <input
+          type="text"
+          placeholder="Search"
+          onChange={(event) => ongoinghandleSearch(event)}
+          className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
+        />
+      </div>
+          <div className="p-3">
+            <h1 className={styles.title}>On Going Works</h1>
 
             <div class="flex flex-col bg-white shadow-lg">
               <div class="overflow-x-auto">
                 <div class="inline-block py-2 min-w-full ">
                   <div class="overflow-hidden">
                     <table class="min-w-full">
-                      <thead className="bg-gradient-to-r from-rose-600 to-rose-400">
+                      <thead className="">
                         <tr>
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/4">
@@ -262,7 +299,7 @@ function StaffWorkTaken() {
                             </div>
                             <div className="lg:w-1/4">
                               <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
-                                reference
+                                Sub Work
                               </th>
                             </div>
                             <div className="lg:w-1/4">
@@ -278,7 +315,7 @@ function StaffWorkTaken() {
                 </div>
               </div>
             </div>
-            {takenworks.map((e) => (
+            {ongoingfilteredData.map((e) => (
               <form onSubmit={onSubmit} className="bg-white shadow-lg">
                 <div className="flex flex-wrap">
                   <div className="px-3 w-full md:w-1/2 lg:w-1/4">
