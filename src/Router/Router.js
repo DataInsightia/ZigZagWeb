@@ -2,7 +2,6 @@ import { Navigate, useRoutes } from 'react-router-dom'
 import Home from '../Pages/Home/Home'
 import Login from '../Pages/Login'
 import Register from '../Pages/Register'
-import TakeOrder from '../Components/TakeOrder/TakeOrder'
 import Invoice from '../Components/TakeOrder/Invoice/Invoice'
 import Dashboard from '../Pages/Dashboard/Dashboard'
 import DashboardHome from '../Pages/Dashboard/DHome'
@@ -33,7 +32,6 @@ import Delivery from '../Pages/Dashboard/Admin/Delivery'
 import React from 'react';
 import OtherPickup from "../Pages/Dashboard/Admin/OtherPickup";
 import PayAdvance from "../Pages/Dashboard/Admin/PayAdvance";
-import CustomerInfo from "../Pages/Dashboard/Customer/CustomerInfo";
 import NewTakeOrder from "../Components/TakeOrder/NewTakeOrder";
 import DisplayList from '../Pages/Dashboard/DisplayList'
 import CustomerMeasurement from "../Pages/Dashboard/Admin/CustomerMeasurement";
@@ -54,6 +52,7 @@ export default function Router() {
         { path: 'register', element: <Register /> },
         { path: 'product_home', element: <Product_Home /> },
         { path: 'order_status_home', element: <Order_Status_Home /> },
+
       ],
     },
 

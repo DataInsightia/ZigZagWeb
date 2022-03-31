@@ -7,6 +7,10 @@ import './button.css'
 import { Navigate } from 'react-router'
 import {Link} from 'react-router-dom'
 import { Dialog, Transition } from '@headlessui/react'
+import $ from "jquery";
+
+
+
 
 function NewTakeOrder() {
 
@@ -30,11 +34,11 @@ function NewTakeOrder() {
     let [total, setTotal] = useState(0)
     let [balance, setBalance] = useState(0)
     const [advance, setAdvance] = useState(0)
-    const [family_members, setFamilyMembers] = useState([])
-
     const [customer, setCustomer] = useState({
         cust_id: '',
     })
+
+    const [family_members, setFamilyMembers] = useState([]);
 
     var date = (new Date()).toLocaleDateString('en-GB')
 
@@ -364,7 +368,6 @@ function NewTakeOrder() {
                     order_id: orderid,
                     order_work_label: `${tmpworks[i].work_name}-${wc}`,
                     work_id: tmpworks[i].work_id,
-                    family_member : others.family_member
                   })
                   .then((res) => {
                     console.log('order_work_staff_assign', res.data)
@@ -405,13 +408,7 @@ function NewTakeOrder() {
     console.log('advance', advance, 'balance', balance, 'total', total)
   }
 
-    const disablePastDate = () => {
-        const today = new Date();
-        const dd = String(today.getDate() + 1).padStart(2, "0");
-        const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-        const yyyy = today.getFullYear();
-        return yyyy + "-" + mm + "-" + dd;
-    };
+
 
     return (
         <div>
@@ -703,7 +700,7 @@ function NewTakeOrder() {
                                         <div className="datepicker md:relative inline-flex justify-center form-floating mb-3 md:w-96">
                                             Due Date:
                                             <input
-                                                min={disablePastDate()}
+                                                min={new Date().toISOString().split('T')[0]}
                                                 className="datepicker max-h-860-px form-control block w-full text-4xl px-3 date-3xl py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                                 type={'date'}
                                                 name={'due_date'}
@@ -918,7 +915,7 @@ function NewTakeOrder() {
                             <div className={'text-center'}>
                                 <button
                                     className={
-                                        'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
+                                        'text-white font-bold text-lg rounded button rounded p-3 m-3 bg-red-500'
                                     }
                                     onClick={calculate}
                                 >
