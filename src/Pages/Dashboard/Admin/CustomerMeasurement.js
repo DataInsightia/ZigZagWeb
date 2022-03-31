@@ -21,6 +21,7 @@ function CustomerMeasurement() {
     const [cust, setCust] = useState(false)
     const [works, setWorks] = useState([{}])
     const [data,setData] = useState({})
+    const [image,setImage] = useState('')
     const [customer, setCustomer] = useState({
         cust_id: '',
     })
@@ -28,6 +29,7 @@ function CustomerMeasurement() {
     var date = (new Date()).toLocaleDateString('en-GB')
 
     const [customer_details, SetCustomerDetails] = useState({})
+    const [family_members,setFamilyMembers] = useState([])
 
     useEffect(() => {
         fetch_works()
@@ -44,6 +46,8 @@ function CustomerMeasurement() {
     }, [orderid])
 
     const handleChange = (e) => setData({ ...data, [e.target.name]: e.target.value })
+
+    const handleFile = (e) => setImage(e.target.files[0])
 
     const fetch_works = async () => {
         var works = await axios.get(API + '/api/works/')
@@ -62,6 +66,14 @@ function CustomerMeasurement() {
                 if (res.data.length !== 0) {
 
                     SetCustomerDetails(res.data[0])
+                    axios.post(`${API}/api/get_family_members/`,{"mobile" : res.data[0].mobile})
+                        .then(res => {
+                            if (res.data.length !== 0) {
+                                setFamilyMembers(res.data.data[0].members.split(','))
+                            } else{
+                                setFamilyMembers([])
+                            }
+                        }).catch(err => console.log(err));
                     setCust(true)
                 }
             })
@@ -77,11 +89,19 @@ function CustomerMeasurement() {
         e.preventDefault()
         const work_id = e.target.work_id.value;
         const measurement = e.target.measurement.value;
+        const family_member = e.target.family_member.value;
 
-        axios.post(`${API}/api/customer_measurement/`,{"work_id" : work_id,"measurement" : measurement,"cust_id" : customer_details.cust_id})
+        const formData = new FormData()
+        formData.append("image",image)
+        formData.append("data", JSON.stringify({"work_id" : work_id,"measurement" : measurement,"cust_id" : customer_details.cust_id,"family_member" : family_member}))
+
+        console.log({"work_id" : work_id,"measurement" : measurement,"cust_id" : customer_details.cust_id,"family_member" : family_member})
+        console.log(image)
+
+        axios.post(`${API}/api/customer_measurement/`,formData)
             .then(res => {
                 alert(res.data.message)
-                window.location.reload()
+                // window.location.reload()
             }).catch(err => console.log(err));
     }
 
@@ -92,23 +112,24 @@ function CustomerMeasurement() {
                 <div className="border-x-0 rounded  px-8 pt-8 pb-8 mb-4">
                     <div className="mt-10 flex flex-wrap justify-evenly bg-white shadow-2xl">
                         <div className="flex flex-col">
-                            <div className="grid justify-center mt-44">
-                                <input
+                            <div className="grid justify-center mt-4">
+                                <form onSubmit={findCustomer}>
+                                    <input
                                     className="uppercase shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     type={'text'}
                                     placeholder={'Mobile or Customer ID'}
                                     value={customer.cust_id}
                                     onChange={handleCustomer}
                                     name={'cust_id'}
-                                />
-                                <input
-                                    type={'submit'}
-                                    className={
-                                        'button text-white cursor-pointer rounded p-2 my-2 bg-red-500 border border-red-500 hover:text-red-500 hover:bg-transparent'
-                                    }
-                                    value={'Check'}
-                                    onClick={findCustomer}
-                                />
+                                    />
+                                    <input
+                                        type={'submit'}
+                                        className={
+                                            'button text-white cursor-pointer rounded p-2 my-2 bg-red-500 border border-red-500 hover:text-red-500 hover:bg-transparent'
+                                        }
+                                        value={'Check'}
+                                    />
+                                </form>
                             </div>
                         </div>
                         <div className="grid col-auto mt-12 md:w-1/4 mb-16">
