@@ -3,6 +3,8 @@ import axios from 'axios'
 import API from '../../../api'
 import styles from '../Staf/Style/Styles'
 import { Dialog, Transition } from '@headlessui/react'
+import {faChessKnight} from "@fortawesome/fontawesome-free-solid";
+import {checkboxClasses} from "@mui/material";
 // import { toast } from 'react-toastify'
 
 function Delivery() {
@@ -96,12 +98,13 @@ function Delivery() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
   const handleCheckout = (e) =>
-    setCheckoutData({ ...checkout_data, [e.target.name]: e.target.value })
+    setCheckoutData({ ...checkout_data, [e.target.name]: parseInt(e.target.value) !== null && e.target.value.length !== 0 ? parseInt(e.target.value) : 0 })
 
   const fetch_pending_work = (orderid) => axios.post(API +'/api/order_assign_completed/',{order_id : orderid}).then((res) => {
     console.log(res.data)
       if (res.data.status === true) {
         setOrderPending(res.data.data)
+        setCheckoutData({ ...checkout_data, ['balance_amount']: res.data.data[0].order.balance_amount })
         setOrderWorkBool(true)
       } else {
         setOrderPending([])
@@ -139,6 +142,14 @@ function Delivery() {
   }
 
   const onOrderChange = (e) => setOrderID(e.target.value);
+
+
+  const printDelivery = (e) => {
+    const balance_amount = e.target.balance_amount.value;
+    const current_amount = e.target.current_amount.value;
+    const pending_amount = e.target.pending_amount.value;
+    console.log(balance_amount,current_amount,pending_amount)
+  }
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -383,11 +394,19 @@ function Delivery() {
                   }
                 </table>
                 <div className={'border-2 p-2 m-2'}>
-                  <form>
-                    <p className={'m-1'}>Old Balance : <input name={'balance_amount'} className={'border-2'} type={'text'} value={checkout_data.balance_amount} onChange={handleCheckout} disabled/></p>
-                    <p className={'m-1'}>Current Payment : <input name={'current_balance'} className={'border-2'} type={'text'} defaultValue={0} onChange={handleCheckout} /></p>
+                  <form onSubmit={printDelivery}>
+                    <p className={'m-1'}>Old Balance : <input name={'balance_amount'} className={'border-2'} type={'text'} defaultValue={checkout_data.balance_amount} onChange={handleCheckout} disabled/></p>
+                    <div className={'flex'}>
+                      <p className={'m-1'}>Current Payment : <input name={'current_amount'} className={'border-2'} type={'text'} defaultValue={0} onChange={(e) => {
+                        handleCheckout(e);
+                        setCheckoutData({...checkout_data,['pending_amount'] : (checkout_data.balance_amount - e.target.value)})
+                      }}/></p>
+                      {/*<input type={'submit'} className={'bg-rose-500 text-white rounded-xl p-1 font-bold'} value={'Get Pending Amount'} onClick={(e) => {*/}
+                      {/*          e.preventDefault();console.log(checkout_data.current_amount);*/}
+                      {/*}}/>*/}
+                    </div>
                     <p className={'m-1'}>Pending Amount : <input name={'pending_amount'} className={'border-2'} type={'text'} value={checkout_data.pending_amount} onChange={(e) => {
-                      handleCheckout(e);
+                      // handleCheckout(e);
                       setCheckoutData({...checkout_data,[e.target.name]: (parseInt(checkout_data.balance_amount) - parseInt(checkout_data.current_amount))})
                     }} /></p>
 

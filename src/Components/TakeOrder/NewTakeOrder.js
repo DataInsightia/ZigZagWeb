@@ -34,6 +34,8 @@ function NewTakeOrder() {
         cust_id: '',
     })
 
+    const [family_members, setFamilyMembers] = useState([]);
+
     var date = (new Date()).toLocaleDateString('en-GB')
 
     const [customer_details, SetCustomerDetails] = useState({})
@@ -242,6 +244,15 @@ function NewTakeOrder() {
 
                     SetCustomerDetails(res.data[0])
                     setCust(true)
+
+                  axios.post(`${API}/api/get_family_members/`,{"mobile" : res.data[0].mobile})
+                    .then(res => {
+                        if (res.data.length !== 0) {
+                            setFamilyMembers(res.data.data[0].members.split(','))
+                        } else{
+                            setFamilyMembers([])
+                        }
+                    }).catch(err => console.log(err));
                 }
             })
             .catch((err) => {
@@ -482,16 +493,16 @@ function NewTakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                        name={'work_id'}
-                                        onChange={handleWorkEvent}
+                                        name={'family_member'}
                                         required
+                                        onChange={handleOther}
                                     >
                                         <option selected hidden>
-                                            Choose Type
+                                            Choose Family Member
                                         </option>
-                                        <option value={"self"}>Hari</option>
-                                        <option value={"courier"}>Haran</option>
-                                        <option value={"other"}>Angappan</option>
+                                        {family_members.map((e) => (
+                                            <option value={e}>{e}</option>
+                                        ))}
                                     </select>
 
                                 </snap>
