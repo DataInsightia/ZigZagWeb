@@ -145,10 +145,12 @@ function Delivery() {
 
 
   const printDelivery = (e) => {
-    const balance_amount = e.target.balance_amount.value;
-    const current_amount = e.target.current_amount.value;
-    const pending_amount = e.target.pending_amount.value;
+    e.preventDefault();
+    const balance_amount = !isNaN(parseInt(e.target.balance_amount.value)) ? parseInt(e.target.balance_amount.value) : 0;
+    const current_amount = !isNaN(parseInt(e.target.current_amount.value)) ? parseInt(e.target.current_amount.value) : 0;
+    const pending_amount = !isNaN(parseInt(e.target.pending_amount.value)) ? parseInt(e.target.pending_amount.value) : 0;
     console.log(balance_amount,current_amount,pending_amount)
+
   }
 
   const onSubmit = async (e) => {
@@ -410,7 +412,7 @@ function Delivery() {
                       setCheckoutData({...checkout_data,[e.target.name]: (parseInt(checkout_data.balance_amount) - parseInt(checkout_data.current_amount))})
                     }} /></p>
 
-                    <input type={'submit'} className={'bg-rose-500 text-white rounded-xl p-1 font-bold'} value={'Print Delivery'} />
+                    <input type={'submit'} className={'bg-rose-500 text-white rounded-xl p-1 font-bold'} value={'Print Delivery'}/>
                     {JSON.stringify(checkout_data)}
                   </form>
 
