@@ -115,7 +115,7 @@ function StaffWageCalculation() {
       .then((res) => {
         if (res.data.status) {
           alert('wage paid Sucessfully')
-
+          window.location.reload()
         } else {
           alert('Not paid or Already Paid')
         }

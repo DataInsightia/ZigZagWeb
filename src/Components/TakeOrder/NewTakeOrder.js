@@ -479,35 +479,6 @@ function NewTakeOrder() {
                     {cust ? (
                         <div className="bg-white drop-shadow-2xl ">
                             <div>
-                                <div className={'flex md:justify-center inline-block justify-start overflow-auto md:overflow-x-scroll inline-block md:flex'}>
-                                     <select
-                                        className="mb-3 md:mt-10 xl:w-auto form-select form-select-lg mb-3 appearance-none block md:w-full inline-block w-auto px-4
-                                              py-2
-                                              text-xl
-                                              font-normal
-                                              text-gray-700
-                                              bg-white bg-clip-padding bg-no-repeat
-                                              border border-solid border-gray-300
-                                              rounded
-                                              transition
-                                              ease-in-out
-                                              m-0
-                                              focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                        name={'family_member'}
-                                        required
-                                        onChange={handleOther}
-                                    >
-                                        <option selected hidden value={''}>
-                                            Family Members
-                                        </option>
-
-                                        {family_members.map((e) => (
-                                            <option value={e}>{e}</option>
-                                        ))}
-                                    </select>
-
-                                </div>
-                                <br/>
                                 <form onSubmit={addWork} className="flex flex-wrap -md:mx-3  md:mb-6 md:space-x-20 justify-center">
                                 <snap className={'md:w-1/3 mt-10'}>
                                     <p className="font-semibold flex justify-center">Family Member</p>

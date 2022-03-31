@@ -77,7 +77,7 @@ function StaffList() {
         .then((res) => {
           if (res.data != []) {
             setfetchwageCompletei(res.data.data)
-            setfetchwageCompletei(res.data.data)
+            setFilteredGivenData(res.data.data)
             setfetchwageCompleteibool(true)
           } else {
             setfetchwageCompletei([])
