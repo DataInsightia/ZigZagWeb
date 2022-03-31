@@ -56,7 +56,7 @@ function Delivery() {
   const [pendingworks, setPendingworks] = useState([])
   const [orderPendingWork,setOrderPending] = useState([])
   const [orderPendingWorkBool,setOrderWorkBool] = useState(false);
-  const [pendingworksbool, setPendingworksbool] = useState(false)
+  const [pendingworksbool, setPendingworksbool] = useState(false);
   const [checkout_data,setCheckoutData] = useState({
     balance_amount : 0,
     current_amount : 0,

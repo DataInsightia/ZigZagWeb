@@ -30,6 +30,8 @@ function NewTakeOrder() {
     let [total, setTotal] = useState(0)
     let [balance, setBalance] = useState(0)
     const [advance, setAdvance] = useState(0)
+    const [family_members, setFamilyMembers] = useState([])
+
     const [customer, setCustomer] = useState({
         cust_id: '',
     })
@@ -522,18 +524,17 @@ function NewTakeOrder() {
       ease-in-out
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                        name={'work_id'}
-                                        onChange={handleWorkEvent}
+                                        name={'family_member'}
                                         required
+                                        onChange={handleOther}
                                     >
                                         <option selected hidden>
-                                            Choose Type
+                                            Choose Family Member
                                         </option>
-                                        <option value={"self"}>Hari</option>
-                                        <option value={"courier"}>Haran</option>
-                                        <option value={"other"}>Angappan</option>
+                                        {family_members.map((e) => (
+                                            <option value={e}>{e}</option>
+                                        ))}
                                     </select>
-
                                 </snap>
                                 </form>
 
