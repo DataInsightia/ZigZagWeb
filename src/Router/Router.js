@@ -67,6 +67,7 @@ export default function Router() {
         { path: 'takeordermod', element: <TakeOrderMod /> },
         // { path: 'invoice/', element: <Invoice /> },
         { path: 'invoice/:custid/:orderid', element: <Invoice /> },
+        { path: 'invoice/:custid/:orderid/:current_amount/:pending_amount', element: <Invoice /> },
         { path: 'invoicemob/:custid/:orderid', element: <InvoiceMob /> },
         { path: 'customer_orders/:custid', element: <Orders /> },
         { path: 'work_assign', element: <OrderWorkStaffAssign /> },
