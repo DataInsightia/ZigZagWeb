@@ -16,10 +16,13 @@ export default function Invoice(){
   const [orderWork,setOrderWork] = useState([{}]);
   const [orderMaterial,setOrderMaterial] = useState([{}]);
 
-  const {custid,orderid} = useParams();
+  let {custid,orderid,current_amount,pending_amount} = useParams();
 
   //  const custid = "ZC43434"  
   //   const orderid = "ZA786"
+
+  current_amount = current_amount ? current_amount : 0
+  pending_amount = pending_amount ? pending_amount : 0
 
 
   console.log(custid,orderid)
@@ -145,6 +148,8 @@ export default function Invoice(){
 
             {/* <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount} mobile={customerdetails.mobile} /> */}
 
+                        <NewAmount current_amount={current_amount} pending_amount={pending_amount}/>
+
 
             <div className="flex justify-end">
               <div className="p-4">
@@ -260,8 +265,9 @@ export default function Invoice(){
             <AllAmount total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount}/>
 
 
-            {/* <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount} mobile={customerdetails.mobile} /> */}
+             {/*<TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount} mobile={customerdetails.mobile} current_amount={0} pending_amount={0} />*/}
 
+            <NewAmount current_amount={current_amount} pending_amount={pending_amount}/>
 
             <div className="flex justify-end">
               <div className="p-4">
@@ -317,6 +323,17 @@ const AllAmount = (props) => {
       <div className="text-lg">Advance : ₹{props.advance} </div>
       <div className="text-lg">Courier Charge : ₹{props.courier_charge}</div>
       <div className="text-lg">Balance : ₹{props.balance}</div>
+    </div>
+    <div className="w-full h-0.5 bg-black" ></div>
+  </div>)
+}
+
+const NewAmount = (props) => {
+  return (<div className="mt-2">
+    {/*<div className="w-full h-0.5 bg-black" ></div>*/}
+    <div className="flex justify-center columns-5 space-x-5 mx-10">
+      <div className="text-lg">Current Amount : ₹{props.current_amount}</div>
+      <div className="text-lg">Pending Amount : ₹{props.pending_amount} </div>
     </div>
     <div className="w-full h-0.5 bg-black" ></div>
   </div>)

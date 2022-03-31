@@ -5,6 +5,9 @@ import styles from '../Staf/Style/Styles'
 import { Dialog, Transition } from '@headlessui/react'
 import {faChessKnight} from "@fortawesome/fontawesome-free-solid";
 import {checkboxClasses} from "@mui/material";
+import {Link} from "react-router-dom";
+import {Navigate} from 'react-router';
+import {setIn} from "formik";
 // import { toast } from 'react-toastify'
 
 function Delivery() {
@@ -56,7 +59,8 @@ function Delivery() {
   const [pendingworks, setPendingworks] = useState([])
   const [orderPendingWork,setOrderPending] = useState([])
   const [orderPendingWorkBool,setOrderWorkBool] = useState(false);
-  const [pendingworksbool, setPendingworksbool] = useState(false)
+  const [pendingworksbool, setPendingworksbool] = useState(false);
+  const [invoice,setInvoice] = useState(false);
   const [checkout_data,setCheckoutData] = useState({
     balance_amount : 0,
     current_amount : 0,
@@ -118,7 +122,7 @@ function Delivery() {
   }
 
   const getOrder = (e) => {
-    axios.get(`${API}/api/find_order/${e.target.order_id.value}`)
+    axios.get(`${API}/api/find_order/${e.target.order_id.value}/`)
         .then(res => {
           // setCheckoutData({...checkout_data,['balance_amount'] : currentOrder.balance_amount})
           console.log()
@@ -150,6 +154,23 @@ function Delivery() {
     const current_amount = !isNaN(parseInt(e.target.current_amount.value)) ? parseInt(e.target.current_amount.value) : 0;
     const pending_amount = !isNaN(parseInt(e.target.pending_amount.value)) ? parseInt(e.target.pending_amount.value) : 0;
     console.log(balance_amount,current_amount,pending_amount)
+    console.log(orderid,staff[0].staff_id)
+
+    axios.post(`${API}/api/add_delivery/`,{"order_id" : orderid,"staff_id" : staff[0].staff_id,"amount_paid" : current_amount,"pending_amount" : pending_amount}).then((res) => {
+        alert(res.data.message);
+        if (res.data.status) {
+          axios.post(`${API}/api/delete_delivery/`,{"order_id" : orderid,"staff_id" : staff[0].staff_id}).then((res) => {
+             // alert(res.data.message);
+
+            // GOTO INVOICE
+            // alert("Invoice Processing.....")
+            setInvoice(true);
+            alert(`/dashboard/invoice/${orderid}/${pendingworks[0].order.customer.cust_id}/${current_amount}/${pending_amount}`)
+             // window.location.reload();
+          }).catch(err => console.log(err))
+        }
+    }).catch(err => console.log(err));
+
 
   }
 
@@ -183,9 +204,8 @@ function Delivery() {
     // setMessage(res.data.details)
   }
 
-  return (
+  return (invoice) ? (<Navigate to={`/dashboard/invoice/${pendingworks[0].order.customer.cust_id}/${orderid}/`} />) : (
     <div>
-
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -413,7 +433,6 @@ function Delivery() {
                     }} /></p>
 
                     <input type={'submit'} className={'bg-rose-500 text-white rounded-xl p-1 font-bold'} value={'Print Delivery'}/>
-                    {JSON.stringify(checkout_data)}
                   </form>
 
                 </div>
