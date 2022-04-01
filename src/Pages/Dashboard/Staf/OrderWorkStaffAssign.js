@@ -83,9 +83,12 @@ function OrderWorkStaffAssign() {
   const fetch_pending_work = (orderid) => axios.post(API +'/api/staff_work_assign_by_order/',{order_id : orderid}).then((res) => {
       if (res.data.status === true) {
         setOrderPending(res.data.data)
-        setOrderWorkBool(true)
+        setOrderWorkBool(true);
+        if (res.data.data.length <= 0) {
+            alert("Order ID Not Found!");
+        }
       } else {
-        setOrderPending([])
+        setOrderPending([]);
         setOrderWorkBool(false)
       }
     });
