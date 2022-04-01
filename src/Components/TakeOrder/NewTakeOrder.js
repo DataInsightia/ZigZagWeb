@@ -402,7 +402,7 @@ function NewTakeOrder() {
                   .catch((err) => console.log(err))
               }
             }
-            // setIsinvoice(true)
+            setIsinvoice(true)
             // setTimeout(() => setIsinvoice(true),3000);
           } else {
             console.log('Unable to add Order')
@@ -506,7 +506,7 @@ function NewTakeOrder() {
                                         required
                                         onChange={handleOther}
                                     >
-                                        <option selected hidden value={''}>
+                                        <option selected hidden value={customer_details.cust_name}>
                                             Choose Family Member
                                         </option>
                                         <option value={customer_details.cust_name}>{customer_details.cust_name}</option>
@@ -1028,6 +1028,34 @@ function NewTakeOrder() {
 
 
                             </div>
+
+                                    <br/>
+                                           <div className="flex justify-center">
+                                               <input
+                                                   type="file"
+                                                   id="file"
+                                                   name="file"
+                                                   className={'form-control\n' +
+                                                       '    block\n' +
+                                                       '    w-auto\n' +
+                                                       '    px-3\n' +
+                                                       '    py-3\n' +
+                                                       '    text-base\n' +
+                                                       '    font-normal\n' +
+                                                       '    text-gray-700\n' +
+                                                       '    bg-white bg-clip-padding\n' +
+                                                       '    border border-solid border-gray-300\n' +
+                                                       '    rounded\n' +
+                                                       '    transition\n' +
+                                                       '    ease-in-out\n' +
+                                                       '    m-0\n' +
+                                                       '    focus:text-gray-700 hover:bg-rose-500 hover:text-white focus:bg-rose-500 focus:text-white focus:border-blue-600 focus:outline-none'}
+                                                   accept="image/jpeg"
+                                                   onChange={onFileChange}
+                                                   name="file"
+                                                   accept="image/jpeg"
+                                               />
+                                           </div>
                                            <div className={'flex justify-center'}>
                                 <button
                                     className={
@@ -1040,13 +1068,13 @@ function NewTakeOrder() {
 
 
                                {/*File Upload*/}
-                                <input
-                                  type="file"
-                                  id="file"
-                                  name="file"
-                                  accept="image/jpeg"
-                                  onChange={onFileChange}
-                                />
+                               {/* <input*/}
+                               {/*   type="file"*/}
+                               {/*   id="file"*/}
+                               {/*   name="file"*/}
+                               {/*   accept="image/jpeg"*/}
+                               {/*   onChange={onFileChange}*/}
+                               {/* />*/}
 
                                 {isInvoice ? (
                                     <Navigate

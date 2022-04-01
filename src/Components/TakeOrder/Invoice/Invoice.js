@@ -14,6 +14,7 @@ export default function Invoice(){
 
   const componentRef = useRef();
   const [customerdetails,setCustomerDetails] = useState([]);
+  const [delivery_invoice,setDeliveryInvoice] = useState(false);
 
   const [order,setOrder] = useState({});
   const [orderWork,setOrderWork] = useState([{}]);
@@ -22,7 +23,12 @@ export default function Invoice(){
   let {custid,orderid,current_amount,pending_amount} = useParams();
 
   //  const custid = "ZC43434"  
-  //   const orderid = "ZA786"
+  //   const orderid = "ZA786
+
+  if (current_amount !== undefined && pending_amount !== undefined) {
+    setDeliveryInvoice(true);
+  }
+  setDeliveryInvoice(true);
 
   current_amount = current_amount ? current_amount : 0
   pending_amount = pending_amount ? pending_amount : 0
@@ -91,7 +97,7 @@ export default function Invoice(){
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="flex justify-between p-4">
               <div>
-                <div className="font-bold text-lg">Family Member Name:{customerdetails.cust_name}</div>
+                <div className="font-bold text-lg">Family Member Name:{(order.family_member === "" ? customerdetails.cust_name : order.family_member)}</div>
                 <address className="text-sm">
                   <span className="font-bold"> Address : </span>
                   {customerdetails.address}
@@ -106,9 +112,9 @@ export default function Invoice(){
               <div></div>
             </div>
 
-            <div className="flex justify-center ">
+            <div className="flex justify-center mx-10">
               <div className="border-b border-gray-200 shadow">
-                <table className="w-5/5">
+                <table className="p-96">
                   <thead className="bg-gray-50">
                   <tr>
                     <th className="px-2 py-2 text-xs text-gray-500 ">
@@ -153,8 +159,9 @@ export default function Invoice(){
 
             {/* <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount} mobile={customerdetails.mobile} /> */}
 
-                        <NewAmount current_amount={current_amount} pending_amount={pending_amount}/>
-
+            {
+              delivery_invoice ? <NewAmount current_amount={current_amount} pending_amount={pending_amount}/> : ""
+            }
 
             <div className="flex justify-end">
               <div className="p-4">
@@ -212,7 +219,7 @@ export default function Invoice(){
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="flex justify-between p-4">
               <div>
-                <div className="font-bold text-lg">Family Member Name:{customerdetails.cust_name}</div>
+                <div className="font-bold text-lg">Family Member Name:{(order.family_member === "" ? customerdetails.cust_name : order.family_member)}</div>
                 <address className="text-sm">
                   <span className="font-bold"> Address : </span>
                   {customerdetails.address}
@@ -274,8 +281,10 @@ export default function Invoice(){
 
              {/*<TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount} mobile={customerdetails.mobile} current_amount={0} pending_amount={0} />*/}
 
-            <NewAmount current_amount={current_amount} pending_amount={pending_amount}/>
 
+            {
+              delivery_invoice ? <NewAmount current_amount={current_amount} pending_amount={pending_amount}/> : ""
+            }
             <div className="flex justify-end">
               <div className="p-4">
                 <h3>Signature</h3>
@@ -373,16 +382,16 @@ const PrintButton = (props) => {
 const Row = (props) => {
   return(
       <tr className="whitespace-nowrap">
-        <td className="px-2 py-2 md:px-10">
-          <div className="text-sm text-gray-900">
+        <td className="px-2 py-2">
+          <div className="text-xs text-gray-900">
             {props.prod_name}
           </div>
         </td>
-        <td className="px-2 py-2 md:px-10">
+        <td className="px-2 py-2 ">
           <div className="text-sm text-gray-500">{props.qty}</div>
         </td>
-        <td className="px-2 md:px-10 py-2 text-sm text-gray-500">₹{props.price}</td>
-        <td className="px-2 md:px-10 py-2 text-sm font-bold">₹{props.subtotal}</td>
+        <td className="px-2 py-2 text-sm text-gray-500">₹{props.price}</td>
+        <td className="px-2 py-2 text-sm font-bold">₹{props.subtotal}</td>
       </tr>
   )
 }
