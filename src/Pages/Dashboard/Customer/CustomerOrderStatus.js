@@ -90,7 +90,7 @@ function CustomerOrderStatus() {
                                 delay={300}
                                 key="environment"
                                 legacyMode
-                                constraints={{ facingMode:'rear' }}
+                                constraints={{ facingMode:'user' }}
                                 videoId = 'video'
                                 onResult={(result, error) => {
                                     if (result) {
