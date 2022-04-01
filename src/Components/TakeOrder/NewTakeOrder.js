@@ -10,8 +10,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import $ from "jquery";
 
 
-
-
 function NewTakeOrder() {
 
     let [isOpen, setIsOpen] = useState(false)

@@ -104,45 +104,9 @@ export default function Navbar() {
                                             HOME
                                         </Link>
 
-                                        {/*Product Management*/}
-                                        <div className="dropdown inline-block relative">
-                                            <button
-                                                className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500">
-                                                <span className="mr-1">PRODUCT MANAGEMENT</span>
-                                            </button>
-                                            <ul className="dropdown-menu  hidden font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-white">
-                                                <li className="">
-                                                    <Link
-                                                        to="/dashboard/work"
-                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                                    >
-                                                        WORK
-                                                    </Link>
-                                                </li>
-                                                <li className="">
-                                                    <Link
-                                                        to="/dashboard/material"
-                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                                    >
-                                                        MATERIAL
-                                                    </Link>
-                                                </li>
-                                                <li className="">
-                                                    <Link
-                                                        to="/dashboard/products"
-                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
-                                                    >
-                                                        PRODUCT
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        {/*Product Management*/}
-
                                         {/*Order Management*/}
                                         <div className="dropdown inline-block relative">
-                                            <button
-                                                className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500">
+                                            <button className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500">
                                                 <span className="mr-1">ORDER MANAGEMENT</span>
                                             </button>
                                             <ul className="dropdown-menu  hidden font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-white">
@@ -155,7 +119,7 @@ export default function Navbar() {
                                                     </Link>
                                                     <li>
                                                         <Link
-                                                            to="/dashboard/customer_order_status"
+                                                            to="/dashboard/order_status"
                                                             className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                                                         >
                                                             ORDER STATUS
@@ -163,7 +127,7 @@ export default function Navbar() {
                                                     </li>
                                                     <li>
                                                         <Link
-                                                            to={"/dashboard/work_assign/"}
+                                                            to={'/dashboard/work_assign/'}
                                                             className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                                                         >
                                                             ORDER ASSIGN
@@ -177,19 +141,43 @@ export default function Navbar() {
                                                             ORDER APPROVAL
                                                         </Link>
                                                     </li>
+
+                                                    <li>
+                                                        <Link
+                                                            to="/dashboard/customer_measurement"
+                                                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                        >
+                                                            CUSTOMER MEASUREMENT
+                                                        </Link>
+                                                    </li>
+
+                                                    {/*<li>*/}
+                                                    {/*  <Link*/}
+                                                    {/*    to="/dashboard/other_pickup"*/}
+                                                    {/*    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"*/}
+                                                    {/*  >*/}
+                                                    {/*    OTHER PICKUP*/}
+                                                    {/*  </Link>*/}
+                                                    {/*</li>*/}
+
+                                                    {/*<li>*/}
+                                                    {/*  <Link*/}
+                                                    {/*    to="/dashboard/pay_advance"*/}
+                                                    {/*    className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"*/}
+                                                    {/*  >*/}
+                                                    {/*    PAY ADVANCE*/}
+                                                    {/*  </Link>*/}
+                                                    {/*</li>*/}
                                                 </li>
                                             </ul>
                                         </div>
 
                                         {/*Order Management*/}
 
-
                                         {/*Staff Management*/}
 
-
                                         <div className="dropdown inline-block relative">
-                                            <button
-                                                className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500">
+                                            <button className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500">
                                                 <span className="mr-1">STAFF MANAGEMENT</span>
                                             </button>
                                             <ul className="dropdown-menu  hidden font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-white">
@@ -221,11 +209,9 @@ export default function Navbar() {
                                         </div>
                                         {/*Staff Management*/}
 
-
                                         {/*Customer Management*/}
                                         <div className="dropdown inline-block relative">
-                                            <button
-                                                className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500">
+                                            <button className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500">
                                                 <span className="mr-1">CUSTOMER MANAGEMENT</span>
                                             </button>
                                             <ul className="dropdown-menu  hidden font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-white">
@@ -248,15 +234,40 @@ export default function Navbar() {
                                             </ul>
                                         </div>
 
-
-
                                         {/*Customer Management*/}
-
-
-
-
-
-
+                                        {/*Product Management*/}
+                                        <div className="dropdown inline-block relative">
+                                            <button className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500">
+                                                <span className="mr-1">PRODUCT MANAGEMENT</span>
+                                            </button>
+                                            <ul className="dropdown-menu  hidden font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-white">
+                                                <li className="">
+                                                    <Link
+                                                        to="/dashboard/work"
+                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                    >
+                                                        WORK
+                                                    </Link>
+                                                </li>
+                                                <li className="">
+                                                    <Link
+                                                        to="/dashboard/material"
+                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                    >
+                                                        MATERIAL
+                                                    </Link>
+                                                </li>
+                                                <li className="">
+                                                    <Link
+                                                        to="/dashboard/products"
+                                                        className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                                                    >
+                                                        PRODUCT
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        {/*Product Management*/}
                                     </div>
                                 )
                             } else if (auth === 'staff') {
@@ -278,7 +289,7 @@ export default function Navbar() {
                                             to="/dashboard/orders"
                                             className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                                         >
-                                            CURRENT WORKS
+                                            PENDING WORKS
                                         </Link>
 
                                         <Link
@@ -323,8 +334,11 @@ export default function Navbar() {
                                         >
                                             HOME
                                         </Link>
+
                                         <Link
-                                            to={`/dashboard/customer_order_history/${localStorage.getItem('cid')}`}
+                                            to={`/dashboard/customer_order_history/${localStorage.getItem(
+                                                'cid',
+                                            )}`}
                                             className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                                         >
                                             ORDERS
@@ -335,11 +349,12 @@ export default function Navbar() {
                                         >
                                             PROFILE EDIT
                                         </Link>
+
                                         <Link
                                             to="/dashboard/customer_order_status"
                                             className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
                                         >
-                                           ORDER STATUS
+                                            ORDER STATUS
                                         </Link>
                                     </div>
                                 )

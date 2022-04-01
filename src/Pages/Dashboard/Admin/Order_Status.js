@@ -134,14 +134,11 @@ function OrderStatus() {
 
                 </div>
             </div>
-                <div className="flex flex-col md:grid grid-cols-12 text-gray-50 px-72">
-
+                <div className="flex flex-col md:grid grid-cols-12 inline-block  text-gray-50 md:px-72">
                     {/*{orderStatus.map(e => <li>{e.staff.photo}</li>)}*/}
-
-
                 {orderStatus.map((e)=> ( e.assign_date_time != null && e.ordertaken.taken_date_time != null && e.ordercompletion.work_completed_date_time != null || e.assign_stage === 'complete_final_stage') ?
                     (
-                        <div className="flex md:contents">
+                        <div className="flex md:contents inline-block self-start">
                                 <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
                                     <div className="h-full w-6 flex items-center justify-center">
                                         <i className={(e.assign_stage === 'complete_final_stage') ? "h-full w-2 bg-green-500 pointer-events-none" : "h-full w-2 bg-yellow-600 pointer-events-none"}></i>
@@ -159,7 +156,7 @@ function OrderStatus() {
                                     {/*<h5>{new Date(e.completion_date_time).toLocaleString('en-TN')}</h5>*/}
                                 </div>
                         </div>
-                    ) : (    <div className="flex md:contents">
+                    ) : (    <div className="flex md:contents inline-block self-start">
                     <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
                         <div className="h-full w-6 flex items-center justify-center">
                         <i className={"h-full w-2 bg-gray-500 pointer-events-none" }></i>
