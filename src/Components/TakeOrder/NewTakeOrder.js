@@ -38,6 +38,14 @@ function NewTakeOrder() {
         cust_id: '',
     })
 
+    const [file,setFile] = useState('');
+
+    const onFileChange = (e) => {
+        setFile(e.target.files[0]);
+        console.log(file);
+    };
+
+
     const [family_members, setFamilyMembers] = useState([]);
 
     var date = (new Date()).toLocaleDateString('en-GB')
@@ -331,10 +339,12 @@ function NewTakeOrder() {
         },
       }
 
-
+      let formData = new FormData();
+      formData.append("data" , JSON.stringify(order_payload));
+      formData.append("order_image",file);
 
       axios
-        .post(API + '/api/add_order/', order_payload)
+        .post(API + '/api/add_order/', formData)
         .then((res) => {
 
           console.log('add_order', res.data)
@@ -392,7 +402,7 @@ function NewTakeOrder() {
                   .catch((err) => console.log(err))
               }
             }
-            setIsinvoice(true)
+            // setIsinvoice(true)
             // setTimeout(() => setIsinvoice(true),3000);
           } else {
             console.log('Unable to add Order')
@@ -496,9 +506,10 @@ function NewTakeOrder() {
                                         required
                                         onChange={handleOther}
                                     >
-                                        <option selected hidden>
+                                        <option selected hidden value={''}>
                                             Choose Family Member
                                         </option>
+                                        <option value={customer_details.cust_name}>{customer_details.cust_name}</option>
                                         {family_members.map((e) => (
                                             <option value={e}>{e}</option>
                                         ))}
@@ -1028,6 +1039,14 @@ function NewTakeOrder() {
                                 </button>
 
 
+                               {/*File Upload*/}
+                                <input
+                                  type="file"
+                                  id="file"
+                                  name="file"
+                                  accept="image/jpeg"
+                                  onChange={onFileChange}
+                                />
 
                                 {isInvoice ? (
                                     <Navigate
