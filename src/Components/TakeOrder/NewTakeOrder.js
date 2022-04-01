@@ -12,6 +12,8 @@ import $ from "jquery";
 
 function NewTakeOrder() {
 
+
+
     let [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {
@@ -1023,10 +1025,35 @@ function NewTakeOrder() {
                                         </td>
                                     </tr>
                                 </table>
-
-
                             </div>
-                                           <div className={'flex justify-center'}>
+                                           <br/>
+                                           <div className="flex justify-center">
+                                               {/*File Upload*/}
+                                               <input
+                                                   type="file"
+                                                   id="file"
+                                                   name="file"
+                                                   className={'form-control\n' +
+                                                       '    block\n' +
+                                                       '    w-auto\n' +
+                                                       '    px-3\n' +
+                                                       '    py-3\n' +
+                                                       '    text-base\n' +
+                                                       '    font-normal\n' +
+                                                       '    text-gray-700\n' +
+                                                       '    bg-white bg-clip-padding\n' +
+                                                       '    border border-solid border-gray-300\n' +
+                                                       '    rounded\n' +
+                                                       '    transition\n' +
+                                                       '    ease-in-out\n' +
+                                                       '    m-0\n' +
+                                                       '    focus:text-gray-700 hover:bg-rose-500 hover:text-white focus:bg-rose-500 focus:text-white focus:border-blue-600 focus:outline-none'}
+                                                   accept="image/jpeg"
+                                                   onChange={onFileChange}
+                                               />
+                                           </div>
+
+                                           <div className={'flex justify-center '}>
                                 <button
                                     className={
                                         'text-white text-lg rounded button rounded p-3 m-3 bg-pink-600'
@@ -1037,14 +1064,7 @@ function NewTakeOrder() {
                                 </button>
 
 
-                               {/*File Upload*/}
-                                <input
-                                  type="file"
-                                  id="file"
-                                  name="file"
-                                  accept="image/jpeg"
-                                  onChange={onFileChange}
-                                />
+
 
                                 {isInvoice ? (
                                     <Navigate
