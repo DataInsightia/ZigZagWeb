@@ -517,6 +517,23 @@ function NewTakeOrder() {
                                 </snap>
                                 </form>
 
+                                <div className={'flex justify-evenly'}>
+                                    <Link
+                                        className="mb-3 md:mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                                        to="/dashboard/work"
+                                        target={'_blank'}
+                                    >
+                                        ADD WORK
+                                    </Link>
+                                    <Link
+                                        className="mb-3 md:mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                                        to="/dashboard/material"
+                                        target={'_blank'}
+                                    >
+                                        ADD MATERIAL
+                                    </Link>
+                                </div>
+
                                 <form onSubmit={addWork} className="flex flex-wrap -md:mx-3  md:mb-6 md:space-x-20 justify-center">
 
                                     <snap>

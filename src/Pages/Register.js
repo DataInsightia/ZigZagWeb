@@ -80,7 +80,6 @@ export default function Register() {
         password,
       })
       .then((res) => {
-
         if (res.data.status) {
           // Insert Family members if present
           if (family_members !== ""){
@@ -103,11 +102,8 @@ export default function Register() {
               alert(res.data.message);
             }
           }else{
-            alert("Family Members Field is Empty")
-          }
-
-
-
+          alert("Unable to Register!")
+        }
       })
       .catch((err) => {
         console.log(err)

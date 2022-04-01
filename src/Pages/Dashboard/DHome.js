@@ -163,7 +163,66 @@ export default function DashboardHome() {
                 </Link>
               </div>
             )
-          } else if (auth === 'staff') {
+          }
+          else if (auth === 'supervisor') {
+            return (
+              <div className="grid md:mt-14 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 sm:h-full mb-4">
+                <Link
+                  to={'/dashboard/work_assign/'}
+
+                >
+                  <StatusCard
+                    color="pink"
+                    icon="UAW"
+                    title="Un Assigned Work"
+                    amount={unassigned_works}
+                    percentage="7"
+                    date="Since last month"
+                  />
+                </Link>
+                <Link
+                  to={`/dashboard/lists/not_taken_works`}
+                  state={'not_taken_works'}
+                >
+                  <StatusCard
+                    color="red"
+                    icon="NTW"
+                    title="Not Taken Work"
+                    amount={assigned_nottaken_works}
+                    percentage="9"
+                    date="Since last week"
+                  />
+                </Link>
+                <Link
+                  to={`/dashboard/lists/today_due_delivery`}
+                  state={'today_due_delivery'}
+                >
+                <StatusCard
+                  color="purple"
+                  icon="TWD"
+                  title="Today Work Due"
+                  amount={todaydelivery_orders}
+                  percentage="1.10"
+                  date="Since yesterday"
+                />
+                </Link>
+                 <Link
+                  to={`/dashboard/lists/week_due_delivery`}
+                  state={'week_due_delivery'}
+                >
+                <StatusCard
+                  color="blue"
+                  icon="WD"
+                  title="This week Due"
+                  amount={weekdelivery_orders}
+                  percentage="12"
+                  date="Since last month"
+                />
+                </Link>
+              </div>
+            )
+          }
+          else if (auth === 'staff') {
             return (
               <div className="grid md:mt-14 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 mb-4">
                 <Link

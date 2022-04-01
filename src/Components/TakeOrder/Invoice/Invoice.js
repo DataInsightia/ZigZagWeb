@@ -28,7 +28,6 @@ export default function Invoice(){
   if (current_amount !== undefined && pending_amount !== undefined) {
     setDeliveryInvoice(true);
   }
-  setDeliveryInvoice(true);
 
   current_amount = current_amount ? current_amount : 0
   pending_amount = pending_amount ? pending_amount : 0
