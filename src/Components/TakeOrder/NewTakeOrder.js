@@ -35,7 +35,7 @@ function NewTakeOrder() {
         cust_id: '',
     })
 
-    const [file,setFile] = useState('');
+    const [file,setFile] = useState(null);
 
     const onFileChange = (e) => {
         setFile(e.target.files[0]);
