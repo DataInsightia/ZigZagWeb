@@ -103,6 +103,7 @@ export default function MaterialForm() {
       e.target.amount.value,
       e.target.measurement.value,
     )
+    console.log(e.target.amount.value);
     if (res.data.status) {
       getMaterials()
     }

@@ -9,9 +9,6 @@ import {Link} from 'react-router-dom'
 import { Dialog, Transition } from '@headlessui/react'
 import $ from "jquery";
 
-
-
-
 function NewTakeOrder() {
 
     let [isOpen, setIsOpen] = useState(false)
@@ -105,7 +102,7 @@ function NewTakeOrder() {
             .catch((err) => {
                 console.log(err)
             })
-    }, [orderid])
+    }, [])
 
     const yyyymmdd = (dateIn) => {
         var parts = dateIn.split('/')
@@ -503,6 +500,7 @@ function NewTakeOrder() {
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         name={'family_member'}
+                                        onClick={fetch_works}
                                         required
                                         onChange={handleOther}
                                     >
@@ -643,6 +641,7 @@ function NewTakeOrder() {
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         name={'material_id'}
+                                        onClick={fetch_materials}
                                         onChange={handleMaterialEvent}
                                         required
                                     >
