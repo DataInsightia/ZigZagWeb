@@ -3,6 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import styles from '../../Staf/Style/Styles'
 import axios from 'axios'
 import API from '../../../../api'
+import {DownloadExcelFile} from '../../../../../src/utils/ExportToExcel'
 
 import {
   AddWork,
@@ -660,11 +661,15 @@ function Pagination({
     return new Array(pageLimit).fill().map((_, idx) => start + idx + 1)
   }
 
+  const getExcel = async () => {
+    await DownloadExcelFile('works')
+  }
+
   return (
     <div>
       <div className="md:mt-20">
-        <div className="flex scroll  justify-center min-h-screen md:-mb-24">
-          <div className=" min-w-full  overflow-auto overflow-x-scroll bg:hidden  p-4">
+        <div className="flex scroll  justify-center min-h-screen -mb-72 md:-mb-96">
+          <div className=" min-w-full  overflow-auto overflow-x-scroll bg:hidden py-2 md:p-4">
             <div className="flex overflow-auto mb-6 justify-between">
               <h2 className="text-2xl justify-center  font-semibold leading-tight">
                 Work
@@ -676,13 +681,45 @@ function Pagination({
                 Add Work
               </button>
             </div>
-            <div className="flex overflow-auto mb-6 justify-between">
+            
+            <div className="flex flex-wrap justify-between mb-5">
+            <div className="md:w-1/3 flex overflow-auto  justify-between">
               <input
                 type="text"
                 placeholder="Search"
                 onChange={(event) => handleSearch(event)}
-                className="border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
+                className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
               />
+            </div>
+            <div className="md:w-1/3 flex justify-end">
+              <button
+                type="button"
+                className="bg-green-500 py-3 px-2 rounded-md"
+                onClick={getExcel}
+              >
+                <div className="flex">
+                  <span className="font-bold text-sm text-white">
+                    Export to Excel
+                  </span>
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-5 w-5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </button>
+            </div>
             </div>
             <table class="min-w-full leading-normal ">
               <thead>
