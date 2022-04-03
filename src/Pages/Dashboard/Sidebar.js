@@ -4,7 +4,7 @@ import nav_logo from '../../assets/img/logo.png'
 import './sidebar.css'
 
 export default function Sidebar() {
-  const auth = localStorage.getItem('role')
+  const auth = "admin"
   return (
     <div className="relative min-h-screen hidden sm:block md:flex-wrap">
       <div className="sidebar h-auto overflow-y-auto bg-white text-blue-100 w-72  space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">

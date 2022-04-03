@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState ,useEffect} from 'react'
 import Google from '../assets/img/google.svg'
 import API from '../api'
 import axios from 'axios'
@@ -8,7 +8,13 @@ import { Navigate } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { Dialog, Transition } from '@headlessui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCheckSquare, faCoffee, faHome} from '@fortawesome/fontawesome-free-solid'
+import {
+  faCheckSquare,
+  faCoffee,
+  faHome,
+} from '@fortawesome/fontawesome-free-solid'
+import { useSelector, useDispatch } from 'react-redux'
+import { login_auth } from '../actions/auth'
 
 export default function Login() {
   const Styles = {
@@ -19,6 +25,9 @@ export default function Login() {
       'border px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-2xl text-sm focus:ring-red-500 w-full  ease-linear transition-all duration-150',
   }
 
+  const dispatch = useDispatch()
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
+  const loading = useSelector((state) => state.auth.loading)
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -112,67 +121,84 @@ export default function Login() {
   const onSubmit = (e) => {
     const cust_id = e.login_id
     const password = e.password
-    axios
-      .post(`${API}/api/customer_login/`, {
-        cust_id,
-        password,
-      })
-      .then((res) => {
-        if (res.data.status) {
-          if (res.data.user.role == 'customer') {
-            openModal()
-            setLocalStorage('login_id', res.data.user.login_id)
-            setLocalStorage('role', res.data.user.role)
-            setLocalStorage('cust_name', res.data.data.cust_name)
-            setLocalStorage('mobile', res.data.data.mobile)
-            setLocalStorage('email', res.data.data.email)
-            setLocalStorage('address', res.data.data.address)
-            setLocalStorage('city', res.data.data.city)
-            setLocalStorage('pincode', res.data.data.pincode)
-            setLogin(true)
-            setLocalStorage('cid', res.data.user.login_id)
-            setLocalStorage('isAuthenticated', 'true')
-          } else if (res.data.user.role == 'staff') {
-            openModal()
-            setLocalStorage('login_id', res.data.user.login_id)
-            setLocalStorage('role', res.data.user.role)
-            setLocalStorage('staff_name', res.data.data.staff_name)
-            setLocalStorage('mobile', res.data.user.mobile)
-            setLocalStorage('email', res.data.data.email)
-            setLocalStorage('address', res.data.data.address)
-            setLocalStorage('city', res.data.data.city)
-            setLocalStorage('pincode', res.data.data.pincode)
-            setLocalStorage('photo', res.data.data.photo)
-            setLocalStorage('ifsc', res.data.data.ifsc)
-            setLocalStorage('bank', res.data.data.bank)
-            setLocalStorage('work_type', res.data.data.work_type)
-            setLocalStorage('acc_no', res.data.data.acc_no)
-            setLocalStorage('salary', res.data.data.salary)
-            setLocalStorage('salary_type', res.data.data.salary_type)
-            setLogin(true)
-            setLocalStorage('cid', res.data.user.login_id)
-            setLocalStorage('isAuthenticated', 'true')
-          } else {
-            openModal()
-            setLocalStorage('login_id', res.data.user.login_id)
-            setLocalStorage('role', res.data.user.role)
-            setLogin(true)
-            setLocalStorage('cid', res.data.user.login_id)
-            setLocalStorage('isAuthenticated', 'true')
-          }
-        } else {
-          alert('Invalid Mobile Number Or Password')
-        }
-      })
-      .catch((error) => {
-        console.error('Something went wrong', error)
-      })
-    reset()
+    if (dispatch && dispatch !== null && dispatch !== undefined) {
+      dispatch(login_auth(cust_id, password))
+    }
+
+    // if (typeof window !== 'undefined' && isAuthenticated)
+    // history.push('/dashboard/dhome')
+
+
+    // axios
+    //   .post(`${API}/api/customer_login/`, {
+    //     cust_id,
+    //     password,
+    //   })
+    //   .then((res) => {
+    //     if (res.data.status) {
+    //       if (res.data.user.role == 'customer') {
+    //         openModal()
+    //         setLocalStorage('login_id', res.data.user.login_id)
+    //         setLocalStorage('role', res.data.user.role)
+    //         setLocalStorage('cust_name', res.data.data.cust_name)
+    //         setLocalStorage('mobile', res.data.data.mobile)
+    //         setLocalStorage('email', res.data.data.email)
+    //         setLocalStorage('address', res.data.data.address)
+    //         setLocalStorage('city', res.data.data.city)
+    //         setLocalStorage('pincode', res.data.data.pincode)
+    //         setLogin(true)
+    //         setLocalStorage('cid', res.data.user.login_id)
+    //         setLocalStorage('isAuthenticated', 'true')
+    //       } else if (res.data.user.role == 'staff') {
+    //         openModal()
+    //         setLocalStorage('login_id', res.data.user.login_id)
+    //         setLocalStorage('role', res.data.user.role)
+    //         setLocalStorage('staff_name', res.data.data.staff_name)
+    //         setLocalStorage('mobile', res.data.user.mobile)
+    //         setLocalStorage('email', res.data.data.email)
+    //         setLocalStorage('address', res.data.data.address)
+    //         setLocalStorage('city', res.data.data.city)
+    //         setLocalStorage('pincode', res.data.data.pincode)
+    //         setLocalStorage('photo', res.data.data.photo)
+    //         setLocalStorage('ifsc', res.data.data.ifsc)
+    //         setLocalStorage('bank', res.data.data.bank)
+    //         setLocalStorage('work_type', res.data.data.work_type)
+    //         setLocalStorage('acc_no', res.data.data.acc_no)
+    //         setLocalStorage('salary', res.data.data.salary)
+    //         setLocalStorage('salary_type', res.data.data.salary_type)
+    //         setLogin(true)
+    //         setLocalStorage('cid', res.data.user.login_id)
+    //         setLocalStorage('isAuthenticated', 'true')
+    //       } else {
+    //         openModal()
+    //         setLocalStorage('login_id', res.data.user.login_id)
+    //         setLocalStorage('role', res.data.user.role)
+    //         setLogin(true)
+    //         setLocalStorage('cid', res.data.user.login_id)
+    //         setLocalStorage('isAuthenticated', 'true')
+    //       }
+    //     } else {
+    //       alert('Invalid Mobile Number Or Password')
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error('Something went wrong', error)
+    //   })
+    // reset()
   }
 
-  return login | (localStorage.getItem('cid') !== null) ? (
+  useEffect(() => {
+    if (isAuthenticated){
+      <Navigate to="/dashboard/dhome" />
+    }
+  }, []) 
+  return (isAuthenticated)?(
     <Navigate to="/dashboard/dhome" />
-  ) : (
+  ):(
+
+  // return login | (localStorage.getItem('cid') !== null) ? (
+  //   <Navigate to="/dashboard/dhome" />
+  // ) : (
     <>
       <section className="relative w-full h-full py-40 min-h-screen">
         <div className="absolute md:fixed top-0 w-full h-full bg-gradient-to-tr from-red-50 to-red-200 blur-sm">
@@ -258,13 +284,12 @@ export default function Login() {
                       >
                         <h5>Create new account</h5>
                       </Link>
-                      <br/>
-                      <Link
-                          className="text-red-500 font-bold mb-0"
-                          to="/home"
-                      >
-                        <FontAwesomeIcon icon={faHome}
-                                         style={{ height : 30 }}></FontAwesomeIcon>
+                      <br />
+                      <Link className="text-red-500 font-bold mb-0" to="/home">
+                        <FontAwesomeIcon
+                          icon={faHome}
+                          style={{ height: 30 }}
+                        ></FontAwesomeIcon>
                       </Link>
                     </div>
                   </form>
@@ -316,7 +341,7 @@ export default function Login() {
                 >
                   Login successfully
                 </Dialog.Title>
-    
+
                 <div className="mt-4">
                   <button
                     type="button"

@@ -3,6 +3,7 @@ import axios from 'axios'
 import API from '../../../api'
 import styles from '../Staf/Style/Styles'
 import { Dialog, Transition } from '@headlessui/react'
+import { headers } from '../../../config/headers'
 // import { toast } from 'react-toastify'
 
 function OrderWorkStaffAssign() {
@@ -35,9 +36,7 @@ function OrderWorkStaffAssign() {
         order_work_label,
         material_location
       },
-      {
-        headers: { 'Content-Type': 'application/json' },
-      },
+      headers,
       { withCredentials: true },
     )
     // notify(response.data.details)
@@ -55,7 +54,7 @@ function OrderWorkStaffAssign() {
 
 
   const fetchUnAssignedWorks = async () =>{
-  await axios.get(API +'/api/staff_work_assign/').then((res) => {
+  await axios.get(API +'/api/staff_work_assign/',headers).then((res) => {
       if (res.data.status === true) {
         console.log(res.data.data)
         setPendingworks(res.data.data)
@@ -69,7 +68,7 @@ function OrderWorkStaffAssign() {
   useEffect(() => {
       const get = async () => {
       await fetchUnAssignedWorks()
-      await  axios.get(API +'/api/staff/').then((res) => setStaff(res.data))
+      await  axios.get(API +'/api/staff/',headers).then((res) => setStaff(res.data))
       }
       get()
   }, [])
@@ -80,7 +79,7 @@ function OrderWorkStaffAssign() {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value })
 
-  const fetch_pending_work = (orderid) => axios.post(API +'/api/staff_work_assign_by_order/',{order_id : orderid}).then((res) => {
+  const fetch_pending_work = (orderid) => axios.post(API +'/api/staff_work_assign_by_order/',{order_id : orderid},headers).then((res) => {
       if (res.data.status === true) {
         setOrderPending(res.data.data)
         setOrderWorkBool(true)

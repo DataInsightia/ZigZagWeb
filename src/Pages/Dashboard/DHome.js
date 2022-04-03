@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import StatusCard from './StatusCard'
 import 'font-awesome/css/font-awesome.min.css'
 import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { load_user } from '../../actions/auth'
+import { Navigate } from 'react-router'
+
 
 import {
   OngoingOrdersServices,
@@ -41,49 +45,53 @@ export default function DashboardHome() {
 
   // FETCH INITIAL DATA
 
-  const login_id = localStorage.getItem('login_id')
-  const auth = localStorage.getItem('role')
+  const auth = useSelector((state) => state.auth.user)
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
+  console.log(isAuthenticated)
+  
+  
+  // const login_id = localStorage.getItem('login_id')
+  // const auth = localStorage.getItem('role')
 
   useEffect(async () => {
-    if (auth === 'customer') {
+    
+    if (auth.role === 'customer') {
       // CUSTOMER ON GOING WORKS
-      const ongoingorders_res = await OngoingOrdersServices(login_id)
+      const ongoingorders_res = await OngoingOrdersServices()
       setOngoingOrders(ongoingorders_res.data)
 
       // CUSTOMER COMPLETED ORDERS
-      const completedorders_res = await CompletedOrdersServices(login_id)
+      const completedorders_res = await CompletedOrdersServices()
       setCompletedOrders(completedorders_res.data)
 
       // CUSTOMER TOTAL ORDERS
-      const totalorders_res = await TotalOrderServices(login_id)
+      const totalorders_res = await TotalOrderServices()
       setTotalOrder(totalorders_res.data)
 
       // CUSTOMER DELIVERY READY ORDERS
-      const deliveryreadyorders_res = await DeliveryReadyOrdersServices(
-        login_id,
-      )
+      const deliveryreadyorders_res = await DeliveryReadyOrdersServices()
       setDeliveryReadyOrder(deliveryreadyorders_res.data)
-    } else if (auth === 'staff') {
+    } else if (auth.role === 'staff') {
       // STAFF TOTAL WORKS
-      const stafftotalworks_res = await TotalWorksServices(login_id)
+      const stafftotalworks_res = await TotalWorksServices()
       setTotalWorks(stafftotalworks_res.data)
 
       // STAFF TAKEN WORKS
-      const stafftokenworks_res = await StaffTakenWorksServices(login_id)
+      const stafftokenworks_res = await StaffTakenWorksServices()
       setTakenWorks(stafftokenworks_res.data)
 
       // STAFF NOT TAKEN WORKS
-      const staffnottakenworks_res = await StaffNotTakenWorksServices(login_id)
+      const staffnottakenworks_res = await StaffNotTakenWorksServices()
       setNotTakenWorks(staffnottakenworks_res.data)
 
       // STAFF TODAY DUE WORKS
-      const todaydueworks_res = await TodayDueWorksServices(login_id)
+      const todaydueworks_res = await TodayDueWorksServices()
       setTodayDueWorks(todaydueworks_res.data)
 
       //STAFF WEEK DUE WORKS
-      const weekdueworks_res = await WeekDueWorksServices(login_id)
+      const weekdueworks_res = await WeekDueWorksServices()
       setWeekDueWorks(weekdueworks_res.data)
-    } else {
+    } else if (auth.role === 'admin') {
       // SUPERVISOR NOT ASSIGNED WORKS
       const unassignedworks_res = await UnAssignedWorksServices()
       setUnAssignedWorks(unassignedworks_res.data)
@@ -99,6 +107,8 @@ export default function DashboardHome() {
       // SUPERVISOR WEEK DELIVERY
       const weekdeliveryorders = await WeekDeliveryOrdersServices()
       setWeekDeliveryOrders(weekdeliveryorders.data)
+    }else if (auth.role == null ) {
+      return (<Navigate to="/login"/>)
     }
   }, [])
 
