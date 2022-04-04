@@ -390,13 +390,13 @@ export default function Navbar() {
         {/*Desktop  Navbar*/}
         <nav
         id="header"
-        className="md:fixed hidden md:block w-full bg-gradient-to-r from-rose-600 to-rose-400 border-r-black z-30 top-0 border-0  text-black"
+        className="md:fixed hidden md:block w-full bg-gradient-to-r align-middle from-rose-600 to-rose-400 border-r-black z-30 top-0 border-0  text-black"
       >
 
-        <div className="container flex  items-center mt-0 py-2">
-          <div className="pl-1 flex items-center">
+        <div className=" flex justify-end mt-0 py-2">
+          <div className="pl-1 flex justify-start">
             <a
-              className="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+              className="toggleColour md:fixed text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
               href="#"
             >
               {/*{JSON.parse(localStorage.getItem("cinfo"))[0].name}*/}
@@ -436,15 +436,15 @@ export default function Navbar() {
 
 
           <div
-            className="w-full mx-auto lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20"
+            className=" w-full mx-auto lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20"
             id="nav-content"
           >
             <ul className="">
 
             </ul>
-            <div className="text-lg h-full lg:mx-96 xl:mx-auto">
+            <div className="text-lg h-full lg:mx-96   xl:mx-auto">
               <button
-                className="block font-bold py-2.5 px-4 text-white  rounded transition duration-200 hover:bg-white hover:text-black"
+                className="block font-bold  py-2.5 px-10 text-white  rounded transition duration-200 hover:bg-white hover:text-black"
                 onClick={() => {
                    logout().then(() => {
                        navigate('/');window.location.reload();
