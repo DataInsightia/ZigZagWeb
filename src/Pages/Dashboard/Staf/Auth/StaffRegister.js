@@ -29,7 +29,7 @@ export default function StaffRegister() {
     acc_no: '',
     ifsc: '',
   })
- 
+
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -301,7 +301,7 @@ export default function StaffRegister() {
                       </div>
                     </div>
                     {formData.salary_type == 'monthly'?
-                   
+
                     <div className="p-2 w-full">
                       <div className="relative">
                         <label htmlFor="salary" className={Styles.Label}>

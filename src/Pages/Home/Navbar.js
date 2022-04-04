@@ -28,6 +28,8 @@ if (auth) {
     )
 }
 
+const genericHamburgerLine = `h-1 w-6 my-1 rounded-full bg-black transition ease transform duration-300`;
+
 const Navbar = () => {
     const [open, setOpen] = React.useState(true);
     return (
@@ -44,28 +46,37 @@ const Navbar = () => {
                             className=" lg:hidden  items-center p-1 text-pink-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
                             onClick={() => setOpen(!open)}
                         >
-                            <svg
-                                className="fill-current h-6 w-6"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <title>Menu</title>
-                                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-                            </svg>
+
+                            <div
+                                className={`${genericHamburgerLine} ${
+                                    !open
+                                        ? "rotate-45 translate-y-3 opacity-50 group-hover:opacity-100"
+                                        : "opacity-50 group-hover:opacity-100"
+                                }`}
+                            />
+                            <div
+                                className={`${genericHamburgerLine} ${
+                                    !open ? "opacity-0" : "opacity-50 group-hover:opacity-100"
+                                }`}
+                            />
+                            <div
+                                className={`${genericHamburgerLine} ${
+                                    !open
+                                        ? "-rotate-45 -translate-y-1 opacity-50 group-hover:opacity-100"
+                                        : "opacity-50 group-hover:opacity-100"
+                                }`}
+                            />
+                            {/*<svg*/}
+                            {/*    className="fill-current h-6 w-6"*/}
+                            {/*    viewBox="0 0 20 20"*/}
+                            {/*    xmlns="http://www.w3.org/2000/svg"*/}
+                            {/*>*/}
+                            {/*    <title>Menu</title>*/}
+                            {/*    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />*/}
+                            {/*</svg>*/}
+
                         </button>
                     </div>
-
-                    {/*<a className="toggleColour text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">*/}
-
-                    {/*    <svg className="h-8 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.005 512.005">*/}
-                    {/*        <rect fill="#2a2a31" x="16.539" y="425.626" width="479.767" height="50.502" transform="matrix(1,0,0,1,0,0)" />*/}
-                    {/*        <path*/}
-                    {/*            className="plane-take-off"*/}
-                    {/*            d=" M 510.7 189.151 C 505.271 168.95 484.565 156.956 464.365 162.385 L 330.156 198.367 L 155.924 35.878 L 107.19 49.008 L 211.729 230.183 L 86.232 263.767 L 36.614 224.754 L 0 234.603 L 45.957 314.27 L 65.274 347.727 L 105.802 336.869 L 240.011 300.886 L 349.726 271.469 L 483.935 235.486 C 504.134 230.057 516.129 209.352 510.7 189.151 Z "*/}
-                    {/*        />*/}
-                    {/*    </svg>*/}
-                    {/*    ZigZag*/}
-                    {/*</a>*/}
                 </div>
                 <div className="block lg:hidden">
 
@@ -88,16 +99,16 @@ const Navbar = () => {
                                    href="#">About</a>
                             </li>
                             <li className="ml-1.5">
-                                <a className="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-                                   href="#">Product</a>
+                                <Link className="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                                      to="/product_home">Product</Link>
                             </li>
                             <li className="ml-1.5">
                                 <a className="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
                                    href="#">Contact US</a>
                             </li>
                             <li className="ml-1.5">
-                                <a className="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-                                   href="#">Order Status</a>
+                                <Link className="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                                      to="/order_status_home">Order Status</Link>
                             </li>
 
                         </ul>
