@@ -89,8 +89,11 @@ function NewTakeOrder() {
     }
 
     useEffect(() => {
-        fetch_works()
-        fetch_materials()
+        fetch_works();
+        fetch_materials();
+
+        fetch_work_table();
+        fetch_material_table();
         axios
             .get(API + '/api/generate_orderid/')
             .then((res) => {
