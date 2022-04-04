@@ -9,9 +9,6 @@ import {Link} from 'react-router-dom'
 import { Dialog, Transition } from '@headlessui/react'
 import $ from "jquery";
 
-
-
-
 function NewTakeOrder() {
 
     let [isOpen, setIsOpen] = useState(false)
@@ -37,6 +34,14 @@ function NewTakeOrder() {
     const [customer, setCustomer] = useState({
         cust_id: '',
     })
+
+    const [file,setFile] = useState(null);
+
+    const onFileChange = (e) => {
+        setFile(e.target.files[0]);
+        console.log(file);
+    };
+
 
     const [family_members, setFamilyMembers] = useState([]);
 
@@ -97,7 +102,7 @@ function NewTakeOrder() {
             .catch((err) => {
                 console.log(err)
             })
-    }, [orderid])
+    }, [])
 
     const yyyymmdd = (dateIn) => {
         var parts = dateIn.split('/')
@@ -331,10 +336,12 @@ function NewTakeOrder() {
         },
       }
 
-
+      let formData = new FormData();
+      formData.append("data" , JSON.stringify(order_payload));
+      formData.append("order_image",file);
 
       axios
-        .post(API + '/api/add_order/', order_payload)
+        .post(API + '/api/add_order/', formData)
         .then((res) => {
 
           console.log('add_order', res.data)
@@ -493,18 +500,37 @@ function NewTakeOrder() {
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         name={'family_member'}
+                                        onClick={fetch_works}
                                         required
                                         onChange={handleOther}
                                     >
-                                        <option selected hidden>
+                                        <option selected hidden value={customer_details.cust_name}>
                                             Choose Family Member
                                         </option>
+                                        <option value={customer_details.cust_name}>{customer_details.cust_name}</option>
                                         {family_members.map((e) => (
                                             <option value={e}>{e}</option>
                                         ))}
                                     </select>
                                 </snap>
                                 </form>
+
+                                <div className={'flex justify-evenly'}>
+                                    <Link
+                                        className="mb-3 md:mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                                        to="/dashboard/work"
+                                        target={'_blank'}
+                                    >
+                                        ADD WORK
+                                    </Link>
+                                    <Link
+                                        className="mb-3 md:mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                                        to="/dashboard/material"
+                                        target={'_blank'}
+                                    >
+                                        ADD MATERIAL
+                                    </Link>
+                                </div>
 
                                 <form onSubmit={addWork} className="flex flex-wrap -md:mx-3  md:mb-6 md:space-x-20 justify-center">
 
@@ -615,6 +641,7 @@ function NewTakeOrder() {
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         name={'material_id'}
+                                        onClick={fetch_materials}
                                         onChange={handleMaterialEvent}
                                         required
                                     >
@@ -1017,6 +1044,34 @@ function NewTakeOrder() {
 
 
                             </div>
+
+                                    <br/>
+                                           <div className="flex justify-center">
+                                               <input
+                                                   type="file"
+                                                   id="file"
+                                                   name="file"
+                                                   className={'form-control\n' +
+                                                       '    block\n' +
+                                                       '    w-auto\n' +
+                                                       '    px-3\n' +
+                                                       '    py-3\n' +
+                                                       '    text-base\n' +
+                                                       '    font-normal\n' +
+                                                       '    text-gray-700\n' +
+                                                       '    bg-white bg-clip-padding\n' +
+                                                       '    border border-solid border-gray-300\n' +
+                                                       '    rounded\n' +
+                                                       '    transition\n' +
+                                                       '    ease-in-out\n' +
+                                                       '    m-0\n' +
+                                                       '    focus:text-gray-700 hover:bg-rose-500 hover:text-white focus:bg-rose-500 focus:text-white focus:border-blue-600 focus:outline-none'}
+                                                   accept="image/jpeg"
+                                                   onChange={onFileChange}
+                                                   name="file"
+                                                   accept="image/jpeg"
+                                               />
+                                           </div>
                                            <div className={'flex justify-center'}>
                                 <button
                                     className={
@@ -1028,6 +1083,14 @@ function NewTakeOrder() {
                                 </button>
 
 
+                               {/*File Upload*/}
+                               {/* <input*/}
+                               {/*   type="file"*/}
+                               {/*   id="file"*/}
+                               {/*   name="file"*/}
+                               {/*   accept="image/jpeg"*/}
+                               {/*   onChange={onFileChange}*/}
+                               {/* />*/}
 
                                 {isInvoice ? (
                                     <Navigate

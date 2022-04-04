@@ -131,6 +131,7 @@ export default function WorkForm() {
     const work_id = y.target.work_id.value
     const amount = y.target.amount.value
     const wage_type = y.target.wage_type.value
+    console.log(amount)
     const res = await UpdateWork(work_name, work_id, amount, wage_type)
     if (res.data.status) {
       getWork()

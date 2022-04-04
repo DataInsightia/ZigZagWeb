@@ -100,23 +100,18 @@ export default function Register() {
               .catch((err) => console.log(err))
 
             // Get Customer Details for Popup
-            axios
-              .post(`${API}/api/customer_details/`, { cust_id: mobile })
-              .then((res) => {
-                const customer = res.data[0]
-                console.log(res.data[0])
-                console.log(res.data.status)
-                alert(
-                  `Registration Success,\nYour Customer ID : ${customer.cust_id}\n Your Mobile No : ${customer.mobile}\n\tYour Can Login with your CUSTOMER ID or MOBILE NUMBER`,
-                )
-              })
-              .catch((err) => console.log(err))
-            isLogin(true)
-          } else {
-            alert(res.data.message)
-          }
-        } else {
-          alert('Family Members Field is Empty')
+            axios.post(`${API}/api/customer_details/`,{"cust_id" : mobile}).then(res => {
+              const customer = res.data[0];
+              console.log(res.data[0])
+              console.log(res.data.status)
+              alert(`Registration Success,\nYour Customer ID : ${customer.cust_id}\n Your Mobile No : ${customer.mobile}\n\tYour Can Login with your CUSTOMER ID or MOBILE NUMBER`)
+            }).catch(err => console.log(err))
+              isLogin(true)
+            }else{
+              alert(res.data.message);
+            }
+          }else{
+          alert("Unable to Register!")
         }
       })
       .catch((err) => {

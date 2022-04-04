@@ -47,7 +47,7 @@ export default function Router() {
       path: '/',
       children: [
         { path: '/', element: <Home /> },
-        { path: '*', element: <Navigate to="/" replace /> },
+        // { path: '*', element: <Navigate to="/" replace /> },
         { path: 'login', element: <Login /> },
         { path: 'register', element: <Register /> },
         { path: 'product_home', element: <Product_Home /> },
@@ -58,7 +58,7 @@ export default function Router() {
 
     {
       path: '/dashboard',
-      element: <Protected cmp={Dashboard} />,
+      element: <Dashboard />,
       children: [
         { path: 'dhome', element: <DashboardHome /> },
         { path: 'work', element: <WorkForm/>},
