@@ -49,7 +49,6 @@ function OrderStatus() {
             console.log(res.data);
         }).catch(err => console.log(err))
 
-
         axios.post(API + '/api/order_completion/',orderid).then(res => {
             if (res.data.status) {
                 setOCstage(res.data.data);

@@ -5,7 +5,7 @@ import QRCode from 'react-qr-code'
 import './qr.css'
 import './button.css'
 import { Navigate } from 'react-router'
-import {Link} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import { Dialog, Transition } from '@headlessui/react'
 
 function NewTakeOrder() {
@@ -20,7 +20,6 @@ function NewTakeOrder() {
         setIsOpen(true)
     }
 
-    const [orderid, setOrderid] = useState('')
     const [isInvoice, setIsinvoice] = useState(false)
     const [cust, setCust] = useState(false)
     const [works, setWorks] = useState([{}])
@@ -35,6 +34,8 @@ function NewTakeOrder() {
     })
 
     const [file,setFile] = useState(null);
+
+    let {custid,orderid} = useParams();
 
     const onFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -90,8 +91,6 @@ function NewTakeOrder() {
         axios
             .get(API + '/api/generate_orderid/')
             .then((res) => {
-                setOrderid(res.data['order_id'])
-
                 fetch_work_table()
                 fetch_material_table()
                 fetch()
@@ -100,7 +99,32 @@ function NewTakeOrder() {
             // setInterval(calculate,1000)
             .catch((err) => {
                 console.log(err)
+            });
+
+        axios
+            .post(API + '/api/takeorder_customer_details/', {"cust_id" : custid})
+            .then((res) => {
+                if (res.data.length !== 0) {
+
+                    SetCustomerDetails(res.data[0])
+                    setCust(true)
+
+                    axios.post(`${API}/api/get_family_members/`,{"mobile" : res.data[0].mobile})
+                        .then(res => {
+                            if (res.data.length !== 0) {
+                                setFamilyMembers(res.data.data[0].members.split(','))
+                            } else{
+                                setFamilyMembers([])
+                            }
+                        }).catch(err => console.log(err));
+                }
             })
+            .catch((err) => {
+                openModal()
+
+                console.log(err)
+
+            });
     }, [])
 
     const yyyymmdd = (dateIn) => {
@@ -244,33 +268,7 @@ function NewTakeOrder() {
         fetch_material_table()
         fetch()
     }
-    const findCustomer = (e) => {
-        e.preventDefault()
-        axios
-            .post(API + '/api/takeorder_customer_details/', customer)
-            .then((res) => {
-                if (res.data.length !== 0) {
 
-                    SetCustomerDetails(res.data[0])
-                    setCust(true)
-
-                    axios.post(`${API}/api/get_family_members/`,{"mobile" : res.data[0].mobile})
-                        .then(res => {
-                            if (res.data.length !== 0) {
-                                setFamilyMembers(res.data.data[0].members.split(','))
-                            } else{
-                                setFamilyMembers([])
-                            }
-                        }).catch(err => console.log(err));
-                }
-            })
-            .catch((err) => {
-                openModal()
-
-                console.log(err)
-
-            })
-    }
 
     const update_balance_with_courier = (e,courier_amount) => {
         var courier = parseInt(courier_amount)
@@ -435,24 +433,24 @@ function NewTakeOrder() {
                                 />
                             </div>
                             <br />
-                            <div className="grid justify-center mt-4">
-                                <input
-                                    className="uppercase shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    type={'text'}
-                                    placeholder={'Mobile or Customer ID'}
-                                    value={customer.cust_id}
-                                    onChange={handleCustomer}
-                                    name={'cust_id'}
-                                />
-                                <input
-                                    type={'submit'}
-                                    className={
-                                        'button text-white cursor-pointer rounded p-2 my-2 bg-red-500 border border-red-500 hover:text-red-500 hover:bg-transparent'
-                                    }
-                                    value={'Check'}
-                                    onClick={findCustomer}
-                                />
-                            </div>
+                            {/*<div className="grid justify-center mt-4">*/}
+                            {/*    <input*/}
+                            {/*        className="uppercase shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"*/}
+                            {/*        type={'text'}*/}
+                            {/*        placeholder={'Mobile or Customer ID'}*/}
+                            {/*        value={customer.cust_id}*/}
+                            {/*        onChange={handleCustomer}*/}
+                            {/*        name={'cust_id'}*/}
+                            {/*    />*/}
+                            {/*    <input*/}
+                            {/*        type={'submit'}*/}
+                            {/*        className={*/}
+                            {/*            'button text-white cursor-pointer rounded p-2 my-2 bg-red-500 border border-red-500 hover:text-red-500 hover:bg-transparent'*/}
+                            {/*        }*/}
+                            {/*        value={'Check'}*/}
+                            {/*        onClick={findCustomer}*/}
+                            {/*    />*/}
+                            {/*</div>*/}
                         </div>
                         <div className="grid col-auto mt-12 md:w-1/4 mb-16">
                             <div className="flex flex-wrap">
@@ -479,7 +477,6 @@ function NewTakeOrder() {
 
                     <br />
 
-                    {cust ? (
                         <div className="bg-white drop-shadow-2xl ">
                             <div>
                                 <form onSubmit={addWork} className="flex flex-wrap -md:mx-3  md:mb-6 md:space-x-20 justify-center">
@@ -1115,9 +1112,7 @@ function NewTakeOrder() {
                             {/*take order end*/}
 
                         </div>
-                    ) : (
-                        ''
-                    )}
+
                 </div>
             </div>
             <Transition appear show={isOpen} as={Fragment}>

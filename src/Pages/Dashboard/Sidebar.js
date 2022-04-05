@@ -78,6 +78,16 @@ export default function Sidebar({auth}) {
                           </Link>
                         </li>
 
+
+                        <li>
+                          <Link
+                            to="/dashboard/search_invoice"
+                            className="font-bold text-lg text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                          >
+                            ORDER INVOICE
+                          </Link>
+                        </li>
+
                         <li>
                           <Link
                             to="/dashboard/customer_measurement"

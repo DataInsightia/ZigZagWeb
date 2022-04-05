@@ -37,6 +37,9 @@ import DisplayList from '../Pages/Dashboard/DisplayList'
 import CustomerMeasurement from "../Pages/Dashboard/Admin/CustomerMeasurement";
 import TakeOrderMod from "../Components/TakeOrder/TakeOrderMod";
 import InvoiceMob from "../Components/TakeOrder/Invoice/InvoiceMob";
+import ViewInvoice from "../Components/TakeOrder/Invoice/ViewInvoice";
+import SearchInvoice from "../Components/TakeOrder/Invoice/SearchInvoice";
+import EditTakeOrder from "../Components/TakeOrder/EditTakeOrder";
 
 
 // ----------------------------------------------------------------------
@@ -65,8 +68,10 @@ export default function Router() {
         { path: 'material', element: <MaterialForm/>},
         { path: 'takeorder', element: <NewTakeOrder /> },
         { path: 'takeordermod', element: <TakeOrderMod /> },
-        // { path: 'invoice/', element: <Invoice /> },
+        { path: 'edit_order/:custid/:orderid', element: <EditTakeOrder /> },
+        { path: 'search_invoice', element: <SearchInvoice /> },
         { path: 'invoice/:custid/:orderid', element: <Invoice /> },
+        { path: 'view_invoice/:custid/:orderid', element: <ViewInvoice /> },
         { path: 'invoice/:custid/:orderid/:current_amount/:pending_amount', element: <Invoice /> },
         { path: 'invoicemob/:custid/:orderid', element: <InvoiceMob /> },
         { path: 'customer_orders/:custid', element: <Orders /> },
