@@ -640,6 +640,7 @@ function NewTakeOrder() {
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         name={'material_id'}
+                                        onClick={fetch_materials}
                                         onChange={handleMaterialEvent}
                                         required
                                     >
