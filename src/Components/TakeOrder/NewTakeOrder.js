@@ -470,6 +470,7 @@ function NewTakeOrder() {
                             <div className="flex flex-wrap">
                                 <h3 className="text-xl subpixel-antialiased">Email : {customer_details.email}</h3>
                             </div>
+                            <br/>
 
                             <div className="flex flex-wrap">
                                 <h3 className="text-xl subpixel-antialiased">Address : {customer_details.address}</h3>
