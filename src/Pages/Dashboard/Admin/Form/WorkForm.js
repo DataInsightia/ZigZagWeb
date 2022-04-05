@@ -669,10 +669,10 @@ function Pagination({
   return (
     <div>
       <div className="md:mt-20">
-        <div className="flex scroll  justify-center min-h-screen -mb-72 md:-mb-96">
+        <div className="flex scroll  justify-center min-h-screen">
           <div className=" min-w-full  overflow-auto overflow-x-scroll bg:hidden py-2 md:p-4">
             <div className="flex overflow-auto mb-6 justify-between">
-              <h2 className="text-2xl justify-center  font-semibold leading-tight">
+              <h2 className="text-xl justify-center  font-semibold leading-tight uppercase tracking-wide">
                 Work
               </h2>
               <button
@@ -724,35 +724,35 @@ function Pagination({
             </div>
             <table class="min-w-full leading-normal ">
               <thead>
-                <tr className={`${Constants.large}`}>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
+                <tr className={`bg-gradient-to-r from-rose-600 to-rose-500 ${Constants.large}`}>
+                  <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                     Work Name
                   </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
+                  <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                     Amount
                   </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
+                  <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                     Wage Type
                   </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider"></th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider"></th>
+                  <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3"></th>
+                  <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3"></th>
                 </tr>
               </thead>
               <tbody>
                 {workState ? (
                   <>
                     {getPaginatedData().map((e, index) => (
-                      <tr className={`text-center ${Constants.small}`}>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
+                      <tr className={`text-center bg-white ${Constants.small}`}>
+                        <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                           {e.work_name}
                         </td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
+                        <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                           {e.amount}
                         </td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
+                        <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                           {e.wage_type}
                         </td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white  uppercase">
+                        <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                           <button
                             onClick={() => openFromUpdateModal(`${e.work_id}`)}
                             className="px-2 py-1 bg-red-200 text-red-900 rounded font-bold"
@@ -760,7 +760,7 @@ function Pagination({
                             Update
                           </button>
                         </td>
-                        <td class="px-5 py-5 border-b border-gray-200 bg-white ">
+                        <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                           <button
                             onClick={() => openFromDeleteModal(`${e.work_id}`)}
                             className="px-2 py-1 bg-red-200 text-red-900 rounded font-bold"

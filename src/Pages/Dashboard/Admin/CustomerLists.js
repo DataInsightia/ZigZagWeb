@@ -64,22 +64,22 @@ export default function Customer() {
       {/*          <table class="w-full overflow-x-scroll">*/}
       {/*            <thead className="w-full  bg-gradient-to-r from-rose-600 to-rose-500">*/}
       {/*              <tr>*/}
-      {/*                <th class="py-3 text-center text-xs font-semibold text-white uppercase">*/}
+      {/*                <th class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider">*/}
       {/*                  Customer ID*/}
       {/*                </th>*/}
-      {/*                <th class="py-3 text-center text-xs font-semibold text-white uppercase">*/}
+      {/*                <th class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider">*/}
       {/*                  Customer Name*/}
       {/*                </th>*/}
-      {/*                <th class="py-3 text-center text-xs font-semibold text-white uppercase">*/}
+      {/*                <th class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider">*/}
       {/*                  Mobile*/}
       {/*                </th>*/}
-      {/*                <th class="py-3 text-center text-xs font-semibold text-white uppercase">*/}
+      {/*                <th class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider">*/}
       {/*                  Address*/}
       {/*                </th>*/}
-      {/*                <th class="py-3 text-center text-xs font-semibold text-white uppercase">*/}
+      {/*                <th class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider">*/}
       {/*                  City*/}
       {/*                </th>*/}
-      {/*                <th class="py-3 text-center text-xs font-semibold text-white uppercase">*/}
+      {/*                <th class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider">*/}
       {/*                  Pincode*/}
       {/*                </th>*/}
       {/*              </tr>*/}
@@ -89,25 +89,25 @@ export default function Customer() {
       {/*                <>*/}
       {/*                  {customers.map((e) => (*/}
       {/*                    <tr>*/}
-      {/*                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">*/}
+      {/*                      <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">*/}
       {/*                        {e.cust_id}*/}
       {/*                      </td>*/}
-      {/*                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">*/}
+      {/*                      <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">*/}
       {/*                        {e.cust_name}*/}
       {/*                      </td>*/}
-      {/*                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">*/}
+      {/*                      <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">*/}
       {/*                        {e.mobile}*/}
       {/*                      </td>*/}
-      {/*                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">*/}
+      {/*                      <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">*/}
       {/*                        {e.address}*/}
       {/*                      </td>*/}
-      {/*                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">*/}
+      {/*                      <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">*/}
       {/*                        {e.city}*/}
       {/*                      </td>*/}
-      {/*                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">*/}
+      {/*                      <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">*/}
       {/*                        {e.pincode}*/}
       {/*                      </td>*/}
-      {/*                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">*/}
+      {/*                      <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">*/}
       {/*                        {e.salary}*/}
       {/*                      </td>*/}
       {/*                    </tr>*/}
@@ -216,25 +216,25 @@ function Pagination({
             <table className="w-full md:mt-2 shadow-lg">
               <thead className=" bg-gradient-to-r from-rose-600 to-rose-500">
                 <tr>
-                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                     Customer ID
                   </th>
-                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                     Customer Name
                   </th>
-                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                     Mobile
                   </th>
-                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                     Address
                   </th>
-                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                     City
                   </th>
-                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                     Pincode
                   </th>
-                  <th className="py-3 text-center text-xs font-semibold text-white uppercase">
+                  <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                     Password
                   </th>
                 </tr>
@@ -243,27 +243,27 @@ function Pagination({
                 {customerstate ? (
                   <>
                     {getPaginatedData().map((e, index) => (
-                      <tr>
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                      <tr className="bg-white">
+                        <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                           {e.cust_id}
                         </td>
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                        <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                           {e.cust_name}
                         </td>
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                        <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                           {e.mobile}
                         </td>
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                        <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                           {e.address}
                         </td>
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                        <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                           {e.city}
                         </td>
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                        <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                           {e.pincode}
                         </td>
 
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                        <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                           {e.password}
                         </td>
                       </tr>

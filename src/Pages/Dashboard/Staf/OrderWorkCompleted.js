@@ -54,15 +54,15 @@ function OrderWorkCompleted() {
             className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
           />
         </div>
-          <div className="p-3 bg-white shadow-lg">
+          <div>
             <h1 className={styles.title}>Completed Works</h1>
 
-            <div class="flex flex-col">
+            <div class="flex flex-col shadow-lg bg-white">
               <div class="overflow-x-auto">
-                <div class="inline-block py-2 min-w-full ">
+                <div class="inline-block min-w-full ">
                   <div class="overflow-hidden">
-                    <table class="min-w-full">
-                      <thead>
+                    <table class="min-w-full bg-white">
+                      <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                         <tr>
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/4">
@@ -77,7 +77,7 @@ function OrderWorkCompleted() {
                             </div>
                             <div className="lg:w-1/4">
                               <th scope="col" className={styles.tablehead}>
-                                reference
+                                Sub-works
                               </th>
                             </div>
                             <div className="lg:w-1/4">

@@ -189,14 +189,14 @@ const onSubmit = (e) => {
               className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
             />
           </div>
-          <div className="p-3">
+          <div>
             <h1 className={styles.title}>Staff Stage Completion</h1>
-            <div class="flex flex-col bg-white shadow-lg">
+            <div class="flex flex-col shadow-lg bg-white">
               <div class="overflow-x-auto">
-                <div class="inline-block py-2 min-w-full ">
-                  <div class="overflow-hidden sm:rounded-lg">
-                    <table class="min-w-full overflow-auto">
-                      <thead>
+                <div class="inline-block min-w-full ">
+                  <div class="overflow-hidden">
+                    <table class="min-w-full bg-white">
+                      <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                         <tr>
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/6">
@@ -338,14 +338,14 @@ const onSubmit = (e) => {
               className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
             />
           </div>
-          <div className="p-3 bg-white shadow-xl">
+          <div>
             <h1 className={styles.title}>Review Works</h1>
-            <div class="flex flex-col">
+            <div class="flex flex-col shadow-lg bg-white">
               <div class="overflow-x-auto">
-                <div class="inline-block py-2 min-w-full ">
+                <div class="inline-block min-w-full ">
                   <div class="overflow-hidden">
-                    <table class="min-w-full">
-                      <thead>
+                    <table class="min-w-full bg-white">
+                      <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                         <tr>
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/5">

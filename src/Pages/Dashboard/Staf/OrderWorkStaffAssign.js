@@ -197,7 +197,7 @@ function OrderWorkStaffAssign() {
       </Transition>
       {pendingworksbool ? (
         <div className="p-10 mt-10">
-          <div className="p-3 bg-white shadow-xl">
+          <div>
             <div className='flex justify-center'>
 
               <div className={styles.title}>Search Orders</div>
@@ -209,14 +209,14 @@ function OrderWorkStaffAssign() {
               </form>
             </div>
             <div>
-              <div className="flex flex-col">
+              <div className="flex flex-col ">
               <div className="overflow-x-auto">
-                <div className="inline-block py-2 min-w-full ">
-                  <div className="overflow-hidden">
+                <div className="inline-block py-2 min-w-full">
+                  <div className="overflow-hidden ">
                     {
-                      orderPendingWorkBool ? (<table className="min-w-full">
+                      orderPendingWorkBool ? (<table className="min-w-full bg-white">
                       <thead>
-                        <tr>
+                        <tr className="bg-gradient-to-r from-rose-600 to-rose-500">
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/6">
                               <th scope="col" className={styles.tablehead}>
@@ -230,7 +230,7 @@ function OrderWorkStaffAssign() {
                             </div>
                             <div className="lg:w-1/6">
                               <th scope="col" className={styles.tablehead}>
-                                Reference
+                                Sub-Work
                               </th>
                             </div>
                             <div className="lg:w-1/6">
@@ -262,7 +262,7 @@ function OrderWorkStaffAssign() {
             </div>
 
             {orderPendingWork.map((e) => (
-              <form onSubmit={onSubmit}>
+              <form onSubmit={onSubmit} className="bg-white">
                 <div className="flex flex-wrap">
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                     <input
@@ -369,7 +369,6 @@ function OrderWorkStaffAssign() {
 
                 <div className="h-2"></div>
 
-                <div></div>
               </form>
             ))}
 
@@ -382,7 +381,7 @@ function OrderWorkStaffAssign() {
                   <div className="overflow-hidden">
                     <table className="min-w-full">
                       <thead>
-                        <tr>
+                        <tr className="bg-gradient-to-r from-rose-600 to-rose-500">
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/6">
                               <th scope="col" className={styles.tablehead}>
@@ -396,7 +395,7 @@ function OrderWorkStaffAssign() {
                             </div>
                             <div className="lg:w-1/6">
                               <th scope="col" className={styles.tablehead}>
-                                Reference
+                                Sub-Work
                               </th>
                             </div>
                             <div className="lg:w-1/6">
@@ -427,7 +426,7 @@ function OrderWorkStaffAssign() {
             </div>
 
             {pendingworks.map((e) => (
-              <form onSubmit={onSubmit}>
+              <form onSubmit={onSubmit} className="bg-white">
                 <div className="flex flex-wrap">
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
                     <input

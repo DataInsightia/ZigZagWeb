@@ -675,7 +675,7 @@ function Pagination({
       <div className="md:mt-20">
       <div class="py-12">
           <div className="flex overflow-auto mb-6 justify-between">
-            <h2 class="text-2xl justify-center font-semibold leading-tight">
+            <h2 class="text-xl justify-center  font-semibold leading-tight uppercase tracking-wide">
               Material
             </h2>
             <button
@@ -728,35 +728,35 @@ function Pagination({
             <div class="inline-block min-w-full shadow-lg rounded-lg overflow-hidden">
               <table class="min-w-full leading-normal">
                 <thead>
-                  <tr className={`${Constants.large}`}>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
+                  <tr className={`bg-gradient-to-r from-rose-600 to-rose-500 ${Constants.large}`}>
+                    <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       Material Name
                     </th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
+                    <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       Amount
                     </th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider">
+                    <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       Measurement
                     </th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider"></th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-white text-center font-semibold text-gray-700 uppercase tracking-wider"></th>
+                    <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3"></th>
+                    <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3"></th>
                   </tr>
                 </thead>
                 <tbody>
                   {MaterialState ? (
                     <>
                       {getPaginatedData().map((e, index) => (
-                        <tr className={`text-center ${Constants.small}`}>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white uppercase">
+                        <tr className={`text-center bg-white ${Constants.small}`}>
+                          <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                             {e.material_name}
                           </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white uppercase">
+                          <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                             {e.amount}
                           </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white uppercase">
+                          <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                             {e.measurement}
                           </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white uppercase">
+                          <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                             <button
                               onClick={() =>
                                 openFromUpdateModal(`${e.material_id}`)
@@ -766,7 +766,7 @@ function Pagination({
                               Update
                             </button>
                           </td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                          <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                             <button
                               onClick={() =>
                                 openFromDeleteModal(`${e.material_id}`)

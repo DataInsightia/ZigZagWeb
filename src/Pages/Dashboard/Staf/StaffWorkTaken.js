@@ -161,36 +161,36 @@ function StaffWorkTaken() {
           <div className="p-3">
             <h1 className={styles.title}>Pending Work</h1>
 
-            <div class="flex flex-col bg-white shadow-lg ">
+            <div class="flex flex-col shadow-lg bg-white">
               <div class="overflow-x-auto">
-                <div class="inline-block py-2 min-w-full ">
+                <div class="inline-block min-w-full ">
                   <div class="overflow-hidden">
-                    <table class="min-w-full ">
-                      <thead className="">
+                    <table class="min-w-full bg-white">
+                      <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                         <tr>
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/5">
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
+                              <th scope="col" className="px-2 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
                                 Order
                               </th>
                             </div>
                             <div className="lg:w-1/5">
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
+                              <th scope="col" className="px-2 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
                                 Work
                               </th>
                             </div>
                             <div className="lg:w-1/5">
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
+                              <th scope="col" className="px-2 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
                                 Sub Work
                               </th>
                             </div>
                             <div className="lg:w-1/5">
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
+                              <th scope="col" className="px-2 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
                                 Stage
                               </th>
                             </div>
                             <div className="lg:w-1/5">
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase"></th>
+                              <th scope="col" className="px-2 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider"></th>
                             </div>
                           </div>
                         </tr>
@@ -201,7 +201,7 @@ function StaffWorkTaken() {
               </div>
             </div>
             {filteredData.map((e) => (
-              <form onSubmit={onSubmit} className="bg-white shadow-lg">
+              <form onSubmit={onSubmit} className="bg-white">
                 <div className="flex flex-wrap">
                   <div className="px-3 w-full md:w-1/2 lg:w-1/5">
                     <input
@@ -288,22 +288,22 @@ function StaffWorkTaken() {
                         <tr>
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/4">
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
+                              <th scope="col" className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider">
                                 Order
                               </th>
                             </div>
                             <div className="lg:w-1/4">
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
+                              <th scope="col" className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider">
                                 Work
                               </th>
                             </div>
                             <div className="lg:w-1/4">
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
+                              <th scope="col" className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider">
                                 Sub Work
                               </th>
                             </div>
                             <div className="lg:w-1/4">
-                              <th scope="col" className="py-3 px-3 text-xl font-bold tracking-wider  text-black uppercase">
+                              <th scope="col" className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider">
                                 Stage
                               </th>
                             </div>

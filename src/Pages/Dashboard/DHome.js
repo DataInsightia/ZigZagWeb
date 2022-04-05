@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import StatusCard from './StatusCard'
 import 'font-awesome/css/font-awesome.min.css'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 import {
   OngoingOrdersServices,
@@ -17,6 +18,7 @@ import {
   AssignedNotTakenWorksServices,
   TodayDeliveryOrdersServices,
   WeekDeliveryOrdersServices,
+  getUser
 } from '../../../src/services/DashboardCountServices'
 
 export default function DashboardHome() {
@@ -41,65 +43,100 @@ export default function DashboardHome() {
 
   // FETCH INITIAL DATA
 
-  const login_id = localStorage.getItem('login_id')
-  const auth = localStorage.getItem('role')
+  // const login_id = localStorage.getItem('login_id')
+  // const auth = localStorage.getItem('role')
 
-  useEffect(async () => {
+  const [auth,setAuth] =  useState('')
+
+ 
+  useEffect( async () => {
+    getUser().then((res)=>{
+    const auth = res.data.user.role
+    setAuth(auth)
+      
     if (auth === 'customer') {
       // CUSTOMER ON GOING WORKS
-      const ongoingorders_res = await OngoingOrdersServices(login_id)
-      setOngoingOrders(ongoingorders_res.data)
+      OngoingOrdersServices().then((res)=>{
+        setOngoingOrders(res.data)
+      })
+      
 
       // CUSTOMER COMPLETED ORDERS
-      const completedorders_res = await CompletedOrdersServices(login_id)
-      setCompletedOrders(completedorders_res.data)
 
+      CompletedOrdersServices().then((res)=>{
+        setCompletedOrders(res.data)
+      })
+      
       // CUSTOMER TOTAL ORDERS
-      const totalorders_res = await TotalOrderServices(login_id)
-      setTotalOrder(totalorders_res.data)
-
+      TotalOrderServices().then((res)=>{
+        setTotalOrder(res.data)
+      })
+      
+    
       // CUSTOMER DELIVERY READY ORDERS
-      const deliveryreadyorders_res = await DeliveryReadyOrdersServices(
-        login_id,
-      )
-      setDeliveryReadyOrder(deliveryreadyorders_res.data)
+      DeliveryReadyOrdersServices().then((res)=>{
+        setDeliveryReadyOrder(res.data)
+      })
+      
+      
     } else if (auth === 'staff') {
       // STAFF TOTAL WORKS
-      const stafftotalworks_res = await TotalWorksServices(login_id)
-      setTotalWorks(stafftotalworks_res.data)
-
+      TotalWorksServices().then((res)=>{
+        setTotalWorks(res.data)
+      })
+      
+   
       // STAFF TAKEN WORKS
-      const stafftokenworks_res = await StaffTakenWorksServices(login_id)
-      setTakenWorks(stafftokenworks_res.data)
-
+      StaffTakenWorksServices().then((res)=>{
+        setTakenWorks(res.data)
+      })
+      
+   
       // STAFF NOT TAKEN WORKS
-      const staffnottakenworks_res = await StaffNotTakenWorksServices(login_id)
-      setNotTakenWorks(staffnottakenworks_res.data)
-
+      StaffNotTakenWorksServices().then((res)=>{
+        setNotTakenWorks(res.data)
+      })
+   
       // STAFF TODAY DUE WORKS
-      const todaydueworks_res = await TodayDueWorksServices(login_id)
-      setTodayDueWorks(todaydueworks_res.data)
-
+      TodayDueWorksServices().then((res)=>{
+        setTodayDueWorks(res.data)
+      })
+      
+     
       //STAFF WEEK DUE WORKS
-      const weekdueworks_res = await WeekDueWorksServices(login_id)
-      setWeekDueWorks(weekdueworks_res.data)
-    } else {
+      WeekDueWorksServices().then((res)=>{
+        setWeekDueWorks(res.data)
+      })
+   
+    } else if (auth == "admin"){
       // SUPERVISOR NOT ASSIGNED WORKS
-      const unassignedworks_res = await UnAssignedWorksServices()
-      setUnAssignedWorks(unassignedworks_res.data)
-
+      UnAssignedWorksServices().then((res)=>{
+        setUnAssignedWorks(res.data)
+      })
+  
       // SUPERVISOR ASSIGN BUT NOT TAKEN WORK
-      const assignnottakenworks_res = await AssignedNotTakenWorksServices()
-      setAssignedNotTakenWorks(assignnottakenworks_res.data)
-
+      AssignedNotTakenWorksServices().then((res)=>{
+        setAssignedNotTakenWorks(res.data)
+      })
+      
+     
       // SUPERVISOR TODAY DELIVERY
-      const todaydeliveryorders = await TodayDeliveryOrdersServices()
-      setTodayDeliveryOrders(todaydeliveryorders.data)
-
+      TodayDeliveryOrdersServices().then((res)=>{
+        setTodayDeliveryOrders(res.data)
+      })
+      
       // SUPERVISOR WEEK DELIVERY
-      const weekdeliveryorders = await WeekDeliveryOrdersServices()
-      setWeekDeliveryOrders(weekdeliveryorders.data)
+
+      WeekDeliveryOrdersServices().then((res)=>{
+        setWeekDeliveryOrders(res.data)
+      })
+       
     }
+  }
+  ).catch(
+    err=>console.log(err)
+  );
+  
   }, [])
 
   return (
