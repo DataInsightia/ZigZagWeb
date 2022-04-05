@@ -357,7 +357,7 @@ function PaginationPending({
         />
       </div>
       <div className="flex flex-col">
-        <h1> Wage Pending</h1>
+        <h1  className="uppercase tracking-wide"> Wage Pending</h1>
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 ">
           <div className="inline-block py-2 min-w-full sm:px-6 lg:px-8">
             <div className="overflow-hidden shadow-lg">
@@ -366,31 +366,31 @@ function PaginationPending({
                   <tr>
                     <th
                       scope="col"
-                      className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                      className="px-2 text-center text-xs font-semibold text-white py-3 uppercase tracking-wider"
                     >
                       Order ID
                     </th>
                     <th
                       scope="col"
-                      className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                      className="px-2 text-center text-xs font-semibold text-white py-3 uppercase tracking-wider"
                     >
                       Work ID
                     </th>
                     <th
                       scope="col"
-                      className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                      className="px-2 text-center text-xs font-semibold text-white py-3 uppercase tracking-wider"
                     >
                       Wage
                     </th>
                     <th
                       scope="col"
-                      className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                      className="px-2 text-center text-xs font-semibold text-white py-3 uppercase tracking-wider"
                     >
                       Completion Date
                     </th>
                     <th
                       scope="col"
-                      className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                      className="px-2 text-center text-xs font-semibold text-white py-3 uppercase tracking-wider"
                     >
                       Approval Date
                     </th>
@@ -402,13 +402,13 @@ function PaginationPending({
                       <td className="py-4 px-6 text-sm text-black text-center whitespace-nowrap">
                         {e.order}
                       </td>
-                      <td className="py-4 px-6 text-sm text-black text-center whitespace-nowrap ">
+                      <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                         {e.work}
                       </td>
-                      <td className="py-4 px-6 text-sm text-black text-center whitespace-nowrap ">
+                      <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                         {e.wage}
                       </td>
-                      <td className="py-4 px-6 text-sm text-black text-center whitespace-nowrap ">
+                      <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                         {new Date(e.completion_date_time).toLocaleString(
                           'en-GB',
                         )}
@@ -486,7 +486,7 @@ function PaginationGiven({
           />
         </div>
         <div className="flex flex-col">
-          <h1> Wage Given</h1>
+          <h1 className="uppercase tracking-wide"> Wage Given</h1>
           <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 ">
             <div className="inline-block py-2 min-w-full sm:px-6 lg:px-8">
               <div className="overflow-hidden shadow-lg">
@@ -495,32 +495,32 @@ function PaginationGiven({
                     <tr>
                       <th
                         scope="col"
-                        className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                        className="px-2 text-center text-xs font-semibold text-white py-3 uppercase tracking-wider"
                       >
                         Order ID
                       </th>
                       <th
                         scope="col"
-                        className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                        className="px-2 text-center text-xs font-semibold text-white py-3 uppercase tracking-wider"
                       >
                         Work ID
                       </th>
                       <th
                         scope="col"
-                        className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                        className="px-2 text-center text-xs font-semibold text-white py-3 uppercase tracking-wider"
                       >
                         Wage
                       </th>
 
                       <th
                         scope="col"
-                        className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                        className="px-2 text-center text-xs font-semibold text-white py-3 uppercase tracking-wider"
                       >
                         Completion Date
                       </th>
                       <th
                         scope="col"
-                        className="py-3 px-3 text-xl font-bold tracking-wider text-white uppercase"
+                        className="px-2 text-center text-xs font-semibold text-white py-3 uppercase tracking-wider"
                       >
                         Approval Date
                       </th>
@@ -529,17 +529,17 @@ function PaginationGiven({
                   <tbody>
                     {getPaginatedData().map((e) => (
                       <tr className="border-b">
-                        <td className="py-4 px-6 text-sm text-black text-center whitespace-nowrap">
+                        <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                           {e.order}
                         </td>
-                        <td className="py-4 px-6 text-sm text-black text-center whitespace-nowrap ">
+                        <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                           {e.work}
                         </td>
-                        <td className="py-4 px-6 text-sm text-black text-center whitespace-nowrap ">
+                        <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                           {e.wage}
                         </td>
 
-                        <td className="py-4 px-6 text-sm text-black text-center whitespace-nowrap ">
+                        <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-3">
                           {new Date(e.completion_date_time).toLocaleString(
                             'en-GB',
                           )}

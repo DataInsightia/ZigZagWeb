@@ -159,7 +159,7 @@ export default function DisplayList() {
             <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">
               <div className="py-4">
                 <div>
-                  <h2 className="text-2xl justify-center font-semibold">
+                  <h2 className="text-2xl justify-center font-semibold uppercase">
                     Not Taken Works
                   </h2>
                 </div>
@@ -187,19 +187,19 @@ export default function DisplayList() {
                     <tbody>
                       {fetch.map((e) => (
                         <tr>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.order.order_id}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.work.work_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.order.customer.cust_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.staff.staff_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.orderworkstaffassign.assign_date_time}`,
                             ).toDateString('en', 'TN')}
@@ -224,7 +224,7 @@ export default function DisplayList() {
             <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">
               <div className="py-4">
                 <div>
-                  <h2 className="text-2xl justify-center font-semibold">
+                  <h2 className="text-2xl justify-center font-semibold uppercase">
                     Today Due Delivery
                   </h2>
                 </div>
@@ -258,27 +258,27 @@ export default function DisplayList() {
                     <tbody>
                       {fetch.map((e) => (
                         <tr>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderwork.order.order_id}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderwork.work.work_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderwork.customer.cust_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderwork.customer.mobile}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.staff.staff_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.orderwork.order.booking_date_time}`,
                             ).toDateString('en', 'TN')}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.orderwork.order.due_date}`,
                             ).toDateString('en', 'TN')}
@@ -302,7 +302,7 @@ export default function DisplayList() {
             <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">
               <div className="py-4">
                 <div>
-                  <h2 className="text-2xl justify-center font-semibold">
+                  <h2 className="text-2xl justify-center font-semibold uppercase">
                     Week Due Delivery
                   </h2>
                 </div>
@@ -336,27 +336,27 @@ export default function DisplayList() {
                     <tbody>
                       {fetch.map((e) => (
                         <tr>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderwork.order.order_id}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderwork.work.work_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderwork.customer.cust_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderwork.customer.mobile}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.staff.staff_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.orderwork.order.booking_date_time}`,
                             ).toDateString('en', 'TN')}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.orderwork.order.due_date}`,
                             ).toDateString('en', 'TN')}
@@ -381,7 +381,7 @@ export default function DisplayList() {
             <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">
               <div className="py-4">
                 <div>
-                  <h2 className="text-2xl justify-center font-semibold">
+                  <h2 className="text-2xl justify-center font-semibold uppercase">
                     Not Taken Works
                   </h2>
                 </div>
@@ -409,19 +409,19 @@ export default function DisplayList() {
                     <tbody>
                       {fetch.map((e) => (
                         <tr>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.order.order_id}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.work.work_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.order.customer.cust_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.staff.staff_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.orderworkstaffassign.assign_date_time}`,
                             ).toDateString('en', 'TN')}
@@ -447,7 +447,7 @@ export default function DisplayList() {
             <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">
               <div className="py-4">
                 <div>
-                  <h2 className="text-2xl justify-center font-semibold">
+                  <h2 className="text-2xl justify-center font-semibold uppercase">
                     Total Works
                   </h2>
                 </div>
@@ -475,19 +475,19 @@ export default function DisplayList() {
                     <tbody>
                       {fetch.map((e) => (
                         <tr>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.order.order_id}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.work.work_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.order.customer.cust_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.staff.staff_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.orderworkstaffassign.assign_date_time}`,
                             ).toDateString('en', 'TN')}
@@ -512,7 +512,7 @@ export default function DisplayList() {
             <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">
               <div className="py-4">
                 <div>
-                  <h2 className="text-2xl justify-center font-semibold">
+                  <h2 className="text-2xl justify-center font-semibold uppercase">
                     Today Due Works
                   </h2>
                 </div>
@@ -547,27 +547,27 @@ export default function DisplayList() {
                     <tbody>
                       {fetch.map((e) => (
                         <tr>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.order.order_id}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.work.work_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.order.customer.cust_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.order.customer.mobile}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.staff.staff_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.orderworkstaffassign.order.booking_date_time}`,
                             ).toDateString('en', 'TN')}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.orderworkstaffassign.order.due_date}`,
                             ).toDateString('en', 'TN')}
@@ -592,7 +592,7 @@ export default function DisplayList() {
             <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">
               <div className="py-4">
                 <div>
-                  <h2 className="text-2xl justify-center font-semibold">
+                  <h2 className="text-2xl justify-center font-semibold uppercase">
                     Week Due Works
                   </h2>
                 </div>
@@ -627,27 +627,27 @@ export default function DisplayList() {
                     <tbody>
                       {fetch.map((e) => (
                         <tr>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.order.order_id}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.work.work_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.order.customer.cust_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.order.customer.mobile}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.orderworkstaffassign.staff.staff_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.orderworkstaffassign.order.booking_date_time}`,
                             ).toDateString('en', 'TN')}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.orderworkstaffassign.order.due_date}`,
                             ).toDateString('en', 'TN')}
@@ -672,7 +672,7 @@ export default function DisplayList() {
             <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">
               <div className="py-4">
                 <div>
-                  <h2 className="text-2xl justify-center font-semibold">
+                  <h2 className="text-2xl justify-center font-semibold uppercase">
                     Delivery Ready Orders
                   </h2>
                 </div>
@@ -703,24 +703,24 @@ export default function DisplayList() {
                     <tbody>
                       {fetch.map((e) => (
                         <tr>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.order.order_id}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.work.work_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.order.customer.cust_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.order.customer.mobile}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.order.booking_date_time}`,
                             ).toDateString('en', 'TN')}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.order.due_date}`,
                             ).toDateString('en', 'TN')}
@@ -745,7 +745,7 @@ export default function DisplayList() {
             <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">
               <div className="py-4">
                 <div>
-                  <h2 className="text-2xl justify-center font-semibold">
+                  <h2 className="text-2xl justify-center font-semibold uppercase">
                     Completed Orders
                   </h2>
                 </div>
@@ -773,19 +773,19 @@ export default function DisplayList() {
                     <tbody>
                       {fetch.map((e) => (
                         <tr>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.order.order_id}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.work.work_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.order.customer.cust_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.staff.staff_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.assign_date_time}`,
                             ).toDateString('en', 'TN')}
@@ -807,14 +807,14 @@ export default function DisplayList() {
       {pendingorders ? (
         <>
           <div className="flex scroll md:mt-10 justify-center min-h-screen">
-            <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">
+            <div className="w-full overflow-auto overflow-x-scroll bg:hidden  p-4">
               <div className="py-4">
                 <div>
-                  <h2 className="text-2xl justify-center font-semibold">
+                  <h2 className="text-2xl justify-center font-semibold uppercase">
                     Pending Orders
                   </h2>
                 </div>
-                <div className="w-full  overflow-x-auto">
+                <div className="w-full overflow-x-auto">
                   <table className="overflow-x-auto md:mt-3 shadow-lg">
                     <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                       <tr>
@@ -841,24 +841,24 @@ export default function DisplayList() {
                     <tbody>
                       {fetch.map((e) => (
                         <tr>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.order.order_id}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.work.work_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.order.customer.cust_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.order.customer.mobile}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.order.booking_date_time}`,
                             ).toDateString('en', 'TN')}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.order.due_date}`,
                             ).toDateString('en', 'TN')}
@@ -883,7 +883,7 @@ export default function DisplayList() {
             <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">
               <div className="py-4">
                 <div>
-                  <h2 className="text-2xl justify-center font-semibold">
+                  <h2 className="text-2xl justify-center font-semibold uppercase">
                     Total Orders
                   </h2>
                 </div>
@@ -914,24 +914,24 @@ export default function DisplayList() {
                     <tbody>
                       {fetch.map((e) => (
                         <tr>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.order.order_id}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.work.work_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.order.customer.cust_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {e.order.customer.mobile}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.order.booking_date_time}`,
                             ).toDateString('en', 'TN')}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-5 py-3 text-center text-xs font-light text-black bg-white uppercase tracking-wider">
                             {new Date(
                               `${e.order.due_date}`,
                             ).toDateString('en', 'TN')}

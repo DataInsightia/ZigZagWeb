@@ -10,7 +10,9 @@ import { Dialog, Transition } from '@headlessui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCheckSquare, faCoffee, faHome} from '@fortawesome/fontawesome-free-solid'
 
+
 export default function Login() {
+
   const Styles = {
     LoginButton:
       'bg-red-500 text-white border border-red-500 hover:text-red-500 hover:bg-transparent text-sm font-bold uppercase px-6 py-3 rounded-2xl shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150',
@@ -18,6 +20,7 @@ export default function Login() {
     Input:
       'border px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-2xl text-sm focus:ring-red-500 w-full  ease-linear transition-all duration-150',
   }
+
 
   let [isOpen, setIsOpen] = useState(false)
 
@@ -112,6 +115,7 @@ export default function Login() {
   const onSubmit = (e) => {
     const cust_id = e.login_id
     const password = e.password
+    
     axios
       .post(`${API}/api/customer_login/`, {
         cust_id,
@@ -120,6 +124,7 @@ export default function Login() {
       .then((res) => {
         if (res.data.status) {
           if (res.data.user.role == 'customer') {
+            localStorage.setItem('key',res.data.token)
             openModal()
             setLocalStorage('login_id', res.data.user.login_id)
             setLocalStorage('role', res.data.user.role)
@@ -133,6 +138,7 @@ export default function Login() {
             setLocalStorage('cid', res.data.user.login_id)
             setLocalStorage('isAuthenticated', 'true')
           } else if (res.data.user.role == 'staff') {
+            localStorage.setItem('key',res.data.token)
             openModal()
             setLocalStorage('login_id', res.data.user.login_id)
             setLocalStorage('role', res.data.user.role)
@@ -153,6 +159,7 @@ export default function Login() {
             setLocalStorage('cid', res.data.user.login_id)
             setLocalStorage('isAuthenticated', 'true')
           } else {
+            localStorage.setItem('key',res.data.token)
             openModal()
             setLocalStorage('login_id', res.data.user.login_id)
             setLocalStorage('role', res.data.user.role)

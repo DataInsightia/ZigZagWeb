@@ -3,7 +3,8 @@ import axios from 'axios'
 import API from '../../../api'
 import Constants from '../../../constants/Constants'
 import PaginationBar from '../../../widget/PaginationBar'
-import ReactToPrint from "react-to-print";
+import ReactToPrint from 'react-to-print'
+import { DownloadExcelFile } from '../../../../src/utils/ExportToExcel'
 
 export default function Staff() {
   const [staff, fetchstaff] = useState([])
@@ -75,15 +76,19 @@ function Pagination({ data, pageLimit, dataLimit, handleSearch, staffstate }) {
     return new Array(pageLimit).fill().map((_, idx) => start + idx + 1)
   }
 
+  const getExcel = async () => {
+    await DownloadExcelFile('staffs')
+  }
   return (
     <div>
       <div className="flex scroll md:mt-16 justify-center min-h-screen">
         <div className="md:w-50 overflow-auto overflow-x-scroll bg:hidden  p-4">
           <div className="py-4">
-            <h2 className="text-2xl justify-center font-semibold">
+            <h2 className="text-xl justify-center font-semibold uppercase tracking-wide">
               Staff Lists
             </h2>
-            <div className="flex overflow-auto  justify-between">
+            <div className="flex flex-wrap justify-between mb-5 md:mb-0">
+            <div className="md:w-1/3 flex overflow-auto  justify-between">
               <input
                 type="text"
                 placeholder="Search"
@@ -91,44 +96,74 @@ function Pagination({ data, pageLimit, dataLimit, handleSearch, staffstate }) {
                 className="shadow-lg border-none px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-md text-sm  w-full  ease-linear transition-all duration-150"
               />
             </div>
+            <div className="md:w-1/3 flex justify-end">
+              <button
+                type="button"
+                className="bg-green-500 py-3 px-2 rounded-md"
+                onClick={getExcel}
+              >
+                <div className="flex">
+                  <span className="font-bold text-sm text-white">
+                    Export to Excel
+                  </span>
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-5 w-5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </button>
+            </div>
+            </div>
             <div className="w-full overflow-x-auto">
               <table className="overflow-x-auto md:mt-10 shadow-lg">
                 <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                   <tr>
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                    <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       Staff
                     </th>
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                    <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       Staff ID
                     </th>
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                    <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       Staff Name
                     </th>
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                    <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       Mobile
                     </th>
-                    {/* <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                    {/* <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                      Address
                    </th>
-                   <th class="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                   <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                      City
                    </th> */}
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                    <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       Salary Type
                     </th>
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                    <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       Salary
                     </th>
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                    <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       Bank
                     </th>
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                    <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       IFSC Code
                     </th>
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                    <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       Work Type
                     </th>
-                    {/* <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                    {/* <th className="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                  Password
                </th> */}
                   </tr>
@@ -137,44 +172,44 @@ function Pagination({ data, pageLimit, dataLimit, handleSearch, staffstate }) {
                   {staffstate ? (
                     <>
                       {getPaginatedData().map((e, index) => (
-                        <tr>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                        <tr className="bg-white">
+                          <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                             <img
                               src={`${API}${e.photo}`}
                               className="h-14 w-14"
                             />
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                             {e.staff_id}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                             {e.staff_name}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                             {e.mobile}
                           </td>
-                          {/* <td class="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {/* <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                            {e.address}
                          </td>
-                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                         <td class="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                            {e.city}
                          </td> */}
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                             {e.salary_type}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                             {e.salary}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                             {e.bank}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                             {e.ifsc}
                           </td>
-                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                             {e.work_type}
                           </td>
-                          {/* <td className="px-5 py-5 border-b border-gray-200 bg-white text-md text-center">
+                          {/* <td className="px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-5">
                            {e.password}
                          </td> */}
                         </tr>

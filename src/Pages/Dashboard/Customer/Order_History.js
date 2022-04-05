@@ -98,23 +98,23 @@ function Pagination({
       <div class=" container mx-auto px-4 sm:px-8">
         <div class="py-8">
           <div>
-            <h2 class="text-2xl justify-center font-semibold leading-tight">
+            <h2 class="text-xl justify-center font-semibold uppercase tracking-wide">
               Order History
             </h2>
           </div>
           <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-            <div class="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
+            <div class="inline-block min-w-full rounded-lg overflow-hidden">
               <table class="min-w-full leading-normal">
-                <thead>
+                <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                   <tr>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       Client / Invoice
                     </th>
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       Quantity
                     </th>
 
-                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    <th class="px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-3">
                       Price / Item
                     </th>
                   </tr>

@@ -84,7 +84,7 @@ export default function PaginationBar({
               key={index}
               onClick={changePage}
               className={`w-8 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full ${
-                currentPage === item ? 'bg-pink-600 text-white' : ''
+                currentPage === item ? 'bg-rose-600 text-white' : ''
               }`}
             >
               <span>{item}</span>
