@@ -16,6 +16,13 @@ export default function Invoice(){
   const [customerdetails,setCustomerDetails] = useState([]);
   const [delivery_invoice,setDeliveryInvoice] = useState(false);
 
+  const pageStyle = `@media print{
+    @page {
+        size: a5;
+        margin: 0;
+    }
+}`;
+
   const [order,setOrder] = useState({});
   const [orderWork,setOrderWork] = useState([{}]);
   const [orderMaterial,setOrderMaterial] = useState([{}]);
@@ -60,7 +67,7 @@ export default function Invoice(){
 
   return (
 
-      <div ref={componentRef}  className="flex items-center md:mt-16 ml-10 mr-10 justify-center min-h-screen mx-auto my-auto">
+      <div ref={componentRef} className="flex items-center md:mt-16 ml-10 mr-10 justify-center min-h-screen mx-auto my-auto">
         <div className="md:w-1/2 bg-white shadow-lg">
           <div className="">
             <div  className="justify-center p-1">
@@ -126,7 +133,6 @@ export default function Invoice(){
                   </thead>
                   <tbody className="bg-white">
 
-
                   {
                     orderWork.map((e) => <Row prod_name={e.work_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
                   }
@@ -135,9 +141,6 @@ export default function Invoice(){
                   {
                     orderMaterial.map((e) => <Row prod_name={e.material_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
                   }
-
-
-
 
                   <tr className="bg-gray-800">
                     <th colSpan="2"></th>
