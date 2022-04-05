@@ -7,6 +7,10 @@ import './button.css'
 import { Navigate } from 'react-router'
 import {Link} from 'react-router-dom'
 import { Dialog, Transition } from '@headlessui/react'
+import TextField from "@mui/material/TextField";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
 
 function NewTakeOrder() {
 
@@ -87,6 +91,8 @@ function NewTakeOrder() {
     useEffect(() => {
         fetch_works()
         fetch_materials()
+        fetch_material_table()
+        fetch_work_table()
         axios
             .get(API + '/api/generate_orderid/')
             .then((res) => {
@@ -101,7 +107,7 @@ function NewTakeOrder() {
             .catch((err) => {
                 console.log(err)
             })
-    }, [])
+    }, [orderid])
 
     const yyyymmdd = (dateIn) => {
         var parts = dateIn.split('/')
@@ -324,7 +330,7 @@ function NewTakeOrder() {
         ...{
           order_id: orderid,
           cust_id: customer_details['cust_id'],
-          due_date: others.due_date,
+          due_date: new Date(others.due_date).toISOString().split('T')[0],
           pickup_type: others.pickup_type,
           total_amount: total,
           advance_amount: others.advance_amount,
@@ -519,20 +525,47 @@ function NewTakeOrder() {
                                 </form>
 
                                 <div className={'flex justify-evenly'}>
-                                    <Link
+                                   <div className={'flex'}>
+                                        <Link
                                         className="mb-3 md:mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                                         to="/dashboard/work"
                                         target={'_blank'}
                                     >
                                         ADD WORK
                                     </Link>
-                                    <Link
+
+                                    <button
+                                            onClick={() => fetch_works()}
+                                            className="mx-3 mb-3 md:mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                            </svg>
+                                        </button>
+                                   </div>
+
+                                    <div className={'flex'}>
+                                        <Link
                                         className="mb-3 md:mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                                         to="/dashboard/material"
                                         target={'_blank'}
                                     >
                                         ADD MATERIAL
                                     </Link>
+
+                                    <button
+                                            onClick={() => fetch_materials()}
+                                            className="mx-3 mb-3 md:mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <form onSubmit={addWork} className="flex flex-wrap -md:mx-3  md:mb-6 md:space-x-20 justify-center">
@@ -554,6 +587,7 @@ function NewTakeOrder() {
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                             name={'work_id'}
                                             onChange={handleWorkEvent}
+                                            onFocus={(e) => fetch_works()}
                                             required
                                         >
                                             <option selected hidden>
@@ -563,6 +597,8 @@ function NewTakeOrder() {
                                                 <option value={e.work_id}>{e.work_name}</option>
                                             ))}
                                         </select>
+
+
 
                                     </snap>
 
@@ -653,6 +689,7 @@ function NewTakeOrder() {
                                         {materials.map((e) => (
                                             <option value={e.material_id}>{e.material_name}</option>
                                         ))}
+
                                     </select>
                                     </snap>
                                     <snap>
@@ -728,14 +765,28 @@ function NewTakeOrder() {
                                     <div className="flex items-center justify-center">
                                         <div className="datepicker md:relative inline-flex justify-center form-floating mb-3 md:w-96">
                                             Due Date:
-                                            <input
-                                                min={new Date().toISOString().split('T')[0]}
-                                                className="datepicker max-h-860-px form-control block w-full text-4xl px-3 date-3xl py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                type={'date'}
-                                                name={'due_date'}
-                                                onChange={handleOther}
-                                                required
-                                            />
+                                            {/*<input*/}
+                                            {/*    min={new Date().toISOString().split('T')[0]}*/}
+                                            {/*    className="datepicker max-h-860-px form-control block w-full text-4xl px-3 date-3xl py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"*/}
+                                            {/*    type={'date'}*/}
+                                            {/*    name={'due_date'}*/}
+                                            {/*    onChange={handleOther}*/}
+                                            {/*    required*/}
+                                            {/*/>*/}
+
+                                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                                <DatePicker
+                                                  label="Due Date"
+                                                  mask="__/__/____"
+                                                  inputFormat="dd/MM/yyyy"
+                                                  name={'due_date'}
+                                                  value={others.due_date}
+                                                  onChange={(newValue) => {
+                                                    setOthers({...others,'due_date' : newValue});
+                                                  }}
+                                                  renderInput={(params) => <TextField {...params} />}
+                                                />
+                                            </LocalizationProvider>
                                         </div>
                                     </div>
                                 </div>
