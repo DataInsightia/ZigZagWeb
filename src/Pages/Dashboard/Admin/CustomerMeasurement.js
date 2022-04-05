@@ -100,7 +100,7 @@ function CustomerMeasurement() {
         axios.post(`${API}/api/customer_measurement/`,formData)
             .then(res => {
                 alert(res.data.message)
-                // window.location.reload()
+                window.location.reload()
             }).catch(err => console.log(err));
     }
 
