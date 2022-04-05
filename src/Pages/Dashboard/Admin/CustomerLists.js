@@ -169,8 +169,10 @@ function Pagination({
   return (
     <div>
       <div className="p-4 md:mt-24">
+        <h1 className={'uppercase text-center text-4xl m-10'}>customer list</h1>
+
       <div className="flex flex-wrap justify-between -mb-2">
-            <div className="md:w-1/3 flex overflow-auto  justify-between">
+        <div className="md:w-1/3 flex overflow-auto  justify-between">
               <input
                 type="text"
                 placeholder="Search"

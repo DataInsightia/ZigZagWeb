@@ -68,6 +68,7 @@ export default function Invoice(){
   return (
 
       <div ref={componentRef} className="flex items-center md:mt-16 ml-10 mr-10 justify-center min-h-screen mx-auto my-auto">
+        {/*<h1 className={'uppercase text-center text-4xl m-10'}>invoice</h1>*/}
         <div className="md:w-1/2 bg-white shadow-lg">
           <div className="">
             <div  className="justify-center p-1">

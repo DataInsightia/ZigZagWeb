@@ -138,6 +138,8 @@ function OrderWorkStaffAssign() {
 
   return (
     <div>
+
+
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -198,6 +200,7 @@ function OrderWorkStaffAssign() {
       {pendingworksbool ? (
         <div className="p-10 mt-10">
           <div>
+                <h1 className={'uppercase text-center text-4xl m-10'}>order assign</h1>
             <div className='flex justify-center'>
 
               <div className={styles.title}>Search Orders</div>

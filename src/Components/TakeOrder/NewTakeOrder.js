@@ -421,7 +421,10 @@ function NewTakeOrder() {
             {/*{() => setInterval(calculate,1000)}*/}
             <div className="md:mt-10">
                 <div className="border-x-0 rounded  px-8 pt-8 pb-8 mb-4">
+                     <h1 className={'uppercase text-center text-4xl m-10'}>Take Order</h1>
                     <div className="mt-10 flex flex-wrap justify-evenly bg-white shadow-2xl">
+
+
                         <div className="flex flex-col">
                             <div className="text-center grid grid-cols-0 mt-10">
                                 <h6 className="text-black">Order No : {orderid}</h6>
