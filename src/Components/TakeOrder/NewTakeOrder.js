@@ -524,7 +524,7 @@ function NewTakeOrder() {
                                 </snap>
                                 </form>
 
-                                <div className={'flex justify-evenly'}>
+                                <div className={'flex md:justify-evenly inline-block flex-wrap sm:content-center '}>
                                    <div className={'flex'}>
                                         <Link
                                         className="mb-3 md:mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
@@ -557,7 +557,7 @@ function NewTakeOrder() {
 
                                     <button
                                             onClick={() => fetch_materials()}
-                                            className="mx-3 mb-3 md:mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                                            className=" mx-3 mb-3 md:mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none"
                                                  viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -776,6 +776,7 @@ function NewTakeOrder() {
 
                                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                                 <DatePicker
+                                                    minDate={new Date()}
                                                   label="Due Date"
                                                   mask="__/__/____"
                                                   inputFormat="dd/MM/yyyy"
