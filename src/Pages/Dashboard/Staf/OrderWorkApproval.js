@@ -104,8 +104,15 @@ function OrderWorkStaffApproval() {
 
   return (
     <div>
+
+        <div className="mt-20">
+            <h1 className={'uppercase text-center text-4xl m-10'}>order assign</h1>
+        </div>
+
+
       {orderApprovalbool ? (
         <div className="p-10 mt-10">
+
           <div className="flex overflow-auto  justify-between mb-10">
           <input
             type="text"

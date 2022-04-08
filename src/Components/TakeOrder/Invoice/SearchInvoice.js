@@ -25,7 +25,7 @@ const SearchInvoice = () => {
         <div>
           <div className="md:mt-16">
             <div className="p-4 mt-4">
-                <h1 className="text-4xl text-center font-semibold mb-6">Search Order</h1>
+            <h1 className={'uppercase text-center text-4xl m-10'}>search invoice</h1>
                 <br/>
                 <div className="container">
                     <form className="grid justify-center" onSubmit={checkOrder}>
