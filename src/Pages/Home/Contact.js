@@ -14,7 +14,7 @@ export default function Contact() {
           <div class="mt-8 text-center">
             <iframe
               className="w-full"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15713.183353592092!2d78.76696367736713!3d10.074828034797246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0067f3365cebf1%3A0xe14501ff934ed711!2sChettinad%20Original%20Zigzag%20Boutique%20%26%20Tailoring%20Shop!5e0!3m2!1sen!2sin!4v1645473005272!5m2!1sen!2sin"
+              src="https://maps.google.com/maps?q=10.070594144470434,78.77031161164685&hl=es&z=14&amp;output=embed"
               width="400"
               height="300"
               style={{ border: 0 }}

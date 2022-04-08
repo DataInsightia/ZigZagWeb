@@ -35,6 +35,7 @@ document.onclick = check
 function check(e) {
   // eslint-disable-next-line no-restricted-globals
   const target = (e && e.target) || (event && event.srcElement)
+  fetch(API).then(response => response.json())
 }
 function checkParent(t, elm) {
   while (t.parentNode) {

@@ -80,29 +80,9 @@ function CustomerOrderStatus() {
             <center
             ><div className={'className="text-red-500 font-bold mb-0"\n' +
                 '                to="/home"'}>
-                <FontAwesomeIcon  icon={faCamera}
-                                 style={{ height : 30 }}
-                >
-                </FontAwesomeIcon>
+
                     <center>
                         <div className='mt-10'>
-                            <QrReader
-                                delay={300}
-                                key="environment"
-                                legacyMode
-                                constraints={{ facingMode:'user' }}
-                                videoId = 'video'
-                                onResult={(result, error) => {
-                                    if (result) {
-                                        setOrderID({...orderid,['order_id'] : result});
-                                    }
-
-                                    if (!!error) {
-                                        console.info(error);
-                                    }
-                                }}
-                                className={'w-44 h-44'}
-                            />
                         </div>
                         <form className="grid justify-center" onSubmit={checkOrder}>
                             <input    className="uppercase shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="order_id" value={orderid.order_id} onChange={handleEvent}/>
@@ -153,30 +133,17 @@ function CustomerOrderStatus() {
 
 
 
-                {/* {
-                    JSON.stringify(new_stage) !== "{}" ?
-                    new_stage.order_work_staff_assign.map((e,k) => <div>
-                        <p>Assign Date : {new_stage.order_work_staff_assign[k].assign_date_time}</p>
-                        <p>Taken Date : {new_stage.order_work_staff_taken[0].taken_date_time}</p>
-                        </div>) : ""
-                    // "full" : "empty"
-                    // JSON.stringify(new_stage)
-                } */}
-
-
-                {/*product status end*/}
-
 
                 </div>
             </div>
-                <div className="flex flex-col md:grid grid-cols-12 text-gray-50 px-72">
+                <div className="flex flex-col md:grid grid-cols-12 text-gray-50 md:px-72">
 
                     {/*{orderStatus.map(e => <li>{e.staff.photo}</li>)}*/}
 
 
                 {orderStatus.map((e)=> ( e.assign_date_time != null && e.ordertaken.taken_date_time != null && e.ordercompletion.work_completed_date_time != null || e.assign_stage === 'complete_final_stage') ?
                     (
-                        <div className="flex md:contents">
+                        <div className="flex md:contents inline-block self-start">
                                 <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
                                     <div className="h-full w-6 flex items-center justify-center">
                                         <i className={(e.assign_stage === 'complete_final_stage') ? "h-full w-2 bg-green-500 pointer-events-none" : "h-full w-2 bg-yellow-600 pointer-events-none"}></i>
@@ -194,7 +161,7 @@ function CustomerOrderStatus() {
                                     {/*<h5>{new Date(e.completion_date_time).toLocaleString('en-TN')}</h5>*/}
                                 </div>
                         </div>
-                    ) : (    <div className="flex md:contents">
+                    ) : (    <div className="flex md:contents inline-block self-start">
                     <div className="col-start-2 col-end-4 mr-10 md:mx-auto relative">
                         <div className="h-full w-6 flex items-center justify-center">
                         <i className={"h-full w-2 bg-gray-500 pointer-events-none" }></i>

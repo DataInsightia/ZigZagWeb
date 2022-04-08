@@ -40,6 +40,7 @@ import InvoiceMob from "../Components/TakeOrder/Invoice/InvoiceMob";
 import ViewInvoice from "../Components/TakeOrder/Invoice/ViewInvoice";
 import SearchInvoice from "../Components/TakeOrder/Invoice/SearchInvoice";
 import EditTakeOrder from "../Components/TakeOrder/EditTakeOrder";
+import Contact_Us from "../Pages/Home/Contact_Us";
 
 
 // ----------------------------------------------------------------------
@@ -55,6 +56,7 @@ export default function Router() {
         { path: 'register', element: <Register /> },
         { path: 'product_home', element: <Product_Home /> },
         { path: 'order_status_home', element: <Order_Status_Home /> },
+        { path: 'contact_us',element: <Contact_Us/>}
 
       ],
     },

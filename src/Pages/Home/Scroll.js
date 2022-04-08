@@ -8,6 +8,7 @@ const Scroll = () => {
         axios.get(`${API}/api/new_arrivals/`).then(res => {setNewArrivals(res.data)}).catch(err=>console.log(err))
     },[]);
     return (
+
         <div className="flex flex-wrap">
             {/*product 1*/}
 

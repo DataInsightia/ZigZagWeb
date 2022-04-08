@@ -30,17 +30,33 @@ if (auth) {
 
 const genericHamburgerLine = `h-1 w-6 my-1 rounded-full bg-black transition ease transform duration-300`;
 
-const Navbar = () => {
+const Navbar = ({ options, callback }) => {
     const [open, setOpen] = React.useState(true);
+    const [expanded, setExpanded] = useState(false);
+    const [selected, setSelected] = useState("");
+
+    function expand() {
+        setExpanded(true);
+    }
+
+    function close() {
+        setExpanded(false);
+    }
+    function select(event) {
+        const value = event.target.textContent;
+        callback(value);
+        close();
+        setSelected(value);
+    }
     return (
-        <nav id="header" className="fixed w-full bg-white z-30 top-0 text-black">
+        <nav id="header" className="fixed w-full bg-white z-30 top-0 text-black" onFocus={expand} onBlur={close}>
             <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
                 <img src={Logo} className="md:w-28 w-16 md:w-32 lg:w-20" /> <a href="#" className="block md:p-4 text-black md:text-2xl font-bold">
                 Chettinad Orginal ZigZag
             </a>
-                <div className="pl-4 flex items-center ml-auto">
+                <div className="pl-4 flex items-center ml-auto" >
 
-                    <div className="pr-4">
+                    <div className="pr-4" >
                         <button
                             type="button"
                             className=" lg:hidden  items-center p-1 text-pink-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out"
@@ -103,8 +119,8 @@ const Navbar = () => {
                                       to="/product_home">Product</Link>
                             </li>
                             <li className="ml-1.5">
-                                <a className="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-                                   href="#">Contact US</a>
+                                <Link className="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                                   to="/contact_us">Contact US</Link>
                             </li>
                             <li className="ml-1.5">
                                 <Link className="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
@@ -150,12 +166,12 @@ const Navbar = () => {
                             </Link>
                         </li>
                         <li className="mr-3">
-                            <a
+                            <Link
                                 className="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-                                href="#"
+                                to="/contact_us"
                             >
                                 CONTACT US
-                            </a>
+                            </Link>
                         </li>
                         <li className="mr-3">
                             <Link
