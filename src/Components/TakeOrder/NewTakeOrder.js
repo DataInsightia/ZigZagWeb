@@ -382,9 +382,23 @@ function NewTakeOrder() {
                     work_id: tmpworks[i].work_id,
                   })
                   .then((res) => {
-                    console.log('order_work_staff_assign', res.data)
+                    console.log('order_work_staff_assign', res.data);
                   })
-                  .catch((err) => console.log(err))
+                  .catch((err) => console.log(err));
+
+                axios
+                  .post(API + '/api/urgent_order/', {
+                      order_id: orderid,
+                      order_work_label: `${tmpworks[i].work_name}-${wc}`,
+                      work_id: tmpworks[i].work_id,
+                      due_date : new Date(others.due_date).toISOString().split('T')[0],
+                      mobile : customer_details.mobile,
+                  })
+                  .then((res) => {
+                    console.log('urgent_order', res.data)
+                  })
+                  .catch((err) => console.log(err));
+
                 wc = nextChar(wc)
               }
 
@@ -656,7 +670,6 @@ function NewTakeOrder() {
                                         type={'submit'}
                                         value={'ADD'}
                                         className="mb-3 md:mt-10 xl:w-30 bg-rose-500 cursor-pointer text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-
                                     />
                                 </form>
                             </div>

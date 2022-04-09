@@ -41,6 +41,7 @@ import ViewInvoice from "../Components/TakeOrder/Invoice/ViewInvoice";
 import SearchInvoice from "../Components/TakeOrder/Invoice/SearchInvoice";
 import EditTakeOrder from "../Components/TakeOrder/EditTakeOrder";
 import Contact_Us from "../Pages/Home/Contact_Us";
+import UrgentDelivery from '../Pages/Dashboard/Admin/UrgentOrder'
 
 
 // ----------------------------------------------------------------------
@@ -102,6 +103,9 @@ export default function Router() {
 
         // DELIVERY
         { path: 'delivery', element: <Delivery />},
+
+        // URGENT DELIVERY
+        { path: 'urgent_delivery', element: <UrgentDelivery />},
 
         // PAY ADVANCE
         {path : 'pay_advance', element: <PayAdvance />},
