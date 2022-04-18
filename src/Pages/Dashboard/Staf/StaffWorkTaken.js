@@ -147,7 +147,7 @@ function StaffWorkTaken() {
   }
   return (
     <div>
-    
+
       {assingedworksbool ? (
         <div className=" p-10 md:mt-10">
            <div className="flex overflow-auto  justify-between  md:mt-10 p-4">
@@ -410,7 +410,7 @@ function StaffWorkTaken() {
                 >
                   {message}
                 </Dialog.Title>
-                
+
 
                 <div className="mt-4">
                   <button

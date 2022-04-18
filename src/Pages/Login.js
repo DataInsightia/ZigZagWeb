@@ -122,8 +122,9 @@ export default function Login() {
         password,
       })
       .then((res) => {
+        console.log(res.data);
         if (res.data.status) {
-          if (res.data.user.role == 'customer') {
+          if (res.data.user.role === 'customer') {
             localStorage.setItem('key',res.data.token)
             openModal()
             setLocalStorage('login_id', res.data.user.login_id)
@@ -137,7 +138,7 @@ export default function Login() {
             setLogin(true)
             setLocalStorage('cid', res.data.user.login_id)
             setLocalStorage('isAuthenticated', 'true')
-          } else if (res.data.user.role == 'staff') {
+          } else if (res.data.user.role === 'staff') {
             localStorage.setItem('key',res.data.token)
             openModal()
             setLocalStorage('login_id', res.data.user.login_id)
@@ -179,7 +180,8 @@ export default function Login() {
 
   return login | (localStorage.getItem('cid') !== null) ? (
     <Navigate to="/dashboard/dhome" />
-  ) : (
+  ) :
+  (
     <>
       <section className="relative w-full h-full py-40 min-h-screen">
         <div className="absolute md:fixed top-0 w-full h-full bg-gradient-to-tr from-red-50 to-red-200 blur-sm">
