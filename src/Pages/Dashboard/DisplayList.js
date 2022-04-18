@@ -149,6 +149,7 @@ export default function DisplayList() {
       }
       setCustomerOrdersState(true)
     }
+    
   }, [])
 
   return (
@@ -164,7 +165,7 @@ export default function DisplayList() {
                   </h2>
                 </div>
                 <div className="w-full  overflow-x-auto">
-                  <table className="overflow-x-auto md:mt-3 shadow-lg">
+                  <table className="w-full overflow-x-auto md:mt-3 shadow-lg">
                     <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                       <tr>
                         <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
@@ -229,7 +230,7 @@ export default function DisplayList() {
                   </h2>
                 </div>
                 <div className="w-full  overflow-x-auto">
-                  <table className="overflow-x-auto md:mt-3 shadow-lg">
+                  <table className="w-full overflow-x-auto md:mt-3 shadow-lg">
                     <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                       <tr>
                         <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
@@ -307,7 +308,7 @@ export default function DisplayList() {
                   </h2>
                 </div>
                 <div className="w-full  overflow-x-auto">
-                  <table className="overflow-x-auto md:mt-3 shadow-lg">
+                  <table className="w-full overflow-x-auto md:mt-3 shadow-lg">
                     <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                       <tr>
                         <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
@@ -386,7 +387,7 @@ export default function DisplayList() {
                   </h2>
                 </div>
                 <div className="w-full  overflow-x-auto">
-                  <table className="overflow-x-auto md:mt-3 shadow-lg">
+                  <table className="w-full overflow-x-auto md:mt-3 shadow-lg">
                     <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                       <tr>
                         <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
@@ -452,7 +453,7 @@ export default function DisplayList() {
                   </h2>
                 </div>
                 <div className="w-full  overflow-x-auto">
-                  <table className="overflow-x-auto md:mt-3 shadow-lg">
+                  <table className="w-full overflow-x-auto md:mt-3 shadow-lg">
                     <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                       <tr>
                         <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
@@ -517,7 +518,7 @@ export default function DisplayList() {
                   </h2>
                 </div>
                 <div className="w-full  overflow-x-auto">
-                  <table className="overflow-x-auto md:mt-3 shadow-lg">
+                  <table className="w-full overflow-x-auto md:mt-3 shadow-lg">
                     <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                       <tr>
                         <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
@@ -597,7 +598,7 @@ export default function DisplayList() {
                   </h2>
                 </div>
                 <div className="w-full  overflow-x-auto">
-                  <table className="overflow-x-auto md:mt-3 shadow-lg">
+                  <table className="w-full overflow-x-auto md:mt-3 shadow-lg">
                     <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                       <tr>
                         <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
@@ -677,7 +678,7 @@ export default function DisplayList() {
                   </h2>
                 </div>
                 <div className="w-full  overflow-x-auto">
-                  <table className="overflow-x-auto md:mt-3 shadow-lg">
+                  <table className="w-full  overflow-x-auto md:mt-3 shadow-lg">
                     <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                       <tr>
                         <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
@@ -815,7 +816,7 @@ export default function DisplayList() {
                   </h2>
                 </div>
                 <div className="w-full overflow-x-auto">
-                  <table className="overflow-x-auto md:mt-3 shadow-lg">
+                  <table className="w-full overflow-x-auto md:mt-3 shadow-lg">
                     <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                       <tr>
                         <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">
@@ -888,7 +889,7 @@ export default function DisplayList() {
                   </h2>
                 </div>
                 <div className="w-full  overflow-x-auto">
-                  <table className="overflow-x-auto md:mt-3 shadow-lg">
+                  <table className="w-full  overflow-x-auto md:mt-3 shadow-lg">
                     <thead className="bg-gradient-to-r from-rose-600 to-rose-500">
                       <tr>
                         <th className="px-5 py-3 text-center text-xs font-semibold text-white uppercase tracking-wider">

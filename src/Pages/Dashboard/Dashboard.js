@@ -6,19 +6,19 @@ import { Outlet } from 'react-router-dom'
 import { getUser } from '../../../src/services/DashboardCountServices'
 
 export default function Dashboard() {
-  const [auth, setAuth] = useState('')
+  // const [auth, setAuth] = useState('')
 
   
-   useEffect(() => {
-    getUser()
-      .then((res) => {
-        const auth = res.data.user.role
-        setAuth(auth)
-      })
-  }, [])
+  //  useEffect(() => {
+  //   getUser()
+  //     .then((res) => {
+  //       const auth = res.data.user.role
+  //       setAuth(auth)
+  //     })
+  // }, [])
   return (
     <div className="relative min-h-screen md:flex">
-      <Sidebar auth={auth} />
+      <Sidebar/>
       <Navbar />
 
       <div className="flex-1 body_content p-0 text-2xl font-bold bg-gray-50 h-[1000px] overflow-y-scroll">
