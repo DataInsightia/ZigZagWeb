@@ -269,7 +269,7 @@ function Delivery() {
       {pendingworksbool ? (
         <div className="p-10 mt-10">
           <div className="p-3 bg-white shadow-xl">
-            <div className='flex justify-center'>
+            <div className='md:flex justify-center'>
 
               <div className={styles.title}>Search Orders</div>
               <form onSubmit={(e) => {getPendingWork(e);getOrder(e)}}>
@@ -396,9 +396,13 @@ function Delivery() {
             ))}
 
 
-              { orderPendingWorkBool ? (<div className={'text-lg m-10'}>
-              <h1 className={styles.title}>Items to Deliver</h1>
-              <div className={'flex'}>
+              { orderPendingWorkBool ? (
+
+                  <div className={'text-lg m-10'}>
+                <h1 className={'text-black font-semibold text-xl px-3 mb-2 uppercase tracking-wider flex justify-center'}>Items to Deliver</h1>
+
+              <div className={'flex flex-col'}>
+               <div className="flex flex-col inline-block  sm:overflow-auto overflow-x-scroll">
                 <table className={'border-collapse text-center'}>
                   <tr>
                     <th className={'border border-slate-600 p-2'}>ORDER ID</th>
@@ -415,11 +419,13 @@ function Delivery() {
                   </tr>)
                   }
                 </table>
-                <div className={'border-2 p-2 m-2'}>
+</div>
+                <br/>
+                <div className={'border border-slate-600 p-2 md:m-10'}>
                   <form onSubmit={printDelivery}>
-                    <p className={'m-1'}>Old Balance : <input name={'balance_amount'} className={'border-2'} type={'text'} defaultValue={checkout_data.balance_amount} onChange={handleCheckout} disabled/></p>
-                    <div className={'flex'}>
-                      <p className={'m-1'}>Current Payment : <input name={'current_amount'} className={'border-2'} type={'text'} defaultValue={0} onChange={(e) => {
+                    <p className={'m-1'}>Old Balance : <input name={'balance_amount'} className={styles.input} type={'text'} defaultValue={checkout_data.balance_amount} onChange={handleCheckout} disabled/></p>
+                    <div className={''}>
+                      <p className={'m-1'}>Current Payment : <input name={'current_amount'} className={styles.input} type={'text'} defaultValue={0} onChange={(e) => {
                         handleCheckout(e);
                         setCheckoutData({...checkout_data,['pending_amount'] : (checkout_data.balance_amount - e.target.value)})
                       }}/></p>
@@ -427,19 +433,22 @@ function Delivery() {
                       {/*          e.preventDefault();console.log(checkout_data.current_amount);*/}
                       {/*}}/>*/}
                     </div>
-                    <p className={'m-1'}>Pending Amount : <input name={'pending_amount'} className={'border-2'} type={'text'} value={checkout_data.pending_amount} onChange={(e) => {
+                    <p className={'m-1'}>Pending Amount : <input name={'pending_amount'} className={styles.input} type={'text'} value={checkout_data.pending_amount} onChange={(e) => {
                       // handleCheckout(e);
                       setCheckoutData({...checkout_data,[e.target.name]: (parseInt(checkout_data.balance_amount) - parseInt(checkout_data.current_amount))})
                     }} /></p>
-
-                    <input type={'submit'} className={'bg-rose-500 text-white rounded-xl p-1 font-bold'} value={'Print Delivery'}/>
+                          <br/>
+                    <div className="flex justify-center">
+                    <input type={'submit'} className={'shadow-lg uppercase flex font-bold rounded-md text-sm text-white bg-rose-500 border-rose-600 border-2 hover:border-pink-600 hover:text-pink-600 hover:bg-gradient-to-r hover:from-white hover:to-white border  py-1.5 w-48 flex justify-center focus:outline-none'} value={'Print Delivery'}/>
+                    </div>
                   </form>
-
                 </div>
               </div>
+
             </div>) : "" }
 
               </div>
+
 
 
             <h1 className={styles.title}>Pending Orders to Delivery</h1>
