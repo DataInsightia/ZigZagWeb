@@ -432,7 +432,7 @@ function UrgentOrder() {
                   <td>{e.order.order_id}</td>
                     <td>{e.order.customer.mobile}</td>
                     <td>{e.order_work_label}</td>
-                    <td>{e.staff.staff_name}</td>
+                    <td>{(e.staff !== null ? e.staff.staff_name : "No Staff")}</td>
                     <td>{e.order.due_date}</td>
                     <td>{e.urgent_date}
                         <span className="flex h-3 w-3">
