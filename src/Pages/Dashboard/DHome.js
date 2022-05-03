@@ -43,16 +43,16 @@ export default function DashboardHome() {
 
   // FETCH INITIAL DATA
 
-  // const login_id = localStorage.getItem('login_id')
-  // const auth = localStorage.getItem('role')
+  const login_id = localStorage.getItem('login_id')
+  const auth = localStorage.getItem('role')
 
-  const [auth,setAuth] =  useState('')
+  // const [auth,setAuth] =  useState('')
 
  
-  useEffect( async () => {
-    getUser().then((res)=>{
-    const auth = res.data.user.role
-    setAuth(auth)
+  // useEffect( async () => {
+    // getUser().then((res)=>{
+    // const auth = res.data.user.role
+    // setAuth(auth)
       
     if (auth === 'customer') {
       // CUSTOMER ON GOING WORKS
@@ -108,7 +108,7 @@ export default function DashboardHome() {
         setWeekDueWorks(res.data)
       })
    
-    } else if (auth == "admin"){
+    } else if (auth === "admin"){
       // SUPERVISOR NOT ASSIGNED WORKS
       UnAssignedWorksServices().then((res)=>{
         setUnAssignedWorks(res.data)
@@ -132,12 +132,12 @@ export default function DashboardHome() {
       })
        
     }
-  }
-  ).catch(
-    err=>console.log(err)
-  );
+  // }
+  // ).catch(
+  //   err=>console.log(err)
+  // );
   
-  }, [])
+  // }, [])
 
   return (
     <div className="px-3 md:px-8">

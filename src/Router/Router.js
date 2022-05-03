@@ -42,6 +42,10 @@ import SearchInvoice from "../Components/TakeOrder/Invoice/SearchInvoice";
 import EditTakeOrder from "../Components/TakeOrder/EditTakeOrder";
 import Contact_Us from "../Pages/Home/Contact_Us";
 import UrgentDelivery from '../Pages/Dashboard/Admin/UrgentOrder'
+import MobileOrderList from '../Pages/Dashboard/Admin/reports/MobileList'
+import OrderIDList from '../Pages/Dashboard/Admin/reports/OrderIDList'
+import RangeOrderList from '../Pages/Dashboard/Admin/reports/RangeList'
+import DateOrderList from '../Pages/Dashboard/Admin/reports/DateList'
 
 
 // ----------------------------------------------------------------------
@@ -87,6 +91,10 @@ export default function Router() {
         { path: 'completed_work', element: <OrderWorkCompleted /> },
         { path: 'order_status', element: <Order_Status /> },
         { path: 'staffs/',element: <Staff/>},
+        { path: 'reports/byrange',element: <RangeOrderList/>},
+        { path: 'reports/byorderid',element: <OrderIDList/>},
+        { path: 'reports/bymobile',element: <MobileOrderList/>},
+        { path: 'reports/bydate',element: <DateOrderList/>},
         { path: 'customers/',element: <Customer/>},
          //staff
         { path: 'wage/',element: <StaffList/>},

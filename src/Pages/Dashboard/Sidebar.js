@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import nav_logo from '../../assets/img/logo.png'
 import './sidebar.css'
 
-export default function Sidebar({auth}) {
+export default function Sidebar() {
   
-  // const auth = localStorage.getItem('role')
+  const auth = localStorage.getItem('role')
   return (
     <div className="relative min-h-screen hidden sm:block md:flex-wrap">
       <div className="sidebar h-auto overflow-y-auto bg-white text-blue-100 w-72  space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
@@ -96,6 +96,40 @@ export default function Sidebar({auth}) {
                             CUSTOMER MEASUREMENT
                           </Link>
                         </li>
+                        <hr/>
+                        <p className="uppercase font-bold text-lg text-pink-500 block py-2.5 px-4 rounded transition duration-200">Reports</p>
+                        <li className="">
+                        <Link
+                          to="/dashboard/reports/byorderid"
+                          className="uppercase font-bold text-md text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          BY Order ID
+                        </Link>
+                      </li>
+                      <li className="">
+                        <Link
+                          to="/dashboard/reports/bymobile"
+                          className="uppercase font-bold text-md text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          By Mobile
+                        </Link>
+                      </li>
+                      <li className="">
+                        <Link
+                          to="/dashboard/reports/bydate"
+                          className="uppercase font-bold text-md text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          By Date
+                        </Link>
+                      </li>
+                      <li className="">
+                        <Link
+                          to="/dashboard/reports/byrange"
+                          className="uppercase font-bold text-md text-gray-400 block py-2.5 px-4 rounded transition duration-200 hover:bg-rose-50 hover:text-pink-500"
+                        >
+                          By Range
+                        </Link>
+                      </li>
 
                         {/*<li>*/}
                         {/*  <Link*/}
@@ -222,6 +256,7 @@ export default function Sidebar({auth}) {
                           PRODUCT
                         </Link>
                       </li>
+                     
                     </ul>
                   </div>
                   {/*Product Management*/}
