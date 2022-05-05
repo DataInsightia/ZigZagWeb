@@ -9,7 +9,7 @@ import ReactToPrint from 'react-to-print';
 import {Navigate} from "react-router";
 
 
-export default function Invoice(){
+export default function DeliveryInvoice(){
 
   const componentRef = useRef();
   const [customerdetails,setCustomerDetails] = useState([]);
@@ -82,20 +82,21 @@ export default function Invoice(){
       <div ref={componentRef} className="flex items-center md:mt-16 ml-10 mr-10 justify-center min-h-screen mx-auto my-auto">
         <div className="md:w-1/2 bg-white shadow-lg">
           <div className="">
+            <div className="text-center p-2">Delivery Receipt</div>
             <div  className="justify-center p-1">
               <div className="flex justify-center">
                 <img src={invoiceimg} className="w-20 md:w-32 lg:w-28"/>
                 <div className="w-30 text-center">
                   <br/>
                   <span className="text-rose-500 text-2xl">
-                Chettinad ZigZag
-              </span>
+                    Chettinad ZigZag
+                  </span>
                   <br/>
                   <span className="text-xl">
                 Mobile:+91 9940682836
               </span><br/>
                   <span className="text-sm font-bold">
-              Address: 333A Poisolla Meiyar Street Near Daily Market, Udhyam Lodge Building, Karaikudi, Tamil Nadu 630001
+              333A Poisolla Meiyar Street Near Daily Market, Udhyam Lodge Building, Karaikudi, Tamil Nadu 630001
               </span>
                 </div>
               </div>
@@ -138,9 +139,9 @@ export default function Invoice(){
                     <th className="px-2 py-2 text-xs text-gray-500 ">
                       Product Name
                     </th>
-                    <th className="px-2 py-2 text-xs text-gray-500 ">Quantity</th>
+                    <th className="px-2 py-2 text-xs text-gray-500 ">Date of Delivery</th>
+                    <th className="px-2 py-2 text-xs text-gray-500 ">Staff</th>
                     <th className="px-2 py-2 text-xs text-gray-500 ">Rate</th>
-                    <th className="px-2 py-2 text-xs text-gray-500 ">Subtotal</th>
                   </tr>
                   </thead>
                   <tbody className="bg-white">
@@ -154,7 +155,7 @@ export default function Invoice(){
                     orderMaterial.map((e) => <Row prod_name={e.material_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
                   }
 
-                  <tr className="bg-gray-800">
+                  {/* <tr className="bg-gray-800">
                     <th colSpan="2"></th>
                     <td className="text-lg font-bold text-center text-white">
                       <b>Total</b>
@@ -162,7 +163,7 @@ export default function Invoice(){
                     <td className="text-lg font-bold text-center text-white">
                       <b>₹ {order.total_amount}</b>
                     </td>
-                  </tr>
+                  </tr> */}
                   </tbody>
                 </table>
               </div>
@@ -180,7 +181,7 @@ export default function Invoice(){
             <div className="flex justify-end">
               <div className="p-4">
                 <h3>Signature</h3>
-                <div className="text-2xl italic text-indigo-500">AAAAA</div>
+                {/* <div className="text-2xl italic text-indigo-500">AAAAA</div> */}
               </div>
             </div>
 
@@ -220,6 +221,7 @@ export default function Invoice(){
 
         <div className="md:w-1/2 bg-white shadow-lg">
           <div className="">
+          <div className="text-center p-2">Delivery Receipt</div>
             <div  className="justify-center p-1">
               <div className="flex justify-center">
                 <img src={invoiceimg} className="w-20 md:w-32 lg:w-28"/>
@@ -233,7 +235,7 @@ export default function Invoice(){
                 Mobile:+91 9940682836
               </span><br/>
                   <span className="text-sm font-bold">
-              Address: 333A Poisolla Meiyar Street Near Daily Market, Udhyam Lodge Building, Karaikudi, Tamil Nadu 630001
+              333A Poisolla Meiyar Street Near Daily Market, Udhyam Lodge Building, Karaikudi, Tamil Nadu 630001
               </span>
                 </div>
               </div>
@@ -296,7 +298,7 @@ export default function Invoice(){
 
 
 
-                  <tr className="bg-gray-800">
+                  {/* <tr className="bg-gray-800">
                     <th colSpan="2"></th>
                     <td className="text-lg font-bold text-center text-white">
                       <b>Total</b>
@@ -304,7 +306,7 @@ export default function Invoice(){
                     <td className="text-lg font-bold text-center text-white">
                       <b>₹ {order.total_amount}</b>
                     </td>
-                  </tr>
+                  </tr> */}
                   </tbody>
                 </table>
               </div>
@@ -322,7 +324,7 @@ export default function Invoice(){
             <div className="flex justify-end">
               <div className="p-4">
                 <h3>Signature</h3>
-                <div className="text-2xl italic text-indigo-500">AAAAA</div>
+                {/* <div className="text-2xl italic text-indigo-500">AAAAA</div> */}
               </div>
             </div>
 
@@ -369,10 +371,12 @@ const AllAmount = (props) => {
   return (<div className="mt-2">
     <div className="w-full h-0.5 bg-black" ></div>
     <div className="flex justify-center columns-5 space-x-5 mx-10">
-      <div className="text-lg">Amount : ₹{props.total}</div>
-      <div className="text-lg">Advance : ₹{props.advance} </div>
-      <div className="text-lg">Courier Charge : ₹{props.courier_charge}</div>
-      <div className="text-lg">Balance : ₹{props.balance}</div>
+      <div className="text-sm">Amount : ₹{props.total}</div>
+      <div className="text-sm">Old Balance : ₹{props.total}</div>
+      <div className="text-sm">Current Payment : ₹{props.total}</div>
+      <div className="text-sm">Pending Amount : ₹{props.advance} </div>
+      {/* <div className="text-lg">Courier Charge : ₹{props.courier_charge}</div>
+      <div className="text-lg">Balance : ₹{props.balance}</div> */}
     </div>
     <div className="w-full h-0.5 bg-black" ></div>
   </div>)
