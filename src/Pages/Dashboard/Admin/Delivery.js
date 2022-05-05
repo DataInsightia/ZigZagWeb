@@ -61,6 +61,7 @@ function Delivery() {
   const [orderPendingWorkBool,setOrderWorkBool] = useState(false);
   const [pendingworksbool, setPendingworksbool] = useState(false);
   const [invoice,setInvoice] = useState(false);
+  const [staff_name,setStaffName] = useState('');
   const [checkout_data,setCheckoutData] = useState({
     balance_amount : 0,
     current_amount : 0,
@@ -85,10 +86,15 @@ function Delivery() {
       }
     })
   }
+
+  const getTmpDelivery = (orderid) => {
+    axios.get(`${API}/api/tmp_delivery/?orderid=${orderid}`)
+        .then((res) => setTmpDelivery(res.data.data))
+        .catch(err => console.log(err));
+  }
   useEffect(() => {
       const get = async () => {
       await fetchUnAssignedWorks()
-      await  axios.get(API +'/api/tmp_delivery/').then((res) => setTmpDelivery(res.data.data))
       await  axios.get(API +'/api/staff/').then((res) => setStaff(res.data))
       }
       get();
@@ -108,7 +114,7 @@ function Delivery() {
     console.log(res.data)
       if (res.data.status === true) {
         setOrderPending(res.data.data)
-        setCheckoutData({ ...checkout_data, ['balance_amount']: res.data.data[0].order.balance_amount })
+        setCheckoutData({ ...checkout_data, 'balance_amount': res.data.data[0].order.balance_amount })
         setOrderWorkBool(true)
       } else {
         setOrderPending([])
@@ -125,9 +131,12 @@ function Delivery() {
     axios.get(`${API}/api/find_order/${e.target.order_id.value}/`)
         .then(res => {
           // setCheckoutData({...checkout_data,['balance_amount'] : currentOrder.balance_amount})
-          console.log()
-          setCurrentOrder(res.data)
-          console.log(res.data)
+          if (res.data.status) {
+            setCurrentOrder(res.data.data)
+            console.log(res.data.data)
+          }else{
+            alert("Order in Process 😀!");
+          }
         })
         .catch(err => console.log(err))
   }
@@ -156,6 +165,16 @@ function Delivery() {
     console.log(balance_amount,current_amount,pending_amount)
     console.log(orderid,staff[0].staff_id)
 
+    setStaffName(staff[0].staff_name);
+
+    setCheckoutData(
+      {
+        balance_amount : balance_amount,
+        current_amount : current_amount,
+        pending_amount : pending_amount
+      }
+    );
+
     axios.post(`${API}/api/add_delivery/`,{"order_id" : orderid,"staff_id" : staff[0].staff_id,"amount_paid" : current_amount,"pending_amount" : pending_amount}).then((res) => {
         alert(res.data.message);
         if (res.data.status) {
@@ -165,7 +184,8 @@ function Delivery() {
             // GOTO INVOICE
             // alert("Invoice Processing.....")
             setInvoice(true);
-            alert(`/dashboard/invoice/${orderid}/${pendingworks[0].order.customer.cust_id}/${current_amount}/${pending_amount}`)
+            // console.log("staff",tmpDelivery[0].staff.staff_id);
+            alert(`/dashboard/invoice/${orderid}/${pendingworks[0].order.customer.cust_id}/${current_amount}/${pending_amount}/`)
              // window.location.reload();
           }).catch(err => console.log(err))
         }
@@ -185,26 +205,28 @@ function Delivery() {
    //    e.target.order_work_label.value,
    //    e.target.material_location.value,
    //  )
+    getTmpDelivery(e.target.order_id.value);
 
     axios.post(`${API}/api/tmp_delivery/`,{
       "order_id" : e.target.order_id.value,
       "staff_id" : e.target.staff_id.value,
       "order_work_label" : e.target.order_work_label.value,
     }).then(res => {
-        alert(JSON.stringify(res.data));
+        // alert(JSON.stringify(res.data));
+         getTmpDelivery(e.target.order_id.value);
     }).catch(err => console.log(err))
-      e.target.id.value = ""
-      e.target.order_id.value = ""
-      e.target.work_id.value = ""
-      e.target.staff_id.value = ""
-      e.target.assign_stage.value = ""
-      e.target.order_work_label.value = ""
-      e.target.material_location.value = ""
+      // e.target.id.value = ""
+      // e.target.order_id.value = ""
+      // e.target.work_id.value = ""
+      // e.target.staff_id.value = ""
+      // e.target.assign_stage.value = ""
+      // e.target.order_work_label.value = ""
+      // e.target.material_location.value = ""
     openModal()
     // setMessage(res.data.details)
   }
 
-  return (invoice) ? (<Navigate to={`/dashboard/invoice/${pendingworks[0].order.customer.cust_id}/${orderid}/`} />) : (
+  return (invoice) ? (<Navigate to={`/dashboard/invoice/${pendingworks[0].order.customer.cust_id}/${orderid}/${tmpDelivery[0].staff.staff_id}`} />) : (
     <div>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
@@ -255,7 +277,7 @@ function Delivery() {
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                     onClick={(e) => {
                         closeModal(e);
-                        window.location.reload();
+                        // window.location.reload();
                     }}
                   >
                     Go ahead
@@ -272,7 +294,7 @@ function Delivery() {
             <div className='md:flex justify-center'>
 
               <div className={styles.title}>Search Orders</div>
-              <form onSubmit={(e) => {getPendingWork(e);getOrder(e)}}>
+              <form onSubmit={(e) => {getPendingWork(e);getOrder(e);getTmpDelivery(e.target.order_id.value);}}>
                 <div className="flex">
                 <input type="text" name={'order_id'} className='uppercase bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block p-2 mr-2' onChange={onOrderChange} value={orderid} placeholder={'Order ID'} />
                 <input type="submit" className={styles.check_button} value={'Check'} />
@@ -316,7 +338,7 @@ function Delivery() {
                           </div>
                         </tr>
                       </thead>
-                    </table>) : ""
+                      </table>) : ""
                     }
                   </div>
                 </div>
@@ -358,12 +380,12 @@ function Delivery() {
                       className={styles.select}
                       required
                     >
-                      <option selected>Please select</option>
+                      <option selected value={''}>Please select</option>
                         {
                             // (T - {e.takenOrders}) | (A - {e.assignOrders})  | (N - {e.nottakenOrders})
                         }
                       {staff.map((e) => (
-                        <option value={e.staff_id}>{e.staff_name} (T - {e.takenOrders}) | (A - {e.assignOrders})  | (N - {e.nottakenOrders})</option>
+                        <option value={e.staff_id}>{e.staff_name}</option>
                       ))}
                     </select>
                   </div>
@@ -383,7 +405,7 @@ function Delivery() {
                         type="submit"
                         className={styles.pinkbutton}
                       >
-                        Delivery
+                        Add for Delivery
                       </button>
                     </div>
                   </div>
@@ -427,7 +449,7 @@ function Delivery() {
                     <div className={''}>
                       <p className={'m-1'}>Current Payment : <input name={'current_amount'} className={styles.input} type={'text'} defaultValue={0} onChange={(e) => {
                         handleCheckout(e);
-                        setCheckoutData({...checkout_data,['pending_amount'] : (checkout_data.balance_amount - e.target.value)})
+                        setCheckoutData({...checkout_data,'pending_amount' : (checkout_data.balance_amount - e.target.value)})
                       }}/></p>
                       {/*<input type={'submit'} className={'bg-rose-500 text-white rounded-xl p-1 font-bold'} value={'Get Pending Amount'} onClick={(e) => {*/}
                       {/*          e.preventDefault();console.log(checkout_data.current_amount);*/}
@@ -530,38 +552,46 @@ function Delivery() {
                   </div>
 
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                    <select
-                      id="staff_id"
-                      name="staff_id"
-                      onChange={onChange}
-                      className={styles.select}
-                      required
-                    >
-                      <option selected>Please select</option>
-                      {staff.map((e) => (
-                        <option value={e.staff_id}>{e.staff_name} (T - {e.takenOrders}) | (A - {e.assignOrders})  | (N - {e.nottakenOrders})</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="px-3 w-full md:w-1/2 lg:w-1/6">
+                    {/*<select*/}
+                    {/*  id="staff_id"*/}
+                    {/*  name="staff_id"*/}
+                    {/*  onChange={onChange}*/}
+                    {/*  className={styles.select}*/}
+                    {/*  required*/}
+                    {/*>*/}
+                    {/*  <option selected>Please select</option>*/}
+                    {/*  {staff.map((e) => (*/}
+                    {/*    <option value={e.staff_id}>{e.staff_name} (T - {e.takenOrders}) | (A - {e.assignOrders})  | (N - {e.nottakenOrders})</option>*/}
+                    {/*  ))}*/}
+                    {/*</select>*/}
+
                     <input
                         className="form-control block font-bold  w-full mb-8 px-3 py-3 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         type={'text'}
-                        defaultValue={date}
+                        defaultValue={e.order.customer.cust_name}
                         required
                         disabled
                     />
                   </div>
                   <div className="px-3 w-full md:w-1/2 lg:w-1/6">
-                    <div className="flex justify-between">
-                      <button
-                        type="submit"
-                        className={styles.pinkbutton}
-                      >
-                        Delivery
-                      </button>
-                    </div>
+                    <input
+                        className="form-control block font-bold  w-full mb-8 px-3 py-3 text-base text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                        type={'text'}
+                        defaultValue={e.order.customer.mobile}
+                        required
+                        disabled
+                    />
                   </div>
+                  {/*<div className="px-3 w-full md:w-1/2 lg:w-1/6">*/}
+                  {/*  <div className="flex justify-between">*/}
+                  {/*    <button*/}
+                  {/*      type="submit"*/}
+                  {/*      className={styles.pinkbutton}*/}
+                  {/*    >*/}
+                  {/*      Delivery*/}
+                  {/*    </button>*/}
+                  {/*  </div>*/}
+                  {/*</div>*/}
                 </div>
 
                 <div className="h-2"></div>

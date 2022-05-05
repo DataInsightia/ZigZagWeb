@@ -13,12 +13,13 @@ const SearchInvoice = () => {
     const checkOrder = (e) => {
         e.preventDefault();
         axios.get(`${API}/api/find_order/${order.order_id}/`).then(res => {
-            setOrderID(res.data.order_id);
-            setCustID(res.data.customer.cust_id);
+            setOrderID(res.data.data.order_id);
+            setCustID(res.data.data.customer.cust_id);
             setGotoInvice(true);
+            // console.log(res.data.data.customer.cust_id);
         }).catch(err => {
             console.log(err);
-            alert("Order Not Found!")
+            alert("API, Order Not Found!")
         });
     }
     return gotoInvoice && order_id !== "" && cust_id !== "" ? (<Navigate to={`/dashboard/view_invoice/${cust_id}/${order_id}/`} />) : (

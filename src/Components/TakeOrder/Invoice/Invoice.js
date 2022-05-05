@@ -15,6 +15,8 @@ export default function Invoice(){
   const componentRef = useRef();
   const [customerdetails,setCustomerDetails] = useState([]);
   const [delivery_invoice,setDeliveryInvoice] = useState(false);
+  const [staff,setStaff] = useState({});
+  const [title,setTitle] = useState('');
 
   const pageStyle = `@media print{
     @page {
@@ -27,7 +29,9 @@ export default function Invoice(){
   const [orderWork,setOrderWork] = useState([{}]);
   const [orderMaterial,setOrderMaterial] = useState([{}]);
 
-  let {custid,orderid,current_amount,pending_amount} = useParams();
+  let {custid,orderid,staffid,current_amount,pending_amount} = useParams();
+
+  console.log(staffid);
 
   //  const custid = "ZC43434"  
   //   const orderid = "ZA786
@@ -36,6 +40,7 @@ export default function Invoice(){
     setDeliveryInvoice(true);
   }
 
+ 
   current_amount = current_amount ? current_amount : 0
   pending_amount = pending_amount ? pending_amount : 0
 
@@ -43,9 +48,17 @@ export default function Invoice(){
   console.log(custid,orderid)
 
   useEffect(() => {
+
+    if (custid !== undefined && staffid !== undefined && orderid !== undefined){
+      setTitle("delivery");
+    }else if (custid !== undefined && staffid === undefined && orderid !== undefined){
+      setTitle("order");
+    }
+  
     axios.post(API + "/api/order_invoice/",{"order_id" : orderid ,"cust_id" : custid})
         .then(res => {
           if (res.data.status) {
+            console.log(res.data.order);
             setOrder(res.data.order[0]);
             setOrderWork(res.data.order_work);
             setOrderMaterial(res.data.order_material);
@@ -63,6 +76,14 @@ export default function Invoice(){
         .catch((err) => {
           console.log(err);
         });
+
+   if (staffid) {
+    axios.post(`${API}/api/staff/`,{staff_id : staffid}).then(res => {
+      console.log("staff by id",res.data);
+      setStaff(res.data);
+    }).catch(err => console.log(err));
+   }
+
   },[]);
 
   return (
@@ -71,14 +92,16 @@ export default function Invoice(){
         {/*<h1 className={'uppercase text-center text-4xl m-10'}>invoice</h1>*/}
         <div className="md:w-1/2 bg-white shadow-lg">
           <div className="">
+          <div className="text-center">{title}</div>
             <div  className="justify-center p-1">
               <div className="flex justify-center">
+                
                 <img src={invoiceimg} className="w-20 md:w-32 lg:w-28"/>
                 <div className="w-30 text-center">
                   <br/>
-                  <span className="text-rose-500 text-2xl">
-                Chettinad ZigZag
-              </span>
+                    <span className="text-rose-500 text-2xl">
+                      Chettinad ZigZag
+                    </span>
                   <br/>
                   <span className="text-xl">
                 Mobile:+91 9940682836
@@ -104,6 +127,7 @@ export default function Invoice(){
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="flex justify-between p-4">
               <div>
+              <div className="font-bold text-lg">Staff : {(staffid === "" ? "-" : staff.staff_name)}</div>
                 <div className="font-bold text-lg">Family Member Name:{(order.family_member === "" ? customerdetails.cust_name : order.family_member)}</div>
                 <address className="text-sm">
                   <span className="font-bold"> Address : </span>
@@ -202,7 +226,7 @@ export default function Invoice(){
                 Mobile:+91 9940682836
               </span><br/>
                   <span className="text-sm font-bold">
-              Address: 333A Poisolla Meiyar Street Near Daily Market, Udhyam Lodge Building, Karaikudi, Tamil Nadu 630001
+              333A Poisolla Meiyar Street Near Daily Market, Udhyam Lodge Building, Karaikudi, Tamil Nadu 630001
               </span>
                 </div>
               </div>
@@ -222,6 +246,8 @@ export default function Invoice(){
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="flex justify-between p-4">
               <div>
+              <div className="font-bold text-lg">Staff : {(staffid === "" ? "-" : staff.staff_name)}</div>
+
                 <div className="font-bold text-lg">Family Member Name:{(order.family_member === "" ? customerdetails.cust_name : order.family_member)}</div>
                 <address className="text-sm">
                   <span className="font-bold"> Address : </span>
