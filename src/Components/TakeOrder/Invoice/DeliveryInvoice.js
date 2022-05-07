@@ -7,25 +7,26 @@ import "../invoice.css";
 import { useParams } from "react-router-dom";
 import ReactToPrint from 'react-to-print';
 import {Navigate} from "react-router";
+import {useNextMonthDisabled} from "@mui/lab/internal/pickers/hooks/date-helpers-hooks";
 
 
 export default function DeliveryInvoice(){
 
   const componentRef = useRef();
-  const [customerdetails,setCustomerDetails] = useState([]);
+  // const [currectOrder.customer,setcurrectOrder.customer] = useState([]);
   const [delivery_invoice,setDeliveryInvoice] = useState(false);
-
-  const pageStyle = `@media print{
-    @page {
-        size: a5;
-        margin: 0;
-    }
-}`;
-
+  const [currectOrder, setCurrentOrder] = useState([{}]);
+  
   const [order,setOrder] = useState({});
   const [orderWork,setOrderWork] = useState([{}]);
   const [orderMaterial,setOrderMaterial] = useState([{}]);
   const [edit,setEdit] = useState(false);
+
+  const [cust_id,setCustID] = useState('');
+  const [cust_name,setCustName] = useState('');
+  const [cust_mobile,setCustMobile] = useState('');
+  const [cust_address,setCustAddress] = useState('');
+  let [cust_family_member,setCustFamilyMember] = useState('');
 
   let {custid,orderid,current_amount,pending_amount} = useParams();
 
@@ -36,31 +37,46 @@ export default function DeliveryInvoice(){
     setDeliveryInvoice(true);
   }
 
-  current_amount = current_amount ? current_amount : 0
-  pending_amount = pending_amount ? pending_amount : 0
+  current_amount = current_amount ? current_amount : 0;
+  pending_amount = pending_amount ? pending_amount : 0;
 
   useEffect(() => {
-    axios.post(API + "/api/order_invoice/",{"order_id" : orderid ,"cust_id" : custid})
-        .then(res => {
-          if (res.data.status) {
-            setOrder(res.data.order[0]);
-            setOrderWork(res.data.order_work);
-            setOrderMaterial(res.data.order_material);
-          }
-        })
-    axios
-        .post(API + "/api/customer_details/", {"cust_id" : custid})
-        .then((res) => {
-          if (res.data.length !== 0) {
-            setCustomerDetails(res.data[0])
-          }else{
-            console.log("This is Admin or Staff Mobile Number")
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  },[]);
+    // axios.post(API + "/api/order_invoice/",{"order_id" : orderid ,"cust_id" : custid})
+    //     .then(res => {
+    //       if (res.data.status) {
+    //         setOrder(res.data.order[0]);
+    //         setOrderWork(res.data.order_work);
+    //         setOrderMaterial(res.data.order_material);
+    //       }
+    //     })
+    // axios
+    //     .post(API + "/api/customer_details/", {"cust_id" : custid})
+    //     .then((res) => {
+    //       if (res.data.length !== 0) {
+    //         setcurrectOrder.customer(res.data[0])
+    //       }else{
+    //         console.log("This is Admin or Staff Mobile Number")
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+        
+    axios.get(`${API}/api/find_order/${orderid}/`)
+    .then((res) => {
+      const data = res.data.data;
+      setCurrentOrder(res.data.data);
+      console.log("data",res.data.data);
+      setCustID(res.data.data.customer.cust_id);
+      setCustName(res.data.data.customer.cust_name);
+      setCustMobile(res.data.data.customer.mobile);
+      setCustAddress(res.data.data.customer.address);
+      setCustFamilyMember(res.data.data.customer.family_member === undefined ? res.data.data.customer.cust_name : res.data.data.customer.family_member);
+    })
+    .catch(err => console.log(err));
+    
+
+  },[orderid]);
 
 
   const delete_order = () => {
@@ -77,7 +93,7 @@ export default function DeliveryInvoice(){
   }
 }
 
-  return edit ? (<Navigate to={`/dashboard/edit_order/${customerdetails.cust_id}/${orderid}/`} />) : (
+  return edit ? (<Navigate to={`/dashboard/edit_order/${cust_id}/${orderid}/`} />) : (
 
       <div ref={componentRef} className="flex items-center md:mt-16 ml-10 mr-10 justify-center min-h-screen mx-auto my-auto">
         <div className="md:w-1/2 bg-white shadow-lg">
@@ -104,22 +120,22 @@ export default function DeliveryInvoice(){
               <div className="p-2"></div>
               <div className="flex justify-between">
                 <div className="font-bold text-lg">ORDER ID : {orderid}</div>
-                <div className="font-bold text-lg">MOBILE : {customerdetails.mobile}</div>
+                <div className="font-bold text-lg">MOBILE : {cust_mobile}</div>
               </div>
 
               <div className="flex justify-between">
-                <div className="font-bold text-lg text-transform: uppercase">CUSTOMER NAME : {customerdetails.cust_name}</div>
-                <div className="font-bold text-lg">CUSTOMER ID : {customerdetails.cust_id}</div>
+                <div className="font-bold text-lg text-transform: uppercase">CUSTOMER NAME : {cust_name}</div>
+                <div className="font-bold text-lg">CUSTOMER ID : {cust_id}</div>
               </div>
               <div className="p-2"></div>
             </div>
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="flex justify-between p-4">
               <div>
-                <div className="font-bold text-lg">Family Member Name:{(order.family_member === "" ? customerdetails.cust_name : order.family_member)}</div>
+                <div className="font-bold text-lg">Family Member Name:{cust_family_member}</div>
                 <address className="text-sm">
                   <span className="font-bold"> Address : </span>
-                  {customerdetails.address}
+                   {cust_address}
                 </address>
               </div>
               <div className="w-50">
@@ -146,14 +162,14 @@ export default function DeliveryInvoice(){
                   </thead>
                   <tbody className="bg-white">
 
-                  {
+                  {/* {
                     orderWork.map((e) => <Row prod_name={e.work_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
                   }
 
 
                   {
                     orderMaterial.map((e) => <Row prod_name={e.material_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
-                  }
+                  } */}
 
                   {/* <tr className="bg-gray-800">
                     <th colSpan="2"></th>
@@ -172,7 +188,7 @@ export default function DeliveryInvoice(){
             <AllAmount total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount}/>
 
 
-            {/* <TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount} mobile={customerdetails.mobile} /> */}
+            {/* <TotalStrip order_id={orderid} cust_name={cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount} mobile={cust_mobile} /> */}
 
             {
               delivery_invoice ? <NewAmount current_amount={current_amount} pending_amount={pending_amount}/> : ""
@@ -243,22 +259,22 @@ export default function DeliveryInvoice(){
               <div className="p-2"></div>
               <div className="flex justify-between">
                 <div className="font-bold text-lg">ORDER ID : {orderid}</div>
-                <div className="font-bold text-lg">MOBILE : {customerdetails.mobile}</div>
+                <div className="font-bold text-lg">MOBILE : {cust_mobile}</div>
               </div>
 
               <div className="flex justify-between">
-                <div className="font-bold text-lg text-transform: uppercase">CUSTOMER NAME : {customerdetails.cust_name}</div>
-                <div className="font-bold text-lg">CUSTOMER ID : {customerdetails.cust_id}</div>
+                <div className="font-bold text-lg text-transform: uppercase">CUSTOMER NAME : {""}</div>
+                <div className="font-bold text-lg">CUSTOMER ID : {cust_id}</div>
               </div>
               <div className="p-2"></div>
             </div>
             <div className="w-full h-0.5 bg-indigo-500"></div>
             <div className="flex justify-between p-4">
               <div>
-                <div className="font-bold text-lg">Family Member Name:{(order.family_member === "" ? customerdetails.cust_name : order.family_member)}</div>
+                <div className="font-bold text-lg">Family Member Name:{(order.family_member === "" ? cust_name : order.family_member)}</div>
                 <address className="text-sm">
                   <span className="font-bold"> Address : </span>
-                  {customerdetails.address}
+                  {cust_address}
                 </address>
               </div>
               <div className="w-50">
@@ -286,14 +302,14 @@ export default function DeliveryInvoice(){
                   <tbody className="bg-white">
 
 
-                  {
+                  {/* {
                     orderWork.map((e) => <Row prod_name={e.work_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
                   }
 
 
                   {
                     orderMaterial.map((e) => <Row prod_name={e.material_name} qty={e.quantity} price={e.amount} subtotal={parseInt(e.quantity) * e.amount} />)
-                  }
+                  } */}
 
 
 
@@ -315,7 +331,7 @@ export default function DeliveryInvoice(){
             <AllAmount total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount}/>
 
 
-             {/*<TotalStrip order_id={orderid} cust_name={customerdetails.cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount} mobile={customerdetails.mobile} current_amount={0} pending_amount={0} />*/}
+             {/*<TotalStrip order_id={orderid} cust_name={cust_name} total={order.total_amount} balance={order.balance_amount} advance={order.advance_amount} courier_charge={order.courier_amount} mobile={cust_mobile} current_amount={0} pending_amount={0} />*/}
 
 
             {
@@ -338,7 +354,6 @@ export default function DeliveryInvoice(){
           </div>
         </div>
       </div>
-
 
   );
 }

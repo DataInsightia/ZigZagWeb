@@ -82,7 +82,8 @@ function Delivery() {
         setPendingworksbool(true)
       } else {
         setPendingworks([])
-        setPendingworksbool(false)
+        alert("Order in Process !")
+        setPendingworksbool(true)
       }
     })
   }
@@ -110,7 +111,7 @@ function Delivery() {
   const handleCheckout = (e) =>
     setCheckoutData({ ...checkout_data, [e.target.name]: parseInt(e.target.value) !== null && e.target.value.length !== 0 ? parseInt(e.target.value) : 0 })
 
-  const fetch_pending_work = (orderid) => axios.post(API +'/api/order_assign_completed/',{order_id : orderid}).then((res) => {
+  const fetch_pending_work = (orderid,order_work_label) => axios.post(API +'/api/order_assign_completed/',{order_id : orderid, order_work_label : order_work_label}).then((res) => {
     console.log(res.data)
       if (res.data.status === true) {
         setOrderPending(res.data.data)
@@ -118,12 +119,13 @@ function Delivery() {
         setOrderWorkBool(true)
       } else {
         setOrderPending([])
-        setOrderWorkBool(false)
+
+        setOrderWorkBool(true);
       }
     });
 
   const getPendingWork = (e) => {
-    fetch_pending_work(e.target.order_id.value)
+    fetch_pending_work(orderid,"tttt-A");
     e.preventDefault()
   }
 
@@ -158,7 +160,10 @@ function Delivery() {
 
 
   const printDelivery = (e) => {
+
     e.preventDefault();
+
+
     const balance_amount = !isNaN(parseInt(e.target.balance_amount.value)) ? parseInt(e.target.balance_amount.value) : 0;
     const current_amount = !isNaN(parseInt(e.target.current_amount.value)) ? parseInt(e.target.current_amount.value) : 0;
     const pending_amount = !isNaN(parseInt(e.target.pending_amount.value)) ? parseInt(e.target.pending_amount.value) : 0;
@@ -175,27 +180,38 @@ function Delivery() {
       }
     );
 
-    axios.post(`${API}/api/add_delivery/`,{"order_id" : orderid,"staff_id" : staff[0].staff_id,"amount_paid" : current_amount,"pending_amount" : pending_amount}).then((res) => {
-        alert(res.data.message);
-        if (res.data.status) {
-          axios.post(`${API}/api/delete_delivery/`,{"order_id" : orderid,"staff_id" : staff[0].staff_id}).then((res) => {
-             // alert(res.data.message);
+    // axios.post(`${API}/api/add_delivery/`,{"order_id" : orderid,"staff_id" : staff[0].staff_id,"amount_paid" : current_amount,"pending_amount" : pending_amount}).then((res) => {
+    //     alert(res.data.message);
+    //     if (res.data.status) {
+    //       // add -> success
+    //     }
+    // }).catch(err => console.log(err));
 
-            // GOTO INVOICE
-            // alert("Invoice Processing.....")
-            setInvoice(true);
-            // console.log("staff",tmpDelivery[0].staff.staff_id);
-            alert(`/dashboard/invoice/${orderid}/${pendingworks[0].order.customer.cust_id}/${current_amount}/${pending_amount}/`)
-             // window.location.reload();
-          }).catch(err => console.log(err))
-        }
-    }).catch(err => console.log(err));
-
-
-  }
+   //  axios.post(`${API}/api/delete_delivery/`,{"order_id" : orderid,"staff_id" : staff[0].staff_id}).then((res) => {
+   //    // alert(res.data.message);
+   //
+   //   // GOTO INVOICE
+   //   // alert("Invoice Processing.....")
+   //   // setInvoice(true);
+   //   // console.log("staff",tmpDelivery[0].staff.staff_id);
+   //   alert(`/dashboard/invoice/${orderid}/${pendingworks[0].order.customer.cust_id}/${current_amount}/${pending_amount}/`)
+   //    // window.location.reload();
+   // }).catch(err =>{
+   //  setInvoice(false);
+   //  console.log(err);
+   // });
+  console.log(`/dashboard/invoice/${orderid}`);
+}
 
   const onSubmit = async (e) => {
     e.preventDefault()
+    axios.post(`${API}/api/fix_delivery_true/`,{"order_id" : orderid,"order_work_label" : e.target.order_work_label.value})
+    .then(res => {
+      if (res.data.status){
+        alert("true fixed")
+      }
+    })
+    .catch(err => console.log(err));
    // const res = await Assign_Work(
    //    e.target.id.value,
    //    e.target.order_id.value,
@@ -205,16 +221,31 @@ function Delivery() {
    //    e.target.order_work_label.value,
    //    e.target.material_location.value,
    //  )
-    getTmpDelivery(e.target.order_id.value);
 
     axios.post(`${API}/api/tmp_delivery/`,{
       "order_id" : e.target.order_id.value,
       "staff_id" : e.target.staff_id.value,
       "order_work_label" : e.target.order_work_label.value,
     }).then(res => {
-        // alert(JSON.stringify(res.data));
-         getTmpDelivery(e.target.order_id.value);
+      alert(res.data.status);
+         if (res.data.status){
+          
+          getTmpDelivery(e.target.order_id.value);
+          getPendingWork(e.target.order_id.value);
+          setMessage("Order Added for Delivery!");
+          openModal();
+         }else{
+          getPendingWork(e.target.order_id.value);
+           console.log("not working");
+         }
     }).catch(err => console.log(err))
+
+ 
+
+
+      // getPendingWork(e.target.order_id.value);
+      // getOrder(e.target.order_id.value);
+      // getTmpDelivery(e.target.order_id.value);
       // e.target.id.value = ""
       // e.target.order_id.value = ""
       // e.target.work_id.value = ""
@@ -222,11 +253,11 @@ function Delivery() {
       // e.target.assign_stage.value = ""
       // e.target.order_work_label.value = ""
       // e.target.material_location.value = ""
-    openModal()
+    
     // setMessage(res.data.details)
   }
 
-  return (invoice) ? (<Navigate to={`/dashboard/invoice/${pendingworks[0].order.customer.cust_id}/${orderid}/${tmpDelivery[0].staff.staff_id}`} />) : (
+  return (invoice) ? (<Navigate to={`/dashboard/delivery_invoice/${orderid}/`} />) : (
     <div>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
@@ -288,6 +319,7 @@ function Delivery() {
           </div>
         </Dialog>
       </Transition>
+
       {pendingworksbool ? (
         <div className="p-10 mt-10">
           <div className="p-3 bg-white shadow-xl">
@@ -307,33 +339,34 @@ function Delivery() {
                 <div className="inline-block py-2 min-w-full ">
                   <div className="overflow-hidden">
                     {
-                      orderPendingWorkBool ? (<table className="min-w-full">
+                      orderPendingWorkBool ? (
+                      <table className="min-w-full">
                       <thead>
                         <tr>
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/6">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col text-black" className={styles.tablehead}>
                                 Order
                               </th>
                             </div>
                             <div className="lg:w-1/6">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col text-black" className={styles.tablehead}>
                                 Reference
                               </th>
                             </div>
                             <div className="lg:w-1/6">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col text-black" className={styles.tablehead}>
                                 Staff
                               </th>
                             </div>
                             <div className="lg:w-1/6">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col text-black" className={styles.tablehead}>
                                 Date
                               </th>
                             </div>
 
                             <div className="lg:w-1/6">
-                              <th scope="col" className={styles.tablehead}></th>
+                              <th scope="col text-black" className={styles.tablehead}></th>
                             </div>
                           </div>
                         </tr>

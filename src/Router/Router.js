@@ -79,7 +79,7 @@ export default function Router() {
         { path: 'edit_order/:custid/:orderid', element: <EditTakeOrder /> },
         { path: 'search_invoice', element: <SearchInvoice /> },
         { path: 'invoice/:custid/:orderid', element: <Invoice /> },
-        { path: 'invoice/:custid/:orderid/:staffid', element: <DeliveryInvoice /> },
+        { path: 'delivery_invoice/:orderid', element: <DeliveryInvoice /> },
         { path: 'view_invoice/:custid/:orderid', element: <ViewInvoice /> },
         { path: 'invoice/:custid/:orderid/:current_amount/:pending_amount', element: <Invoice /> },
         { path: 'invoicemob/:custid/:orderid', element: <InvoiceMob /> },
