@@ -82,7 +82,6 @@ function Delivery() {
         setPendingworksbool(true)
       } else {
         setPendingworks([])
-        alert("Order in Process !")
         setPendingworksbool(true)
       }
     })
@@ -90,7 +89,7 @@ function Delivery() {
 
   const getTmpDelivery = (orderid) => {
     axios.get(`${API}/api/tmp_delivery/?orderid=${orderid}`)
-        .then((res) => setTmpDelivery(res.data.data))
+        .then((res) => {setTmpDelivery(res.data.data);alert(res.data.message)})
         .catch(err => console.log(err));
   }
   useEffect(() => {
@@ -454,50 +453,58 @@ function Delivery() {
               { orderPendingWorkBool ? (
 
                   <div className={'text-lg m-10'}>
-                <h1 className={'text-black font-semibold text-xl px-3 mb-2 uppercase tracking-wider flex justify-center'}>Items to Deliver</h1>
+                    <h1 className={'text-black font-semibold text-xl px-3 mb-2 uppercase tracking-wider flex justify-center'}>Items to Deliver</h1>
 
-              <div className={'flex flex-col'}>
-               <div className="flex flex-col inline-block  sm:overflow-auto overflow-x-scroll">
-                <table className={'border-collapse text-center'}>
-                  <tr>
-                    <th className={'border border-slate-600 p-2'}>ORDER ID</th>
-                    <th className={'border border-slate-600 p-2'}>ORDER WORK LABEL</th>
-                    <th className={'border border-slate-600 p-2'}>STAFF NAME</th>
-                    <th className={'border border-slate-600 p-2'}>DATE</th>
-                  </tr>
-                  {
-                  tmpDelivery.map(e => <tr>
-                    <td className={'border border-slate-600 p-2'}>{e.order.order_id}</td>
-                    <td className={'border border-slate-600 p-2'}>{e.order_work_label}</td>
-                    <td className={'border border-slate-600 p-2'}>{e.staff.staff_name}</td>
-                    <td className={'border border-slate-600 p-2'}>{new Date().toLocaleDateString()}</td>
-                  </tr>)
-                  }
-                </table>
-</div>
-                <br/>
-                <div className={'border border-slate-600 p-2 md:m-10'}>
-                  <form onSubmit={printDelivery}>
-                    <p className={'m-1'}>Old Balance : <input name={'balance_amount'} className={styles.input} type={'text'} defaultValue={checkout_data.balance_amount} onChange={handleCheckout} disabled/></p>
-                    <div className={''}>
-                      <p className={'m-1'}>Current Payment : <input name={'current_amount'} className={styles.input} type={'text'} defaultValue={0} onChange={(e) => {
-                        handleCheckout(e);
-                        setCheckoutData({...checkout_data,'pending_amount' : (checkout_data.balance_amount - e.target.value)})
-                      }}/></p>
-                      {/*<input type={'submit'} className={'bg-rose-500 text-white rounded-xl p-1 font-bold'} value={'Get Pending Amount'} onClick={(e) => {*/}
-                      {/*          e.preventDefault();console.log(checkout_data.current_amount);*/}
-                      {/*}}/>*/}
-                    </div>
-                    <p className={'m-1'}>Pending Amount : <input name={'pending_amount'} className={styles.input} type={'text'} value={checkout_data.pending_amount} onChange={(e) => {
-                      // handleCheckout(e);
-                      setCheckoutData({...checkout_data,[e.target.name]: (parseInt(checkout_data.balance_amount) - parseInt(checkout_data.current_amount))})
-                    }} /></p>
+                    <div className={'flex flex-col'}>
+
+                    {(tmpDelivery.length > 0) ? (
+                        <div>
+                          <div className="flex flex-col inline-block  sm:overflow-auto overflow-x-scroll">
+
+                            <table className={'border-collapse text-center'}>
+                              <tr>
+                                <th className={'border border-slate-600 p-2'}>ORDER ID</th>
+                                <th className={'border border-slate-600 p-2'}>ORDER WORK LABEL</th>
+                                <th className={'border border-slate-600 p-2'}>STAFF NAME</th>
+                                <th className={'border border-slate-600 p-2'}>DATE</th>
+                              </tr>
+                              {
+                              tmpDelivery.map(e => <tr>
+                                <td className={'border border-slate-600 p-2'}>{e.order.order_id}</td>
+                                <td className={'border border-slate-600 p-2'}>{e.order_work_label}</td>
+                                <td className={'border border-slate-600 p-2'}>{e.staff.staff_name}</td>
+                                <td className={'border border-slate-600 p-2'}>{new Date().toLocaleDateString()}</td>
+                              </tr>)
+                              }
+                            </table>
+
+                          </div>
                           <br/>
-                    <div className="flex justify-center">
-                    <input type={'submit'} className={'shadow-lg uppercase flex font-bold rounded-md text-sm text-white bg-rose-500 border-rose-600 border-2 hover:border-pink-600 hover:text-pink-600 hover:bg-gradient-to-r hover:from-white hover:to-white border  py-1.5 w-48 flex justify-center focus:outline-none'} value={'Print Delivery'}/>
-                    </div>
-                  </form>
-                </div>
+                          <div className={'border border-slate-600 p-2 md:m-10'}>
+                            <form onSubmit={printDelivery}>
+                              <p className={'m-1'}>Old Balance : <input name={'balance_amount'} className={styles.input} type={'text'} defaultValue={checkout_data.balance_amount} onChange={handleCheckout} disabled/></p>
+                                <div className={''}>
+                                  <p className={'m-1'}>Current Payment : <input name={'current_amount'} className={styles.input} type={'text'} defaultValue={0} onChange={(e) => {
+                                    handleCheckout(e);
+                                    setCheckoutData({...checkout_data,'pending_amount' : (checkout_data.balance_amount - e.target.value)})
+                                  }}/></p>
+                                  {/*<input type={'submit'} className={'bg-rose-500 text-white rounded-xl p-1 font-bold'} value={'Get Pending Amount'} onClick={(e) => {*/}
+                                  {/*          e.preventDefault();console.log(checkout_data.current_amount);*/}
+                                  {/*}}/>*/}
+                                </div>
+                                <p className={'m-1'}>Pending Amount : <input name={'pending_amount'} className={styles.input} type={'text'} value={checkout_data.pending_amount} onChange={(e) => {
+                                  // handleCheckout(e);
+                                  setCheckoutData({...checkout_data,[e.target.name]: (parseInt(checkout_data.balance_amount) - parseInt(checkout_data.current_amount))})
+                                }} /></p>
+                                <br/>
+                                <div className="flex justify-center">
+                                <input type={'submit'} className={'shadow-lg uppercase flex font-bold rounded-md text-sm text-white bg-rose-500 border-rose-600 border-2 hover:border-pink-600 hover:text-pink-600 hover:bg-gradient-to-r hover:from-white hover:to-white border  py-1.5 w-48 flex justify-center focus:outline-none'} value={'Print Delivery'}/>
+                                </div>
+                            </form>
+                          </div>
+                        </div>
+                    ): "" }
+
               </div>
 
             </div>) : "" }
