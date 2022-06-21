@@ -9,6 +9,8 @@ const styles = {
     'shadow-lg uppercase flex font-bold rounded-md text-sm text-white bg-rose-500 border-rose-600 border-2 hover:border-pink-600 hover:text-pink-600 hover:bg-gradient-to-r hover:from-white hover:to-white border  py-1.5 w-full flex justify-center focus:outline-none',
   tablehead:
     'px-2 text-center text-xs font-semibold text-white uppercase tracking-wider py-2',
+  tablehead_delivery:
+    'px-2 text-center text-xs font-semibold text-black uppercase tracking-wider py-2',
   redbutton:
     'flex font-bold rounded-md text-sm text-white bg-gradient-to-r from-red-500 to-red-600 border-red-600 border-2 hover:border-red-600 hover:text-red-600 hover:bg-gradient-to-r hover:from-white hover:to-white border  py-1.5 w-full flex justify-center focus:outline-none',
   input:

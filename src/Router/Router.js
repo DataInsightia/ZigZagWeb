@@ -47,6 +47,7 @@ import OrderIDList from '../Pages/Dashboard/Admin/reports/OrderIDList'
 import RangeOrderList from '../Pages/Dashboard/Admin/reports/RangeList'
 import DateOrderList from '../Pages/Dashboard/Admin/reports/DateList'
 import DeliveryInvoice from '../Components/TakeOrder/Invoice/DeliveryInvoice'
+import CheckOutInvoice from "../Components/TakeOrder/Invoice/CheckOutInvoice";
 
 
 // ----------------------------------------------------------------------
@@ -98,12 +99,14 @@ export default function Router() {
         { path: 'reports/bymobile',element: <MobileOrderList/>},
         { path: 'reports/bydate',element: <DateOrderList/>},
         { path: 'customers/',element: <Customer/>},
+
          //staff
         { path: 'wage/',element: <StaffList/>},
         { path: 'wage/:id',element: <StaffWageCalculation/>},
         { path: 'staff_work_taken', element: <Invoice /> },
         { path: 'staff_register', element: <Staff_register /> },
         { path: 'edit_profile',element: <EditProfile/>},
+
           //customer
         { path: 'invoice_sup', element: <InvoiceSup />},
         // { path: 'order_status', element: <Order_Status /> },
@@ -113,6 +116,7 @@ export default function Router() {
 
         // DELIVERY
         { path: 'delivery', element: <Delivery />},
+        { path: 'checkout/:orderid', element: <CheckOutInvoice /> },
 
         // URGENT DELIVERY
         { path: 'urgent_delivery', element: <UrgentDelivery />},

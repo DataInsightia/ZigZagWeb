@@ -89,7 +89,7 @@ function Delivery() {
 
   const getTmpDelivery = (orderid) => {
     axios.get(`${API}/api/tmp_delivery/?orderid=${orderid}`)
-        .then((res) => {setTmpDelivery(res.data.data);alert(res.data.message)})
+        .then((res) => {setTmpDelivery(res.data.data);})
         .catch(err => console.log(err));
   }
   useEffect(() => {
@@ -139,7 +139,7 @@ function Delivery() {
             alert("Order in Process 😀!");
           }
         })
-        .catch(err => console.log(err))
+        .catch(err => {console.log(err); alert("Order Not Found!")})
   }
 
   let [isOpen, setIsOpen] = useState(false)
@@ -161,7 +161,6 @@ function Delivery() {
   const printDelivery = (e) => {
 
     e.preventDefault();
-
 
     const balance_amount = !isNaN(parseInt(e.target.balance_amount.value)) ? parseInt(e.target.balance_amount.value) : 0;
     const current_amount = !isNaN(parseInt(e.target.current_amount.value)) ? parseInt(e.target.current_amount.value) : 0;
@@ -199,6 +198,11 @@ function Delivery() {
    //  setInvoice(false);
    //  console.log(err);
    // });
+
+    axios.post(`${API}/api/print_delivery/`,{order_id: orderid}).then(res => {
+      console.log(res.data)
+    }).catch(err => console.log(err));
+
   console.log(`/dashboard/invoice/${orderid}`);
 }
 
@@ -207,7 +211,7 @@ function Delivery() {
     axios.post(`${API}/api/fix_delivery_true/`,{"order_id" : orderid,"order_work_label" : e.target.order_work_label.value})
     .then(res => {
       if (res.data.status){
-        alert("true fixed")
+        // alert("true fixed")
       }
     })
     .catch(err => console.log(err));
@@ -226,7 +230,7 @@ function Delivery() {
       "staff_id" : e.target.staff_id.value,
       "order_work_label" : e.target.order_work_label.value,
     }).then(res => {
-      alert(res.data.status);
+      // alert(res.data.status);
          if (res.data.status){
           
           getTmpDelivery(e.target.order_id.value);
@@ -517,36 +521,36 @@ function Delivery() {
 
             <div className="flex flex-col">
               <div className="overflow-x-auto">
-                <div className="inline-block py-2 min-w-full ">
+                <div className="inline-block py-2 min-w-full">
                   <div className="overflow-hidden">
                     <table className="min-w-full">
                       <thead>
                         <tr>
                           <div className="flex flex-wrap">
                             <div className="lg:w-1/6">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className={styles.tablehead_delivery}>
                                 Order
                               </th>
                             </div>
 
                             <div className="lg:w-1/6">
-                              <th scope="col" className={styles.tablehead}>
-                                Reference
+                              <th scope="col" className={styles.tablehead_delivery}>
+                                Sub-Work
                               </th>
                             </div>
                             <div className="lg:w-1/6">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className={styles.tablehead_delivery}>
                                 Staff
                               </th>
                             </div>
                             <div className="lg:w-1/6">
-                              <th scope="col" className={styles.tablehead}>
+                              <th scope="col" className={styles.tablehead_delivery}>
                                 Date
                               </th>
                             </div>
 
                             <div className="lg:w-1/6">
-                              <th scope="col" className={styles.tablehead}></th>
+                              <th scope="col" className={styles.tablehead_delivery}></th>
                             </div>
                           </div>
                         </tr>
